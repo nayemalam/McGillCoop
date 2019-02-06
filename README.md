@@ -6,7 +6,7 @@ _This README.md is a fillable template for the project submissions. Use the tabl
 
 |Team member's name|Total hours|Responsibility         |
 |------------------|-----------|-----------------------|
-|Tristan Bouchard  |  _x_ hours|Mobile frontend lead   |
+|Tristan Bouchard  |  _9_ hours|Mobile frontend lead   |
 |Nayem Alam        |  _y_ hours|Project management lead|
 |Alex Masciotra    |...        |                       |
 |Thomas Philippon  |           |                       |
