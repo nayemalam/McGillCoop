@@ -19,6 +19,16 @@ public class CoopTerm {
 		return this.endDate;
 	}
 
+	private Integer testVar;
+
+	public void setTestVar(Integer value) {
+		this.testVar = value;
+	}
+
+	public Integer getTestVar() {
+		return this.testVar;
+	}
+
 	private Date startDate;
 
 private void setStartDate(Datevalue) {
