@@ -10,4 +10,4 @@ _This README.md is a fillable template for the project submissions. Use the tabl
 |Nayem Alam        |  _y_ hours|Project management lead|
 |Alex Masciotra    |  _9_ hours|                       |
 |Thomas Philippon  |           |                       |
-|Violet Wei        |           |                       |
+|Violet Wei        |  _x_ hours|                       |
