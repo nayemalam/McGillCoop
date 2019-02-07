@@ -1,12 +1,11 @@
 package ca.mcgill.ecse321.cooperator.model;
 
 import javax.persistence.Entity;
-import User;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
-import Document;
-import CoopTerm;
+
+
 
 @Entity
 public class CoOperatorSystem {
