@@ -1,42 +1,20 @@
-import ca.mcgill.ecse321.cooperator.model.CoOperatorSystem;
-import javax.persistence.CascadeType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.ManyToMany;
-import java.util.Set;
 import javax.persistence.Entity;
+import ca.mcgill.ecse321.cooperator.model.CoOperatorSystem;
+import javax.persistence.ManyToOne;
+import javax.persistence.CascadeType;
+import javax.persistence.OneToOne;
 
 @Entity
 public class CoopTerm {
-	private Date endDate;
+	private CoOperatorSystem coOperatorSystem;
 
-	private void setEndDate(Date value) {
-		this.endDate = value;
+	@ManyToOne(optional = false)
+	public CoOperatorSystem getCoOperatorSystem() {
+		return this.coOperatorSystem;
 	}
 
-	private Date getEndDate() {
-		return this.endDate;
-	}
-
-	private Integer testVar;
-
-	public void setTestVar(Integer value) {
-		this.testVar = value;
-	}
-
-	public Integer getTestVar() {
-		return this.testVar;
-	}
-
-	private Date startDate;
-
-private void setStartDate(Datevalue) {
-		this.startDate = value;
-	}
-
-private DategetStartDate() {
-		return this.startDate;
+	public void setCoOperatorSystem(CoOperatorSystem coOperatorSystem) {
+		this.coOperatorSystem = coOperatorSystem;
 	}
 
 	private Student student;
@@ -50,26 +28,15 @@ private DategetStartDate() {
 		this.student = student;
 	}
 
-	private CoOperatorSystem coOperatorSystem;
+	private Document document;
 
-	@ManyToOne(optional = false)
-	public CoOperatorSystem getCoOperatorSystem() {
-		return this.coOperatorSystem;
-	}
-
-	public void setCoOperatorSystem(CoOperatorSystem coOperatorSystem) {
-		this.coOperatorSystem = coOperatorSystem;
-	}
-
-	private Set<Document> document;
-
-	@OneToMany(mappedBy = "coopTerm", cascade = { CascadeType.ALL })
-	public Set<Document> getDocument() {
+	@OneToOne(mappedBy = "coopTerm", cascade = { CascadeType.ALL }, optional = false)
+	public Document getDocument() {
 		return this.document;
 	}
 
-	public void setDocument(Set<Document> documents) {
-		this.document = documents;
+	public void setDocument(Document document) {
+		this.document = document;
 	}
 
 	private Employer employer;
@@ -83,4 +50,23 @@ private DategetStartDate() {
 		this.employer = employer;
 	}
 
+	private Date startDate;
+
+	private void setStartDate(Date value) {
+		this.startDate = value;
+	}
+
+	private Date getStartDate() {
+		return this.startDate;
+	}
+
+	private Date endDate;
+
+	private void setEndDate(Date value) {
+		this.endDate = value;
+	}
+
+	private Date getEndDate() {
+		return this.endDate;
+	}
 }

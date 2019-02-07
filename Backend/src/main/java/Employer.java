@@ -4,16 +4,6 @@ import javax.persistence.Entity;
 
 @Entity
 public class Employer extends User {
-	private String employerId;
-
-	public void setEmployerId(String value) {
-		this.employerId = value;
-	}
-
-	public String getEmployerId() {
-		return this.employerId;
-	}
-
 	private Set<CoopTerm> coopTerm;
 
 	@OneToMany(mappedBy = "employer")
@@ -23,6 +13,16 @@ public class Employer extends User {
 
 	public void setCoopTerm(Set<CoopTerm> coopTerms) {
 		this.coopTerm = coopTerms;
+	}
+
+	private String employerId;
+
+	public void setEmployerId(String value) {
+		this.employerId = value;
+	}
+
+	public String getEmployerId() {
+		return this.employerId;
 	}
 
 }

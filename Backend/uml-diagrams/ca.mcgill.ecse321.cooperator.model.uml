@@ -5,7 +5,18 @@
       <contents xmi:type="ecore:EAnnotation" xmi:id="_vPZGcCpEEem4bcJ1FnYc5A" source="codegen">
         <details xmi:id="_dZVjgCpHEem8EOdqjkfsgA" key="codegenDirectory" value="/ca.mcgill.ecse321.cooperator.model/src-gen"/>
         <details xmi:id="_fa9dACpHEem8EOdqjkfsgA" key="observedFolders" value="/ca.mcgill.ecse321.cooperator.model/src-gen"/>
-        <details xmi:id="_vxqJMCpIEem8EOdqjkfsgA" key="AssociatedSourceCode" value="/ca.mcgill.ecse321.cooperator.model/src-gen/User.java;2085863435/1;/ca.mcgill.ecse321.cooperator.model/src-gen/ca/mcgill/ecse321/cooperator/CooperatorApplication.java;3354582522/1;/ca.mcgill.ecse321.cooperator.model/src-gen/Student.java;1507340961/1;/ca.mcgill.ecse321.cooperator.model/src-gen/NewClass1.java;1584586550/1;/ca.mcgill.ecse321.cooperator.model/src-gen/CoopAdministrator.java;2313522599/1;/ca.mcgill.ecse321.cooperator.model/src-gen/Employer.java;2796096465/1;/ca.mcgill.ecse321.cooperator.model/src-gen/Document.java;2387769614/1;/ca.mcgill.ecse321.cooperator.model/src-gen/DocName.java;2471550446/1;/ca.mcgill.ecse321.cooperator.model/src-gen/ca/mcgill/ecse321/cooperator/model/CoOperatorSystem.java;1812651252/1;/ca.mcgill.ecse321.cooperator.model/src-gen/NewClass2.java;3506297045/1;/ca.mcgill.ecse321.cooperator.model/src-gen/Statistics.java;1289007601/1;/ca.mcgill.ecse321.cooperator.model/src-gen/CoopTerm.java;3854657589/0;"/>
+        <details xmi:id="_vxqJMCpIEem8EOdqjkfsgA" key="AssociatedSourceCode" value="/ca.mcgill.ecse321.cooperator.model/src-gen/User.java;2085863435/1;/ca.mcgill.ecse321.cooperator.model/src-gen/ca/mcgill/ecse321/cooperator/CooperatorApplication.java;3354582522/1;/ca.mcgill.ecse321.cooperator.model/src-gen/Student.java;2303104894/1;/ca.mcgill.ecse321.cooperator.model/src-gen/NewClass1.java;1584586550/1;/ca.mcgill.ecse321.cooperator.model/src-gen/CoopAdministrator.java;2313522599/1;/ca.mcgill.ecse321.cooperator.model/src-gen/Employer.java;2077308096/1;/ca.mcgill.ecse321.cooperator.model/src-gen/Document.java;3086094705/1;/ca.mcgill.ecse321.cooperator.model/src-gen/DocName.java;1239895449/1;/ca.mcgill.ecse321.cooperator.model/src-gen/ca/mcgill/ecse321/cooperator/model/CoOperatorSystem.java;1870866927/1;/ca.mcgill.ecse321.cooperator.model/src-gen/NewClass2.java;3506297045/1;/ca.mcgill.ecse321.cooperator.model/src-gen/Statistics.java;1289007601/1;/ca.mcgill.ecse321.cooperator.model/src-gen/CoopTerm.java;2818948618/1;"/>
+        <details xmi:id="_YX9t0CpnEemXiJ1HYkiKyw" key="codeGenerator" value="com.yattasolutions.codegen.oaw.codeGenerator"/>
+      </contents>
+      <contents xmi:type="ecore:EAnnotation" xmi:id="_ZkC74CpmEemXiJ1HYkiKyw" source="preferences">
+        <contents xmi:type="ecore:EAnnotation" xmi:id="_ZkEKACpmEemXiJ1HYkiKyw" source="com.yattasolutions.codegen.reverse">
+          <details xmi:id="_ZkExECpmEemXiJ1HYkiKyw" key="com.yattasolutions.codegen.reverse.roundtrip.ReverseEngineerNewFiles" value="true"/>
+          <details xmi:id="_ZkExESpmEemXiJ1HYkiKyw" key="com.yattasolutions.codegen.reverse.roundtrip.ReverseEngineerChangedFiles" value="true"/>
+          <details xmi:id="_ZkExEipmEemXiJ1HYkiKyw" key="com.yattasolutions.codegen.reverse.roundtrip.RemoveDeletedFiles" value="true"/>
+        </contents>
+      </contents>
+      <contents xmi:type="ecore:EAnnotation" xmi:id="_Y40YICpnEemXiJ1HYkiKyw" source="genmodel">
+        <details xmi:id="_Y40YISpnEemXiJ1HYkiKyw" key="href" value="platform:/resource/ca.mcgill.ecse321.cooperator.model/src-gen/uml-diagrams/ca.mcgill.ecse321.cooperator.model.genmodel"/>
       </contents>
     </eAnnotations>
     <elementImport xmi:id="_v_1vICpIEem8EOdqjkfsgA">
@@ -45,18 +56,18 @@
                   <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mD2AFCpIEem8EOdqjkfsgA"/>
                   <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mD2AFSpIEem8EOdqjkfsgA" value="*"/>
                 </ownedAttribute>
-                <ownedAttribute xmi:id="_6EoUMipQEem8EOdqjkfsgA" name="coopTerm" type="_jJLJQCpJEem8EOdqjkfsgA" aggregation="composite" association="_6EntICpQEem8EOdqjkfsgA">
-                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6EoUMypQEem8EOdqjkfsgA"/>
-                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6EoUNCpQEem8EOdqjkfsgA" value="*"/>
-                </ownedAttribute>
                 <ownedAttribute xmi:id="_CTDuMipREem8EOdqjkfsgA" name="document" type="_O6-qQCpMEem8EOdqjkfsgA" aggregation="composite" association="_CTDHICpREem8EOdqjkfsgA">
                   <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CTDuMypREem8EOdqjkfsgA"/>
                   <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CTDuNCpREem8EOdqjkfsgA" value="*"/>
                 </ownedAttribute>
+                <ownedAttribute xmi:id="_rpQYUipnEemXiJ1HYkiKyw" name="coopTerm" type="_ot1wECpnEemXiJ1HYkiKyw" aggregation="composite" association="_rpPKMCpnEemXiJ1HYkiKyw">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rpQYUypnEemXiJ1HYkiKyw"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rpQ_YCpnEemXiJ1HYkiKyw" value="*"/>
+                </ownedAttribute>
               </packagedElement>
               <packagedElement xmi:type="uml:Association" xmi:id="_mD1ZACpIEem8EOdqjkfsgA" name="" memberEnd="_mD2AECpIEem8EOdqjkfsgA _mD2AEypIEem8EOdqjkfsgA"/>
-              <packagedElement xmi:type="uml:Association" xmi:id="_6EntICpQEem8EOdqjkfsgA" name="" memberEnd="_6EntISpQEem8EOdqjkfsgA _6EoUMipQEem8EOdqjkfsgA"/>
               <packagedElement xmi:type="uml:Association" xmi:id="_CTDHICpREem8EOdqjkfsgA" name="" memberEnd="_CTDHISpREem8EOdqjkfsgA _CTDuMipREem8EOdqjkfsgA"/>
+              <packagedElement xmi:type="uml:Association" xmi:id="_rpPKMCpnEemXiJ1HYkiKyw" name="" memberEnd="_rpPKMSpnEemXiJ1HYkiKyw _rpQYUipnEemXiJ1HYkiKyw"/>
             </packagedElement>
             <packagedElement xmi:type="uml:Class" xmi:id="_v_0hACpIEem8EOdqjkfsgA" name="CooperatorApplication">
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_wBeG0CpIEem8EOdqjkfsgA" name="main" specification="_v_3kUCpIEem8EOdqjkfsgA">
@@ -154,12 +165,12 @@
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_EKXGtSpUEem8EOdqjkfsgA" value="1"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EKXGtipUEem8EOdqjkfsgA" value="1"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_0Z_v0ipUEem8EOdqjkfsgA" name="coopTerm" type="_jJLJQCpJEem8EOdqjkfsgA" aggregation="composite" association="_0Z_IwCpUEem8EOdqjkfsgA">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_0Z_v0ypUEem8EOdqjkfsgA"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_0Z_v1CpUEem8EOdqjkfsgA" value="4"/>
-      </ownedAttribute>
       <ownedAttribute xmi:id="_5M-PQCpXEem8EOdqjkfsgA" name="mcGillId" visibility="public">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_sWvwcipnEemXiJ1HYkiKyw" name="coopTerm" type="_ot1wECpnEemXiJ1HYkiKyw" aggregation="composite" association="_sWvJYCpnEemXiJ1HYkiKyw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sWvwcypnEemXiJ1HYkiKyw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sWvwdCpnEemXiJ1HYkiKyw" value="4"/>
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_CKm2cCpJEem8EOdqjkfsgA" name="NewClass1"/>
@@ -175,43 +186,16 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_FoQpECpJEem8EOdqjkfsgA" name="Employer">
       <generalization xmi:id="_X6ecMCpJEem8EOdqjkfsgA" general="_Hm-1ACpIEem8EOdqjkfsgA"/>
-      <ownedAttribute xmi:id="_THI2wSpOEem8EOdqjkfsgA" name="coopTerm" type="_jJLJQCpJEem8EOdqjkfsgA" association="_THIPsCpOEem8EOdqjkfsgA">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_THI2wipOEem8EOdqjkfsgA" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_THI2wypOEem8EOdqjkfsgA" value="*"/>
-      </ownedAttribute>
       <ownedAttribute xmi:id="_FsBJ4CpYEem8EOdqjkfsgA" name="employerId" visibility="public">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_jJLJQCpJEem8EOdqjkfsgA" name="CoopTerm">
-      <ownedAttribute xmi:id="_THIPsSpOEem8EOdqjkfsgA" name="employer" type="_FoQpECpJEem8EOdqjkfsgA" association="_THIPsCpOEem8EOdqjkfsgA">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_THIPsipOEem8EOdqjkfsgA" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_THI2wCpOEem8EOdqjkfsgA" value="1"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_2c-thCpPEem8EOdqjkfsgA" name="document" type="_O6-qQCpMEem8EOdqjkfsgA" aggregation="composite" association="_2c-tgCpPEem8EOdqjkfsgA">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2c-thSpPEem8EOdqjkfsgA"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2c-thipPEem8EOdqjkfsgA" value="*"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_6EntISpQEem8EOdqjkfsgA" name="coOperatorSystem" type="_CfYCACpIEem8EOdqjkfsgA" association="_6EntICpQEem8EOdqjkfsgA">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6EoUMCpQEem8EOdqjkfsgA" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6EoUMSpQEem8EOdqjkfsgA" value="1"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_0Z_IwSpUEem8EOdqjkfsgA" name="student" type="_wtrFgCpIEem8EOdqjkfsgA" association="_0Z_IwCpUEem8EOdqjkfsgA">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_0Z_v0CpUEem8EOdqjkfsgA" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_0Z_v0SpUEem8EOdqjkfsgA" value="1"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_fBFCwCpaEem8EOdqjkfsgA" name="startDate" visibility="private" type="_wDynwCpYEem8EOdqjkfsgA"/>
-      <ownedAttribute xmi:id="_4DxOsCpbEem8EOdqjkfsgA" name="endDate" visibility="private" type="_wDynwCpYEem8EOdqjkfsgA"/>
-      <ownedAttribute xmi:id="_eWIAQCplEemlUN5ZisGxPg" name="testVar" visibility="public">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      <ownedAttribute xmi:id="_tbGwcypnEemXiJ1HYkiKyw" name="coopTerm" type="_ot1wECpnEemXiJ1HYkiKyw" association="_tbGJYCpnEemXiJ1HYkiKyw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tbGwdCpnEemXiJ1HYkiKyw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tbGwdSpnEemXiJ1HYkiKyw" value="*"/>
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="_ww90oCpJEem8EOdqjkfsgA" name="" memberEnd="_ww90oSpJEem8EOdqjkfsgA _ww90pCpJEem8EOdqjkfsgA"/>
     <packagedElement xmi:type="uml:Class" xmi:id="_O6-qQCpMEem8EOdqjkfsgA" name="Document">
-      <ownedAttribute xmi:id="_2c-tgSpPEem8EOdqjkfsgA" name="coopTerm" type="_jJLJQCpJEem8EOdqjkfsgA" association="_2c-tgCpPEem8EOdqjkfsgA">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2c-tgipPEem8EOdqjkfsgA" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2c-tgypPEem8EOdqjkfsgA" value="1"/>
-      </ownedAttribute>
       <ownedAttribute xmi:id="_CTDHISpREem8EOdqjkfsgA" name="coOperatorSystem" type="_CfYCACpIEem8EOdqjkfsgA" association="_CTDHICpREem8EOdqjkfsgA">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CTDuMCpREem8EOdqjkfsgA" value="1"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CTDuMSpREem8EOdqjkfsgA" value="1"/>
@@ -223,16 +207,20 @@
       <ownedAttribute xmi:id="_vFYz4CpaEem8EOdqjkfsgA" name="isLate" visibility="private">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_Subv8CpbEem8EOdqjkfsgA" name="submissionDate" visibility="private" type="_wDynwCpYEem8EOdqjkfsgA" association="_igVicCpbEem8EOdqjkfsgA"/>
+      <ownedAttribute xmi:id="_Subv8CpbEem8EOdqjkfsgA" name="deadlineDate" visibility="private" type="_wDynwCpYEem8EOdqjkfsgA" association="_igVicCpbEem8EOdqjkfsgA"/>
       <ownedAttribute xmi:id="_Q-gYgCpdEem8EOdqjkfsgA" name="documentName" visibility="public" type="_Xabi0CpMEem8EOdqjkfsgA" association="_T8-70CpdEem8EOdqjkfsgA"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Enumeration" xmi:id="_Xabi0CpMEem8EOdqjkfsgA" name="DocName">
-      <ownedAttribute xmi:id="_IzaJ4CpeEem8EOdqjkfsgA" name="finalReport" visibility="public">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      <ownedAttribute xmi:id="_s0rpoSpnEemXiJ1HYkiKyw" name="coopTerm" type="_ot1wECpnEemXiJ1HYkiKyw" association="_s0rpoCpnEemXiJ1HYkiKyw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_s0rpoipnEemXiJ1HYkiKyw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_s0rpoypnEemXiJ1HYkiKyw" value="1"/>
       </ownedAttribute>
     </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_THIPsCpOEem8EOdqjkfsgA" name="" memberEnd="_THIPsSpOEem8EOdqjkfsgA _THI2wSpOEem8EOdqjkfsgA"/>
-    <packagedElement xmi:type="uml:Association" xmi:id="_2c-tgCpPEem8EOdqjkfsgA" name="" memberEnd="_2c-tgSpPEem8EOdqjkfsgA _2c-thCpPEem8EOdqjkfsgA"/>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_Xabi0CpMEem8EOdqjkfsgA" name="DocName">
+      <ownedLiteral xmi:id="_yHFFcCppEemXiJ1HYkiKyw" name="jobDescription"/>
+      <ownedLiteral xmi:id="_9yx3kCppEemXiJ1HYkiKyw" name="employmentContract"/>
+      <ownedLiteral xmi:id="__1R60CppEemXiJ1HYkiKyw" name="taskList"/>
+      <ownedLiteral xmi:id="_Cqt24CpqEemXiJ1HYkiKyw" name="courseEvaluation"/>
+      <ownedLiteral xmi:id="_H5YUICpqEemXiJ1HYkiKyw" name="finalReport"/>
+    </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_NNW4kCpREem8EOdqjkfsgA" name="NewClass2"/>
     <packagedElement xmi:type="uml:Class" xmi:id="_oZlucCpTEem8EOdqjkfsgA" name="Statistics">
       <ownedAttribute xmi:id="_EKXGsSpUEem8EOdqjkfsgA" name="student" type="_wtrFgCpIEem8EOdqjkfsgA" association="_EKXGsCpUEem8EOdqjkfsgA">
@@ -241,7 +229,6 @@
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="_EKXGsCpUEem8EOdqjkfsgA" name="" memberEnd="_EKXGsSpUEem8EOdqjkfsgA _EKXGtCpUEem8EOdqjkfsgA"/>
-    <packagedElement xmi:type="uml:Association" xmi:id="_0Z_IwCpUEem8EOdqjkfsgA" name="" memberEnd="_0Z_IwSpUEem8EOdqjkfsgA _0Z_v0ipUEem8EOdqjkfsgA"/>
     <packagedElement xmi:type="uml:DataType" xmi:id="_wDynwCpYEem8EOdqjkfsgA" name="Date"/>
     <packagedElement xmi:type="uml:DataType" xmi:id="_y5_Y0CpYEem8EOdqjkfsgA" name="Date"/>
     <packagedElement xmi:type="uml:Association" xmi:id="_07lnsCpZEem8EOdqjkfsgA" name="" memberEnd="_wBeeICpZEem8EOdqjkfsgA _07lnsSpZEem8EOdqjkfsgA">
@@ -252,6 +239,35 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="_T8-70CpdEem8EOdqjkfsgA" name="" memberEnd="_Q-gYgCpdEem8EOdqjkfsgA _T8-70SpdEem8EOdqjkfsgA">
       <ownedEnd xmi:id="_T8-70SpdEem8EOdqjkfsgA" name="" type="_O6-qQCpMEem8EOdqjkfsgA" association="_T8-70CpdEem8EOdqjkfsgA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_ot1wECpnEemXiJ1HYkiKyw" name="CoopTerm">
+      <ownedAttribute xmi:id="_rpPKMSpnEemXiJ1HYkiKyw" name="coOperatorSystem" type="_CfYCACpIEem8EOdqjkfsgA" association="_rpPKMCpnEemXiJ1HYkiKyw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rpQYUCpnEemXiJ1HYkiKyw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rpQYUSpnEemXiJ1HYkiKyw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_sWvJYSpnEemXiJ1HYkiKyw" name="student" type="_wtrFgCpIEem8EOdqjkfsgA" association="_sWvJYCpnEemXiJ1HYkiKyw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sWvwcCpnEemXiJ1HYkiKyw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sWvwcSpnEemXiJ1HYkiKyw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_s0rppCpnEemXiJ1HYkiKyw" name="document" type="_O6-qQCpMEem8EOdqjkfsgA" aggregation="composite" association="_s0rpoCpnEemXiJ1HYkiKyw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_s0sQsCpnEemXiJ1HYkiKyw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_s0sQsSpnEemXiJ1HYkiKyw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_tbGwcCpnEemXiJ1HYkiKyw" name="employer" type="_FoQpECpJEem8EOdqjkfsgA" association="_tbGJYCpnEemXiJ1HYkiKyw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tbGwcSpnEemXiJ1HYkiKyw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tbGwcipnEemXiJ1HYkiKyw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="__rYC0CpnEemXiJ1HYkiKyw" name="startDate" visibility="private" type="_wDynwCpYEem8EOdqjkfsgA" association="_ZH4SYCpoEemXiJ1HYkiKyw"/>
+      <ownedAttribute xmi:id="_EzXQUCpoEemXiJ1HYkiKyw" name="endDate" visibility="private" type="_wDynwCpYEem8EOdqjkfsgA" association="_ZH4SYipoEemXiJ1HYkiKyw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_sWvJYCpnEemXiJ1HYkiKyw" name="" memberEnd="_sWvJYSpnEemXiJ1HYkiKyw _sWvwcipnEemXiJ1HYkiKyw"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_s0rpoCpnEemXiJ1HYkiKyw" name="" memberEnd="_s0rpoSpnEemXiJ1HYkiKyw _s0rppCpnEemXiJ1HYkiKyw"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_tbGJYCpnEemXiJ1HYkiKyw" name="" memberEnd="_tbGwcCpnEemXiJ1HYkiKyw _tbGwcypnEemXiJ1HYkiKyw"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_ZH4SYCpoEemXiJ1HYkiKyw" name="" memberEnd="__rYC0CpnEemXiJ1HYkiKyw _ZH4SYSpoEemXiJ1HYkiKyw">
+      <ownedEnd xmi:id="_ZH4SYSpoEemXiJ1HYkiKyw" name="" type="_ot1wECpnEemXiJ1HYkiKyw" association="_ZH4SYCpoEemXiJ1HYkiKyw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_ZH4SYipoEemXiJ1HYkiKyw" name="" memberEnd="_EzXQUCpoEemXiJ1HYkiKyw _ZH45cCpoEemXiJ1HYkiKyw">
+      <ownedEnd xmi:id="_ZH45cCpoEemXiJ1HYkiKyw" name="" type="_ot1wECpnEemXiJ1HYkiKyw" association="_ZH4SYipoEemXiJ1HYkiKyw"/>
     </packagedElement>
     <profileApplication xmi:id="_vPbisCpEEem4bcJ1FnYc5A">
       <eAnnotations xmi:id="_vPfNECpEEem4bcJ1FnYc5A" source="http://www.eclipse.org/uml2/2.0.0/UML">
@@ -303,10 +319,9 @@
   <UMLLabProfile:StyledElement xmi:id="_Lry7ASpYEem8EOdqjkfsgA" base_Element="_5M-PQCpXEem8EOdqjkfsgA"/>
   <UMLLabProfile:StyledElement xmi:id="_07kZkCpZEem8EOdqjkfsgA" base_Element="_rIFtUCpZEem8EOdqjkfsgA"/>
   <UMLLabProfile:StyledElement xmi:id="_07kZkSpZEem8EOdqjkfsgA" base_Element="_wBeeICpZEem8EOdqjkfsgA"/>
-  <UMLLabProfile:StyledElement xmi:id="_x_plkCpaEem8EOdqjkfsgA" base_Element="_fBFCwCpaEem8EOdqjkfsgA"/>
   <UMLLabProfile:StyledElement xmi:id="_x_qMoCpaEem8EOdqjkfsgA" base_Element="_vFYz4CpaEem8EOdqjkfsgA"/>
   <UMLLabProfile:StyledElement xmi:id="_igUUUCpbEem8EOdqjkfsgA" base_Element="_Subv8CpbEem8EOdqjkfsgA"/>
-  <UMLLabProfile:Patch xmi:id="_mbMOcCpbEem8EOdqjkfsgA" base_Element="_jJLJQCpJEem8EOdqjkfsgA" patchText="@@ -334,16 +334,17 @@&#xA; Term %7B%0D%0A&#xA;+%09&#xA; private &#xA;@@ -360,16 +360,17 @@&#xA; ate;%0D%0A%0D%0A&#xA;+%09&#xA; private &#xA;@@ -396,24 +396,26 @@&#xA; e value) %7B%0D%0A&#xA;+%09%09&#xA; this.endDate&#xA;@@ -421,27 +421,31 @@&#xA; e = value;%0D%0A&#xA;+%09&#xA; %7D%0D%0A&#xA;+%0D%0A%09&#xA; private Date&#xA;@@ -457,24 +457,26 @@&#xA; ndDate() %7B%0D%0A&#xA;+%09%09&#xA; return this.&#xA;@@ -485,19 +485,23 @@&#xA; dDate;%0D%0A&#xA;+%09&#xA; %7D%0D%0A&#xA;+%0D%0A%09&#xA; private &#xA;@@ -520,16 +520,17 @@&#xA; Var;%0D%0A%0D%0A&#xA;+%09&#xA; public v&#xA;@@ -562,16 +562,18 @@&#xA; lue) %7B%0D%0A&#xA;+%09%09&#xA; this.tes&#xA;@@ -587,19 +587,23 @@&#xA; value;%0D%0A&#xA;+%09&#xA; %7D%0D%0A&#xA;+%0D%0A%09&#xA; public I&#xA;@@ -625,16 +625,18 @@&#xA; ar() %7B%0D%0A&#xA;+%09%09&#xA; return t&#xA;@@ -649,17 +649,20 @@&#xA; stVar;%0D%0A&#xA;-%7D&#xA;+%09%7D%0D%0A&#xA; %0D%0A%09priva&#xA;@@ -668,16 +668,17 @@&#xA; ate Date&#xA;+ &#xA; startDat&#xA;@@ -681,16 +681,18 @@&#xA; tDate;%0D%0A&#xA;+%0D%0A&#xA; private &#xA;@@ -754,16 +754,18 @@&#xA; e;%0D%0A%09%7D%0D%0A&#xA;+%0D%0A&#xA; private &#xA;" conflicting="false"/>
   <UMLLabProfile:StyledElement xmi:id="_T89tsCpdEem8EOdqjkfsgA" base_Element="_Q-gYgCpdEem8EOdqjkfsgA"/>
-  <UMLLabProfile:StyledElement xmi:id="_HAQ70CpfEemlUN5ZisGxPg" base_Element="_IzaJ4CpeEem8EOdqjkfsgA"/>
+  <UMLLabProfile:StyledElement xmi:id="_ZHyLwCpoEemXiJ1HYkiKyw" base_Element="__rYC0CpnEemXiJ1HYkiKyw"/>
+  <UMLLabProfile:StyledElement xmi:id="_ZHyy0CpoEemXiJ1HYkiKyw" base_Element="_EzXQUCpoEemXiJ1HYkiKyw"/>
 </xmi:XMI>
