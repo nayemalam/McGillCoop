@@ -11,5 +11,5 @@ _This README.md is a fillable template for the project submissions. Use the tabl
 |Tristan Bouchard  |  _9_ hours|Mobile frontend lead   |
 |Nayem Alam        |  _y_ hours|Project management lead|
 |Alex Masciotra    |  _9_ hours|                       |
-|Thomas Philippon  |           |                       |
+|Thomas Philippon  |  5 hours  |                       |
 |Violet Wei        |  _x_ hours|                       |
