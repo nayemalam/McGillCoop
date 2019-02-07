@@ -5,6 +5,17 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Document {
+	private CoopTerm coopTerm;
+
+	@OneToOne(optional = false)
+	public CoopTerm getCoopTerm() {
+		return this.coopTerm;
+	}
+
+	public void setCoopTerm(CoopTerm coopTerm) {
+		this.coopTerm = coopTerm;
+	}
+
 	private DocName documentName;
 
 	public void setDocumentName(DocName value) {
@@ -15,14 +26,14 @@ public class Document {
 		return this.documentName;
 	}
 
-	private Date submissionDate;
+	private Date deadlineDate;
 
-	private void setSubmissionDate(Date value) {
-		this.submissionDate = value;
+	private void setDeadlineDate(Date value) {
+		this.deadlineDate = value;
 	}
 
-	private Date getSubmissionDate() {
-		return this.submissionDate;
+	private Date getDeadlineDate() {
+		return this.deadlineDate;
 	}
 
 	private Boolean isLate;
@@ -64,17 +75,6 @@ public class Document {
 
 	public void setCoOperatorSystem(CoOperatorSystem coOperatorSystem) {
 		this.coOperatorSystem = coOperatorSystem;
-	}
-
-	private CoopTerm coopTerm;
-
-	@ManyToOne(optional = false)
-	public CoopTerm getCoopTerm() {
-		return this.coopTerm;
-	}
-
-	public void setCoopTerm(CoopTerm coopTerm) {
-		this.coopTerm = coopTerm;
 	}
 
 }

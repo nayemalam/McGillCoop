@@ -8,16 +8,6 @@ import javax.persistence.Entity;
 
 @Entity
 public class Student extends User {
-	private String mcGillId;
-
-	public void setMcGillId(String value) {
-		this.mcGillId = value;
-	}
-
-	public String getMcGillId() {
-		return this.mcGillId;
-	}
-
 	private Set<CoopTerm> coopTerm;
 
 	@OneToMany(mappedBy = "student", cascade = { CascadeType.ALL })
@@ -27,6 +17,16 @@ public class Student extends User {
 
 	public void setCoopTerm(Set<CoopTerm> coopTerms) {
 		this.coopTerm = coopTerms;
+	}
+
+	private String mcGillId;
+
+	public void setMcGillId(String value) {
+		this.mcGillId = value;
+	}
+
+	public String getMcGillId() {
+		return this.mcGillId;
 	}
 
 	private Statistics statistics;
