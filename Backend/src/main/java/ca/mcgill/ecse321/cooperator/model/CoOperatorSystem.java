@@ -1,28 +1,24 @@
 package ca.mcgill.ecse321.cooperator.model;
 
-import CoopTerm;
-
-import Document;
-
-import javax.persistence.OneToOne;
-
 import javax.persistence.Entity;
 import User;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
+import Document;
+import CoopTerm;
 
 @Entity
 public class CoOperatorSystem {
-	private Set<CoopTerm> coopTerm;
+	private Set<User> user;
 
 	@OneToMany(mappedBy = "coOperatorSystem", cascade = { CascadeType.ALL })
-	public Set<CoopTerm> getCoopTerm() {
-		return this.coopTerm;
+	public Set<User> getUser() {
+		return this.user;
 	}
 
-	public void setCoopTerm(Set<CoopTerm> coopTerms) {
-		this.coopTerm = coopTerms;
+	public void setUser(Set<User> users) {
+		this.user = users;
 	}
 
 	private Set<Document> document;
@@ -36,15 +32,15 @@ public class CoOperatorSystem {
 		this.document = documents;
 	}
 
-	private Set<User> user;
+	private Set<CoopTerm> coopTerm;
 
 	@OneToMany(mappedBy = "coOperatorSystem", cascade = { CascadeType.ALL })
-	public Set<User> getUser() {
-		return this.user;
+	public Set<CoopTerm> getCoopTerm() {
+		return this.coopTerm;
 	}
 
-	public void setUser(Set<User> users) {
-		this.user = users;
+	public void setCoopTerm(Set<CoopTerm> coopTerms) {
+		this.coopTerm = coopTerms;
 	}
 
 }
