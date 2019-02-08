@@ -14,15 +14,23 @@ public void setEmployerId(int value) {
 public int getEmployerId() {
     return this.employerId;
 }
-   private Set<CoopTerm> coopTerm;
-   
-   @OneToMany(mappedBy="employer" )
-   public Set<CoopTerm> getCoopTerm() {
-      return this.coopTerm;
-   }
-   
-   public void setCoopTerm(Set<CoopTerm> coopTerms) {
-      this.coopTerm = coopTerms;
-   }
-   
-   }
+private Set<CoopTerm> coopTerm;
+
+@OneToMany(mappedBy="employer" )
+public Set<CoopTerm> getCoopTerm() {
+   return this.coopTerm;
+}
+
+public void setCoopTerm(Set<CoopTerm> coopTerms) {
+   this.coopTerm = coopTerms;
+}
+
+private String companyName;
+
+public void setCompanyName(String value) {
+    this.companyName = value;
+}
+public String getCompanyName() {
+    return this.companyName;
+}
+}

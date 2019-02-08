@@ -16,12 +16,12 @@ public class Statistics{
       this.student = student;
    }
    
-   private int numberOfTerm;
+   private int numberOfCoopTerm;
 
-public void setNumberOfTerm(int value) {
-    this.numberOfTerm = value;
+public void setNumberOfCoopTerm(int value) {
+    this.numberOfCoopTerm = value;
 }
-public int getNumberOfTerm() {
-    return this.numberOfTerm;
+public int getNumberOfCoopTerm() {
+    return this.numberOfCoopTerm;
 }
 }
