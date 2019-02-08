@@ -17,4 +17,12 @@ public class CoopAdministrator extends User{
       this.student = students;
    }
    
-   }
+   private int adminId;
+
+public void setAdminId(int value) {
+    this.adminId = value;
+}
+public int getAdminId() {
+    return this.adminId;
+}
+}

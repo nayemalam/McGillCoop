@@ -5,6 +5,7 @@ import javax.persistence.ManyToOne;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
+import java.sql.Date;
 
 @Entity
 public class CoopTerm{
@@ -41,4 +42,20 @@ public class CoopTerm{
       this.employer = employer;
    }
    
-   }
+   private Date startDate;
+
+public void setStartDate(Date value) {
+    this.startDate = value;
+}
+public Date getStartDate() {
+    return this.startDate;
+}
+private Date dueDate;
+
+public void setDueDate(Date value) {
+    this.dueDate = value;
+}
+public Date getDueDate() {
+    return this.dueDate;
+}
+}

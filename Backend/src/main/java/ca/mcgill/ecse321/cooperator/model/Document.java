@@ -16,4 +16,20 @@ public class Document{
       this.coopTerm = coopTerm;
    }
    
-   }
+   private boolean isSubmitted;
+
+public void setIsSubmitted(boolean value) {
+    this.isSubmitted = value;
+}
+public boolean isIsSubmitted() {
+    return this.isSubmitted;
+}
+private boolean isLate;
+
+public void setIsLate(boolean value) {
+    this.isLate = value;
+}
+public boolean isIsLate() {
+    return this.isLate;
+}
+}

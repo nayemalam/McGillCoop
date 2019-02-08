@@ -17,4 +17,12 @@ public class Employer extends User{
       this.coopTerm = coopTerms;
    }
    
-   }
+   private int employerId;
+
+public void setEmployerId(int value) {
+    this.employerId = value;
+}
+public int getEmployerId() {
+    return this.employerId;
+}
+}

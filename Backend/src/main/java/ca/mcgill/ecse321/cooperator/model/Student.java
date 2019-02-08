@@ -42,4 +42,12 @@ public class Student extends User{
       this.coopTerm = coopTerms;
    }
    
-   }
+   private int studenId;
+
+public void setStudenId(int value) {
+    this.studenId = value;
+}
+public int getStudenId() {
+    return this.studenId;
+}
+}
