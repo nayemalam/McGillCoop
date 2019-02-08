@@ -48,17 +48,6 @@ public void setDueDate(Date value) {
 public Date getDueDate() {
     return this.dueDate;
 }
-   private Set<CoopAdministrator> coopAdministrator;
-   
-   @ManyToMany
-   public Set<CoopAdministrator> getCoopAdministrator() {
-      return this.coopAdministrator;
-   }
-   
-   public void setCoopAdministrator(Set<CoopAdministrator> coopAdministrators) {
-      this.coopAdministrator = coopAdministrators;
-   }
-   
    private Employer employer;
    
    @ManyToOne(optional=false)
@@ -68,6 +57,28 @@ public Date getDueDate() {
    
    public void setEmployer(Employer employer) {
       this.employer = employer;
+   }
+   
+   private CoOperatorSystem coOperatorSystem;
+   
+   @ManyToOne(optional=false)
+   public CoOperatorSystem getCoOperatorSystem() {
+      return this.coOperatorSystem;
+   }
+   
+   public void setCoOperatorSystem(CoOperatorSystem coOperatorSystem) {
+      this.coOperatorSystem = coOperatorSystem;
+   }
+   
+   private Set<CoopAdministrator> coopAdministrator;
+   
+   @ManyToMany
+   public Set<CoopAdministrator> getCoopAdministrator() {
+      return this.coopAdministrator;
+   }
+   
+   public void setCoopAdministrator(Set<CoopAdministrator> coopAdministrators) {
+      this.coopAdministrator = coopAdministrators;
    }
    
    }

@@ -40,4 +40,15 @@ public void setDocName(DocumentName value) {
 public DocumentName getDocName() {
     return this.docName;
 }
-}
+   private CoOperatorSystem coOperatorSystem;
+   
+   @ManyToOne(optional=false)
+   public CoOperatorSystem getCoOperatorSystem() {
+      return this.coOperatorSystem;
+   }
+   
+   public void setCoOperatorSystem(CoOperatorSystem coOperatorSystem) {
+      this.coOperatorSystem = coOperatorSystem;
+   }
+   
+   }
