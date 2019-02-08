@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
 import java.sql.Date;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class CoopTerm{
@@ -31,17 +32,6 @@ public class CoopTerm{
       this.document = documents;
    }
    
-   private Employer employer;
-   
-   @ManyToOne(optional=false)
-   public Employer getEmployer() {
-      return this.employer;
-   }
-   
-   public void setEmployer(Employer employer) {
-      this.employer = employer;
-   }
-   
    private Date startDate;
 
 public void setStartDate(Date value) {
@@ -58,4 +48,37 @@ public void setDueDate(Date value) {
 public Date getDueDate() {
     return this.dueDate;
 }
-}
+   private Employer employer;
+   
+   @ManyToOne(optional=false)
+   public Employer getEmployer() {
+      return this.employer;
+   }
+   
+   public void setEmployer(Employer employer) {
+      this.employer = employer;
+   }
+   
+   private CoOperatorSystem coOperatorSystem;
+   
+   @ManyToOne(optional=false)
+   public CoOperatorSystem getCoOperatorSystem() {
+      return this.coOperatorSystem;
+   }
+   
+   public void setCoOperatorSystem(CoOperatorSystem coOperatorSystem) {
+      this.coOperatorSystem = coOperatorSystem;
+   }
+   
+   private Set<CoopAdministrator> coopAdministrator;
+   
+   @ManyToMany
+   public Set<CoopAdministrator> getCoopAdministrator() {
+      return this.coopAdministrator;
+   }
+   
+   public void setCoopAdministrator(Set<CoopAdministrator> coopAdministrators) {
+      this.coopAdministrator = coopAdministrators;
+   }
+   
+   }

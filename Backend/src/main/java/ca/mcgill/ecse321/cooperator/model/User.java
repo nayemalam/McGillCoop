@@ -5,15 +5,39 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class User{
-   private CoOperatorSystem cooperatorSystem1;
+   private String name;
+
+public void setName(String value) {
+    this.name = value;
+}
+public String getName() {
+    return this.name;
+}
+private String username;
+
+public void setUsername(String value) {
+    this.username = value;
+}
+public String getUsername() {
+    return this.username;
+}
+private String password;
+
+public void setPassword(String value) {
+    this.password = value;
+}
+public String getPassword() {
+    return this.password;
+}
+   private CoOperatorSystem coOperatorSystem;
    
    @ManyToOne(optional=false)
-   public CoOperatorSystem getCooperatorSystem1() {
-      return this.cooperatorSystem1;
+   public CoOperatorSystem getCoOperatorSystem() {
+      return this.coOperatorSystem;
    }
    
-   public void setCooperatorSystem1(CoOperatorSystem cooperatorSystem1) {
-      this.cooperatorSystem1 = cooperatorSystem1;
+   public void setCoOperatorSystem(CoOperatorSystem coOperatorSystem) {
+      this.coOperatorSystem = coOperatorSystem;
    }
    
    }

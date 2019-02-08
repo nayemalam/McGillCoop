@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.cooperator.model;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import java.sql.Date;
 
 @Entity
 public class Document{
@@ -16,20 +17,39 @@ public class Document{
       this.coopTerm = coopTerm;
    }
    
-   private boolean isSubmitted;
+   private DocumentName docName;
 
-public void setIsSubmitted(boolean value) {
-    this.isSubmitted = value;
+public void setDocName(DocumentName value) {
+    this.docName = value;
 }
-public boolean isIsSubmitted() {
-    return this.isSubmitted;
+public DocumentName getDocName() {
+    return this.docName;
 }
-private boolean isLate;
+private CoOperatorSystem coOperatorSystem;
 
-public void setIsLate(boolean value) {
-    this.isLate = value;
+@ManyToOne(optional=false)
+public CoOperatorSystem getCoOperatorSystem() {
+   return this.coOperatorSystem;
 }
-public boolean isIsLate() {
-    return this.isLate;
+
+public void setCoOperatorSystem(CoOperatorSystem coOperatorSystem) {
+   this.coOperatorSystem = coOperatorSystem;
+}
+
+private Date dueDate;
+
+public void setDueDate(Date value) {
+    this.dueDate = value;
+}
+public Date getDueDate() {
+    return this.dueDate;
+}
+private Date submittedDate;
+
+public void setSubmittedDate(Date value) {
+    this.submittedDate = value;
+}
+public Date getSubmittedDate() {
+    return this.submittedDate;
 }
 }
