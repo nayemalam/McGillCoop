@@ -32,4 +32,12 @@ public void setIsLate(boolean value) {
 public boolean isIsLate() {
     return this.isLate;
 }
+private DocumentName docName;
+
+public void setDocName(DocumentName value) {
+    this.docName = value;
+}
+public DocumentName getDocName() {
+    return this.docName;
+}
 }

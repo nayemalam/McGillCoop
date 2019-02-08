@@ -9,7 +9,7 @@ import javax.persistence.OneToMany;
 public class CoOperatorSystem{
    private Set<User> user;
    
-   @OneToMany(mappedBy="cooperatorSystem1" , cascade={CascadeType.ALL})
+   @OneToMany(mappedBy="coOperatorSystem" , cascade={CascadeType.ALL})
    public Set<User> getUser() {
       return this.user;
    }
