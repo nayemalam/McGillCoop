@@ -1,23 +1,23 @@
 package ca.mcgill.ecse321.cooperator.model;
 
 import javax.persistence.Entity;
-import java.util.Set;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToOne;
+import java.util.Set;
 import javax.persistence.OneToMany;
 
 @Entity
 public class Student extends User{
-   private Set<CoopAdministrator> coopAdministrator;
+   private CoopAdministrator coopAdministrator;
    
-   @ManyToMany
-   public Set<CoopAdministrator> getCoopAdministrator() {
+   @ManyToOne(optional=false)
+   public CoopAdministrator getCoopAdministrator() {
       return this.coopAdministrator;
    }
    
-   public void setCoopAdministrator(Set<CoopAdministrator> coopAdministrators) {
-      this.coopAdministrator = coopAdministrators;
+   public void setCoopAdministrator(CoopAdministrator coopAdministrator) {
+      this.coopAdministrator = coopAdministrator;
    }
    
    private Statistics statistics;
