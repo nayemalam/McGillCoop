@@ -1,7 +1,7 @@
 # ECSE321 Project Group 21
 
 _This README.md is a fillable template for the project submissions. Use the table provided below to document the hours and the responsibilities of team members individually. Create a separate table for each deliverable. Remove this comment before the first submission._
-#### Please visit our [wiki page](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki) where you can view all our work, including deliverables, project guidelines and meeting minutes.
+#### :start2:For more details, please visit our [wiki page](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki) where you can view all our work, including deliverables, project guidelines and meeting minutes.
 #
 
 ## Deliverable 1 - Requirements, Domain Model, Database Design
@@ -23,9 +23,9 @@ Project Deliverable 1 shall be accompanied with a succinct project report as par
 ---
 ## Introduction
 
-View our [project report]()
+View our [project report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-1-Report)
 
-### Team Member
+### :star:Team Member
 - [Tristan Bouchard](https://github.com/tbutch)    :arrow_right:Major in Electrical Engineering
 - [Nayem Alam](https://github.com/nayemalam)       :arrow_right:Major in Electrical Engineering
 - [Alex Masciotra](https://github.com/amasciotra)  :arrow_right:Major in Electrical Engineering
