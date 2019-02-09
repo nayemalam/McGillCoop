@@ -26,11 +26,11 @@ Project Deliverable 1 shall be accompanied with a succinct project report as par
 View our [project report]()
 
 ### Team Member
-- [Tristan Bouchard](https://github.com/tbutch):boy:    Major in Electrical Engineering
-- [Nayem Alam](https://github.com/nayemalam):boy:       Major in Electrical Engineering
-- [Alex Masciotra](https://github.com/amasciotra):boy:  Major in Electrical Engineering
-- [Thomas Philippon](https://github.com/thomasp05):boy: Major in Electrical Engineering
-- [Violet Wei](https://github.com/violetwei):boy:       Major in Software Engineering
+- [Tristan Bouchard](https://github.com/tbutch)    :arrow_right:Major in Electrical Engineering
+- [Nayem Alam](https://github.com/nayemalam)       :arrow_right:Major in Electrical Engineering
+- [Alex Masciotra](https://github.com/amasciotra)  :arrow_right:Major in Electrical Engineering
+- [Thomas Philippon](https://github.com/thomasp05) :arrow_right:Major in Electrical Engineering
+- [Violet Wei](https://github.com/violetwei)       :arrow_right:Major in Software Engineering
 
 
 ## About
