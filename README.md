@@ -13,3 +13,9 @@ _This README.md is a fillable template for the project submissions. Use the tabl
 |Alex Masciotra    |  _9_ hours|                       |
 |Thomas Philippon  |  6 hours  |                       |
 |Violet Wei        |  _7_ hours|                       |
+
+
+---
+To do:
+The team should provide a welcome page that introduces the team and describes the main scope of the project in the README.md file in the root of each team’s repository. In addition, the README.md file should contain an overview table with names, team roles and individual efforts (in hours) with separated entries for each deliverable (sample content will be provided).
+Project Deliverable 1 shall be accompanied with a succinct project report as part of the project wiki which records the meeting minutes and the key design decisions taken by the team. This project report should be navigable from the README.md file of the project. Altogether, the team should comply with all Technological Constraints above.
