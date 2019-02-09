@@ -25,6 +25,14 @@ Project Deliverable 1 shall be accompanied with a succinct project report as par
 
 View our :star2:[project report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-1-Report)
 
+### Scope of Project
+
+All functionality of the system are accessible via the web frontend for respective stakeholders.
+A mobile (Android) frontend shall allow to execute the most important functionality for the given stakeholder 
+and have both read and write access to the backend via RESTful service calls.
+Secure login with authorization is not mandatory. 
+External systems or services(myFuture, myCourses) are not required to be integrated.
+
 ## About
 
 :sparkles:**CO-OP-ERATOR** is a multi-tier software system for managing co-op terms for engineering co-op programs.
@@ -44,13 +52,7 @@ This software system is subdivided into four deliverables:
 - [Violet Wei](https://github.com/violetwei)       :arrow_right:Major in Software Engineering
 
 
-### Scope of Project
 
-All functionality of the system are accessible via the web frontend for respective stakeholders.
-A mobile (Android) frontend shall allow to execute the most important functionality for the given stakeholder 
-and have both read and write access to the backend via RESTful service calls.
-Secure login with authorization is not mandatory. 
-External systems or services(myFuture, myCourses) are not required to be integrated.
 
 ### Sprint 1 
 - [x] Use UML Lab to create a domain model
