@@ -23,26 +23,26 @@ Project Deliverable 1 shall be accompanied with a succinct project report as par
 ---
 ## Introduction
 
-[project report]()
+View our [project report]()
 
 ### Team Member
-- [Tristan Bouchard](https://github.com/tbutch)    Major in Electrical Engineering
-- [Nayem Alam](https://github.com/nayemalam)       Major in Electrical Engineering
-- [Alex Masciotra](https://github.com/amasciotra)  Major in Electrical Engineering
-- [Thomas Philippon](https://github.com/thomasp05) Major in Electrical Engineering
-- [Violet Wei](https://github.com/violetwei)       Major in Software Engineering
+- [Tristan Bouchard](https://github.com/tbutch):boy:    Major in Electrical Engineering
+- [Nayem Alam](https://github.com/nayemalam):boy:       Major in Electrical Engineering
+- [Alex Masciotra](https://github.com/amasciotra):boy:  Major in Electrical Engineering
+- [Thomas Philippon](https://github.com/thomasp05):boy: Major in Electrical Engineering
+- [Violet Wei](https://github.com/violetwei):boy:       Major in Software Engineering
 
 
 ## About
 
-A software system for managing co-op terms for co-op programs.
+:sparkles:**CO-OP-ERATOR** is a multi-tier software system for managing co-op terms for engineering co-op programs.
 
 This software system is subdivided into four deliverables:
 
-- Deliverable 1 - Requirements, Domain Modeling, Database Design
-- Deliverable 2 - Backend, Quality Assurance
-- Deliverable 3 - Web Frontend, Architecture
-- Deliverable 4 - Mobile Frontend, Availability
+- :one:Deliverable 1 - Requirements, Domain Modeling, Database Design
+- :two:Deliverable 2 - Backend, Quality Assurance
+- :three:Deliverable 3 - Web Frontend, Architecture
+- :four:Deliverable 4 - Mobile Frontend, Availability
 
 ### Scope of Project
 
