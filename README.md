@@ -1,6 +1,5 @@
 # Welcome to ECSE321 Project Group 21 :dizzy:
 
-_This README.md is a fillable template for the project submissions. Use the table provided below to document the hours and the responsibilities of team members individually. Create a separate table for each deliverable. Remove this comment before the first submission._
 #### For more details, please visit our [wiki page](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki) where you can view all our work, including deliverables, project guidelines and meeting minutes.
 
 # Introduction
@@ -9,8 +8,9 @@ View our :star2: [Deliverable 1 Report](https://github.com/McGill-ECSE321-Winter
 
 ### Scope of Project
 
-<b><i>To design and develop a multi-tier software system for managing co-op terms for the several co-op programs already offered by McGill University.</i></b> <br>
-As we progress throughout project, our goals will outline with the following:  
+<i>To design and develop a multi-tier software system for managing co-op terms for the several co-op programs already offered by McGill University.</i></b>
+
+<br/>As we progress throughout project, our goals will outline with the following:  
 - All functionality of the system are accessible via the web frontend for respective stakeholders.
 - A mobile (Android) frontend shall allow to execute the most important functionality for the given stakeholder 
 and have both read and write access to the backend via RESTful service calls.
@@ -29,7 +29,7 @@ This software system is subdivided into four deliverables:
 - :three: Deliverable 3 - Web Frontend, Architecture
 - :four: Deliverable 4 - Mobile Frontend, Availability
 
-### :star: Team Member
+### :star: Team Members
 - [Tristan Bouchard](https://github.com/tbutch)    &rarr; Major in Electrical Engineering
 - [Nayem Alam](https://github.com/nayemalam)       &rarr; Major in Electrical Engineering
 - [Alex Masciotra](https://github.com/amasciotra)  &rarr; Major in Electrical Engineering
@@ -53,7 +53,7 @@ This software system is subdivided into four deliverables:
 - [x] Use the ORM technology Hibernate to map objects to database concepts
 - [x] Create a Spring/Spring Boot project
 - [x] Configure a build system using Gradle
-- [x] Use a Continuous Integration process using Travis CI to build and test the database layer
+- [x] Use a Continuous Integration process using Travis CI to build and test the database persistence layer
 
 
 
