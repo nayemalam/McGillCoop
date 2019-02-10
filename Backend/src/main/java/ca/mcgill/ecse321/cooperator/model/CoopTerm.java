@@ -9,6 +9,17 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class CoopTerm{
+private Student student;
+   
+   @ManyToOne(optional=false)
+   public Student getStudent() {
+      return this.student;
+   }
+   
+   public void setStudent(Student student) {
+      this.student = student;
+   }
+   
    private int termId;
 
 public void setTermId(int value) {
@@ -27,26 +38,6 @@ public Employer getEmployer() {
 
 public void setEmployer(Employer employer) {
    this.employer = employer;
-}
-
-private Student student;
-
-@ManyToOne(optional=false)
-public Student getStudent() {
-   return this.student;
-}
-
-public void setStudent(Student student) {
-   this.student = student;
-}
-private Date startDate;
-
-public void setStartDate(Date value) {
-this.startDate = value;
-}
-
-public Date getStartDate() {
-   return this.startDate;
 }
 
    private Set<Document> document;
