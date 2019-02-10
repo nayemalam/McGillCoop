@@ -5,8 +5,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Id;
 import java.sql.Date;
 
-
+@Entity
 public class Document{
+   
    private CoopTerm coopTerm;
    
    @ManyToOne(optional=false)

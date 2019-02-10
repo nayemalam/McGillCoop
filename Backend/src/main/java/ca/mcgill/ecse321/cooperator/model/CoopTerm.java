@@ -20,6 +20,22 @@ private Student student;
       this.student = student;
    }
    
+   private Date startDate;
+
+public void setStartDate(Date value) {
+this.startDate = value;
+}
+public Date getStartDate() {
+return this.startDate;
+}
+private Date endDate;
+
+public void setEndDate(Date value) {
+this.endDate = value;
+}
+public Date getEndDate() {
+return this.endDate;
+}
    private int termId;
 
 public void setTermId(int value) {

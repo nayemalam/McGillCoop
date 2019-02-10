@@ -1,4 +1,5 @@
 package ca.mcgill.ecse321.cooperator.model;
+import javax.persistence.ManyToMany;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,6 +17,34 @@ private Set<CoopTerm> coopTerm;
    
    public void setCoopTerm(Set<CoopTerm> coopTerms) {
       this.coopTerm = coopTerms;
+   }
+   
+   private int studentId;
+
+public void setStudentId(int value) {
+this.studentId = value;
+}
+@Id
+public int getStudentId() {
+return this.studentId;
+}
+private String program;
+
+public void setProgram(String value) {
+this.program = value;
+}
+public String getProgram() {
+return this.program;
+}
+   private Set<CoopAdministrator> coopAdministrator;
+   
+   @ManyToMany
+   public Set<CoopAdministrator> getCoopAdministrator() {
+      return this.coopAdministrator;
+   }
+   
+   public void setCoopAdministrator(Set<CoopAdministrator> coopAdministrators) {
+      this.coopAdministrator = coopAdministrators;
    }
    
       

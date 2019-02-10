@@ -28,24 +28,8 @@ public class CooperatorSystem{
    /**
     * <pre>
     *           1..1     0..*
-    * CooperatorSystem ------------------------- CoopAdministrator
-    *           cooperatorSystem        &gt;       coopAdministrator1
-    * </pre>
-    */
-   private Set<CoopAdministrator> coopAdministrator1;
-   
-   public Set<CoopAdministrator> getCoopAdministrator1() {
-      if (this.coopAdministrator1 == null) {
-         this.coopAdministrator1 = new HashSet<CoopAdministrator>();
-      }
-      return this.coopAdministrator1;
-   }
-   
-/**
-    * <pre>
-    *           1..1     0..*
-    *  ------------------------> CoopAdministrator
-    *           cooperatorSystem        &lt;coopAdministrator
+    * CooperatorSystem ------------------------> CoopAdministrator
+    *           cooperatorSystem        &gt;       coopAdministrator
     * </pre>
     */
    private Set<CoopAdministrator> coopAdministrator;
@@ -58,13 +42,14 @@ public class CooperatorSystem{
    }
    
    private int systemId;
-
-public void setSystemId(int value) {
-    this.systemId = value;
-}
-
-public int getSystemId() {
-    return this.systemId;
-}
    
+   public void setSystemId(int value) {
+      this.systemId = value;
+   }
+   
+   public int getSystemId() {
+      return this.systemId;
+   }
+   
+      
    }

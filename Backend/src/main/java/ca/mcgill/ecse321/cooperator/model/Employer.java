@@ -8,6 +8,23 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Employer extends User{
+private int employerId;
+
+public void setEmployerId(int value) {
+this.employerId = value;
+}
+@Id
+public int getEmployerId() {
+return this.employerId;
+}
+private String companyName;
+
+public void setCompanyName(String value) {
+this.companyName = value;
+}
+public String getCompanyName() {
+return this.companyName;
+}
    private Set<CoopTerm> coopTerm;
    
    @OneToMany(mappedBy="employer" )

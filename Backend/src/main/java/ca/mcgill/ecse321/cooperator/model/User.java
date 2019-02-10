@@ -5,34 +5,34 @@ import javax.persistence.Id;
 
 
 public class User{
-private int coopAdminId;
+private String emailAddress;
    
-   public void setCoopAdminId(int value) {
-      this.coopAdminId = value;
+   public void setEmailAddress(String value) {
+      this.emailAddress = value;
    }
    
-   public int getCoopAdminId() {
-      return this.coopAdminId;
+   public String getEmailAddress() {
+      return this.emailAddress;
    }
    
-   private int studentId;
+   private String userName;
    
-   public void setStudentId(int value) {
-      this.studentId = value;
+   public void setUserName(String value) {
+      this.userName = value;
    }
    
-   public int getStudentId() {
-      return this.studentId;
+   public String getUserName() {
+      return this.userName;
    }
    
-   private int employerId;
+   private String password;
    
-   public void setEmployerId(int value) {
-      this.employerId = value;
+   public void setPassword(String value) {
+      this.password = value;
    }
    
-   public int getEmployerId() {
-      return this.employerId;
+   public String getPassword() {
+      return this.password;
    }
    
    private String name;
@@ -40,6 +40,7 @@ private int coopAdminId;
 public void setName(String value) {
     this.name = value;
 }
+
 
 public String getName() {
     return this.name;

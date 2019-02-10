@@ -1,6 +1,5 @@
 package ca.mcgill.ecse321.cooperator.model;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,21 +8,10 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class CoopAdministrator extends User{
-private CooperatorSystem cooperatorSystem;
+private Set<Student> student;
    
-   @ManyToOne(optional=false)
-   public CooperatorSystem getCooperatorSystem() {
-      return this.cooperatorSystem;
-   }
-   
-   public void setCooperatorSystem(CooperatorSystem cooperatorSystem) {
-      this.cooperatorSystem = cooperatorSystem;
-   }
-   
-   private Set<Student> student;
-   
-   @ManyToMany
-   public Set<Student> getStudent() {
+   @ManyToMany(mappedBy="coopAdministrator")
+public Set<Student> getStudent() {
       return this.student;
    }
    
@@ -31,5 +19,15 @@ private CooperatorSystem cooperatorSystem;
       this.student = students;
    }
    
-      
+   private int coopAdminID;
+
+public void setCoopAdminID(int value) {
+this.coopAdminID = value;
+}
+
+@Id
+public int getCoopAdminID() {
+return this.coopAdminID;
+}
+   
    }
