@@ -8,12 +8,12 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class CoopAdministrator extends User{
-private int adminId;
+private Integer adminId;
 
-public void setAdminId(int value) {
+public void setAdminId(Integer value) {
 this.adminId = value;
 }
-public int getAdminId() {
+public Integer getAdminId() {
 return this.adminId;
 }
 private Set<Student> student;

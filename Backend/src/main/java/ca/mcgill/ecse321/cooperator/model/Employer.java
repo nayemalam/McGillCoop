@@ -16,13 +16,21 @@ this.companyName = value;
 public String getCompanyName() {
 return this.companyName;
 }
-private int employerId;
+private Integer employerId;
 
-public void setEmployerId(int value) {
+public void setEmployerId(Integer value) {
 this.employerId = value;
 }
-public int getEmployerId() {
+public Integer getEmployerId() {
 return this.employerId;
+}
+private String location;
+
+public void setLocation(String value) {
+this.location = value;
+}
+public String getLocation() {
+return this.location;
 }
    private Set<CoopTerm> coopTerm;
    

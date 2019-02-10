@@ -6,6 +6,14 @@ import javax.persistence.Id;
 
 @Entity
 public class User{
+private String firstName;
+
+public void setFirstName(String value) {
+this.firstName = value;
+}
+public String getFirstName() {
+return this.firstName;
+}
    private String emailAddress;
 
 public void setEmailAddress(String value) {
@@ -30,13 +38,13 @@ public void setPassword(String value) {
 public String getPassword() {
     return this.password;
 }
-private String name;
+private String lastName;
 
-public void setName(String value) {
-    this.name = value;
+public void setLastName(String value) {
+    this.lastName = value;
 }
 @Id
-public String getName() {
-    return this.name;
+public String getLastName() {
+    return this.lastName;
 }
 }
