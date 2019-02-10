@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @SpringBootApplication
 public class CooperatorApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(CooperatorApplication.class, args);
+		SpringApplication.run(CooperatorApplication.class,args);
 	}
 
   @RequestMapping("/")
