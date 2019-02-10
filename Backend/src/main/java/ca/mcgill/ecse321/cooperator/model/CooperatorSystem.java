@@ -1,43 +1,54 @@
 package ca.mcgill.ecse321.cooperator.model;
+import java.util.HashSet;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
-@Entity
+
 public class CooperatorSystem{
+/**
+    * <pre>
+    *           1..1     0..*
+    * CooperatorSystem ------------------------> CoopAdministrator
+    *           cooperatorSystem        &gt;       coopAdministrator
+    * </pre>
+    */
+   private Set<CoopAdministrator> coopAdministrator;
+   
+   public Set<CoopAdministrator> getCoopAdministrator() {
+      if (this.coopAdministrator == null) {
+         this.coopAdministrator = new HashSet<CoopAdministrator>();
+      }
+      return this.coopAdministrator;
+   }
+   
+   /**
+    * <pre>
+    *           1..1     0..*
+    * CooperatorSystem ------------------------> CoopTerm
+    *           cooperatorSystem        &gt;       coopTerm
+    * </pre>
+    */
+   private Set<CoopTerm> coopTerm;
+   
+   public Set<CoopTerm> getCoopTerm() {
+      if (this.coopTerm == null) {
+         this.coopTerm = new HashSet<CoopTerm>();
+      }
+      return this.coopTerm;
+   }
+   
    private int systemId;
 
 public void setSystemId(int value) {
     this.systemId = value;
 }
-@Id
+
 public int getSystemId() {
     return this.systemId;
 }
-   private Set<Student> student;
-   
-   @OneToMany(mappedBy="cooperatorSystem" , cascade={CascadeType.ALL})
-   public Set<Student> getStudent() {
-      return this.student;
-   }
-   
-   public void setStudent(Set<Student> students) {
-      this.student = students;
-   }
-   
-   private CoopAdministrator coopAdministrator;
-   
-   @OneToOne(mappedBy="cooperatorSystem" , cascade={CascadeType.ALL}, optional=false)
-   public CoopAdministrator getCoopAdministrator() {
-      return this.coopAdministrator;
-   }
-   
-   public void setCoopAdministrator(CoopAdministrator coopAdministrator) {
-      this.coopAdministrator = coopAdministrator;
-   }
    
    }

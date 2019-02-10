@@ -5,7 +5,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Id;
 import java.sql.Date;
 
-@Entity
+
 public class Document{
    private CoopTerm coopTerm;
    
@@ -26,21 +26,5 @@ public void setDocName(DocumentName value) {
 @Id
 public DocumentName getDocName() {
     return this.docName;
-}
-private Date dueDate;
-
-public void setDueDate(Date value) {
-    this.dueDate = value;
-}
-public Date getDueDate() {
-    return this.dueDate;
-}
-private Date submittedDate;
-
-public void setSubmittedDate(Date value) {
-    this.submittedDate = value;
-}
-public Date getSubmittedDate() {
-    return this.submittedDate;
 }
 }

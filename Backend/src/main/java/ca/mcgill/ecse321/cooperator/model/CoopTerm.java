@@ -39,15 +39,16 @@ public Student getStudent() {
 public void setStudent(Student student) {
    this.student = student;
 }
-
 private Date startDate;
 
 public void setStartDate(Date value) {
-    this.startDate = value;
+this.startDate = value;
 }
+
 public Date getStartDate() {
-    return this.startDate;
+   return this.startDate;
 }
+
    private Set<Document> document;
    
    @OneToMany(mappedBy="coopTerm" )
