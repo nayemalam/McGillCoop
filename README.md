@@ -23,7 +23,7 @@ Project Deliverable 1 shall be accompanied with a succinct project report as par
 ---
 ## Introduction
 
-View our :star2:[project report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-1-Report)
+View our :star2:[Deliverable 1 Report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-1-Report)
 
 ### Scope of Project
 
