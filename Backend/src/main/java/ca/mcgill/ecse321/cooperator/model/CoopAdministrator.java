@@ -19,15 +19,4 @@ public Set<Student> getStudent() {
       this.student = students;
    }
    
-   private int coopAdminID;
-
-public void setCoopAdminID(int value) {
-this.coopAdminID = value;
-}
-
-@Id
-public int getCoopAdminID() {
-return this.coopAdminID;
-}
-   
    }

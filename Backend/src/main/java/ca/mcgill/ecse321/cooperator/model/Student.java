@@ -19,16 +19,7 @@ private Set<CoopTerm> coopTerm;
       this.coopTerm = coopTerms;
    }
    
-   private int studentId;
-
-public void setStudentId(int value) {
-this.studentId = value;
-}
-@Id
-public int getStudentId() {
-return this.studentId;
-}
-private String program;
+   private String program;
 
 public void setProgram(String value) {
 this.program = value;
