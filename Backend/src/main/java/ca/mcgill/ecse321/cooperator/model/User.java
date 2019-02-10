@@ -5,7 +5,7 @@ import javax.persistence.Id;
 
 
 @Entity
-public abstract class User{
+public class User{
    private String emailAddress;
 
 public void setEmailAddress(String value) {

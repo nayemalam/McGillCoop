@@ -16,6 +16,14 @@ this.companyName = value;
 public String getCompanyName() {
 return this.companyName;
 }
+private int employerId;
+
+public void setEmployerId(int value) {
+this.employerId = value;
+}
+public int getEmployerId() {
+return this.employerId;
+}
    private Set<CoopTerm> coopTerm;
    
    @OneToMany(mappedBy="employer" )

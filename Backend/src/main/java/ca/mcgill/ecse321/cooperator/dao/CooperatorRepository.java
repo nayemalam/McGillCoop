@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.cooperator.model.Student;
-import ca.mcgill.ecse321.cooperator.model.User;
 
 @Repository
 public class CooperatorRepository {
@@ -16,9 +15,9 @@ public class CooperatorRepository {
 	EntityManager entityManager;
 	
 	@Transactional
-	public User createPerson(String name) {
-		User p = new Student();
-		p.setName(name);
+	public Student createPerson(int name) {
+		Student p = new Student();
+		p.setStudentId(name);
 		entityManager.persist(p);
 		return p;
 	}
