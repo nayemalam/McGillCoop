@@ -1,15 +1,26 @@
 package ca.mcgill.ecse321.cooperator.model;
 
 import java.util.Set;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
+import javax.persistence.Id;
 
 @Entity
-public class CoOperatorSystem{
+public class CooperatorSystem{
+   private Set<User> user;
+   
+   @OneToMany(cascade={CascadeType.ALL})
+   public Set<User> getUser() {
+      return this.user;
+   }
+   
+   public void setUser(Set<User> users) {
+      this.user = users;
+   }
+   
    private Set<CoopTerm> coopTerm;
    
-   @OneToMany(mappedBy="coOperatorSystem" )
+   @OneToMany(cascade={CascadeType.ALL})
    public Set<CoopTerm> getCoopTerm() {
       return this.coopTerm;
    }
@@ -20,7 +31,7 @@ public class CoOperatorSystem{
    
    private Set<Document> document;
    
-   @OneToMany(mappedBy="coOperatorSystem" )
+   @OneToMany(cascade={CascadeType.ALL})
    public Set<Document> getDocument() {
       return this.document;
    }
@@ -29,15 +40,13 @@ public class CoOperatorSystem{
       this.document = documents;
    }
    
-   private Set<User> user;
-   
-   @OneToMany(mappedBy="coOperatorSystem" , cascade={CascadeType.ALL})
-   public Set<User> getUser() {
-      return this.user;
-   }
-   
-   public void setUser(Set<User> users) {
-      this.user = users;
-   }
-   
+   private int systemId;
+
+public void setSystemId(int value) {
+    this.systemId = value;
+}
+@Id
+public int getSystemId() {
+    return this.systemId;
+}
 }

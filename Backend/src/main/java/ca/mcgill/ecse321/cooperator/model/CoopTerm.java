@@ -1,15 +1,15 @@
 package ca.mcgill.ecse321.cooperator.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import java.util.Set;
-import javax.persistence.CascadeType;
-import javax.persistence.OneToMany;
 import java.sql.Date;
+import java.util.Set;
+import javax.persistence.OneToMany;
 
 @Entity
 public class CoopTerm{
-   private Student student;
+private Student student;
    
    @ManyToOne(optional=false)
    public Student getStudent() {
@@ -20,53 +20,51 @@ public class CoopTerm{
       this.student = student;
    }
    
+   private Date startDate;
+
+public void setStartDate(Date value) {
+this.startDate = value;
+}
+public Date getStartDate() {
+return this.startDate;
+}
+private Date endDate;
+
+public void setEndDate(Date value) {
+this.endDate = value;
+}
+public Date getEndDate() {
+return this.endDate;
+}
+   private int termId;
+
+public void setTermId(int value) {
+    this.termId = value;
+}
+@Id
+public int getTermId() {
+    return this.termId;
+}
+private Employer employer;
+
+@ManyToOne(optional=false)
+public Employer getEmployer() {
+   return this.employer;
+}
+
+public void setEmployer(Employer employer) {
+   this.employer = employer;
+}
+
    private Set<Document> document;
    
-   @OneToMany(mappedBy="coopTerm" , cascade={CascadeType.ALL})
+   @OneToMany(mappedBy="coopTerm" )
    public Set<Document> getDocument() {
       return this.document;
    }
    
    public void setDocument(Set<Document> documents) {
       this.document = documents;
-   }
-   
-   private Date startDate;
-
-public void setStartDate(Date value) {
-    this.startDate = value;
-}
-public Date getStartDate() {
-    return this.startDate;
-}
-private Date dueDate;
-
-public void setDueDate(Date value) {
-    this.dueDate = value;
-}
-public Date getDueDate() {
-    return this.dueDate;
-}
-   private CoOperatorSystem coOperatorSystem;
-   
-   @ManyToOne(optional=false)
-   public CoOperatorSystem getCoOperatorSystem() {
-      return this.coOperatorSystem;
-   }
-   
-   public void setCoOperatorSystem(CoOperatorSystem coOperatorSystem) {
-      this.coOperatorSystem = coOperatorSystem;
-   }
-   
-   private CoopAdministrator coopAdministrator;
-   
-   @ManyToOne(optional=false)
-   public CoopAdministrator getCoopAdministrator() {
-      return this.coopAdministrator;
-   }
-   
-   public void setCoopAdministrator(CoopAdministrator coopAdministrator) {
-      this.coopAdministrator = coopAdministrator;
    }
    
    }

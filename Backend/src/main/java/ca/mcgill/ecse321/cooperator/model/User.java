@@ -1,50 +1,42 @@
 package ca.mcgill.ecse321.cooperator.model;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.Id;
+
 
 @Entity
-public class User{
-   
-   private String name;
+public abstract class User{
+   private String emailAddress;
 
-   public void setName(String value) {
-       this.name = value;
-   }
-   
-   public String getName() {
-       return this.name;
-   }
-   
-   private String username;
+public void setEmailAddress(String value) {
+    this.emailAddress = value;
+}
+public String getEmailAddress() {
+    return this.emailAddress;
+}
+private String userName;
 
-   public void setUsername(String value) {
-       this.username = value;
-   }
-   
-   public String getUsername() {
-       return this.username;
-   }
-   
-   private String password;
+public void setUserName(String value) {
+    this.userName = value;
+}
+public String getUserName() {
+    return this.userName;
+}
+private String password;
 
-   public void setPassword(String value) {
-       this.password = value;
-   }
-   
-   public String getPassword() {
-       return this.password;
-   }
-   
-   private CoOperatorSystem coOperatorSystem;
-   
-   @ManyToOne(optional=false)
-   public CoOperatorSystem getCoOperatorSystem() {
-      return this.coOperatorSystem;
-   }
-   
-   public void setCoOperatorSystem(CoOperatorSystem coOperatorSystem) {
-      this.coOperatorSystem = coOperatorSystem;
-   }
-   
+public void setPassword(String value) {
+    this.password = value;
+}
+public String getPassword() {
+    return this.password;
+}
+private String name;
+
+public void setName(String value) {
+    this.name = value;
+}
+@Id
+public String getName() {
+    return this.name;
+}
 }
