@@ -1,6 +1,6 @@
 # Welcome to ECSE321 Project Group 21 :dizzy:
 
-#### For more details, please visit our [wiki page](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki) where you can view all our work, including deliverables, project guidelines and meeting minutes.
+#### For more details, please visit our [wiki page](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki) where you can view all our work, including deliverable reports, project guidelines and meeting minutes.
 
 # Introduction
 
