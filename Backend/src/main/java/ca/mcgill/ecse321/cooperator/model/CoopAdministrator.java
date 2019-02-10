@@ -8,6 +8,14 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class CoopAdministrator extends User{
+private int adminId;
+
+public void setAdminId(int value) {
+this.adminId = value;
+}
+public int getAdminId() {
+return this.adminId;
+}
 private Set<Student> student;
    
    @ManyToMany(mappedBy="coopAdministrator")

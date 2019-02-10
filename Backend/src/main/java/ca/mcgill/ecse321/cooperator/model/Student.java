@@ -27,16 +27,24 @@ this.program = value;
 public String getProgram() {
 return this.program;
 }
-   private Set<CoopAdministrator> coopAdministrator;
+private Set<CoopAdministrator> coopAdministrator;
+
+@ManyToMany
+public Set<CoopAdministrator> getCoopAdministrator() {
+   return this.coopAdministrator;
+}
+
+public void setCoopAdministrator(Set<CoopAdministrator> coopAdministrators) {
+   this.coopAdministrator = coopAdministrators;
+}
+
+private int studentId;
+
+public void setStudentId(int value) {
+this.studentId = value;
+}
+public int getStudentId() {
+return this.studentId;
+}
    
-   @ManyToMany
-   public Set<CoopAdministrator> getCoopAdministrator() {
-      return this.coopAdministrator;
-   }
-   
-   public void setCoopAdministrator(Set<CoopAdministrator> coopAdministrators) {
-      this.coopAdministrator = coopAdministrators;
-   }
-   
-      
    }
