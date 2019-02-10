@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.web.bind.annotation.RestController;
 
-import ca.mcgill.ecse321.cooperator.model.User;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -26,9 +25,4 @@ public class CooperatorApplication {
     return "Hello the world!!!";
   }
   
-  
-  
-  
-	
-
 }
