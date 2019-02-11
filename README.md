@@ -43,8 +43,8 @@ This software system is subdivided into four deliverables:
 |------------------|--------------|-----------------------|
 |Tristan Bouchard  |  _18.5_ hours|Mobile frontend lead   |
 |Nayem Alam        |  _y_ hours   |Project management lead|
-|Alex Masciotra    |  _9_ hours   |                       |
-|Thomas Philippon  |  _6_ hours   |                       |
+|Alex Masciotra    |  _27_ hours  |                       |
+|Thomas Philippon  |  _27_ hours  |                       |
 |Violet Wei        |  _7_ hours   |                       |
 
 ### Sprint 1 
