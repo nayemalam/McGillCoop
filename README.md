@@ -40,12 +40,12 @@ This software system is subdivided into four deliverables:
 ## Deliverable 1 - Requirements, Domain Model, Database Design
 
 |Team member's name|Total hours|Responsibility         |
-|------------------|-----------|-----------------------|
-|Tristan Bouchard  |  _9_ hours|Mobile frontend lead   |
-|Nayem Alam        |  _y_ hours|Project management lead|
-|Alex Masciotra    |  _9_ hours|                       |
-|Thomas Philippon  |  6 hours  |                       |
-|Violet Wei        |  _7_ hours|                       |
+|------------------|--------------|-----------------------|
+|Tristan Bouchard  |  _18.5_ hours|Mobile frontend lead   |
+|Nayem Alam        |  _y_ hours   |Project management lead|
+|Alex Masciotra    |  _9_ hours   |                       |
+|Thomas Philippon  |  _6_ hours   |                       |
+|Violet Wei        |  _7_ hours   |                       |
 
 ### Sprint 1 
 - [x] Use UML Lab to create a domain model
