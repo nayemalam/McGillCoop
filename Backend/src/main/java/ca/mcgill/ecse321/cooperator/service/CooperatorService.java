@@ -39,13 +39,14 @@ public class CooperatorService {
 	
 	@Transactional
 	public User createUser(String name, String emailAddress, String userName, String password) {
+		if (name == null || name.trim().length() == 0) {
+			throw new IllegalArgumentException("Person name cannot be empty!");
+		}
 		User user = new User();
 		user.setLastName(name);
 		user.setEmailAddress(emailAddress);
 		user.setUserName(userName);
 		user.setPassword(password);
-
-		
 		userRepository.save(user);
 		return user;
 	}

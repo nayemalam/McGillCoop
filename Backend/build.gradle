@@ -27,7 +27,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'org.postgresql:postgresql'
+
+  testCompile 'junit:junit:4.12'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+ 
+
 }
 
 sourceSets {
@@ -53,4 +57,6 @@ jar {
     // It is smart to reuse the name of the main class variable instead of hardcoding it
     attributes "Main-Class": "$mainClassName"
   }
+  
 }
+
