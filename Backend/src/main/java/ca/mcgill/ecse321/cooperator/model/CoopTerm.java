@@ -36,13 +36,13 @@ this.endDate = value;
 public Date getEndDate() {
 return this.endDate;
 }
-   private int termId;
+   private Integer termId;
 
-public void setTermId(int value) {
+public void setTermId(Integer value) {
     this.termId = value;
 }
 @Id
-public int getTermId() {
+public Integer getTermId() {
     return this.termId;
 }
 private Employer employer;

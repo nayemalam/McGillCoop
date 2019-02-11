@@ -38,12 +38,12 @@ public void setCoopAdministrator(Set<CoopAdministrator> coopAdministrators) {
    this.coopAdministrator = coopAdministrators;
 }
 
-private int studentId;
+private Integer studentId;
 
-public void setStudentId(int value) {
+public void setStudentId(Integer value) {
 this.studentId = value;
 }
-public int getStudentId() {
+public Integer getStudentId() {
 return this.studentId;
 }
    

@@ -41,13 +41,13 @@ public class CooperatorSystem{
       this.document = documents;
    }
    
-   private int systemId;
+   private Integer systemId;
 
-public void setSystemId(int value) {
+public void setSystemId(Integer value) {
     this.systemId = value;
 }
 @Id
-public int getSystemId() {
+public Integer getSystemId() {
     return this.systemId;
 }
 }
