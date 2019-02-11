@@ -38,12 +38,13 @@ public class CooperatorService {
 	
 	
 	@Transactional
-	public User createUser(String name, String emailAddress, String userName, String password) {
+	public User createUser(String name, String fName, String emailAddress, String userName, String password) {
 		if (name == null || name.trim().length() == 0) {
 			throw new IllegalArgumentException("Person name cannot be empty!");
 		}
 		User user = new User();
 		user.setLastName(name);
+		user.setFirstName(fName);
 		user.setEmailAddress(emailAddress);
 		user.setUserName(userName);
 		user.setPassword(password);
@@ -76,10 +77,13 @@ public class CooperatorService {
 
 	@Transactional
 	public CooperatorSystem getCooperatorSystem(Integer systemId) {
-		CooperatorSystem cooperatorSystem = cooperatorSystemRepository.findBysystemId(systemId);
-		return cooperatorSystem;
+		return cooperatorSystemRepository.findBysystemId(systemId);
 	}
 
+	@Transactional
+	public List<CooperatorSystem> getAllCooperatorSystems() {
+		return toList(cooperatorSystemRepository.findAll());
+	}
 
 
 	@Transactional
