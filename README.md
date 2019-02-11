@@ -45,7 +45,7 @@ This software system is subdivided into four deliverables:
 |Nayem Alam        |  _y_ hours   |Project management lead|
 |Alex Masciotra    |  _27_ hours  |                       |
 |Thomas Philippon  |  _27_ hours  |                       |
-|Violet Wei        |  _7_ hours   |                       |
+|Violet Wei        |  _22_ hours  |                       |
 
 ### Sprint 1 
 - [x] Use UML Lab to create a domain model
