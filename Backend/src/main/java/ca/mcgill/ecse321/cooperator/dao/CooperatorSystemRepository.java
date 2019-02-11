@@ -9,3 +9,5 @@ public interface CooperatorSystemRepository extends CrudRepository<CooperatorSys
 	CooperatorSystem findBysystemId(Integer id);
 
 }
+
+
