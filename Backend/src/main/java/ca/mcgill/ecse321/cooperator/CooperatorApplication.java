@@ -22,7 +22,7 @@ public class CooperatorApplication {
 
   @RequestMapping("/")
   public String greeting(){
-    return "Hello the world2!!!”;
+    return "hello";
   }
   
 }
