@@ -11,7 +11,7 @@ View our :star2: [Deliverable 1 Report](https://github.com/McGill-ECSE321-Winter
 <i>To design and develop a multi-tier software system for managing co-op terms for the several co-op programs already offered by McGill University.</i></b>
 
 <br/>As we progress throughout project, our goals will outline with the following:  
-- All functionality of the system are accessible via the web frontend for respective stakeholders.
+- All functionality of the system is accessible via the web frontend for respective stakeholders.
 - A mobile (Android) frontend shall allow to execute the most important functionality for the given stakeholder 
 and have both read and write access to the backend via RESTful service calls.
 - If time permits, will try to implement:
@@ -24,7 +24,7 @@ and have both read and write access to the backend via RESTful service calls.
 
 This software system is subdivided into four deliverables:
 
-- :one: Deliverable 1 - Requirements, Domain Modeling, Database Design
+- :one: [Deliverable 1](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-1-Report) - Requirements, Domain Modeling, Database Design
 - :two: Deliverable 2 - Backend, Quality Assurance
 - :three: Deliverable 3 - Web Frontend, Architecture
 - :four: Deliverable 4 - Mobile Frontend, Availability
