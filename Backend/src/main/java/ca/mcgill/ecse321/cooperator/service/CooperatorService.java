@@ -13,6 +13,9 @@ import ca.mcgill.ecse321.cooperator.dao.CooperatorSystemRepository;
 import ca.mcgill.ecse321.cooperator.dao.CoopTermRepository;
 import ca.mcgill.ecse321.cooperator.dao.DocumentRepository;
 import ca.mcgill.ecse321.cooperator.dao.SystemUserRepository;
+import ca.mcgill.ecse321.cooperator.dao.CoopAdministratorRepository;
+import ca.mcgill.ecse321.cooperator.dao.EmployerRepository;
+import ca.mcgill.ecse321.cooperator.dao.StudentRepository;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +37,12 @@ public class CooperatorService {
 	SystemUserRepository systemUserRepository;
 	@Autowired
 	DocumentRepository documentRepository;
+	@Autowired
+	CoopAdministratorRepository coopAdministratorRepository;
+	@Autowired
+	EmployerRepository employerRepository;
+	@Autowired
+	StudentRepository studentRepository;
 	
 	
 	//==========================================================================================
@@ -41,7 +50,7 @@ public class CooperatorService {
 
 	@Transactional
 	public SystemUser getUser(Integer id) {
-		SystemUser user = systemUserRepository.findUserByuserID(id);
+		SystemUser user = systemUserRepository.findByuserID(id);
 		return user;
 	}
 
@@ -58,7 +67,7 @@ public class CooperatorService {
 
 	@Transactional
 	public boolean updateUser(Integer id) {
-		SystemUser user = systemUserRepository.findUserByuserID(id);
+		SystemUser user = systemUserRepository.findByuserID(id);
 		//TODO
 		return false;
 	}
