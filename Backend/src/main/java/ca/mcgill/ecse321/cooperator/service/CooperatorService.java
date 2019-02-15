@@ -2,7 +2,7 @@ package ca.mcgill.ecse321.cooperator.service;
 
 
 import ca.mcgill.ecse321.cooperator.model.CoopTerm;
-import ca.mcgill.ecse321.cooperator.model.User;
+import ca.mcgill.ecse321.cooperator.model.SystemUser;
 import ca.mcgill.ecse321.cooperator.model.Student;
 import ca.mcgill.ecse321.cooperator.model.CoopAdministrator;
 import ca.mcgill.ecse321.cooperator.model.Employer;
@@ -38,11 +38,11 @@ public class CooperatorService {
 	
 	
 	@Transactional
-	public User createUser(String name, String fName, String emailAddress, String userName, String password) {
+	public SystemUser createUser(String name, String fName, String emailAddress, String userName, String password) {
 		if (name == null || name.trim().length() == 0) {
 			throw new IllegalArgumentException("Person name cannot be empty!");
 		}
-		User user = new User();
+		SystemUser user = new Student();
 		user.setLastName(name);
 		user.setFirstName(fName);
 		user.setEmailAddress(emailAddress);
@@ -52,17 +52,14 @@ public class CooperatorService {
 		return user;
 	}
 	
-	
-	
-
 	@Transactional
-	public User getUser(String name) {
-		User user = userRepository.findUserBylastName(name);
+	public SystemUser getUser(String name) {
+		SystemUser user = userRepository.findUserBylastName(name);
 		return user;
 	}
 
 	@Transactional
-	public List<User> getAllUsers() {
+	public List<SystemUser> getAllUsers() {
 		return toList(userRepository.findAll());
 	}
 

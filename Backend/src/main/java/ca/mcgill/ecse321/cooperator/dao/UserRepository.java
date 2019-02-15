@@ -2,11 +2,11 @@ package ca.mcgill.ecse321.cooperator.dao;
 
 import org.springframework.data.repository.CrudRepository;
 
-import ca.mcgill.ecse321.cooperator.model.User;
+import ca.mcgill.ecse321.cooperator.model.SystemUser;
 
 
-public interface UserRepository extends CrudRepository<User, String> {
+public interface UserRepository extends CrudRepository<SystemUser, String> {
 	
-	User findUserBylastName(String name);
+	SystemUser findUserBylastName(String name);
 
 }

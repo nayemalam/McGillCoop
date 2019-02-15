@@ -7,7 +7,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Employer extends User{
+public class Employer extends SystemUser{
 private String companyName;
 
 public void setCompanyName(String value) {

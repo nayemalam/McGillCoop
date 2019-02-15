@@ -7,7 +7,7 @@ import java.util.Set;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Student extends User{
+public class Student extends SystemUser{
 private Set<CoopTerm> coopTerm;
    
    @OneToMany(mappedBy="student" )

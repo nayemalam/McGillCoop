@@ -8,14 +8,14 @@ import javax.persistence.Id;
 
 @Entity
 public class CooperatorSystem{
-   private Set<User> user;
+   private Set<SystemUser> user;
    
    @OneToMany(cascade={CascadeType.ALL})
-   public Set<User> getUser() {
+   public Set<SystemUser> getUser() {
       return this.user;
    }
    
-   public void setUser(Set<User> users) {
+   public void setUser(Set<SystemUser> users) {
       this.user = users;
    }
    

@@ -7,7 +7,7 @@ import java.util.Set;
 import javax.persistence.OneToMany;
 
 @Entity
-public class CoopAdministrator extends User{
+public class CoopAdministrator extends SystemUser{
 private Integer adminId;
 
 public void setAdminId(Integer value) {

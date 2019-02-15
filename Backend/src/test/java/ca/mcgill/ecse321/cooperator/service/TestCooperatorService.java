@@ -17,10 +17,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
+import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.cooperator.model.CoopTerm;
-import ca.mcgill.ecse321.cooperator.model.User;
+import ca.mcgill.ecse321.cooperator.model.SystemUser;
 import ca.mcgill.ecse321.cooperator.model.Student;
 import ca.mcgill.ecse321.cooperator.model.CoopAdministrator;
 import ca.mcgill.ecse321.cooperator.model.Employer;
@@ -36,17 +36,17 @@ import ca.mcgill.ecse321.cooperator.dao.UserRepository;
 @SpringBootTest
 public class TestCooperatorService {
 	
-//	@Autowired
-//	private CooperatorService service;
-//
-//	@Autowired
-//	private CooperatorSystemRepository cooperatorSystemRepository;
-//	@Autowired
-//	private CoopTermRepository coopTermRepository;
-//	@Autowired
-//	private UserRepository userRepository;
-//	@Autowired
-//	private DocumentRepository documentRepository;
+	@Autowired
+	private CooperatorService service;
+
+	@Autowired
+	private CooperatorSystemRepository cooperatorSystemRepository;
+	@Autowired
+	private CoopTermRepository coopTermRepository;
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private DocumentRepository documentRepository;
 //	
 //	@After
 //	public void clearDatabase() {
@@ -58,64 +58,76 @@ public class TestCooperatorService {
 //		cooperatorSystemRepository.deleteAll();
 //	}
 	
-//	@Before
-//	public void clearDatabase() {
+	@Before
+	public void clearDatabase() {
 //		// First, we clear registrations to avoid exceptions due to inconsistencies
 //		documentRepository.deleteAll();
 //		// Then we can clear the other tables
 //		userRepository.deleteAll();
 //		coopTermRepository.deleteAll();
 //		cooperatorSystemRepository.deleteAll();
+	}
+//	Object testObj;
+//	@Before
+//	public void createBaseObject(){
+//		testObj = new Object();	
 //	}
-
-//	@Test
-//	public void testCreateUser() {
-//		User testUser; 
-//		assertEquals(0, service.getAllUsers().size());
-//
-//		String name = "Oscar";
-//		String fName = "Macsiotra";
-//		String emailAddress = "oscar@mcgill.ca";
-//		String userName = "Oscar89";
-//		String password = "qwerty";
-//		
-//
-//		try {
-//			testUser = service.createUser(name, fName, emailAddress, userName, password);
-//		} catch (IllegalArgumentException e) {
-//			// Check that no error occurred
-//			fail();
-//		}
-//
-//		List<User> allUsers = service.getAllUsers();
-//
-//		assertEquals(1, allUsers.size());
-//		assertEquals(name, allUsers.get(0).getLastName());
-//		testUser = null;
+//	@After
+//	public void nullObject() {
+//		testObj = null;
 //	}
-//	@Test
-//	public void testCreateCooperatorSystem() {
-//		int size = service.getAllCooperatorSystems().size();
+	@Test
+	public void testCreateCooperatorSystem() {
 //		List<CooperatorSystem> suh = service.getAllCooperatorSystems();
-//		CooperatorSystem testCooperatorSystem;
-//		
-//		assertEquals(0, service.getAllCooperatorSystems().size());
-//		
-//		Integer systemId = 1;
-//		
-//		try {
-//			testCooperatorSystem = service.createCooperatorSystem(systemId);
-//		} catch (IllegalArgumentException e) {
-//			// Check that no error occurred
-//			fail();
-//		}
-//
-//		List<CooperatorSystem> allCooperatorSystems = service.getAllCooperatorSystems();
-//
-//		assertEquals(1, allCooperatorSystems.size());
-//		assertEquals(systemId, allCooperatorSystems.get(0).getSystemId());
-//		testCooperatorSystem = null;
-//	}
+//		@SuppressWarnings("unused")
+//		CooperatorSystem suh1 = suh.get(0);
+//		@SuppressWarnings("unused")
+//		CooperatorSystem suh2 = suh.get(1);
+//		@SuppressWarnings("unused")
+//		CooperatorSystem suh3 = suh.get(2);
+		
+		assertEquals(0, service.getAllCooperatorSystems().size());
+		
+		Integer systemId = 420;
+		
+		try {
+			service.createCooperatorSystem(systemId);
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+			fail();
+		}
+
+		List<CooperatorSystem> allCooperatorSystems = service.getAllCooperatorSystems();
+
+		assertEquals(1, allCooperatorSystems.size());
+		assertEquals(systemId, allCooperatorSystems.get(0).getSystemId());
+	}
+
+	@Test
+	public void testCreateUser() {
+		SystemUser testUser; 
+		assertEquals(0, service.getAllUsers().size());
+
+		String name = "Oscar";
+		String fName = "Macsiotra";
+		String emailAddress = "oscar@mcgill.ca";
+		String userName = "Oscar89";
+		String password = "qwerty";
+		
+
+		try {
+			testUser = service.createUser(name, fName, emailAddress, userName, password);
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+			fail();
+		}
+
+		List<SystemUser> allUsers = service.getAllUsers();
+
+		assertEquals(1, allUsers.size());
+		assertEquals(name, allUsers.get(0).getLastName());
+		testUser = null;
+	}
 	
 	
 //	@Test
