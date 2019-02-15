@@ -12,7 +12,7 @@ import ca.mcgill.ecse321.cooperator.model.DocumentName;
 import ca.mcgill.ecse321.cooperator.dao.CooperatorSystemRepository;
 import ca.mcgill.ecse321.cooperator.dao.CoopTermRepository;
 import ca.mcgill.ecse321.cooperator.dao.DocumentRepository;
-import ca.mcgill.ecse321.cooperator.dao.UserRepository;
+import ca.mcgill.ecse321.cooperator.dao.SystemUserRepository;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class CooperatorService {
 	@Autowired
 	CoopTermRepository coopTermRepository;
 	@Autowired
-	UserRepository userRepository;
+	SystemUserRepository systemUserRepository;
 	@Autowired
 	DocumentRepository documentRepository;
 	
@@ -48,19 +48,19 @@ public class CooperatorService {
 		user.setEmailAddress(emailAddress);
 		user.setUserName(userName);
 		user.setPassword(password);
-		userRepository.save(user);
+		systemUserRepository.save(user);
 		return user;
 	}
 	
 	@Transactional
 	public SystemUser getUser(Integer id) {
-		SystemUser user = userRepository.findUserById(id);
+		SystemUser user = systemUserRepository.findUserByuserID(id);
 		return user;
 	}
 
 	@Transactional
 	public List<SystemUser> getAllUsers() {
-		return toList(userRepository.findAll());
+		return toList(systemUserRepository.findAll());
 	}
 
 	@Transactional

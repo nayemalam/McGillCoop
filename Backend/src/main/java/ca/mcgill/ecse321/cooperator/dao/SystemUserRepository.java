@@ -5,8 +5,8 @@ import org.springframework.data.repository.CrudRepository;
 import ca.mcgill.ecse321.cooperator.model.SystemUser;
 
 
-public interface UserRepository extends CrudRepository<SystemUser, Integer> {
+public interface SystemUserRepository extends CrudRepository<SystemUser, Integer> {
 	
-	SystemUser findUserById(Integer id);
+	SystemUser findUserByuserID(Integer id);
 
 }

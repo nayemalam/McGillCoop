@@ -30,7 +30,7 @@ import ca.mcgill.ecse321.cooperator.model.DocumentName;
 import ca.mcgill.ecse321.cooperator.dao.CooperatorSystemRepository;
 import ca.mcgill.ecse321.cooperator.dao.CoopTermRepository;
 import ca.mcgill.ecse321.cooperator.dao.DocumentRepository;
-import ca.mcgill.ecse321.cooperator.dao.UserRepository;
+import ca.mcgill.ecse321.cooperator.dao.SystemUserRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -44,7 +44,7 @@ public class TestCooperatorService {
 	@Autowired
 	private CoopTermRepository coopTermRepository;
 	@Autowired
-	private UserRepository userRepository;
+	private SystemUserRepository systemUserRepository;
 	@Autowired
 	private DocumentRepository documentRepository;
 //	
