@@ -6,6 +6,15 @@ import javax.persistence.Id;
 
 @Entity
 public abstract class SystemUser{
+private Integer userID;
+   
+   public void setUserID(Integer value) {
+this.userID = value;
+    }
+@Id
+public Integer getUserID() {
+return this.userID;
+    }
 private String firstName;
 
 public void setFirstName(String value) {
@@ -43,7 +52,6 @@ private String lastName;
 public void setLastName(String value) {
     this.lastName = value;
 }
-@Id
 public String getLastName() {
     return this.lastName;
 }

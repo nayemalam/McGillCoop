@@ -16,14 +16,6 @@ this.companyName = value;
 public String getCompanyName() {
 return this.companyName;
 }
-private Integer employerId;
-
-public void setEmployerId(Integer value) {
-this.employerId = value;
-}
-public Integer getEmployerId() {
-return this.employerId;
-}
 private String location;
 
 public void setLocation(String value) {
