@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-CooperatorApplication<Backend>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "ca.mcgill.ecse321.cooperator.CooperatorApplication",
+            "projectName": "Backend",
+            "args": ""
+        }
+    ]
+}
