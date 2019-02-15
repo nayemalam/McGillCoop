@@ -7,6 +7,6 @@ import ca.mcgill.ecse321.cooperator.model.SystemUser;
 
 public interface SystemUserRepository extends CrudRepository<SystemUser, Integer> {
 	
-	SystemUser findUserByuserID(Integer id);
+	SystemUser findByuserID(Integer id);
 
 }
