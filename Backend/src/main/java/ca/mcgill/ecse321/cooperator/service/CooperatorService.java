@@ -23,7 +23,6 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Service
 public class CooperatorService {
 	
@@ -37,21 +36,9 @@ public class CooperatorService {
 	DocumentRepository documentRepository;
 	
 	
-	@Transactional
-	public SystemUser createUser(Integer id, String name, String fName, String emailAddress, String userName, String password) {
-		if (name == null || name.trim().length() == 0) {
-			throw new IllegalArgumentException("Person name cannot be empty!");
-		}
-		SystemUser user = new Student();
-		user.setLastName(name);
-		user.setFirstName(fName);
-		user.setEmailAddress(emailAddress);
-		user.setUserName(userName);
-		user.setPassword(password);
-		systemUserRepository.save(user);
-		return user;
-	}
-	
+	//==========================================================================================
+	// generic SystemUser CRUD transactions
+
 	@Transactional
 	public SystemUser getUser(Integer id) {
 		SystemUser user = systemUserRepository.findUserByuserID(id);
@@ -61,6 +48,53 @@ public class CooperatorService {
 	@Transactional
 	public List<SystemUser> getAllUsers() {
 		return toList(systemUserRepository.findAll());
+	}
+
+	@Transactional
+	public boolean deleteUser(Integer userId){
+		// TODO
+		return false;
+	}
+
+	@Transactional
+	public boolean updateUser(Integer id) {
+		SystemUser user = systemUserRepository.findUserByuserID(id);
+		//TODO
+		return false;
+	}
+
+	//==========================================================================================
+
+	//==========================================================================================
+	// Student CRUD transactions
+	
+	@Transactional
+	public SystemUser createStudent(Integer id, String name, String fName, String emailAddress, String userName, String password, Integer studentId) {
+		// Parse input arguments to determine if all information is present to create a new student.
+		if (name == null || name.trim().length() == 0 || fName ==null || fName.trim().length() == 0) {
+			throw new IllegalArgumentException("Person name cannot be empty!");
+		}
+		if (emailAddress == null || emailAddress.trim().length() ==0){
+			throw new IllegalArgumentException("Email Address cannot be empty!");
+		}
+		if (userName == null || userName.trim().length() ==0){
+			throw new IllegalArgumentException("Username cannot be empty!");
+		}
+		if (password == null || password.trim().length() ==0){
+			throw new IllegalArgumentException("Please enter a valid password");
+		}
+		if (studentId == null){
+			throw new IllegalArgumentException("Please enter a valid McGill Student ID");
+		}
+		Student user = new Student();
+		user.setLastName(name);
+		user.setFirstName(fName);
+		user.setEmailAddress(emailAddress);
+		user.setUserName(userName);
+		user.setPassword(password);
+		user.setStudentId(studentId);
+		systemUserRepository.save(user);
+		return user;
 	}
 
 	@Transactional
