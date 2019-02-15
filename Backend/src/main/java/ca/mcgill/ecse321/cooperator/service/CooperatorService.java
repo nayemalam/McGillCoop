@@ -60,17 +60,17 @@ public class CooperatorService {
 	}
 
 	@Transactional
-	public boolean deleteUser(Integer userId){
+	public boolean deleteUser(Integer id){
 		// TODO
 		return false;
 	}
 
-	@Transactional
-	public boolean updateUser(Integer id) {
-		SystemUser user = systemUserRepository.findByuserID(id);
-		//TODO
-		return false;
-	}
+//	@Transactional
+//	public boolean updateUser(Integer id) {
+//		SystemUser user = systemUserRepository.findByuserID(id);
+//		//TODO
+//		return false;
+//	}
 
 	//==========================================================================================
 
@@ -102,18 +102,18 @@ public class CooperatorService {
 		user.setUserName(userName);
 		user.setPassword(password);
 		user.setStudentId(studentId);
-		systemUserRepository.save(user);
+		studentRepository.save(user);
 		return user;
 	}
 
 	@Transactional
-	public List<SystemUser> getAllStudents() {
-		return toList(systemUserRepository.findAll());
+	public List<Student> getAllStudents() {
+		return toList(studentRepository.findAll());
 	}
 
 	@Transactional
-	public SystemUser getStudent(Integer id) {
-		SystemUser user = systemUserRepository.findUserByuserID(id);
+	public Student getStudent(Integer id) {
+		Student user = studentRepository.findByuserID(id);
 		return user;
 	}
 
@@ -121,7 +121,11 @@ public class CooperatorService {
 
 
 	@Transactional
+	
 	public CooperatorSystem createCooperatorSystem(Integer systemId) {
+		if (systemId == null){
+			throw new IllegalArgumentException("Please enter a valid systemId");
+		}
 		CooperatorSystem cooperatorSystem  = new CooperatorSystem();
 		cooperatorSystem.setSystemId(systemId);
 		
@@ -138,6 +142,141 @@ public class CooperatorService {
 	public List<CooperatorSystem> getAllCooperatorSystems() {
 		return toList(cooperatorSystemRepository.findAll());
 	}
+	
+	//==========================================================================================
+	//Co-op Admin CRUD
+	
+	@Transactional
+	public CoopAdministrator createCoopAdministrator(Integer id, String name, String fName, String emailAddress, String userName, String password) {
+		// Parse input arguments to determine if all information is present to create a new CoopAdmin.
+		if (name == null || name.trim().length() == 0 || fName ==null || fName.trim().length() == 0) {
+			throw new IllegalArgumentException("Person name cannot be empty!");
+		}
+		if (emailAddress == null || emailAddress.trim().length() == 0){
+			throw new IllegalArgumentException("Email Address cannot be empty!");
+		}
+		if (userName == null || userName.trim().length() == 0){
+			throw new IllegalArgumentException("Username cannot be empty!");
+		}
+		if (password == null || password.trim().length() == 0){
+			throw new IllegalArgumentException("Please enter a valid password");
+		}
+	
+		CoopAdministrator user = new CoopAdministrator();
+		user.setLastName(name);
+		user.setFirstName(fName);
+		user.setEmailAddress(emailAddress);
+		user.setUserName(userName);
+		user.setPassword(password);
+		coopAdministratorRepository.save(user);
+		return user;
+	}
+
+	@Transactional
+	public List<CoopAdministrator> getAllCoopAdministrators() {
+		return toList(coopAdministratorRepository.findAll());
+	}
+
+	@Transactional
+	public CoopAdministrator getCoopAdministrator(Integer id) {
+		CoopAdministrator user = coopAdministratorRepository.findByuserID(id);
+		return user;
+	}
+
+	@Transactional
+	public Boolean coopAdministratorExists(Integer id) {
+		Boolean exists = coopAdministratorRepository.existsById(id);
+		return exists;
+	}
+	
+	@Transactional
+	public void deleteCoopAdministrator(Integer id) {
+		coopAdministratorRepository.deleteById(id);
+	}
+	
+	@Transactional
+	public void deleteAllCoopAdministrators() {
+		coopAdministratorRepository.deleteAll();;
+	}
+	
+	
+	
+	//==========================================================================================
+	//==========================================================================================
+	//Employer CRUD
+	
+	@Transactional
+	public Employer createEmployer(Integer id, String name, String fName, String emailAddress, String userName, String password, String companyName, String location) {
+		// Parse input arguments to determine if all information is present to create a new Employer.
+		if (name == null || name.trim().length() == 0 || fName ==null || fName.trim().length() == 0) {
+			throw new IllegalArgumentException("Person name cannot be empty!");
+		}
+		if (emailAddress == null || emailAddress.trim().length() == 0){
+			throw new IllegalArgumentException("Email Address cannot be empty!");
+		}
+		if (userName == null || userName.trim().length() == 0){
+			throw new IllegalArgumentException("Username cannot be empty!");
+		}
+		if (password == null || password.trim().length() == 0){
+			throw new IllegalArgumentException("Please enter a valid password");
+		}
+		if (companyName == null || companyName.trim().length() == 0) {
+			throw new IllegalArgumentException("Please enter a valid company name");
+			
+		}
+		if (companyName == null || companyName.trim().length() == 0) {
+			throw new IllegalArgumentException("Please enter a valid company name");
+			
+		}
+		if (location == null || location.trim().length() == 0) {
+			throw new IllegalArgumentException("Please enter a valid location");
+			
+		}
+	
+		Employer user = new Employer();
+		user.setLastName(name);
+		user.setFirstName(fName);
+		user.setEmailAddress(emailAddress);
+		user.setUserName(userName);
+		user.setPassword(password);
+		user.setCompanyName(companyName);
+		user.setLocation(location);
+		employerRepository.save(user);
+		return user;
+	}
+
+	@Transactional
+	public List<Employer> getAllEmployers() {
+		return toList(employerRepository.findAll());
+	}
+
+	@Transactional
+	public CoopAdministrator getCoopAdministrator(Integer id) {
+		CoopAdministrator user = coopAdministratorRepository.findByuserID(id);
+		return user;
+	}
+
+	@Transactional
+	public Boolean coopAdministratorExists(Integer id) {
+		Boolean exists = coopAdministratorRepository.existsById(id);
+		return exists;
+	}
+	
+	@Transactional
+	public void deleteCoopAdministrator(Integer id) {
+		coopAdministratorRepository.deleteById(id);
+	}
+	
+	@Transactional
+	public void deleteAllCoopAdministrators() {
+		coopAdministratorRepository.deleteAll();;
+	}
+	
+	
+	
+	//==========================================================================================
+
+
 
 
 	@Transactional
