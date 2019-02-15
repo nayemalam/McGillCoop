@@ -79,8 +79,8 @@ public class TestCooperatorService {
 	}
 
 	@Test
-	public void testCreateUser() {
-		SystemUser testUser; 
+	public void testCreateStudent() {
+		Student testStudent; 
 		assertEquals(0, service.getAllUsers().size());
 		
 		Integer id = 123;
@@ -89,10 +89,11 @@ public class TestCooperatorService {
 		String emailAddress = "oscar@mcgill.ca";
 		String userName = "Oscar89";
 		String password = "qwerty";
+		Integer studentId = 260747696;
 		
 
 		try {
-			testUser = service.createUser(id,name, fName, emailAddress, userName, password);
+			testStudent = service.createStudent(id, name, fName, emailAddress, userName, password, studentId);
 		} catch (IllegalArgumentException e) {
 			// Check that no error occurred
 			fail();

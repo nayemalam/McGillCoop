@@ -69,7 +69,7 @@ public class CooperatorService {
 	// Student CRUD transactions
 	
 	@Transactional
-	public SystemUser createStudent(Integer id, String name, String fName, String emailAddress, String userName, String password, Integer studentId) {
+	public Student createStudent(Integer id, String name, String fName, String emailAddress, String userName, String password, Integer studentId) {
 		// Parse input arguments to determine if all information is present to create a new student.
 		if (name == null || name.trim().length() == 0 || fName ==null || fName.trim().length() == 0) {
 			throw new IllegalArgumentException("Person name cannot be empty!");
@@ -96,6 +96,20 @@ public class CooperatorService {
 		systemUserRepository.save(user);
 		return user;
 	}
+
+	@Transactional
+	public List<SystemUser> getAllStudents() {
+		return toList(systemUserRepository.findAll());
+	}
+
+	@Transactional
+	public SystemUser getStudent(Integer id) {
+		SystemUser user = systemUserRepository.findUserByuserID(id);
+		return user;
+	}
+
+	//==========================================================================================
+
 
 	@Transactional
 	public CooperatorSystem createCooperatorSystem(Integer systemId) {
