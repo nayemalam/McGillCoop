@@ -47,44 +47,19 @@ public class TestCooperatorService {
 	private SystemUserRepository systemUserRepository;
 	@Autowired
 	private DocumentRepository documentRepository;
-//	
-//	@After
-//	public void clearDatabase() {
-//		// First, we clear registrations to avoid exceptions due to inconsistencies
-//		documentRepository.deleteAll();
-//		// Then we can clear the other tables
-//		userRepository.deleteAll();
-//		coopTermRepository.deleteAll();
-//		cooperatorSystemRepository.deleteAll();
-//	}
 	
 	@Before
 	public void clearDatabase() {
-//		// First, we clear registrations to avoid exceptions due to inconsistencies
-//		documentRepository.deleteAll();
-//		// Then we can clear the other tables
-//		userRepository.deleteAll();
-//		coopTermRepository.deleteAll();
-//		cooperatorSystemRepository.deleteAll();
+		// First, we clear registrations to avoid exceptions due to inconsistencies
+		documentRepository.deleteAll();
+		// Then we can clear the other tables
+		systemUserRepository.deleteAll();
+		coopTermRepository.deleteAll();
+		cooperatorSystemRepository.deleteAll();
 	}
-//	Object testObj;
-//	@Before
-//	public void createBaseObject(){
-//		testObj = new Object();	
-//	}
-//	@After
-//	public void nullObject() {
-//		testObj = null;
-//	}
+
 	@Test
 	public void testCreateCooperatorSystem() {
-//		List<CooperatorSystem> suh = service.getAllCooperatorSystems();
-//		@SuppressWarnings("unused")
-//		CooperatorSystem suh1 = suh.get(0);
-//		@SuppressWarnings("unused")
-//		CooperatorSystem suh2 = suh.get(1);
-//		@SuppressWarnings("unused")
-//		CooperatorSystem suh3 = suh.get(2);
 		
 		assertEquals(0, service.getAllCooperatorSystems().size());
 		
