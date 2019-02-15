@@ -251,25 +251,25 @@ public class CooperatorService {
 	}
 
 	@Transactional
-	public CoopAdministrator getCoopAdministrator(Integer id) {
-		CoopAdministrator user = coopAdministratorRepository.findByuserID(id);
+	public Employer getEmployer(Integer id) {
+		Employer user = employerRepository.findByuserID(id);
 		return user;
 	}
 
 	@Transactional
-	public Boolean coopAdministratorExists(Integer id) {
-		Boolean exists = coopAdministratorRepository.existsById(id);
+	public Boolean employerExists(Integer id) {
+		Boolean exists = employerRepository.existsById(id);
 		return exists;
 	}
 	
 	@Transactional
-	public void deleteCoopAdministrator(Integer id) {
-		coopAdministratorRepository.deleteById(id);
+	public void deleteEmployer(Integer id) {
+		employerRepository.deleteById(id);
 	}
 	
 	@Transactional
-	public void deleteAllCoopAdministrators() {
-		coopAdministratorRepository.deleteAll();;
+	public void deleteAllEmployers() {
+		employerRepository.deleteAll();;
 	}
 	
 	
