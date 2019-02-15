@@ -102,19 +102,58 @@ public class CooperatorService {
 		user.setUserName(userName);
 		user.setPassword(password);
 		user.setStudentId(studentId);
-		systemUserRepository.save(user);
+		studentRepository.save(user);
 		return user;
 	}
 
 	@Transactional
-	public List<SystemUser> getAllStudents() {
-		return toList(systemUserRepository.findAll());
+	public List<Student> getAllStudents() {
+		return toList(studentRepository.findAll());
+	}
+	/**
+	 * Finds and retrieves a student from the database based on the System ID number
+	 * @param id System ID number
+	 * @return Requested Student.
+	 */
+	@Transactional
+	public Student getStudent(Integer id) {
+		return studentRepository.findByuserID(id);
+	}
+	/**
+	 * Updates the Student information based on the System ID number
+	 * @param id System ID number
+	 * @return {@code true} if student successfully updated, {@code false} otherwise
+	 */
+	@Transactional
+	public Boolean updateStudent(Integer id){
+		Boolean success = false;
+		// TODO
+		return success;
 	}
 
+	/**
+	 * Deletes Student from database using the System ID number
+	 * @param id System ID number of the user
+	 */
 	@Transactional
-	public SystemUser getStudent(Integer id) {
-		SystemUser user = systemUserRepository.findUserByuserID(id);
-		return user;
+	public Boolean deleteStudent(Integer id) {
+		// The delete method throws an IllegalArgumentError if the id is null
+		try {
+			studentRepository.deleteById(id);
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Verifies the existence of a student user in the database using the System ID
+	 * @param id System ID number of the user
+	 * @return True if student exists, false otherwise.
+	 */
+	@Transactional
+	public Boolean studentExists(Integer id){
+		return studentRepository.existsById(id);
 	}
 
 	//==========================================================================================
