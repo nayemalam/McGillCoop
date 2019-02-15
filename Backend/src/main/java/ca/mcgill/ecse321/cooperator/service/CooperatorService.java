@@ -38,7 +38,7 @@ public class CooperatorService {
 	
 	
 	@Transactional
-	public SystemUser createUser(String name, String fName, String emailAddress, String userName, String password) {
+	public SystemUser createUser(Integer id, String name, String fName, String emailAddress, String userName, String password) {
 		if (name == null || name.trim().length() == 0) {
 			throw new IllegalArgumentException("Person name cannot be empty!");
 		}
@@ -53,8 +53,8 @@ public class CooperatorService {
 	}
 	
 	@Transactional
-	public SystemUser getUser(String name) {
-		SystemUser user = userRepository.findUserBylastName(name);
+	public SystemUser getUser(Integer id) {
+		SystemUser user = userRepository.findUserById(id);
 		return user;
 	}
 
