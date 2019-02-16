@@ -278,9 +278,9 @@ public class CooperatorService {
 	
 	
 	/**
-	 * Updates the Student information in the database based on the User ID number
-	 * @param updatedStudent Modified student object, to be stored in database/
-	 * @return {@code true} if student successfully updated, {@code false} otherwise
+	 * Updates the CoopAdministrator information in the database based on the User ID number
+	 * @param updatedCoopAdministrator Modified coopAdministrator object, to be stored in database/
+	 * @return {@code true} if coopAdministrator successfully updated, {@code false} otherwise
 	 */
 	@Transactional
 	public Boolean updateCoopAdministrator(CoopAdministrator updatedCoopAdministrator){
@@ -293,7 +293,7 @@ public class CooperatorService {
 			// Create a temporary student identical to the current student
 			CoopAdministrator tempCoopAdministrator = currentCoopAdministrator;
 
-			// Update relevant fields if they are different in the updated student
+			// Update relevant fields if they are different in the updated coopAdministrator
 			// Update last name
 			if(currentCoopAdministrator.getLastName() != updatedCoopAdministrator.getLastName()){
 				tempCoopAdministrator.setLastName(updatedCoopAdministrator.getLastName());
@@ -420,6 +420,73 @@ public class CooperatorService {
 		return user;
 	}
 
+	/**
+	 * Updates the CoopAdministrator information in the database based on the User ID number
+	 * @param updatedCoopAdministrator Modified coopAdministrator object, to be stored in database/
+	 * @return {@code true} if coopAdministrator successfully updated, {@code false} otherwise
+	 */
+	@Transactional
+	public Boolean updateEmployer(Employer updatedEmployer){
+		if(employerExists(updatedEmployer.getUserID())){
+			// Boolean variable to monitor if a database save is required
+			Boolean modified = false;
+			// Get current student record from the database, user ID wont change between new and old coopadmin
+			Employer currentEmployer = getEmployer(updatedEmployer.getUserID());
+
+			// Create a temporary student identical to the current student
+			Employer tempEmployer = currentEmployer;
+
+			// Update relevant fields if they are different in the updated coopAdministrator
+			// Update last name
+			if(currentEmployer.getLastName() != updatedEmployer.getLastName()){
+				tempEmployer.setLastName(updatedEmployer.getLastName());
+				modified = true;
+			}
+			// Update first name
+			if(currentEmployer.getFirstName() != updatedEmployer.getFirstName()){
+				tempEmployer.setFirstName(updatedEmployer.getFirstName());
+				modified = true;
+			}
+			// Update email address
+			if(currentEmployer.getEmailAddress() != updatedEmployer.getEmailAddress()){
+				tempEmployer.setEmailAddress(updatedEmployer.getEmailAddress());
+				modified = true;
+			}
+			// Update username
+			if(currentEmployer.getUserName() != updatedEmployer.getUserName()){
+				tempEmployer.setUserName(updatedEmployer.getUserName());
+				modified = true;
+			}
+			// Update password
+			if(currentEmployer.getPassword() != updatedEmployer.getPassword()){
+				tempEmployer.setPassword(updatedEmployer.getPassword());
+				modified = true;
+			}
+			// Update location
+			if(currentEmployer.getLocation() != updatedEmployer.getLocation()){
+				tempEmployer.setLocation(updatedEmployer.getLocation());
+			modified = true;
+			}
+			// Update companyname
+			if(currentEmployer.getCompanyName() != updatedEmployer.getCompanyName()){
+				tempEmployer.setCompanyName(updatedEmployer.getCompanyName());
+			modified = true;
+			}
+		
+		
+			
+			
+
+			// If modifications have been carried out on the temporary object, update the database
+			if(modified){
+				deleteEmployer(currentEmployer.getUserID());
+				employerRepository.save(tempEmployer);
+			}
+			return true;
+		}
+		return false;
+	}
+
 	@Transactional
 	public List<Employer> getAllEmployers() {
 		return toList(employerRepository.findAll());
@@ -465,7 +532,7 @@ public class CooperatorService {
 	
 	
 	//==========================================================================================
-
+		//Document CRUD
 
 
 
