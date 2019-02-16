@@ -290,7 +290,7 @@ public class CooperatorService {
 			// Get current student record from the database, user ID wont change between new and old coopadmin
 			CoopAdministrator currentCoopAdministrator = getCoopAdministrator(updatedCoopAdministrator.getUserID());
 
-			// Create a temporary student identical to the current student
+			// Create a temporary coopadmin identical to the coopadmin student
 			CoopAdministrator tempCoopAdministrator = currentCoopAdministrator;
 
 			// Update relevant fields if they are different in the updated coopAdministrator
@@ -421,22 +421,22 @@ public class CooperatorService {
 	}
 
 	/**
-	 * Updates the CoopAdministrator information in the database based on the User ID number
-	 * @param updatedCoopAdministrator Modified coopAdministrator object, to be stored in database/
-	 * @return {@code true} if coopAdministrator successfully updated, {@code false} otherwise
+	 * Updates the Employer information in the database based on the User ID number
+	 * @param updatedEmployer Modified employer object, to be stored in database/
+	 * @return {@code true} if employer successfully updated, {@code false} otherwise
 	 */
 	@Transactional
 	public Boolean updateEmployer(Employer updatedEmployer){
 		if(employerExists(updatedEmployer.getUserID())){
 			// Boolean variable to monitor if a database save is required
 			Boolean modified = false;
-			// Get current student record from the database, user ID wont change between new and old coopadmin
+			// Get current employer record from the database, user ID wont change between new and old employer
 			Employer currentEmployer = getEmployer(updatedEmployer.getUserID());
 
-			// Create a temporary student identical to the current student
+			// Create a temporary employer identical to the current employer
 			Employer tempEmployer = currentEmployer;
 
-			// Update relevant fields if they are different in the updated coopAdministrator
+			// Update relevant fields if they are different in the updated employer
 			// Update last name
 			if(currentEmployer.getLastName() != updatedEmployer.getLastName()){
 				tempEmployer.setLastName(updatedEmployer.getLastName());
