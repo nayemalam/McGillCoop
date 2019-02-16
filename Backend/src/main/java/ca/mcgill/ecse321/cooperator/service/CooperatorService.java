@@ -1,6 +1,5 @@
 package ca.mcgill.ecse321.cooperator.service;
 
-
 import ca.mcgill.ecse321.cooperator.model.CoopTerm;
 import ca.mcgill.ecse321.cooperator.model.SystemUser;
 import ca.mcgill.ecse321.cooperator.model.Student;
@@ -28,7 +27,7 @@ import java.util.List;
 
 @Service
 public class CooperatorService {
-	
+
 	@Autowired
 	CooperatorSystemRepository cooperatorSystemRepository;
 	@Autowired
@@ -43,9 +42,8 @@ public class CooperatorService {
 	EmployerRepository employerRepository;
 	@Autowired
 	StudentRepository studentRepository;
-	
-	
-	//==========================================================================================
+
+	// ==========================================================================================
 	// generic SystemUser CRUD transactions
 
 	@Transactional
@@ -60,39 +58,41 @@ public class CooperatorService {
 	}
 
 	@Transactional
-	public boolean deleteUser(Integer id){
+	public boolean deleteUser(Integer id) {
 		// TODO
 		return false;
 	}
 
-//	@Transactional
-//	public boolean updateUser(Integer id) {
-//		SystemUser user = systemUserRepository.findByuserID(id);
-//		//TODO
-//		return false;
-//	}
+	// @Transactional
+	// public boolean updateUser(Integer id) {
+	// SystemUser user = systemUserRepository.findByuserID(id);
+	// //TODO
+	// return false;
+	// }
 
-	//==========================================================================================
+	// ==========================================================================================
 
-	//==========================================================================================
+	// ==========================================================================================
 	// Student CRUD transactions
-	
+
 	@Transactional
-	public Student createStudent(Integer id, String name, String fName, String emailAddress, String userName, String password, Integer studentId, String program) {
-		// Parse input arguments to determine if all information is present to create a new student.
-		if (name == null || name.trim().length() == 0 || fName ==null || fName.trim().length() == 0) {
+	public Student createStudent(Integer id, String name, String fName, String emailAddress, String userName,
+			String password, Integer studentId, String program) {
+		// Parse input arguments to determine if all information is present to create a
+		// new student.
+		if (name == null || name.trim().length() == 0 || fName == null || fName.trim().length() == 0) {
 			throw new IllegalArgumentException("Person name cannot be empty!");
 		}
-		if (emailAddress == null || emailAddress.trim().length() ==0){
+		if (emailAddress == null || emailAddress.trim().length() == 0) {
 			throw new IllegalArgumentException("Email Address cannot be empty!");
 		}
-		if (userName == null || userName.trim().length() ==0){
+		if (userName == null || userName.trim().length() == 0) {
 			throw new IllegalArgumentException("Username cannot be empty!");
 		}
-		if (password == null || password.trim().length() ==0){
+		if (password == null || password.trim().length() == 0) {
 			throw new IllegalArgumentException("Please enter a valid password");
 		}
-		if (studentId == null){
+		if (studentId == null) {
 			throw new IllegalArgumentException("Please enter a valid McGill Student ID");
 		}
 		Student user = new Student();
@@ -102,7 +102,7 @@ public class CooperatorService {
 		user.setUserName(userName);
 		user.setPassword(password);
 		user.setStudentId(studentId);
-		studentRepository.save(user);
+		user = studentRepository.save(user);
 		return user;
 	}
 
@@ -111,8 +111,10 @@ public class CooperatorService {
 		return toList(studentRepository.findAll());
 
 	}
+
 	/**
 	 * Finds and retrieves a student from the database based on the System ID number
+	 * 
 	 * @param id System ID number
 	 * @return Requested Student.
 	 */
@@ -121,14 +123,16 @@ public class CooperatorService {
 		return studentRepository.findByuserID(id);
 
 	}
+
 	/**
 	 * Updates the Student information in the database based on the User ID number
+	 * 
 	 * @param updatedStudent Modified student object, to be stored in database/
 	 * @return {@code true} if student successfully updated, {@code false} otherwise
 	 */
 	@Transactional
-	public Boolean updateStudent(Student updatedStudent){
-		if(studentExists(updatedStudent.getUserID())){
+	public Boolean updateStudent(Student updatedStudent) {
+		if (studentExists(updatedStudent.getUserID())) {
 			// Boolean variable to monitor if a database save is required
 			Boolean modified = false;
 			// Get current student record from the database
@@ -139,48 +143,49 @@ public class CooperatorService {
 
 			// Update relevant fields if they are different in the updated student
 			// Update last name
-			if(currentStudent.getLastName() != updatedStudent.getLastName()){
+			if (currentStudent.getLastName() != updatedStudent.getLastName()) {
 				tempStudent.setLastName(updatedStudent.getLastName());
 				modified = true;
 			}
 			// Update first name
-			if(currentStudent.getFirstName() != updatedStudent.getFirstName()){
+			if (currentStudent.getFirstName() != updatedStudent.getFirstName()) {
 				tempStudent.setFirstName(updatedStudent.getFirstName());
 				modified = true;
 			}
 			// Update email address
-			if(currentStudent.getEmailAddress() != updatedStudent.getEmailAddress()){
+			if (currentStudent.getEmailAddress() != updatedStudent.getEmailAddress()) {
 				tempStudent.setEmailAddress(updatedStudent.getEmailAddress());
 				modified = true;
 			}
 			// Update username
-			if(currentStudent.getUserName() != updatedStudent.getUserName()){
+			if (currentStudent.getUserName() != updatedStudent.getUserName()) {
 				tempStudent.setUserName(updatedStudent.getUserName());
 				modified = true;
 			}
 			// Update password
-			if(currentStudent.getPassword() != updatedStudent.getPassword()){
+			if (currentStudent.getPassword() != updatedStudent.getPassword()) {
 				tempStudent.setPassword(updatedStudent.getPassword());
 				modified = true;
 			}
 			// Update student ID
-			if(currentStudent.getStudentId() != updatedStudent.getStudentId()){
+			if (currentStudent.getStudentId() != updatedStudent.getStudentId()) {
 				tempStudent.setStudentId(updatedStudent.getStudentId());
 				modified = true;
 			}
 			// Update Program
-			if(currentStudent.getProgram() != updatedStudent.getProgram()){
+			if (currentStudent.getProgram() != updatedStudent.getProgram()) {
 				tempStudent.setProgram(updatedStudent.getProgram());
 				modified = true;
 			}
 			// Update Coop Terms
-			if(currentStudent.getCoopTerm() != updatedStudent.getCoopTerm()){
+			if (currentStudent.getCoopTerm() != updatedStudent.getCoopTerm()) {
 				tempStudent.setCoopTerm(updatedStudent.getCoopTerm());
 				modified = true;
 			}
 
-			// If modifications have been carried out on the temporary object, update the database
-			if(modified){
+			// If modifications have been carried out on the temporary object, update the
+			// database
+			if (modified) {
 				deleteStudent(currentStudent.getUserID());
 				studentRepository.save(tempStudent);
 			}
@@ -191,6 +196,7 @@ public class CooperatorService {
 
 	/**
 	 * Deletes Student from database using the User ID number
+	 * 
 	 * @param id System ID number of the user
 	 */
 	@Transactional
@@ -207,33 +213,35 @@ public class CooperatorService {
 
 	/**
 	 * Verifies the existence of a student user in the database using the User ID
+	 * 
 	 * @param id user ID number of the user
 	 * @return True if student exists, false otherwise.
 	 */
 	@Transactional
-	public Boolean studentExists(Integer id){
+	public Boolean studentExists(Integer id) {
 		return studentRepository.existsById(id);
 
 	}
 
-	//==========================================================================================
-
+	// ==========================================================================================
 
 	@Transactional
-	
+
 	public CooperatorSystem createCooperatorSystem(Integer systemId) {
-		if (systemId == null){
+		if (systemId == null) {
 			throw new IllegalArgumentException("Please enter a valid systemId");
 		}
-		CooperatorSystem cooperatorSystem  = new CooperatorSystem();
+		CooperatorSystem cooperatorSystem = new CooperatorSystem();
 		cooperatorSystem.setSystemId(systemId);
-		
+
 		cooperatorSystemRepository.save(cooperatorSystem);
 		return cooperatorSystem;
 	}
 
 	/**
-	 * Finds and retrieves a CooperatorSystem from the database based on the System ID number
+	 * Finds and retrieves a CooperatorSystem from the database based on the System
+	 * ID number
+	 * 
 	 * @param id System ID number
 	 * @return Requested CooperatorSystem.
 	 */
@@ -246,26 +254,28 @@ public class CooperatorService {
 	public List<CooperatorSystem> getAllCooperatorSystems() {
 		return toList(cooperatorSystemRepository.findAll());
 	}
-	
-	//==========================================================================================
-	//Co-op Admin CRUD
-	
+
+	// ==========================================================================================
+	// Co-op Admin CRUD
+
 	@Transactional
-	public CoopAdministrator createCoopAdministrator(Integer id, String name, String fName, String emailAddress, String userName, String password) {
-		// Parse input arguments to determine if all information is present to create a new CoopAdmin.
-		if (name == null || name.trim().length() == 0 || fName ==null || fName.trim().length() == 0) {
+	public CoopAdministrator createCoopAdministrator(Integer id, String name, String fName, String emailAddress,
+			String userName, String password) {
+		// Parse input arguments to determine if all information is present to create a
+		// new CoopAdmin.
+		if (name == null || name.trim().length() == 0 || fName == null || fName.trim().length() == 0) {
 			throw new IllegalArgumentException("Person name cannot be empty!");
 		}
-		if (emailAddress == null || emailAddress.trim().length() == 0){
+		if (emailAddress == null || emailAddress.trim().length() == 0) {
 			throw new IllegalArgumentException("Email Address cannot be empty!");
 		}
-		if (userName == null || userName.trim().length() == 0){
+		if (userName == null || userName.trim().length() == 0) {
 			throw new IllegalArgumentException("Username cannot be empty!");
 		}
-		if (password == null || password.trim().length() == 0){
+		if (password == null || password.trim().length() == 0) {
 			throw new IllegalArgumentException("Please enter a valid password");
 		}
-	
+
 		CoopAdministrator user = new CoopAdministrator();
 		user.setLastName(name);
 		user.setFirstName(fName);
@@ -275,19 +285,23 @@ public class CooperatorService {
 		coopAdministratorRepository.save(user);
 		return user;
 	}
-	
-	
+
 	/**
-	 * Updates the CoopAdministrator information in the database based on the User ID number
-	 * @param updatedCoopAdministrator Modified coopAdministrator object, to be stored in database/
-	 * @return {@code true} if coopAdministrator successfully updated, {@code false} otherwise
+	 * Updates the CoopAdministrator information in the database based on the User
+	 * ID number
+	 * 
+	 * @param updatedCoopAdministrator Modified coopAdministrator object, to be
+	 *                                 stored in database/
+	 * @return {@code true} if coopAdministrator successfully updated, {@code false}
+	 *         otherwise
 	 */
 	@Transactional
-	public Boolean updateCoopAdministrator(CoopAdministrator updatedCoopAdministrator){
-		if(coopAdministratorExists(updatedCoopAdministrator.getUserID())){
+	public Boolean updateCoopAdministrator(CoopAdministrator updatedCoopAdministrator) {
+		if (coopAdministratorExists(updatedCoopAdministrator.getUserID())) {
 			// Boolean variable to monitor if a database save is required
 			Boolean modified = false;
-			// Get current student record from the database, user ID wont change between new and old coopadmin
+			// Get current student record from the database, user ID wont change between new
+			// and old coopadmin
 			CoopAdministrator currentCoopAdministrator = getCoopAdministrator(updatedCoopAdministrator.getUserID());
 
 			// Create a temporary coopadmin identical to the coopadmin student
@@ -295,36 +309,34 @@ public class CooperatorService {
 
 			// Update relevant fields if they are different in the updated coopAdministrator
 			// Update last name
-			if(currentCoopAdministrator.getLastName() != updatedCoopAdministrator.getLastName()){
+			if (currentCoopAdministrator.getLastName() != updatedCoopAdministrator.getLastName()) {
 				tempCoopAdministrator.setLastName(updatedCoopAdministrator.getLastName());
 				modified = true;
 			}
 			// Update first name
-			if(currentCoopAdministrator.getFirstName() != updatedCoopAdministrator.getFirstName()){
+			if (currentCoopAdministrator.getFirstName() != updatedCoopAdministrator.getFirstName()) {
 				tempCoopAdministrator.setFirstName(updatedCoopAdministrator.getFirstName());
 				modified = true;
 			}
 			// Update email address
-			if(currentCoopAdministrator.getEmailAddress() != updatedCoopAdministrator.getEmailAddress()){
+			if (currentCoopAdministrator.getEmailAddress() != updatedCoopAdministrator.getEmailAddress()) {
 				tempCoopAdministrator.setEmailAddress(updatedCoopAdministrator.getEmailAddress());
 				modified = true;
 			}
 			// Update username
-			if(currentCoopAdministrator.getUserName() != updatedCoopAdministrator.getUserName()){
+			if (currentCoopAdministrator.getUserName() != updatedCoopAdministrator.getUserName()) {
 				tempCoopAdministrator.setUserName(updatedCoopAdministrator.getUserName());
 				modified = true;
 			}
 			// Update password
-			if(currentCoopAdministrator.getPassword() != updatedCoopAdministrator.getPassword()){
+			if (currentCoopAdministrator.getPassword() != updatedCoopAdministrator.getPassword()) {
 				tempCoopAdministrator.setPassword(updatedCoopAdministrator.getPassword());
 				modified = true;
 			}
-		
-			
-			
 
-			// If modifications have been carried out on the temporary object, update the database
-			if(modified){
+			// If modifications have been carried out on the temporary object, update the
+			// database
+			if (modified) {
 				deleteCoopAdministrator(currentCoopAdministrator.getUserID());
 				coopAdministratorRepository.save(tempCoopAdministrator);
 			}
@@ -337,9 +349,11 @@ public class CooperatorService {
 	public List<CoopAdministrator> getAllCoopAdministrators() {
 		return toList(coopAdministratorRepository.findAll());
 	}
-	
+
 	/**
-	 * Finds and retrieves a CoopAdministrator from the database based on the User ID number
+	 * Finds and retrieves a CoopAdministrator from the database based on the User
+	 * ID number
+	 * 
 	 * @param id User ID number
 	 * @return Requested CoopAdministrator.
 	 */
@@ -350,7 +364,9 @@ public class CooperatorService {
 	}
 
 	/**
-	 * Verifies the existence of a CoopAdministrator user in the database using the User ID
+	 * Verifies the existence of a CoopAdministrator user in the database using the
+	 * User ID
+	 * 
 	 * @param id User ID number of the user
 	 * @return True if student exists, false otherwise.
 	 */
@@ -359,55 +375,58 @@ public class CooperatorService {
 		Boolean exists = coopAdministratorRepository.existsById(id);
 		return exists;
 	}
-	
+
 	/**
 	 * Deletes CoopAdministrator from database using the User ID number
+	 * 
 	 * @param id User ID number of the user
 	 */
 	@Transactional
 	public void deleteCoopAdministrator(Integer id) {
 		coopAdministratorRepository.deleteById(id);
 	}
-	
+
 	@Transactional
 	public void deleteAllCoopAdministrators() {
-		coopAdministratorRepository.deleteAll();;
+		coopAdministratorRepository.deleteAll();
+		;
 	}
+
+	// ==========================================================================================
 	
-	
-	
-	//==========================================================================================
-	//==========================================================================================
-	//Employer CRUD
-	
+	// ==========================================================================================
+	// Employer CRUD
+
 	@Transactional
-	public Employer createEmployer(Integer id, String name, String fName, String emailAddress, String userName, String password, String companyName, String location) {
-		// Parse input arguments to determine if all information is present to create a new Employer.
-		if (name == null || name.trim().length() == 0 || fName ==null || fName.trim().length() == 0) {
+	public Employer createEmployer(Integer id, String name, String fName, String emailAddress, String userName,
+			String password, String companyName, String location) {
+		// Parse input arguments to determine if all information is present to create a
+		// new Employer.
+		if (name == null || name.trim().length() == 0 || fName == null || fName.trim().length() == 0) {
 			throw new IllegalArgumentException("Person name cannot be empty!");
 		}
-		if (emailAddress == null || emailAddress.trim().length() == 0){
+		if (emailAddress == null || emailAddress.trim().length() == 0) {
 			throw new IllegalArgumentException("Email Address cannot be empty!");
 		}
-		if (userName == null || userName.trim().length() == 0){
+		if (userName == null || userName.trim().length() == 0) {
 			throw new IllegalArgumentException("Username cannot be empty!");
 		}
-		if (password == null || password.trim().length() == 0){
+		if (password == null || password.trim().length() == 0) {
 			throw new IllegalArgumentException("Please enter a valid password");
 		}
 		if (companyName == null || companyName.trim().length() == 0) {
 			throw new IllegalArgumentException("Please enter a valid company name");
-			
+
 		}
 		if (companyName == null || companyName.trim().length() == 0) {
 			throw new IllegalArgumentException("Please enter a valid company name");
-			
+
 		}
 		if (location == null || location.trim().length() == 0) {
 			throw new IllegalArgumentException("Please enter a valid location");
-			
+
 		}
-	
+
 		Employer user = new Employer();
 		user.setLastName(name);
 		user.setFirstName(fName);
@@ -422,15 +441,18 @@ public class CooperatorService {
 
 	/**
 	 * Updates the Employer information in the database based on the User ID number
+	 * 
 	 * @param updatedEmployer Modified employer object, to be stored in database/
-	 * @return {@code true} if employer successfully updated, {@code false} otherwise
+	 * @return {@code true} if employer successfully updated, {@code false}
+	 *         otherwise
 	 */
 	@Transactional
-	public Boolean updateEmployer(Employer updatedEmployer){
-		if(employerExists(updatedEmployer.getUserID())){
+	public Boolean updateEmployer(Employer updatedEmployer) {
+		if (employerExists(updatedEmployer.getUserID())) {
 			// Boolean variable to monitor if a database save is required
 			Boolean modified = false;
-			// Get current employer record from the database, user ID wont change between new and old employer
+			// Get current employer record from the database, user ID wont change between
+			// new and old employer
 			Employer currentEmployer = getEmployer(updatedEmployer.getUserID());
 
 			// Create a temporary employer identical to the current employer
@@ -438,47 +460,44 @@ public class CooperatorService {
 
 			// Update relevant fields if they are different in the updated employer
 			// Update last name
-			if(currentEmployer.getLastName() != updatedEmployer.getLastName()){
+			if (currentEmployer.getLastName() != updatedEmployer.getLastName()) {
 				tempEmployer.setLastName(updatedEmployer.getLastName());
 				modified = true;
 			}
 			// Update first name
-			if(currentEmployer.getFirstName() != updatedEmployer.getFirstName()){
+			if (currentEmployer.getFirstName() != updatedEmployer.getFirstName()) {
 				tempEmployer.setFirstName(updatedEmployer.getFirstName());
 				modified = true;
 			}
 			// Update email address
-			if(currentEmployer.getEmailAddress() != updatedEmployer.getEmailAddress()){
+			if (currentEmployer.getEmailAddress() != updatedEmployer.getEmailAddress()) {
 				tempEmployer.setEmailAddress(updatedEmployer.getEmailAddress());
 				modified = true;
 			}
 			// Update username
-			if(currentEmployer.getUserName() != updatedEmployer.getUserName()){
+			if (currentEmployer.getUserName() != updatedEmployer.getUserName()) {
 				tempEmployer.setUserName(updatedEmployer.getUserName());
 				modified = true;
 			}
 			// Update password
-			if(currentEmployer.getPassword() != updatedEmployer.getPassword()){
+			if (currentEmployer.getPassword() != updatedEmployer.getPassword()) {
 				tempEmployer.setPassword(updatedEmployer.getPassword());
 				modified = true;
 			}
 			// Update location
-			if(currentEmployer.getLocation() != updatedEmployer.getLocation()){
+			if (currentEmployer.getLocation() != updatedEmployer.getLocation()) {
 				tempEmployer.setLocation(updatedEmployer.getLocation());
-			modified = true;
+				modified = true;
 			}
 			// Update companyname
-			if(currentEmployer.getCompanyName() != updatedEmployer.getCompanyName()){
+			if (currentEmployer.getCompanyName() != updatedEmployer.getCompanyName()) {
 				tempEmployer.setCompanyName(updatedEmployer.getCompanyName());
-			modified = true;
+				modified = true;
 			}
-		
-		
-			
-			
 
-			// If modifications have been carried out on the temporary object, update the database
-			if(modified){
+			// If modifications have been carried out on the temporary object, update the
+			// database
+			if (modified) {
 				deleteEmployer(currentEmployer.getUserID());
 				employerRepository.save(tempEmployer);
 			}
@@ -494,6 +513,7 @@ public class CooperatorService {
 
 	/**
 	 * Finds and retrieves an Employer from the database based on the User ID number
+	 * 
 	 * @param id user ID number
 	 * @return Requested Employer.
 	 */
@@ -505,6 +525,7 @@ public class CooperatorService {
 
 	/**
 	 * Verifies the existence of a student user in the database using the User ID
+	 * 
 	 * @param id User ID number of the user
 	 * @return True if student exists, false otherwise.
 	 */
@@ -513,28 +534,25 @@ public class CooperatorService {
 		Boolean exists = employerRepository.existsById(id);
 		return exists;
 	}
-	
-	
+
 	/**
 	 * Deletes Employer from database using the User ID number
+	 * 
 	 * @param id User ID number of the user
 	 */
 	@Transactional
 	public void deleteEmployer(Integer id) {
 		employerRepository.deleteById(id);
 	}
-	
+
 	@Transactional
 	public void deleteAllEmployers() {
-		employerRepository.deleteAll();;
+		employerRepository.deleteAll();
+		;
 	}
-	
-	
-	
-	//==========================================================================================
-		//Document CRUD
 
-
+	// ==========================================================================================
+	// Document CRUD
 
 	@Transactional
 	public Document document(DocumentName docName, Integer docId) {
@@ -548,13 +566,12 @@ public class CooperatorService {
 	}
 
 	@Transactional
-	public List<Document> getAllDocuments(){
+	public List<Document> getAllDocuments() {
 		return toList(documentRepository.findAll());
 	}
 
-	
 	@Transactional
-	public  CoopTerm createCoopTerm(Date startDate, Date endDate, Integer termId) {
+	public CoopTerm createCoopTerm(Date startDate, Date endDate, Integer termId) {
 		CoopTerm coopTerm = new CoopTerm();
 		coopTerm.setStartDate(startDate);
 		coopTerm.setEndDate(endDate);
@@ -573,9 +590,8 @@ public class CooperatorService {
 	public List<CoopTerm> getAllCoopTerms() {
 		return toList(coopTermRepository.findAll());
 	}
-	
 
-	private <T> List<T> toList(Iterable<T> iterable){
+	private <T> List<T> toList(Iterable<T> iterable) {
 		List<T> resultList = new ArrayList<T>();
 		for (T t : iterable) {
 			resultList.add(t);
@@ -584,12 +600,3 @@ public class CooperatorService {
 	}
 
 }
-	
-	
-	
-	
-	
-
-	
-	
-

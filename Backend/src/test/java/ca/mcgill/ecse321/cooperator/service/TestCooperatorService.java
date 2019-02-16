@@ -81,7 +81,7 @@ public class TestCooperatorService {
 	@Test
 	public void testCreateStudent() {
 		Student testStudent; 
-		assertEquals(0, service.getAllUsers().size());
+		assertEquals(0, service.getAllStudents().size());
 		
 		Integer id = 123;
 		String name = "Oscar";
@@ -90,20 +90,27 @@ public class TestCooperatorService {
 		String userName = "Oscar89";
 		String password = "qwerty";
 		Integer studentId = 260747696;
-		
+		String program = "ecse";
 
 		try {
-			testStudent = service.createStudent(id, name, fName, emailAddress, userName, password, studentId);
+			testStudent = service.createStudent(id, name, fName, emailAddress, userName, password, studentId, program);
 		} catch (IllegalArgumentException e) {
 			// Check that no error occurred
+			System.out.println("SUH");
 			fail();
 		}
 
-		List<SystemUser> allUsers = service.getAllUsers();
+		List<Student> allUsers = service.getAllStudents();
 
 		assertEquals(1, allUsers.size());
 		assertEquals(name, allUsers.get(0).getLastName());
-		testUser = null;
+		assertEquals(fName, allUsers.get(0).getFirstName());
+		assertEquals(emailAddress, allUsers.get(0).getEmailAddress());
+		assertEquals(userName, allUsers.get(0).getUserName());
+		assertEquals(password, allUsers.get(0).getPassword());
+		assertEquals(studentId, allUsers.get(0).getStudentId());
+		assertEquals(program, allUsers.get(0).getStudentId());
+		testStudent = null;
 	}
 	
 	
