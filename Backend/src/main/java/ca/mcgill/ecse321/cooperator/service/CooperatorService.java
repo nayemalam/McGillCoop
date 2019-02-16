@@ -122,7 +122,7 @@ public class CooperatorService {
 
 	}
 	/**
-	 * Updates the Student information in the database based on the System ID number
+	 * Updates the Student information in the database based on the User ID number
 	 * @param updatedStudent Modified student object, to be stored in database/
 	 * @return {@code true} if student successfully updated, {@code false} otherwise
 	 */
@@ -190,7 +190,7 @@ public class CooperatorService {
 	}
 
 	/**
-	 * Deletes Student from database using the System ID number
+	 * Deletes Student from database using the User ID number
 	 * @param id System ID number of the user
 	 */
 	@Transactional
@@ -206,8 +206,8 @@ public class CooperatorService {
 	}
 
 	/**
-	 * Verifies the existence of a student user in the database using the System ID
-	 * @param id System ID number of the user
+	 * Verifies the existence of a student user in the database using the User ID
+	 * @param id user ID number of the user
 	 * @return True if student exists, false otherwise.
 	 */
 	@Transactional
@@ -232,6 +232,11 @@ public class CooperatorService {
 		return cooperatorSystem;
 	}
 
+	/**
+	 * Finds and retrieves a CooperatorSystem from the database based on the System ID number
+	 * @param id System ID number
+	 * @return Requested CooperatorSystem.
+	 */
 	@Transactional
 	public CooperatorSystem getCooperatorSystem(Integer systemId) {
 		return cooperatorSystemRepository.findBysystemId(systemId);
@@ -270,24 +275,95 @@ public class CooperatorService {
 		coopAdministratorRepository.save(user);
 		return user;
 	}
+	
+	
+	/**
+	 * Updates the CoopAdministrator information in the database based on the User ID number
+	 * @param updatedCoopAdministrator Modified coopAdministrator object, to be stored in database/
+	 * @return {@code true} if coopAdministrator successfully updated, {@code false} otherwise
+	 */
+	@Transactional
+	public Boolean updateCoopAdministrator(CoopAdministrator updatedCoopAdministrator){
+		if(coopAdministratorExists(updatedCoopAdministrator.getUserID())){
+			// Boolean variable to monitor if a database save is required
+			Boolean modified = false;
+			// Get current student record from the database, user ID wont change between new and old coopadmin
+			CoopAdministrator currentCoopAdministrator = getCoopAdministrator(updatedCoopAdministrator.getUserID());
+
+			// Create a temporary student identical to the current student
+			CoopAdministrator tempCoopAdministrator = currentCoopAdministrator;
+
+			// Update relevant fields if they are different in the updated coopAdministrator
+			// Update last name
+			if(currentCoopAdministrator.getLastName() != updatedCoopAdministrator.getLastName()){
+				tempCoopAdministrator.setLastName(updatedCoopAdministrator.getLastName());
+				modified = true;
+			}
+			// Update first name
+			if(currentCoopAdministrator.getFirstName() != updatedCoopAdministrator.getFirstName()){
+				tempCoopAdministrator.setFirstName(updatedCoopAdministrator.getFirstName());
+				modified = true;
+			}
+			// Update email address
+			if(currentCoopAdministrator.getEmailAddress() != updatedCoopAdministrator.getEmailAddress()){
+				tempCoopAdministrator.setEmailAddress(updatedCoopAdministrator.getEmailAddress());
+				modified = true;
+			}
+			// Update username
+			if(currentCoopAdministrator.getUserName() != updatedCoopAdministrator.getUserName()){
+				tempCoopAdministrator.setUserName(updatedCoopAdministrator.getUserName());
+				modified = true;
+			}
+			// Update password
+			if(currentCoopAdministrator.getPassword() != updatedCoopAdministrator.getPassword()){
+				tempCoopAdministrator.setPassword(updatedCoopAdministrator.getPassword());
+				modified = true;
+			}
+		
+			
+			
+
+			// If modifications have been carried out on the temporary object, update the database
+			if(modified){
+				deleteCoopAdministrator(currentCoopAdministrator.getUserID());
+				coopAdministratorRepository.save(tempCoopAdministrator);
+			}
+			return true;
+		}
+		return false;
+	}
 
 	@Transactional
 	public List<CoopAdministrator> getAllCoopAdministrators() {
 		return toList(coopAdministratorRepository.findAll());
 	}
-
+	
+	/**
+	 * Finds and retrieves a CoopAdministrator from the database based on the User ID number
+	 * @param id User ID number
+	 * @return Requested CoopAdministrator.
+	 */
 	@Transactional
 	public CoopAdministrator getCoopAdministrator(Integer id) {
 		CoopAdministrator user = coopAdministratorRepository.findByuserID(id);
 		return user;
 	}
 
+	/**
+	 * Verifies the existence of a CoopAdministrator user in the database using the User ID
+	 * @param id User ID number of the user
+	 * @return True if student exists, false otherwise.
+	 */
 	@Transactional
 	public Boolean coopAdministratorExists(Integer id) {
 		Boolean exists = coopAdministratorRepository.existsById(id);
 		return exists;
 	}
 	
+	/**
+	 * Deletes CoopAdministrator from database using the User ID number
+	 * @param id User ID number of the user
+	 */
 	@Transactional
 	public void deleteCoopAdministrator(Integer id) {
 		coopAdministratorRepository.deleteById(id);
@@ -344,23 +420,105 @@ public class CooperatorService {
 		return user;
 	}
 
+	/**
+	 * Updates the CoopAdministrator information in the database based on the User ID number
+	 * @param updatedCoopAdministrator Modified coopAdministrator object, to be stored in database/
+	 * @return {@code true} if coopAdministrator successfully updated, {@code false} otherwise
+	 */
+	@Transactional
+	public Boolean updateEmployer(Employer updatedEmployer){
+		if(employerExists(updatedEmployer.getUserID())){
+			// Boolean variable to monitor if a database save is required
+			Boolean modified = false;
+			// Get current student record from the database, user ID wont change between new and old coopadmin
+			Employer currentEmployer = getEmployer(updatedEmployer.getUserID());
+
+			// Create a temporary student identical to the current student
+			Employer tempEmployer = currentEmployer;
+
+			// Update relevant fields if they are different in the updated coopAdministrator
+			// Update last name
+			if(currentEmployer.getLastName() != updatedEmployer.getLastName()){
+				tempEmployer.setLastName(updatedEmployer.getLastName());
+				modified = true;
+			}
+			// Update first name
+			if(currentEmployer.getFirstName() != updatedEmployer.getFirstName()){
+				tempEmployer.setFirstName(updatedEmployer.getFirstName());
+				modified = true;
+			}
+			// Update email address
+			if(currentEmployer.getEmailAddress() != updatedEmployer.getEmailAddress()){
+				tempEmployer.setEmailAddress(updatedEmployer.getEmailAddress());
+				modified = true;
+			}
+			// Update username
+			if(currentEmployer.getUserName() != updatedEmployer.getUserName()){
+				tempEmployer.setUserName(updatedEmployer.getUserName());
+				modified = true;
+			}
+			// Update password
+			if(currentEmployer.getPassword() != updatedEmployer.getPassword()){
+				tempEmployer.setPassword(updatedEmployer.getPassword());
+				modified = true;
+			}
+			// Update location
+			if(currentEmployer.getLocation() != updatedEmployer.getLocation()){
+				tempEmployer.setLocation(updatedEmployer.getLocation());
+			modified = true;
+			}
+			// Update companyname
+			if(currentEmployer.getCompanyName() != updatedEmployer.getCompanyName()){
+				tempEmployer.setCompanyName(updatedEmployer.getCompanyName());
+			modified = true;
+			}
+		
+		
+			
+			
+
+			// If modifications have been carried out on the temporary object, update the database
+			if(modified){
+				deleteEmployer(currentEmployer.getUserID());
+				employerRepository.save(tempEmployer);
+			}
+			return true;
+		}
+		return false;
+	}
+
 	@Transactional
 	public List<Employer> getAllEmployers() {
 		return toList(employerRepository.findAll());
 	}
 
+	/**
+	 * Finds and retrieves an Employer from the database based on the User ID number
+	 * @param id user ID number
+	 * @return Requested Employer.
+	 */
 	@Transactional
 	public Employer getEmployer(Integer id) {
 		Employer user = employerRepository.findByuserID(id);
 		return user;
 	}
 
+	/**
+	 * Verifies the existence of a student user in the database using the User ID
+	 * @param id User ID number of the user
+	 * @return True if student exists, false otherwise.
+	 */
 	@Transactional
 	public Boolean employerExists(Integer id) {
 		Boolean exists = employerRepository.existsById(id);
 		return exists;
 	}
 	
+	
+	/**
+	 * Deletes Employer from database using the User ID number
+	 * @param id User ID number of the user
+	 */
 	@Transactional
 	public void deleteEmployer(Integer id) {
 		employerRepository.deleteById(id);
@@ -374,7 +532,7 @@ public class CooperatorService {
 	
 	
 	//==========================================================================================
-
+		//Document CRUD
 
 
 
