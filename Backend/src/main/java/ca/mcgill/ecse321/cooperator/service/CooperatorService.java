@@ -712,17 +712,31 @@ public class CooperatorService {
 	// ==========================================================================================
 	// CoopTerm CRUD
 
-
-
-	
-
-
 	@Transactional
-	public CoopTerm createCoopTerm(Date startDate, Date endDate, Integer termId) {
+	public CoopTerm createCoopTerm(Date startDate, Date endDate, Integer termId, Student student, Employer employer) {
+		
+		if (startDate == null) {
+			throw new IllegalArgumentException("Please enter a valid startDate");
+		}
+		if (endDate == null) {
+			throw new IllegalArgumentException("Please enter a valid endDate");
+		}
+		if (termId == null) {
+			throw new IllegalArgumentException("Please enter a valid termId");
+		}
+		if (student == null) {
+			throw new IllegalArgumentException("Please enter a valid Student");
+		}
+		if (employer == null) {
+			throw new IllegalArgumentException("Please enter a valid Employer");
+		}
+		
 		CoopTerm coopTerm = new CoopTerm();
 		coopTerm.setStartDate(startDate);
 		coopTerm.setEndDate(endDate);
 		coopTerm.setTermId(termId);
+		coopTerm.setStudent(student);
+		coopTerm.setEmployer(employer);
 		coopTermRepository.save(coopTerm);
 		return coopTerm;
 	}
@@ -737,6 +751,94 @@ public class CooperatorService {
 	public List<CoopTerm> getAllCoopTerms() {
 		return toList(coopTermRepository.findAll());
 	}
+	
+	/**
+	 * Verifies the existence of a coopterm in the database using the term ID
+	 * 
+	 * @param id term ID number of the document
+	 * @return True if coopterm exists, false otherwise.
+	 */
+	@Transactional
+	public Boolean coopTermExists(Integer termId) {
+		Boolean exists = coopTermRepository.existsById(termId);
+		return exists;
+	}
+	
+	/**
+	 * Deletes Coopterm from database using the term ID number
+	 * 
+	 * @param termId term ID number of the coopterm
+	 */
+	@Transactional
+	public void deleteCoopTerm(Integer termId) {
+		coopTermRepository.deleteById(termId);
+	}
+	
+	@Transactional
+	public void deleteAllCoopTerms() {
+		coopTermRepository.deleteAll();
+		;
+	}
+	
+	/**
+	 * Updates the Coopterm information in the database based on the term ID number
+	 * 
+	 * @param updatedCoopTerm Modified document object, to be stored in database/
+	 * @return {@code true} if coopterm successfully updated, {@code false}
+	 *         otherwise
+	 */
+	@Transactional
+	public Boolean updateCoopTerm(CoopTerm updatedCoopTerm) {
+		if (coopTermExists(updatedCoopTerm.getTermId())) {
+			// Boolean variable to monitor if a database save is required
+			Boolean modified = false;
+			// Get current coopterm record from the database, term ID wont change between
+			// new and old coopterm
+			CoopTerm currentCoopTerm = getCoopTerm(updatedCoopTerm.getTermId());
+
+			// Create a temporary coopterm identical to the current document
+			CoopTerm tempCoopTerm = currentCoopTerm;
+
+			// Update relevant fields if they are different in the updated document
+			// Update coopterm
+			if (currentCoopTerm.getStudent() != updatedCoopTerm.getStudent()) {
+				tempCoopTerm.setStudent(updatedCoopTerm.getStudent());
+				modified = true;
+			}
+			// Update employer
+			if (currentCoopTerm.getEmployer() != updatedCoopTerm.getEmployer()) {
+				tempCoopTerm.setEmployer(updatedCoopTerm.getEmployer());
+				modified = true;
+			}
+			// Update startDate
+			if (currentCoopTerm.getStartDate() != updatedCoopTerm.getStartDate()) {
+				tempCoopTerm.setStartDate(updatedCoopTerm.getStartDate());
+				modified = true;
+			}
+			// Update endDate
+			if (currentCoopTerm.getEndDate() != updatedCoopTerm.getEndDate()) {
+				tempCoopTerm.setEndDate(updatedCoopTerm.getEndDate());
+				modified = true;
+			}
+			
+			
+			// If modifications have been carried out on the temporary object, update the
+			// database
+			if (modified) {
+				deleteCoopTerm(tempCoopTerm.getTermId());
+				coopTermRepository.save(tempCoopTerm);
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	
+	
+
+	
+	
+	// ==========================================================================================
 
 	private <T> List<T> toList(Iterable<T> iterable) {
 		List<T> resultList = new ArrayList<T>();
