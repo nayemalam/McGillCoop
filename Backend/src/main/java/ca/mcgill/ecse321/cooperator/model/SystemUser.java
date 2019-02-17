@@ -5,6 +5,7 @@ import javax.persistence.Id;
 
 @Entity
 public abstract class SystemUser {
+	
 	private Integer userID;
 
 	public void setUserID(Integer value) {
