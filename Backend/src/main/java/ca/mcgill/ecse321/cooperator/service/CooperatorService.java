@@ -95,7 +95,10 @@ public class CooperatorService {
 		if (studentId == null) {
 			throw new IllegalArgumentException("Please enter a valid McGill Student ID");
 		}
-		if (program == null) {
+		if (id == null) {
+			throw new IllegalArgumentException("Please enter a valid User ID");
+		}
+		if (program == null || program.trim().length() == 0) {
 			throw new IllegalArgumentException("Please enter a valid program");
 		}
 		Student user = new Student();
@@ -280,6 +283,9 @@ public class CooperatorService {
 		if (password == null || password.trim().length() == 0) {
 			throw new IllegalArgumentException("Please enter a valid password");
 		}
+		if (id == null) {
+			throw new IllegalArgumentException("Please enter a valid User ID");
+		}
 
 		CoopAdministrator user = new CoopAdministrator();
 		user.setUserID(id);
@@ -424,13 +430,12 @@ public class CooperatorService {
 			throw new IllegalArgumentException("Please enter a valid company name");
 
 		}
-		if (companyName == null || companyName.trim().length() == 0) {
-			throw new IllegalArgumentException("Please enter a valid company name");
-
-		}
 		if (location == null || location.trim().length() == 0) {
 			throw new IllegalArgumentException("Please enter a valid location");
 
+		}
+		if (id == null) {
+			throw new IllegalArgumentException("Please enter a valid User ID");
 		}
 
 		Employer user = new Employer();
@@ -562,27 +567,176 @@ public class CooperatorService {
 	// Document CRUD
 
 	@Transactional
-	public Document document(DocumentName docName, Integer docId) {
+	public Document createDocument(DocumentName docName, Integer docId, Date dueDate, Time dueTime, Date subDate, Time subTime, CoopTerm coopTerm) {
+		
+		if (docName == null) {
+			throw new IllegalArgumentException("Document Name cannot be empty!");
+		}
+		if (docId == null) {
+			throw new IllegalArgumentException("Doc ID cannot be empty!");
+		}
+		if (dueDate == null) {
+			throw new IllegalArgumentException("Please enter a valid Date");
+		}
+		if (dueTime == null) {
+			throw new IllegalArgumentException("Please enter a valid Time");
+		}
+		if (subDate == null) {
+			throw new IllegalArgumentException("Please enter a valid Date");
+		}
+		if (subTime == null) {
+			throw new IllegalArgumentException("Please enter a valid Time");
+		}
+		if (coopTerm == null) {
+			throw new IllegalArgumentException("Please enter a valid CoopTerm");
+		}
+		
+
 		Document document = new Document();
 		document.setDocId(docId);
 		document.setDocName(docName);
-
+		document.setDueDate(dueDate);
+		document.setDueTime(dueTime);
+		document.setSubDate(subDate);
+		document.setSubTime(subTime);
+		document.setCoopTerm(coopTerm);
 		documentRepository.save(document);
 
 		return document;
 	}
+	
 
 	@Transactional
 	public List<Document> getAllDocuments() {
 		return toList(documentRepository.findAll());
 	}
+	
+	/**
+	 * Finds and retrieves a Document from the database based on the doc ID number
+	 * 
+	 * @param id document ID number
+	 * @return Requested Document.
+	 */
+	@Transactional
+	public Document getDocument(Integer docId) {
+		Document document = documentRepository.findBydocId(docId);
+		return document;
+	}
+	
+	/**
+	 * Verifies the existence of a document user in the database using the Doc ID
+	 * 
+	 * @param id Doc ID number of the document
+	 * @return True if document exists, false otherwise.
+	 */
+	@Transactional
+	public Boolean documentExists(Integer docId) {
+		Boolean exists = documentRepository.existsById(docId);
+		return exists;
+	}
+	
+	/**
+	 * Updates the Document information in the database based on the Doc ID number
+	 * 
+	 * @param updatedDocument Modified document object, to be stored in database/
+	 * @return {@code true} if document successfully updated, {@code false}
+	 *         otherwise
+	 */
+	@Transactional
+	public Boolean updateDocument(Document updatedDocument) {
+		if (documentExists(updatedDocument.getDocId())) {
+			// Boolean variable to monitor if a database save is required
+			Boolean modified = false;
+			// Get current document record from the database, doc ID wont change between
+			// new and old document
+			Document currentDocument = getDocument(updatedDocument.getDocId());
+
+			// Create a temporary document identical to the current document
+			Document tempDocument = currentDocument;
+
+			// Update relevant fields if they are different in the updated document
+			// Update coopterm
+			if (currentDocument.getCoopTerm() != updatedDocument.getCoopTerm()) {
+				tempDocument.setCoopTerm(updatedDocument.getCoopTerm());
+				modified = true;
+			}
+			// Update dueDate
+			if (currentDocument.getDueDate() != updatedDocument.getDueDate()) {
+				tempDocument.setDueDate(updatedDocument.getDueDate());
+				modified = true;
+			}
+			// Update dueTime
+			if (currentDocument.getDueTime() != updatedDocument.getDueTime()) {
+				tempDocument.setDueTime(updatedDocument.getDueTime());
+				modified = true;
+			}
+			// Update subDate
+			if (currentDocument.getSubDate() != updatedDocument.getSubDate()) {
+				tempDocument.setSubDate(updatedDocument.getSubDate());
+				modified = true;
+			}
+			// Update subTime
+			if (currentDocument.getSubTime() != updatedDocument.getSubTime()) {
+				tempDocument.setSubTime(updatedDocument.getSubTime());
+				modified = true;
+			}
+			
+			// If modifications have been carried out on the temporary object, update the
+			// database
+			if (modified) {
+				deleteEmployer(currentDocument.getDocId());
+				documentRepository.save(tempDocument);
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Deletes Document from database using the doc ID number
+	 * 
+	 * @param docId Doc ID number of the document
+	 */
+	@Transactional
+	public void deleteDocument(Integer docId) {
+		documentRepository.deleteById(docId);
+	}
+	
+	@Transactional
+	public void deleteAllDocuments() {
+		documentRepository.deleteAll();
+		;
+	}
+	
+	
+	// ==========================================================================================
+	// CoopTerm CRUD
 
 	@Transactional
-	public CoopTerm createCoopTerm(Date startDate, Date endDate, Integer termId) {
+	public CoopTerm createCoopTerm(Date startDate, Date endDate, Integer termId, Student student, Employer employer) {
+		
+		if (startDate == null) {
+			throw new IllegalArgumentException("Please enter a valid startDate");
+		}
+		if (endDate == null) {
+			throw new IllegalArgumentException("Please enter a valid endDate");
+		}
+		if (termId == null) {
+			throw new IllegalArgumentException("Please enter a valid termId");
+		}
+		if (student == null) {
+			throw new IllegalArgumentException("Please enter a valid Student");
+		}
+		if (employer == null) {
+			throw new IllegalArgumentException("Please enter a valid Employer");
+		}
+		
 		CoopTerm coopTerm = new CoopTerm();
 		coopTerm.setStartDate(startDate);
 		coopTerm.setEndDate(endDate);
 		coopTerm.setTermId(termId);
+		coopTerm.setStudent(student);
+		coopTerm.setEmployer(employer);
 		coopTermRepository.save(coopTerm);
 		return coopTerm;
 	}
@@ -597,6 +751,94 @@ public class CooperatorService {
 	public List<CoopTerm> getAllCoopTerms() {
 		return toList(coopTermRepository.findAll());
 	}
+	
+	/**
+	 * Verifies the existence of a coopterm in the database using the term ID
+	 * 
+	 * @param id term ID number of the document
+	 * @return True if coopterm exists, false otherwise.
+	 */
+	@Transactional
+	public Boolean coopTermExists(Integer termId) {
+		Boolean exists = coopTermRepository.existsById(termId);
+		return exists;
+	}
+	
+	/**
+	 * Deletes Coopterm from database using the term ID number
+	 * 
+	 * @param termId term ID number of the coopterm
+	 */
+	@Transactional
+	public void deleteCoopTerm(Integer termId) {
+		coopTermRepository.deleteById(termId);
+	}
+	
+	@Transactional
+	public void deleteAllCoopTerms() {
+		coopTermRepository.deleteAll();
+		;
+	}
+	
+	/**
+	 * Updates the Coopterm information in the database based on the term ID number
+	 * 
+	 * @param updatedCoopTerm Modified document object, to be stored in database/
+	 * @return {@code true} if coopterm successfully updated, {@code false}
+	 *         otherwise
+	 */
+	@Transactional
+	public Boolean updateCoopTerm(CoopTerm updatedCoopTerm) {
+		if (coopTermExists(updatedCoopTerm.getTermId())) {
+			// Boolean variable to monitor if a database save is required
+			Boolean modified = false;
+			// Get current coopterm record from the database, term ID wont change between
+			// new and old coopterm
+			CoopTerm currentCoopTerm = getCoopTerm(updatedCoopTerm.getTermId());
+
+			// Create a temporary coopterm identical to the current document
+			CoopTerm tempCoopTerm = currentCoopTerm;
+
+			// Update relevant fields if they are different in the updated document
+			// Update coopterm
+			if (currentCoopTerm.getStudent() != updatedCoopTerm.getStudent()) {
+				tempCoopTerm.setStudent(updatedCoopTerm.getStudent());
+				modified = true;
+			}
+			// Update employer
+			if (currentCoopTerm.getEmployer() != updatedCoopTerm.getEmployer()) {
+				tempCoopTerm.setEmployer(updatedCoopTerm.getEmployer());
+				modified = true;
+			}
+			// Update startDate
+			if (currentCoopTerm.getStartDate() != updatedCoopTerm.getStartDate()) {
+				tempCoopTerm.setStartDate(updatedCoopTerm.getStartDate());
+				modified = true;
+			}
+			// Update endDate
+			if (currentCoopTerm.getEndDate() != updatedCoopTerm.getEndDate()) {
+				tempCoopTerm.setEndDate(updatedCoopTerm.getEndDate());
+				modified = true;
+			}
+			
+			
+			// If modifications have been carried out on the temporary object, update the
+			// database
+			if (modified) {
+				deleteCoopTerm(tempCoopTerm.getTermId());
+				coopTermRepository.save(tempCoopTerm);
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	
+	
+
+	
+	
+	// ==========================================================================================
 
 	private <T> List<T> toList(Iterable<T> iterable) {
 		List<T> resultList = new ArrayList<T>();

@@ -4,7 +4,7 @@
     <eAnnotations xmi:id="_F-ebMDFQEemycP72YqB_tA" source="http://ns.yatta.de/umllab">
       <contents xmi:type="ecore:EAnnotation" xmi:id="_F-fCQDFQEemycP72YqB_tA" source="codegen">
         <details xmi:id="_F-fCQTFQEemycP72YqB_tA" key="codegenDirectory" value="/Backend/src/main/java"/>
-        <details xmi:id="_Ghqn0DFQEemycP72YqB_tA" key="AssociatedSourceCode" value="/Backend/src/main/java/ca/mcgill/ecse321/cooperator/model/CoopAdministrator.java;541507115/1;/Backend/src/main/java/ca/mcgill/ecse321/cooperator/model/CoopTerm.java;1268455711/1;/Backend/src/main/java/ca/mcgill/ecse321/cooperator/model/CooperatorSystem.java;119342609/1;/Backend/src/main/java/ca/mcgill/ecse321/cooperator/model/Document.java;4128136497/1;/Backend/src/main/java/ca/mcgill/ecse321/cooperator/model/DocumentName.java;359738215/1;/Backend/src/main/java/ca/mcgill/ecse321/cooperator/model/Employer.java;2607694618/1;/Backend/src/main/java/ca/mcgill/ecse321/cooperator/model/Student.java;1832506004/1;/Backend/src/main/java/ca/mcgill/ecse321/cooperator/model/SystemUser.java;2289160818/1;"/>
+        <details xmi:id="_Ghqn0DFQEemycP72YqB_tA" key="AssociatedSourceCode" value="/Backend/src/main/java/ca/mcgill/ecse321/cooperator/model/CoopAdministrator.java;541507115/1;/Backend/src/main/java/ca/mcgill/ecse321/cooperator/model/CoopTerm.java;1268455711/1;/Backend/src/main/java/ca/mcgill/ecse321/cooperator/model/CooperatorSystem.java;2986967024/1;/Backend/src/main/java/ca/mcgill/ecse321/cooperator/model/Document.java;4128136497/1;/Backend/src/main/java/ca/mcgill/ecse321/cooperator/model/DocumentName.java;359738215/1;/Backend/src/main/java/ca/mcgill/ecse321/cooperator/model/Employer.java;2607694618/1;/Backend/src/main/java/ca/mcgill/ecse321/cooperator/model/Student.java;2177428179/1;/Backend/src/main/java/ca/mcgill/ecse321/cooperator/model/SystemUser.java;2289160818/1;"/>
       </contents>
     </eAnnotations>
     <elementImport xmi:id="_GY1b8DFQEemycP72YqB_tA">
@@ -72,6 +72,10 @@
                 </ownedAttribute>
                 <ownedAttribute xmi:id="_GdGQ4DFQEemycP72YqB_tA" name="systemId">
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+                </ownedAttribute>
+                <ownedAttribute xmi:id="_cjxu8DFiEemycP72YqB_tA" name="currentUserCount">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+                  <defaultValue xmi:type="uml:LiteralString" xmi:id="_cjyWADFiEemycP72YqB_tA" value="0"/>
                 </ownedAttribute>
               </packagedElement>
               <packagedElement xmi:type="uml:Class" xmi:id="_GZJlADFQEemycP72YqB_tA" name="Document">
@@ -254,4 +258,5 @@
   <UMLLabProfile:StyledElement xmi:id="_GdWvkDFQEemycP72YqB_tA" base_Element="_GdWIgjFQEemycP72YqB_tA"/>
   <UMLLabProfile:StyledElement xmi:id="_GdWvkjFQEemycP72YqB_tA" base_Element="_GdWvkTFQEemycP72YqB_tA"/>
   <UMLLabProfile:StyledElement xmi:id="_GdXWoDFQEemycP72YqB_tA" base_Element="_GdWvkzFQEemycP72YqB_tA"/>
+  <UMLLabProfile:StyledElement xmi:id="_cjy9EDFiEemycP72YqB_tA" base_Element="_cjxu8DFiEemycP72YqB_tA"/>
 </xmi:XMI>
