@@ -103,13 +103,14 @@ public class TestCooperatorService {
 		List<Student> allUsers = service.getAllStudents();
 
 		assertEquals(1, allUsers.size());
+		assertEquals(id, allUsers.get(0).getUserID());
 		assertEquals(name, allUsers.get(0).getLastName());
 		assertEquals(fName, allUsers.get(0).getFirstName());
 		assertEquals(emailAddress, allUsers.get(0).getEmailAddress());
 		assertEquals(userName, allUsers.get(0).getUserName());
 		assertEquals(password, allUsers.get(0).getPassword());
 		assertEquals(studentId, allUsers.get(0).getStudentId());
-		assertEquals(program, allUsers.get(0).getStudentId());
+		assertEquals(program, allUsers.get(0).getProgram());
 		testStudent = null;
 	}
 	

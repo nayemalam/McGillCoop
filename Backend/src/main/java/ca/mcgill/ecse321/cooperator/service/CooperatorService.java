@@ -95,13 +95,18 @@ public class CooperatorService {
 		if (studentId == null) {
 			throw new IllegalArgumentException("Please enter a valid McGill Student ID");
 		}
+		if (program == null) {
+			throw new IllegalArgumentException("Please enter a valid program");
+		}
 		Student user = new Student();
+		user.setUserID(id);
 		user.setLastName(name);
 		user.setFirstName(fName);
 		user.setEmailAddress(emailAddress);
 		user.setUserName(userName);
 		user.setPassword(password);
 		user.setStudentId(studentId);
+		user.setProgram(program);
 		user = studentRepository.save(user);
 		return user;
 	}
@@ -277,6 +282,7 @@ public class CooperatorService {
 		}
 
 		CoopAdministrator user = new CoopAdministrator();
+		user.setUserID(id);
 		user.setLastName(name);
 		user.setFirstName(fName);
 		user.setEmailAddress(emailAddress);
@@ -428,6 +434,7 @@ public class CooperatorService {
 		}
 
 		Employer user = new Employer();
+		user.setUserID(id);
 		user.setLastName(name);
 		user.setFirstName(fName);
 		user.setEmailAddress(emailAddress);
