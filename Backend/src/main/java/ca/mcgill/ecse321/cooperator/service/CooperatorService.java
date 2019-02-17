@@ -576,19 +576,19 @@ public class CooperatorService {
 			throw new IllegalArgumentException("Doc ID cannot be empty!");
 		}
 		if (dueDate == null) {
-			throw new IllegalArgumentException("Please ennter a valid Date");
+			throw new IllegalArgumentException("Please enter a valid Date");
 		}
 		if (dueTime == null) {
-			throw new IllegalArgumentException("Please ennter a valid Time");
+			throw new IllegalArgumentException("Please enter a valid Time");
 		}
 		if (subDate == null) {
-			throw new IllegalArgumentException("Please ennter a valid Date");
+			throw new IllegalArgumentException("Please enter a valid Date");
 		}
 		if (subTime == null) {
-			throw new IllegalArgumentException("Please ennter a valid Time");
+			throw new IllegalArgumentException("Please enter a valid Time");
 		}
 		if (coopTerm == null) {
-			throw new IllegalArgumentException("Please ennter a valid CoopTerm");
+			throw new IllegalArgumentException("Please enter a valid CoopTerm");
 		}
 		
 
@@ -622,6 +622,98 @@ public class CooperatorService {
 		Document document = documentRepository.findBydocId(docId);
 		return document;
 	}
+	
+	/**
+	 * Verifies the existence of a document user in the database using the Doc ID
+	 * 
+	 * @param id Doc ID number of the document
+	 * @return True if document exists, false otherwise.
+	 */
+	@Transactional
+	public Boolean documentExists(Integer docId) {
+		Boolean exists = documentRepository.existsById(docId);
+		return exists;
+	}
+	
+	/**
+	 * Updates the Document information in the database based on the Doc ID number
+	 * 
+	 * @param updatedDocument Modified document object, to be stored in database/
+	 * @return {@code true} if document successfully updated, {@code false}
+	 *         otherwise
+	 */
+	@Transactional
+	public Boolean updateDocument(Document updatedDocument) {
+		if (documentExists(updatedDocument.getDocId())) {
+			// Boolean variable to monitor if a database save is required
+			Boolean modified = false;
+			// Get current document record from the database, doc ID wont change between
+			// new and old document
+			Document currentDocument = getDocument(updatedDocument.getDocId());
+
+			// Create a temporary document identical to the current document
+			Document tempDocument = currentDocument;
+
+			// Update relevant fields if they are different in the updated document
+			// Update coopterm
+			if (currentDocument.getCoopTerm() != updatedDocument.getCoopTerm()) {
+				tempDocument.setCoopTerm(updatedDocument.getCoopTerm());
+				modified = true;
+			}
+			// Update dueDate
+			if (currentDocument.getDueDate() != updatedDocument.getDueDate()) {
+				tempDocument.setDueDate(updatedDocument.getDueDate());
+				modified = true;
+			}
+			// Update dueTime
+			if (currentDocument.getDueTime() != updatedDocument.getDueTime()) {
+				tempDocument.setDueTime(updatedDocument.getDueTime());
+				modified = true;
+			}
+			// Update subDate
+			if (currentDocument.getSubDate() != updatedDocument.getSubDate()) {
+				tempDocument.setSubDate(updatedDocument.getSubDate());
+				modified = true;
+			}
+			// Update subTime
+			if (currentDocument.getSubTime() != updatedDocument.getSubTime()) {
+				tempDocument.setSubTime(updatedDocument.getSubTime());
+				modified = true;
+			}
+			
+			// If modifications have been carried out on the temporary object, update the
+			// database
+			if (modified) {
+				deleteEmployer(currentDocument.getDocId());
+				documentRepository.save(tempDocument);
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Deletes Document from database using the doc ID number
+	 * 
+	 * @param docId Doc ID number of the document
+	 */
+	@Transactional
+	public void deleteDocument(Integer docId) {
+		documentRepository.deleteById(docId);
+	}
+	
+	@Transactional
+	public void deleteAllDocuments() {
+		documentRepository.deleteAll();
+		;
+	}
+	
+	
+	// ==========================================================================================
+	// CoopTerm CRUD
+
+
+
 	
 
 
