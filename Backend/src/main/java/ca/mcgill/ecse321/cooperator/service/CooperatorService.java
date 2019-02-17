@@ -95,7 +95,10 @@ public class CooperatorService {
 		if (studentId == null) {
 			throw new IllegalArgumentException("Please enter a valid McGill Student ID");
 		}
-		if (program == null) {
+		if (id == null) {
+			throw new IllegalArgumentException("Please enter a valid User ID");
+		}
+		if (program == null || program.trim().length() == 0) {
 			throw new IllegalArgumentException("Please enter a valid program");
 		}
 		Student user = new Student();
@@ -280,6 +283,9 @@ public class CooperatorService {
 		if (password == null || password.trim().length() == 0) {
 			throw new IllegalArgumentException("Please enter a valid password");
 		}
+		if (id == null) {
+			throw new IllegalArgumentException("Please enter a valid User ID");
+		}
 
 		CoopAdministrator user = new CoopAdministrator();
 		user.setUserID(id);
@@ -424,13 +430,12 @@ public class CooperatorService {
 			throw new IllegalArgumentException("Please enter a valid company name");
 
 		}
-		if (companyName == null || companyName.trim().length() == 0) {
-			throw new IllegalArgumentException("Please enter a valid company name");
-
-		}
 		if (location == null || location.trim().length() == 0) {
 			throw new IllegalArgumentException("Please enter a valid location");
 
+		}
+		if (id == null) {
+			throw new IllegalArgumentException("Please enter a valid User ID");
 		}
 
 		Employer user = new Employer();
@@ -562,20 +567,63 @@ public class CooperatorService {
 	// Document CRUD
 
 	@Transactional
-	public Document document(DocumentName docName, Integer docId) {
+	public Document createDocument(DocumentName docName, Integer docId, Date dueDate, Time dueTime, Date subDate, Time subTime, CoopTerm coopTerm) {
+		
+		if (docName == null) {
+			throw new IllegalArgumentException("Document Name cannot be empty!");
+		}
+		if (docId == null) {
+			throw new IllegalArgumentException("Doc ID cannot be empty!");
+		}
+		if (dueDate == null) {
+			throw new IllegalArgumentException("Please ennter a valid Date");
+		}
+		if (dueTime == null) {
+			throw new IllegalArgumentException("Please ennter a valid Time");
+		}
+		if (subDate == null) {
+			throw new IllegalArgumentException("Please ennter a valid Date");
+		}
+		if (subTime == null) {
+			throw new IllegalArgumentException("Please ennter a valid Time");
+		}
+		if (coopTerm == null) {
+			throw new IllegalArgumentException("Please ennter a valid CoopTerm");
+		}
+		
+
 		Document document = new Document();
 		document.setDocId(docId);
 		document.setDocName(docName);
-
+		document.setDueDate(dueDate);
+		document.setDueTime(dueTime);
+		document.setSubDate(subDate);
+		document.setSubTime(subTime);
+		document.setCoopTerm(coopTerm);
 		documentRepository.save(document);
 
 		return document;
 	}
+	
 
 	@Transactional
 	public List<Document> getAllDocuments() {
 		return toList(documentRepository.findAll());
 	}
+	
+	/**
+	 * Finds and retrieves a Document from the database based on the doc ID number
+	 * 
+	 * @param id document ID number
+	 * @return Requested Document.
+	 */
+	@Transactional
+	public Document getDocument(Integer docId) {
+		Document document = documentRepository.findBydocId(docId);
+		return document;
+	}
+	
+
 
 	@Transactional
 	public CoopTerm createCoopTerm(Date startDate, Date endDate, Integer termId) {
