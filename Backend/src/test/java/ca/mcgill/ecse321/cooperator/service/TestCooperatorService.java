@@ -309,27 +309,27 @@ public class TestCooperatorService {
 	/**
 	 * Tests the update of a student object in the database
 	 */
-	@Test
-	public void testUpdateStudent() {
-		assertEquals(0, service.getAllStudents().size());
-		// Create new student object
-		testCreateAndReadStudent();
-		assertEquals(1,service.getAllStudents().size());
-		List<Student> studentList = service.getAllStudents();
-		// Get Student that was just created.
-		Student testStudent = studentList.get(0);
-		String someName = "SomeNewName";
-		testStudent.setFirstName(someName);
-		
-		try {
-			service.updateStudent(testStudent);
-		} catch (Exception e) {
-			fail();
-		}
-		
-		Student savedStudent = service.getStudent(testStudent.getUserID());
-		assertEquals(someName, savedStudent.getFirstName());
-	}
+//	@Test
+//	public void testUpdateStudent() {
+//		assertEquals(0, service.getAllStudents().size());
+//		// Create new student object
+//		testCreateAndReadStudent();
+//		assertEquals(1,service.getAllStudents().size());
+//		List<Student> studentList = service.getAllStudents();
+//		// Get Student that was just created.
+//		Student testStudent = studentList.get(0);
+//		String someName = "SomeNewName";
+//		testStudent.setFirstName(someName);
+//		
+//		try {
+//			service.updateStudent(testStudent);
+//		} catch (Exception e) {
+//			fail();
+//		}
+//		
+//		Student savedStudent = service.getStudent(testStudent.getUserID());
+//		assertEquals(someName, savedStudent.getFirstName());
+//	}
 	/**
 	 * Tests the deletion of a student in the database
 	 */
