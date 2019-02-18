@@ -151,42 +151,42 @@ public class CooperatorService {
 
 			// Update relevant fields if they are different in the updated student
 			// Update last name
-			if (currentStudent.getLastName() != updatedStudent.getLastName()) {
+			if (!currentStudent.getLastName().equals(updatedStudent.getLastName())) {
 				tempStudent.setLastName(updatedStudent.getLastName());
 				modified = true;
 			}
 			// Update first name
-			if (currentStudent.getFirstName() != updatedStudent.getFirstName()) {
+			if (!currentStudent.getFirstName().equals(updatedStudent.getFirstName())) {
 				tempStudent.setFirstName(updatedStudent.getFirstName());
 				modified = true;
 			}
 			// Update email address
-			if (currentStudent.getEmailAddress() != updatedStudent.getEmailAddress()) {
+			if (!currentStudent.getEmailAddress().equals(updatedStudent.getEmailAddress())) {
 				tempStudent.setEmailAddress(updatedStudent.getEmailAddress());
 				modified = true;
 			}
 			// Update username
-			if (currentStudent.getUserName() != updatedStudent.getUserName()) {
+			if (!currentStudent.getUserName().equals(updatedStudent.getUserName())) {
 				tempStudent.setUserName(updatedStudent.getUserName());
 				modified = true;
 			}
 			// Update password
-			if (currentStudent.getPassword() != updatedStudent.getPassword()) {
+			if (!currentStudent.getPassword().equals(updatedStudent.getPassword())) {
 				tempStudent.setPassword(updatedStudent.getPassword());
 				modified = true;
 			}
 			// Update student ID
-			if (currentStudent.getStudentId() != updatedStudent.getStudentId()) {
+			if (!currentStudent.getStudentId().equals(updatedStudent.getStudentId())) {
 				tempStudent.setStudentId(updatedStudent.getStudentId());
 				modified = true;
 			}
 			// Update Program
-			if (currentStudent.getProgram() != updatedStudent.getProgram()) {
+			if (!currentStudent.getProgram().equals(updatedStudent.getProgram())) {
 				tempStudent.setProgram(updatedStudent.getProgram());
 				modified = true;
 			}
 			// Update Coop Terms
-			if (currentStudent.getCoopTerm() != updatedStudent.getCoopTerm()) {
+			if (!currentStudent.getCoopTerm().equals(updatedStudent.getCoopTerm())) {
 				tempStudent.setCoopTerm(updatedStudent.getCoopTerm());
 				modified = true;
 			}
@@ -196,8 +196,9 @@ public class CooperatorService {
 			if (modified) {
 				deleteStudent(currentStudent.getUserID());
 				studentRepository.save(tempStudent);
+				return true;
 			}
-			return true;
+			
 		}
 		return false;
 	}
