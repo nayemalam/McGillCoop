@@ -28,14 +28,17 @@ import ca.mcgill.ecse321.cooperator.model.CooperatorSystem;
 import ca.mcgill.ecse321.cooperator.model.Document;
 import ca.mcgill.ecse321.cooperator.model.DocumentName;
 import ca.mcgill.ecse321.cooperator.dao.CooperatorSystemRepository;
+import ca.mcgill.ecse321.cooperator.dao.CoopAdministratorRepository;
 import ca.mcgill.ecse321.cooperator.dao.CoopTermRepository;
 import ca.mcgill.ecse321.cooperator.dao.DocumentRepository;
+import ca.mcgill.ecse321.cooperator.dao.EmployerRepository;
+import ca.mcgill.ecse321.cooperator.dao.StudentRepository;
 import ca.mcgill.ecse321.cooperator.dao.SystemUserRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class TestCooperatorService {
-	
+
 	@Autowired
 	private CooperatorService service;
 
@@ -47,7 +50,13 @@ public class TestCooperatorService {
 	private SystemUserRepository systemUserRepository;
 	@Autowired
 	private DocumentRepository documentRepository;
-	
+	@Autowired
+	private CoopAdministratorRepository coopAdministratorRepository;
+	@Autowired
+	private EmployerRepository employerRepository;
+	@Autowired
+	private StudentRepository studentRepository;
+
 	@Before
 	public void clearDatabase() {
 		// First, we clear registrations to avoid exceptions due to inconsistencies
@@ -56,15 +65,23 @@ public class TestCooperatorService {
 		systemUserRepository.deleteAll();
 		coopTermRepository.deleteAll();
 		cooperatorSystemRepository.deleteAll();
+		coopAdministratorRepository.deleteAll();
+		coopAdministratorRepository.deleteAll();
+		studentRepository.deleteAll();
 	}
-
+	
+	// ==========================================================================================
+	// Cooperator System tests
+	/**
+	 *  Test creation and persistence of a CooperatorSystem object
+	 */
 	@Test
 	public void testCreateCooperatorSystem() {
-		
+
 		assertEquals(0, service.getAllCooperatorSystems().size());
-		
+
 		Integer systemId = 420;
-		
+
 		try {
 			service.createCooperatorSystem(systemId);
 		} catch (IllegalArgumentException e) {
@@ -78,11 +95,18 @@ public class TestCooperatorService {
 		assertEquals(systemId, allCooperatorSystems.get(0).getSystemId());
 	}
 
+	// ==========================================================================================
+	
+	// ==========================================================================================
+	// Student tests
+	/**
+	 * Test creation and persistence of a student object
+	 */
 	@Test
 	public void testCreateStudent() {
-		Student testStudent; 
+		Student testStudent;
 		assertEquals(0, service.getAllStudents().size());
-		
+
 		Integer id = 123;
 		String name = "Oscar";
 		String fName = "Macsiotra";
@@ -95,8 +119,7 @@ public class TestCooperatorService {
 		try {
 			testStudent = service.createStudent(id, name, fName, emailAddress, userName, password, studentId, program);
 		} catch (IllegalArgumentException e) {
-			// Check that no error occurred
-			System.out.println("SUH");
+			// Check that no error occurred while creating and saving the student.
 			fail();
 		}
 
@@ -113,19 +136,232 @@ public class TestCooperatorService {
 		assertEquals(program, allUsers.get(0).getProgram());
 		testStudent = null;
 	}
+
+	/**
+	 * Tests to see if input errors in the creation of the student are correctly
+	 * caught
+	 */
+	@Test
+	public void testCreateStudentInputs() {
+
+		assertEquals(0, service.getAllStudents().size());
+		String[] errorMessages = { "Please enter a valid User ID", "Person name cannot be empty!",
+				"Email Address cannot be empty!", "Username cannot be empty!", 
+				"Please enter a valid password", "Please enter a valid McGill Student ID",
+				"Please enter a valid program"};
+		String error = "";
+
+		// Create input arguments to the create function
+		Integer id = 123;
+		String name = "Oscar";
+		String fName = "Macsiotra";
+		String emailAddress = "oscar@mcgill.ca";
+		String userName = "Oscar89";
+		String password = "qwerty";
+		Integer studentId = 260747696;
+		String program = "ecse";
+
+		// Test ID parsing
+		try {
+			// Null input
+			service.createStudent(null, name, fName, emailAddress, userName, password, studentId, program);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals(errorMessages[0], error);
+
+		// Test Name parsing
+		try {
+			// Null input
+			service.createStudent(id, null, fName, emailAddress, userName, password, studentId, program);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals(errorMessages[1], error);
+		try {
+			// Empty string input
+			service.createStudent(id, " ", fName, emailAddress, userName, password, studentId, program);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals(errorMessages[1], error);
+
+		// LastName testing
+		try {
+			// Null input
+			service.createStudent(id, name, null, emailAddress, userName, password, studentId, program);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals(errorMessages[1], error);
+		try {
+			// Empty String
+			service.createStudent(id, name, " ", emailAddress, userName, password, studentId, program);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals(errorMessages[1], error);
+
+		// Email address testing
+		try {
+			// Null input
+			service.createStudent(id, name, fName, null, userName, password, studentId, program);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals(errorMessages[2], error);
+		try {
+			// Empty String
+			service.createStudent(id, name, fName, " ", userName, password, studentId, program);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals(errorMessages[2], error);
+
+		// Username testing
+		try {
+			// Null input
+			service.createStudent(id, name, fName, emailAddress, null, password, studentId, program);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals(errorMessages[3], error);
+		try {
+			// Empty String
+			service.createStudent(id, name, fName, emailAddress, " ", password, studentId, program);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals(errorMessages[3], error);
+
+		// Password testing
+		try {
+			// Null input
+			service.createStudent(id, name, fName, emailAddress, userName, null, studentId, program);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals(errorMessages[4], error);
+		try {
+			// Empty String
+			service.createStudent(id, name, fName, emailAddress, userName, " ", studentId, program);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals(errorMessages[4], error);
+
+		// studentId testing
+		try {
+			// Null input
+			service.createStudent(id, name, fName, emailAddress, userName, password, null, program);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals(errorMessages[5], error);
+		
+		// program testing
+		try {
+			// Null input
+			service.createStudent(id, name, fName, emailAddress, userName, password, studentId, null);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals(errorMessages[6], error);
+		try {
+			// Empty String
+			service.createStudent(id, name, fName, emailAddress, userName, password, studentId, " ");
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals(errorMessages[6], error);
+
+		// check no change in memory
+		assertEquals(0, service.getAllStudents().size());
+
+	}
+
+	@Test
+	public void testUpdateStudent() {
+		// TODO
+	}
 	
+	@Test
+	public void testDeleteStudent() {
+		// TODO
+	}
+	// ==========================================================================================
 	
+	// ==========================================================================================
+	// Employer tests
+	
+	/**
+	 * Test the creation and persistence of an Employer object
+	 */
+	@Test
+	public void testCreateEmployer() {
+		Employer testEmployer;
+		assertEquals(0, service.getAllEmployers().size());
+		
+		Integer id = 123;
+		String name = "Oscar";
+		String fName = "Macsiotra";
+		String emailAddress = "oscar@mcgill.ca";
+		String userName = "Oscar89";
+		String password = "qwerty";
+		String companyName = "Suh Industries";
+		String location = "Montreal";
+		
+		try {
+			testEmployer = service.createEmployer(id, name, fName, emailAddress, userName, password, companyName, location);
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred while creating and saving the student.
+			fail();
+		}
+		assertEquals(1, service.getAllEmployers().size());
+		
+		List<Employer> employerList = service.getAllEmployers();
+		testEmployer = employerList.get(0);
+		assertEquals(id,testEmployer.getUserID());
+		assertEquals(name,testEmployer.getLastName());
+		assertEquals(fName,testEmployer.getFirstName());
+		assertEquals(emailAddress,testEmployer.getEmailAddress());
+		assertEquals(userName,testEmployer.getUserName());
+		assertEquals(password,testEmployer.getPassword());
+		assertEquals(companyName,testEmployer.getCompanyName());
+		assertEquals(location,testEmployer.getLocation());
+
+	}
+
+	@Test
+	public void testCreateEmployerInputs() {
+		// TODO
+	}
+	
+	@Test
+	public void testUpdateEmployer() {
+		// TODO
+	}
+	
+	@Test
+	public void testDeleteEmployer() {
+		
+	}
+	// ==========================================================================================
+
 //	@Test
 //	public void testCreateCoopTerm() {
 //		assertEquals(0, service.getAllCoopTerms().size());
-//		
+//		assertEquals(0, service.getAllStudents().size());
+//		// Store new student in the student database
+//		testCreateStudent();
+//		Student testStudent = service.getAllStudents().get(0);
 //		Date startDate = new Date(0);
 //		System.out.println(startDate);
 //		Date endDate = new Date(1);
 //		Integer termId = 1;
 //		
 //		try {
-//			service.createCoopTerm(startDate, endDate, termId);
+//			service.createCoopTerm(startDate, endDate, termId, testStudent);
 //		} catch (IllegalArgumentException e) {
 //			// Check that no error occurred
 //			fail();
@@ -138,57 +374,6 @@ public class TestCooperatorService {
 //		assertEquals(termId, testTerm.getTermId());
 //		assertEquals(startDate, testTerm.getStartDate());
 //		assertEquals(endDate, testTerm.getEndDate());
-//	}
-//	
-//	@Test
-//	public void testCreateCoopterm() {
-//		assertEquals(0, service.getAllCoopTerms().size());
-//
-//		@SuppressWarnings("deprecation")
-//		Date startDate = new Date(8,8,2017);
-//		@SuppressWarnings("deprecation")
-//		Date endDate = new Date(8,8,2018);
-//
-//		Integer termId = 21;
-//		
-//		
-//
-//		try {
-//			service.createCoopTerm(startDate, endDate, termId);
-//		} catch (IllegalArgumentException e) {
-//			// Check that no error occurred
-//			fail();
-//		}
-//
-//		List<CoopTerm> allCoopTerm = service.getAllCoopTerms();
-//
-//		assertEquals(1, allCoopTerm.size());
-//		assertEquals(termId, allCoopTerm.get(0).getTermId());
-//	}
-	@Test
-	public void emptyMethod() {
-		assertEquals(0, 0);
-	}
-//
-//	@Test
-//	public void testCreatePersonNull() {
-//		assertEquals(0, service.getAllPersons().size());
-//
-//		String name = null;
-//		String error = null;
-//
-//		try {
-//			service.createPerson(name);
-//		} catch (IllegalArgumentException e) {
-//			error = e.getMessage();
-//		}
-//
-//		// check error
-//		assertEquals("Person name cannot be empty!", error);
-//
-//		// check no change in memory
-//		assertEquals(0, service.getAllPersons().size());
-//
 //	}
 
 }
