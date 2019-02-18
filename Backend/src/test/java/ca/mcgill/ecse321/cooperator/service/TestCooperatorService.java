@@ -605,7 +605,7 @@ public class TestCooperatorService {
 		// TODO
 	}
 	/**
-	 * Tests the deletion of a CoopTErm object from the database
+	 * Tests the deletion of a CoopTerm object from the database
 	 */
 	@Test
 	public void testDeleteCoopTerm() {
@@ -617,6 +617,38 @@ public class TestCooperatorService {
 	// ==========================================================================================
 	// Document Tests
 	
+	/**
+	 * Test the creation and persistence of a Document object
+	 */
+	@Test
+	public void testCreateAndReadDocument() {
+		// TODO
+	}
+	
+	/**
+	 * Test the inputs to the creation methods, to make sure correct input is received before
+	 * storage in the database
+	 */
+	@Test
+	public void testCreateDocumentInputs() {
+		// TODO
+	}
+	
+	/**
+	 * Tests the update of a Document object in the database
+	 */
+	@Test
+	public void testUpdateDocument() {
+		// TODO
+	}
+	
+	/**
+	 * * Tests the deletion of a Document object from the database
+	 */
+	@Test
+	public void testDeleteDocument() {
+		// TODO
+	}
 	// ==========================================================================================
 	
 
