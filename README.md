@@ -4,7 +4,7 @@
 
 # Introduction
 
-View our :star2: [Deliverable 1 Report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-1-Report)
+View our :star2: [Deliverable 1 Report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-1-Report)  :star2: [Deliverable 2 Report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-2-Report)
 
 ### Scope of Project
 
@@ -25,7 +25,7 @@ and have both read and write access to the backend via RESTful service calls.
 This software system is subdivided into four deliverables:
 
 - :one: [Deliverable 1](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-1-Report) - Requirements, Domain Modeling, Database Design
-- :two: Deliverable 2 - Backend, Quality Assurance
+- :two: [Deliverable 2](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-2-Report) - Backend, Quality Assurance
 - :three: Deliverable 3 - Web Frontend, Architecture
 - :four: Deliverable 4 - Mobile Frontend, Availability
 
@@ -45,7 +45,7 @@ This software system is subdivided into four deliverables:
 |Nayem Alam        |  _5*10<sup>6</sup>_ hours   |Project management lead|
 |Alex Masciotra    |  _39_ hours  |                       |
 |Thomas Philippon  |  _27_ hours  |                       |
-|Violet Wei        |  _22_ hours  |                       |
+|Violet Wei        |  _24_ hours  |                       |
 
 ### Sprint 1 
 - [x] Use UML Lab to create a domain model
