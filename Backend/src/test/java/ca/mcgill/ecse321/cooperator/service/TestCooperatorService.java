@@ -1102,8 +1102,6 @@ public class TestCooperatorService {
 		}
 
 		List<CoopTerm> allCoopTerms = service.getAllCoopTerms();
-		//It is the same date, but i cant figure out how to compare dates using java sql date. 
-		// ^ RESOLVED
 		assertEquals(newEndDate.toString(), allCoopTerms.get(0).getEndDate().toString());
 		assertEquals(student2.getUserID(), allCoopTerms.get(0).getStudent().getUserID());
 		assertEquals(student2.getEmailAddress(), allCoopTerms.get(0).getStudent().getEmailAddress());
