@@ -42,7 +42,7 @@ This software system is subdivided into four deliverables:
 |Team member's name|Total hours|Responsibility         |
 |------------------|--------------|-----------------------|
 |Tristan Bouchard  |  _41_ hours  |Mobile frontend lead   |
-|Nayem Alam        |  _25_ hours   |Project management lead|
+|Nayem Alam        |  _5*10<sup>6</sup>_ hours   |Project management lead|
 |Alex Masciotra    |  _39_ hours  |                       |
 |Thomas Philippon  |  _27_ hours  |                       |
 |Violet Wei        |  _22_ hours  |                       |
