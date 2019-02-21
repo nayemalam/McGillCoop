@@ -139,66 +139,46 @@ public class CooperatorService {
 	 * @return {@code true} if student successfully updated, {@code false} otherwise
 	 */
 	@Transactional
-	public Boolean updateStudent(Student updatedStudent) {
-		if (studentExists(updatedStudent.getUserID())) {
+	public Boolean updateStudent(Integer id, String name, String fName, String emailAddress, String userName,
+			String password, Integer studentId, String program) {
+		
+		if (studentExists(id)) {
 			// Boolean variable to monitor if a database save is required
 			Boolean modified = false;
 			// Get current student record from the database
-			Student currentStudent = getStudent(updatedStudent.getUserID());
-
-			// Create a temporary student identical to the current student
-			Student tempStudent = currentStudent;
+			Student currentStudent = getStudent(id);
 
 			// Update relevant fields if they are different in the updated student
 			// Update last name
-			if (!currentStudent.getLastName().equals(updatedStudent.getLastName())) {
-				tempStudent.setLastName(updatedStudent.getLastName());
-				modified = true;
+			if (!currentStudent.getLastName().equals(name)) {
+				currentStudent.setLastName(name);
 			}
 			// Update first name
-			if (!currentStudent.getFirstName().equals(updatedStudent.getFirstName())) {
-				tempStudent.setFirstName(updatedStudent.getFirstName());
-				modified = true;
+			if (!currentStudent.getFirstName().equals(fName)) {
+				currentStudent.setFirstName(fName);
 			}
 			// Update email address
-			if (!currentStudent.getEmailAddress().equals(updatedStudent.getEmailAddress())) {
-				tempStudent.setEmailAddress(updatedStudent.getEmailAddress());
-				modified = true;
+			if (!currentStudent.getEmailAddress().equals(emailAddress)) {
+				currentStudent.setEmailAddress(emailAddress);
 			}
 			// Update username
-			if (!currentStudent.getUserName().equals(updatedStudent.getUserName())) {
-				tempStudent.setUserName(updatedStudent.getUserName());
-				modified = true;
+			if (!currentStudent.getUserName().equals(userName)) {
+				currentStudent.setUserName(userName);
 			}
 			// Update password
-			if (!currentStudent.getPassword().equals(updatedStudent.getPassword())) {
-				tempStudent.setPassword(updatedStudent.getPassword());
-				modified = true;
+			if (!currentStudent.getPassword().equals(password)) {
+				currentStudent.setPassword(password);
 			}
 			// Update student ID
-			if (!currentStudent.getStudentId().equals(updatedStudent.getStudentId())) {
-				tempStudent.setStudentId(updatedStudent.getStudentId());
-				modified = true;
+			if (!currentStudent.getStudentId().equals(studentId)) {
+				currentStudent.setStudentId(studentId);
 			}
 			// Update Program
-			if (!currentStudent.getProgram().equals(updatedStudent.getProgram())) {
-				tempStudent.setProgram(updatedStudent.getProgram());
-				modified = true;
-			}
-			// Update Coop Terms
-			if (!currentStudent.getCoopTerm().equals(updatedStudent.getCoopTerm())) {
-				tempStudent.setCoopTerm(updatedStudent.getCoopTerm());
-				modified = true;
+			if (!currentStudent.getProgram().equals(program)) {
+				currentStudent.setProgram(program);
 			}
 
-			// If modifications have been carried out on the temporary object, update the
-			// database
-			if (modified) {
-				deleteStudent(currentStudent.getUserID());
-				studentRepository.save(tempStudent);
-				return true;
-			}
-			
+			return true;
 		}
 		return false;
 	}
@@ -209,7 +189,6 @@ public class CooperatorService {
 	 * @param id System ID number of the user
 	 */
 	@Transactional
-
 	public Boolean deleteStudent(Integer id) {
 		// The delete method throws an IllegalArgumentError if the id is null
 		try {
@@ -235,7 +214,6 @@ public class CooperatorService {
 	// ==========================================================================================
 
 	@Transactional
-
 	public CooperatorSystem createCooperatorSystem(Integer systemId) {
 		if (systemId == null) {
 			throw new IllegalArgumentException("Please enter a valid systemId");
@@ -263,7 +241,38 @@ public class CooperatorService {
 	public List<CooperatorSystem> getAllCooperatorSystems() {
 		return toList(cooperatorSystemRepository.findAll());
 	}
+	
+//	@Transactional
+//	public Boolean updateCooperatorSystem(Integer systemId) {
+//		
+//		if(cooperatorSystemExists(systemId)) {
+//			
+//			CooperatorSystem coopSystem = getCooperatorSystem(systemId);
+//			
+//			if(!coopSystem.getSystemId().equals(systemId)) {
+//				
+//				coopSystem.setSystemId(systemId);
+//			}
+//			
+//		return true;
+//	}
+//		
+//		
+//		return false;
+//	}
 
+	@Transactional
+	public Boolean cooperatorSystemExists(Integer id) {
+		Boolean exists = cooperatorSystemRepository.existsById(id);
+		return exists;
+	}
+	
+	@Transactional
+	public void deleteCooperatorSystem(Integer id) {
+		cooperatorSystemRepository.deleteById(id);
+	}
+	
+	
 	// ==========================================================================================
 	// Co-op Admin CRUD
 
@@ -309,50 +318,35 @@ public class CooperatorService {
 	 *         otherwise
 	 */
 	@Transactional
-	public Boolean updateCoopAdministrator(CoopAdministrator updatedCoopAdministrator) {
-		if (coopAdministratorExists(updatedCoopAdministrator.getUserID())) {
-			// Boolean variable to monitor if a database save is required
-			Boolean modified = false;
+	public Boolean updateCoopAdministrator(Integer id, String name, String fName, String emailAddress,
+			String userName, String password) {
+		if (coopAdministratorExists(id)) {
 			// Get current student record from the database, user ID wont change between new
 			// and old coopadmin
-			CoopAdministrator currentCoopAdministrator = getCoopAdministrator(updatedCoopAdministrator.getUserID());
-
-			// Create a temporary coopadmin identical to the coopadmin student
-			CoopAdministrator tempCoopAdministrator = currentCoopAdministrator;
+			CoopAdministrator currentCoopAdministrator = getCoopAdministrator(id);
 
 			// Update relevant fields if they are different in the updated coopAdministrator
 			// Update last name
-			if (currentCoopAdministrator.getLastName() != updatedCoopAdministrator.getLastName()) {
-				tempCoopAdministrator.setLastName(updatedCoopAdministrator.getLastName());
-				modified = true;
+			if (currentCoopAdministrator.getLastName() != name) {
+				currentCoopAdministrator.setLastName(name);
 			}
 			// Update first name
-			if (currentCoopAdministrator.getFirstName() != updatedCoopAdministrator.getFirstName()) {
-				tempCoopAdministrator.setFirstName(updatedCoopAdministrator.getFirstName());
-				modified = true;
+			if (currentCoopAdministrator.getFirstName() != fName) {
+				currentCoopAdministrator.setFirstName(fName);
 			}
 			// Update email address
-			if (currentCoopAdministrator.getEmailAddress() != updatedCoopAdministrator.getEmailAddress()) {
-				tempCoopAdministrator.setEmailAddress(updatedCoopAdministrator.getEmailAddress());
-				modified = true;
+			if (currentCoopAdministrator.getEmailAddress() != emailAddress) {
+				currentCoopAdministrator.setEmailAddress(emailAddress);
 			}
 			// Update username
-			if (currentCoopAdministrator.getUserName() != updatedCoopAdministrator.getUserName()) {
-				tempCoopAdministrator.setUserName(updatedCoopAdministrator.getUserName());
-				modified = true;
+			if (currentCoopAdministrator.getUserName() != userName) {
+				currentCoopAdministrator.setUserName(userName);
 			}
 			// Update password
-			if (currentCoopAdministrator.getPassword() != updatedCoopAdministrator.getPassword()) {
-				tempCoopAdministrator.setPassword(updatedCoopAdministrator.getPassword());
-				modified = true;
+			if (currentCoopAdministrator.getPassword() != password) {
+				currentCoopAdministrator.setPassword(password);
 			}
 
-			// If modifications have been carried out on the temporary object, update the
-			// database
-			if (modified) {
-				deleteCoopAdministrator(currentCoopAdministrator.getUserID());
-				coopAdministratorRepository.save(tempCoopAdministrator);
-			}
 			return true;
 		}
 		return false;
@@ -460,60 +454,44 @@ public class CooperatorService {
 	 *         otherwise
 	 */
 	@Transactional
-	public Boolean updateEmployer(Employer updatedEmployer) {
-		if (employerExists(updatedEmployer.getUserID())) {
-			// Boolean variable to monitor if a database save is required
-			Boolean modified = false;
+	public Boolean updateEmployer(Integer id, String name, String fName, String emailAddress, String userName,
+			String password, String companyName, String location) {
+		if (employerExists(id)) {
+
 			// Get current employer record from the database, user ID wont change between
 			// new and old employer
-			Employer currentEmployer = getEmployer(updatedEmployer.getUserID());
-
-			// Create a temporary employer identical to the current employer
-			Employer tempEmployer = currentEmployer;
+			Employer currentEmployer = getEmployer(id);
 
 			// Update relevant fields if they are different in the updated employer
 			// Update last name
-			if (currentEmployer.getLastName() != updatedEmployer.getLastName()) {
-				tempEmployer.setLastName(updatedEmployer.getLastName());
-				modified = true;
+			if (currentEmployer.getLastName() != name) {
+				currentEmployer.setLastName(name);
 			}
 			// Update first name
-			if (currentEmployer.getFirstName() != updatedEmployer.getFirstName()) {
-				tempEmployer.setFirstName(updatedEmployer.getFirstName());
-				modified = true;
+			if (currentEmployer.getFirstName() != fName) {
+				currentEmployer.setFirstName(fName);
 			}
 			// Update email address
-			if (currentEmployer.getEmailAddress() != updatedEmployer.getEmailAddress()) {
-				tempEmployer.setEmailAddress(updatedEmployer.getEmailAddress());
-				modified = true;
+			if (currentEmployer.getEmailAddress() != emailAddress) {
+				currentEmployer.setEmailAddress(emailAddress);
 			}
 			// Update username
-			if (currentEmployer.getUserName() != updatedEmployer.getUserName()) {
-				tempEmployer.setUserName(updatedEmployer.getUserName());
-				modified = true;
+			if (currentEmployer.getUserName() != userName) {
+				currentEmployer.setUserName(userName);
 			}
 			// Update password
-			if (currentEmployer.getPassword() != updatedEmployer.getPassword()) {
-				tempEmployer.setPassword(updatedEmployer.getPassword());
-				modified = true;
+			if (currentEmployer.getPassword() != password) {
+				currentEmployer.setPassword(password);
 			}
 			// Update location
-			if (currentEmployer.getLocation() != updatedEmployer.getLocation()) {
-				tempEmployer.setLocation(updatedEmployer.getLocation());
-				modified = true;
+			if (currentEmployer.getLocation() != companyName) {
+				currentEmployer.setLocation(companyName);
 			}
 			// Update companyname
-			if (currentEmployer.getCompanyName() != updatedEmployer.getCompanyName()) {
-				tempEmployer.setCompanyName(updatedEmployer.getCompanyName());
-				modified = true;
+			if (currentEmployer.getCompanyName() != location) {
+				currentEmployer.setCompanyName(location);
 			}
 
-			// If modifications have been carried out on the temporary object, update the
-			// database
-			if (modified) {
-				deleteEmployer(currentEmployer.getUserID());
-				employerRepository.save(tempEmployer);
-			}
 			return true;
 		}
 		return false;
@@ -644,50 +622,36 @@ public class CooperatorService {
 	 *         otherwise
 	 */
 	@Transactional
-	public Boolean updateDocument(Document updatedDocument) {
-		if (documentExists(updatedDocument.getDocId())) {
-			// Boolean variable to monitor if a database save is required
-			Boolean modified = false;
+	public Boolean updateDocument(DocumentName docName, Integer docId, Date dueDate, Time dueTime, Date subDate, Time subTime, CoopTerm coopTerm) {
+		if (documentExists(docId)) {
 			// Get current document record from the database, doc ID wont change between
 			// new and old document
-			Document currentDocument = getDocument(updatedDocument.getDocId());
-
-			// Create a temporary document identical to the current document
-			Document tempDocument = currentDocument;
+			Document currentDocument = getDocument(docId);
 
 			// Update relevant fields if they are different in the updated document
 			// Update coopterm
-			if (currentDocument.getCoopTerm() != updatedDocument.getCoopTerm()) {
-				tempDocument.setCoopTerm(updatedDocument.getCoopTerm());
-				modified = true;
+			if (currentDocument.getCoopTerm() != coopTerm) {
+				currentDocument.setCoopTerm(coopTerm);
 			}
 			// Update dueDate
-			if (currentDocument.getDueDate() != updatedDocument.getDueDate()) {
-				tempDocument.setDueDate(updatedDocument.getDueDate());
-				modified = true;
+			if (currentDocument.getDueDate() != dueDate) {
+				currentDocument.setDueDate(dueDate);
 			}
 			// Update dueTime
-			if (currentDocument.getDueTime() != updatedDocument.getDueTime()) {
-				tempDocument.setDueTime(updatedDocument.getDueTime());
-				modified = true;
+			if (currentDocument.getDueTime() != dueTime) {
+				currentDocument.setDueTime(dueTime);
 			}
 			// Update subDate
-			if (currentDocument.getSubDate() != updatedDocument.getSubDate()) {
-				tempDocument.setSubDate(updatedDocument.getSubDate());
-				modified = true;
+			if (currentDocument.getSubDate() != subDate) {
+				currentDocument.setSubDate(subDate);
 			}
 			// Update subTime
-			if (currentDocument.getSubTime() != updatedDocument.getSubTime()) {
-				tempDocument.setSubTime(updatedDocument.getSubTime());
-				modified = true;
+			if (currentDocument.getSubTime() != subTime) {
+				currentDocument.setSubTime(subTime);
 			}
 			
 			// If modifications have been carried out on the temporary object, update the
 			// database
-			if (modified) {
-				deleteEmployer(currentDocument.getDocId());
-				documentRepository.save(tempDocument);
-			}
 			return true;
 		}
 		return false;
@@ -778,7 +742,6 @@ public class CooperatorService {
 	@Transactional
 	public void deleteAllCoopTerms() {
 		coopTermRepository.deleteAll();
-		;
 	}
 	
 	/**
@@ -789,54 +752,34 @@ public class CooperatorService {
 	 *         otherwise
 	 */
 	@Transactional
-	public Boolean updateCoopTerm(CoopTerm updatedCoopTerm) {
-		if (coopTermExists(updatedCoopTerm.getTermId())) {
-			// Boolean variable to monitor if a database save is required
-			Boolean modified = false;
+	public Boolean updateCoopTerm(Date startDate, Date endDate, Integer termId, Student student, Employer employer) {
+		if (coopTermExists(termId)) {
 			// Get current coopterm record from the database, term ID wont change between
 			// new and old coopterm
-			CoopTerm currentCoopTerm = getCoopTerm(updatedCoopTerm.getTermId());
-
-			// Create a temporary coopterm identical to the current document
-			CoopTerm tempCoopTerm = currentCoopTerm;
+			CoopTerm currentCoopTerm = getCoopTerm(termId);
 
 			// Update relevant fields if they are different in the updated document
-			// Update coopterm
-			if (currentCoopTerm.getStudent() != updatedCoopTerm.getStudent()) {
-				tempCoopTerm.setStudent(updatedCoopTerm.getStudent());
-				modified = true;
+			// Update coopTerm
+			if (!currentCoopTerm.getStudent().equals(student)) {
+				currentCoopTerm.setStudent(student);
 			}
 			// Update employer
-			if (currentCoopTerm.getEmployer() != updatedCoopTerm.getEmployer()) {
-				tempCoopTerm.setEmployer(updatedCoopTerm.getEmployer());
-				modified = true;
+			if (!currentCoopTerm.getEmployer().equals(employer)) {
+				currentCoopTerm.setEmployer(employer);
 			}
 			// Update startDate
-			if (currentCoopTerm.getStartDate() != updatedCoopTerm.getStartDate()) {
-				tempCoopTerm.setStartDate(updatedCoopTerm.getStartDate());
-				modified = true;
+			if (currentCoopTerm.getStartDate().compareTo(startDate) != 0) {
+				currentCoopTerm.setStartDate(startDate);
 			}
 			// Update endDate
-			if (currentCoopTerm.getEndDate() != updatedCoopTerm.getEndDate()) {
-				tempCoopTerm.setEndDate(updatedCoopTerm.getEndDate());
-				modified = true;
+			if (currentCoopTerm.getEndDate().compareTo(endDate) != 0) {
+				currentCoopTerm.setEndDate(endDate);
 			}
-			
-			
-			// If modifications have been carried out on the temporary object, update the
-			// database
-			if (modified) {
-				deleteCoopTerm(tempCoopTerm.getTermId());
-				coopTermRepository.save(tempCoopTerm);
-			}
+
 			return true;
 		}
 		return false;
 	}
-	
-	
-	
-
 	
 	
 	// ==========================================================================================
