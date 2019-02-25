@@ -121,7 +121,7 @@ public class CooperatorService {
 	}
 
 	/**
-	 * Finds and retrieves a student from the database based on the System ID number
+	 * Finds and retrieves a student from the database based on the User ID number
 	 * 
 	 * @param id System ID number
 	 * @return Requested Student.
@@ -210,6 +210,31 @@ public class CooperatorService {
 		return studentRepository.existsById(id);
 
 	}
+	
+	/**
+	 * Views the StudentFiles in the database
+	 * 
+	 * @param id user ID number of the student, termId of the CoopTerm
+	 * @return Void
+	 */
+	
+//	@Transactional
+//	public void viewStudentFiles(Integer id, Integer termId) {
+//		if (studentExists(id) && coopTermExists(termId)) {
+//			
+//			// Get current student record from the database
+//			Student currentStudent = getStudent(id);
+//			//Get coopTerm from Database
+//			Set<CoopTerm> coopterms = new ArrayList<>();
+//			coopterms = currentStudent.getCoopTerm();
+//			
+//			
+//			
+//		}
+//		
+//			
+//		
+//	}
 
 	// ==========================================================================================
 
