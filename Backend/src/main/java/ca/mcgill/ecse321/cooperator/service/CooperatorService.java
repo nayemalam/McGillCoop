@@ -218,23 +218,23 @@ public class CooperatorService {
 	 * @return Void
 	 */
 	
-	@Transactional
-	public void viewStudentFiles(Integer id, Integer termId) {
-		if (studentExists(id) && coopTermExists(termId)) {
-			
-			// Get current student record from the database
-			Student currentStudent = getStudent(id);
-			//Get coopTerm from Database
-			Set<CoopTerm> coopterms = new ArrayList<>();
-			coopterms = currentStudent.getCoopTerm();
-			
-			
-			
-		}
-		
-			
-		
-	}
+//	@Transactional
+//	public void viewStudentFiles(Integer id, Integer termId) {
+//		if (studentExists(id) && coopTermExists(termId)) {
+//			
+//			// Get current student record from the database
+//			Student currentStudent = getStudent(id);
+//			//Get coopTerm from Database
+//			Set<CoopTerm> coopterms = new ArrayList<>();
+//			coopterms = currentStudent.getCoopTerm();
+//			
+//			
+//			
+//		}
+//		
+//			
+//		
+//	}
 
 	// ==========================================================================================
 
