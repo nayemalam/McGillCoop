@@ -58,9 +58,9 @@ This software system is subdivided into four deliverables:
 ## Deliverable 2 - Backend, Testing
 
 ### Sprint 2 (Backend)
-- [] Implement RESTful web service using Java Spring Boot
-- [] Provide a suite of unit tests for the backend using JUnit by separating it from the database.
-- [] Deploy the project as a Heroku application in addition to the constraints above.
+- [-] Implement RESTful web service using Java Spring Boot
+- [-] Provide a suite of unit tests for the backend using JUnit by separating it from the database.
+- [-] Deploy the project as a Heroku application in addition to the constraints above.
 
 
 
