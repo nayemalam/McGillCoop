@@ -146,8 +146,6 @@ public class CooperatorService {
 			String password, Integer studentId, String program) {
 		
 		if (studentExists(id)) {
-			// Boolean variable to monitor if a database save is required
-			Boolean modified = false;
 			// Get current student record from the database
 			Student currentStudent = getStudent(id);
 
@@ -250,6 +248,27 @@ public class CooperatorService {
 		}
 		return documents;
 	}
+	
+	@Transactional
+	public Document viewStudentDocument(Integer id, Integer termId, DocumentName docname) {
+		//This business method returns a document from the list of documents of a term. 
+		Set<Document> documents = Collections.emptySet();	
+		documents = viewStudentFiles(id, termId);
+		
+     	//document that will be returned 
+		Document document_modif = new Document();
+		
+		//iterate through the document list of the term 
+		Iterator<Document> iter = documents.iterator();
+		while(iter.hasNext()) {
+			//stop when the document type is found 
+			if(iter.next().getDocName().equals(docname));
+			document_modif = iter.next();	
+		}
+		
+		return document_modif;
+	}
+	
 
 	// ==========================================================================================
 
@@ -616,6 +635,26 @@ public class CooperatorService {
 
 		}
 		return documents;
+	}
+	
+	@Transactional
+	public Document viewEmployerDocument(Integer id, Integer termId, DocumentName docname) {
+		//This business method returns a document from the list of documents of a term. 
+		Set<Document> documents = Collections.emptySet();	
+		documents = viewEmployerFiles(id, termId);
+		
+     	//document that will be returned 
+		Document document_modif = new Document();
+		
+		//iterate through the document list of the term 
+		Iterator<Document> iter = documents.iterator();
+		while(iter.hasNext()) {
+			//stop when the document type is found 
+			if(iter.next().getDocName().equals(docname));
+			document_modif = iter.next();	
+		}
+		
+		return document_modif;
 	}
 
 
