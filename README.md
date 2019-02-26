@@ -47,13 +47,21 @@ This software system is subdivided into four deliverables:
 |Thomas Philippon  |  _27_ hours  |                       |
 |Violet Wei        |  _24_ hours  |                       |
 
-### Sprint 1 
+### Sprint 1 (Database)
 - [x] Use UML Lab to create a domain model
 - [x] Implement a persistence layer using a Postgres database
 - [x] Use the ORM technology Hibernate to map objects to database concepts
 - [x] Create a Spring/Spring Boot project
 - [x] Configure a build system using Gradle
 - [x] Use a Continuous Integration process using Travis CI to build and test the database persistence layer
+
+## Deliverable 2 - Backend, Testing
+
+### Sprint 2 (Backend)
+- [] Implement RESTful web service using Java Spring Boot
+- [] Provide a suite of unit tests for the backend using JUnit by separating it from the database.
+- [] Deploy the project as a Heroku application in addition to the constraints above.
+
 
 
 
