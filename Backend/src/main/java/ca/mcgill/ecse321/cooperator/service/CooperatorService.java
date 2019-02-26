@@ -23,7 +23,10 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.Iterator;
 
 @Service
 public class CooperatorService {
@@ -215,26 +218,38 @@ public class CooperatorService {
 	 * Views the StudentFiles in the database
 	 * 
 	 * @param id user ID number of the student, termId of the CoopTerm
-	 * @return Void
+	 * @return Set of Documents submitted by the Student and Employer for that CoopTerm
 	 */
 	
-//	@Transactional
-//	public void viewStudentFiles(Integer id, Integer termId) {
-//		if (studentExists(id) && coopTermExists(termId)) {
-//			
-//			// Get current student record from the database
-//			Student currentStudent = getStudent(id);
-//			//Get coopTerm from Database
-//			Set<CoopTerm> coopterms = new ArrayList<>();
-//			coopterms = currentStudent.getCoopTerm();
-//			
-//			
-//			
-//		}
-//		
-//			
-//		
-//	}
+	@Transactional
+	public Set<Document> viewStudentFiles(Integer id, Integer termId) {
+
+		Set<Document> documents = Collections.emptySet();		
+		if (studentExists(id) && coopTermExists(termId)) {
+
+			CoopTerm currentTerm = new CoopTerm();
+			// Get current student record from the database
+			Student currentStudent = getStudent(id);
+			//Get coopTerm from Database
+			Set<CoopTerm> coopterms = currentStudent.getCoopTerm();
+
+			//Find coopterm in the Set
+			Iterator<CoopTerm> iter = coopterms.iterator();
+
+			while(iter.hasNext()) {
+				if(iter.next().getTermId().equals(termId)) {
+					currentTerm = iter.next();
+
+				}			
+			}
+
+			//set of all documents in the coopterm from the student
+			documents = currentTerm.getDocument();
+
+
+		}
+		return documents;
+	}
 
 	// ==========================================================================================
 
@@ -564,8 +579,45 @@ public class CooperatorService {
 	@Transactional
 	public void deleteAllEmployers() {
 		employerRepository.deleteAll();
-		;
+		
 	}
+	/**
+	 * Views the StudentFiles in the database
+	 * 
+	 * @param id user ID number of the employer, termId of the CoopTerm
+	 * @return Set of Documents submitted by the Student and Employer for that CoopTerm
+	 */
+	
+	@Transactional
+	public Set<Document> viewEmployerFiles(Integer id, Integer termId) {
+
+		Set<Document> documents = Collections.emptySet();		
+		if (employerExists(id) && coopTermExists(termId)) {
+
+			CoopTerm currentTerm = new CoopTerm();
+			// Get current Employer record from the database
+			Employer currentEmployer = getEmployer(id);
+			//Get coopTerm from Database
+			Set<CoopTerm> coopterms = currentEmployer.getCoopTerm();
+
+			//Find coopterm in the Set
+			Iterator<CoopTerm> iter = coopterms.iterator();
+
+			while(iter.hasNext()) {
+				if(iter.next().getTermId().equals(termId)) {
+					currentTerm = iter.next();
+
+				}			
+			}
+
+			//set of all documents in the coopterm from the Employer
+			documents = currentTerm.getDocument();
+
+
+		}
+		return documents;
+	}
+
 
 	// ==========================================================================================
 	// Document CRUD
