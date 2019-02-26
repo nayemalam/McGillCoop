@@ -1535,6 +1535,37 @@ public class TestCooperatorService {
 		assertEquals(0,service.getAllDocuments().size());
 		// TODO
 	}
+	
+	@Test
+	public void testUserLogin() {
+//		assertEquals(0, service.getAllEmployers().size());
+		String[] errorMessages = {"Please enter a valid email.","Please enter a password."};
+		String error = "";
+		
+		String emailAddress = "BeatsByTristan@mcgill.ca";
+		String password = "swaggyP";
+		
+		// try user login, catch that exception:
+		
+		// Test Email
+		try {
+			// Null input email
+			service.login(null,password);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals(errorMessages[0], error);
+
+		// Test Password
+		try {
+			// Null input password
+			service.login(emailAddress, null);
+			} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals(errorMessages[1], error);
+		
+	}
 	// ==========================================================================================
 	
 
