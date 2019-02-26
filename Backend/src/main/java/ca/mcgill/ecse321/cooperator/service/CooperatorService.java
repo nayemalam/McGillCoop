@@ -75,6 +75,20 @@ public class CooperatorService {
 	// ==========================================================================================
 	// Student CRUD transactions
 
+	/**
+	 * Creates a new Student object and stores it in the database
+	 * 
+	 * @param id           System ID attributed to new user
+	 * @param name         Last name of the individual
+	 * @param fName        First name of the individual
+	 * @param emailAddress Email Address of the user, used for login and
+	 *                     notifications
+	 * @param userName     userName of the user, can be used for login purposes
+	 * @param password     Used for login purposes
+	 * @param studentID    McGill ID of the student
+	 * @param program      Student's undergraduate major program
+	 * @return Newly created user
+	 */
 	@Transactional
 	public Student createStudent(Integer id, String name, String fName, String emailAddress, String userName,
 			String password, Integer studentId, String program) {
@@ -141,7 +155,7 @@ public class CooperatorService {
 	@Transactional
 	public Boolean updateStudent(Integer id, String name, String fName, String emailAddress, String userName,
 			String password, Integer studentId, String program) {
-		
+
 		if (studentExists(id)) {
 			// Boolean variable to monitor if a database save is required
 			Boolean modified = false;
@@ -210,34 +224,39 @@ public class CooperatorService {
 		return studentRepository.existsById(id);
 
 	}
-	
+
 	/**
 	 * Views the StudentFiles in the database
 	 * 
 	 * @param id user ID number of the student, termId of the CoopTerm
 	 * @return Void
 	 */
-	
-//	@Transactional
-//	public void viewStudentFiles(Integer id, Integer termId) {
-//		if (studentExists(id) && coopTermExists(termId)) {
-//			
-//			// Get current student record from the database
-//			Student currentStudent = getStudent(id);
-//			//Get coopTerm from Database
-//			Set<CoopTerm> coopterms = new ArrayList<>();
-//			coopterms = currentStudent.getCoopTerm();
-//			
-//			
-//			
-//		}
-//		
-//			
-//		
-//	}
+
+	// @Transactional
+	// public void viewStudentFiles(Integer id, Integer termId) {
+	// if (studentExists(id) && coopTermExists(termId)) {
+	//
+	// // Get current student record from the database
+	// Student currentStudent = getStudent(id);
+	// //Get coopTerm from Database
+	// Set<CoopTerm> coopterms = new ArrayList<>();
+	// coopterms = currentStudent.getCoopTerm();
+	//
+	//
+	//
+	// }
+	//
+	//
+	//
+	// }
 
 	// ==========================================================================================
 
+	/**
+	 * Create new Cooperator System Class
+	 * Not really needed but present, just in case!
+	 * @param systemId Identifier of the new system
+	 */
 	@Transactional
 	public CooperatorSystem createCooperatorSystem(Integer systemId) {
 		if (systemId == null) {
@@ -262,45 +281,49 @@ public class CooperatorService {
 		return cooperatorSystemRepository.findBysystemId(systemId);
 	}
 
+	/**
+	 * Obtain a list of all Cooperator systems. 
+	 * Again, not really needed, but present in case
+	 */
 	@Transactional
 	public List<CooperatorSystem> getAllCooperatorSystems() {
 		return toList(cooperatorSystemRepository.findAll());
 	}
-	
-//	@Transactional
-//	public Boolean updateCooperatorSystem(Integer systemId) {
-//		
-//		if(cooperatorSystemExists(systemId)) {
-//			
-//			CooperatorSystem coopSystem = getCooperatorSystem(systemId);
-//			
-//			if(!coopSystem.getSystemId().equals(systemId)) {
-//				
-//				coopSystem.setSystemId(systemId);
-//			}
-//			
-//		return true;
-//	}
-//		
-//		
-//		return false;
-//	}
 
+	/**
+	 * Verifies if a CooperatorSystem exists in database
+	 * based on the given ID
+	 * @return {@code true} if exists, {@code false} otherwise
+	 */
 	@Transactional
 	public Boolean cooperatorSystemExists(Integer id) {
 		Boolean exists = cooperatorSystemRepository.existsById(id);
 		return exists;
 	}
-	
+
+	/**
+	 * Deletes the specified CooperatorSystem Object from the database
+	 */
 	@Transactional
 	public void deleteCooperatorSystem(Integer id) {
 		cooperatorSystemRepository.deleteById(id);
 	}
-	
-	
+
 	// ==========================================================================================
 	// Co-op Admin CRUD
 
+	/**
+	 * Creates a new CoopAdministrator object and stores it in the database
+	 * 
+	 * @param id           System ID attributed to new user
+	 * @param name         Last name of the individual
+	 * @param fName        First name of the individual
+	 * @param emailAddress Email Address of the user, used for login and
+	 *                     notifications
+	 * @param userName     userName of the user, can be used for login purposes
+	 * @param password     Used for login purposes
+	 * @return Newly created user
+	 */
 	@Transactional
 	public CoopAdministrator createCoopAdministrator(Integer id, String name, String fName, String emailAddress,
 			String userName, String password) {
@@ -343,8 +366,8 @@ public class CooperatorService {
 	 *         otherwise
 	 */
 	@Transactional
-	public Boolean updateCoopAdministrator(Integer id, String name, String fName, String emailAddress,
-			String userName, String password) {
+	public Boolean updateCoopAdministrator(Integer id, String name, String fName, String emailAddress, String userName,
+			String password) {
 		if (coopAdministratorExists(id)) {
 			// Get current student record from the database, user ID wont change between new
 			// and old coopadmin
@@ -377,6 +400,11 @@ public class CooperatorService {
 		return false;
 	}
 
+	/**
+	 * Finds all coopAdministrators and returns them in a list
+	 * 
+	 * @return {@code List<CoopAdministrator>}
+	 */
 	@Transactional
 	public List<CoopAdministrator> getAllCoopAdministrators() {
 		return toList(coopAdministratorRepository.findAll());
@@ -425,10 +453,24 @@ public class CooperatorService {
 	}
 
 	// ==========================================================================================
-	
+
 	// ==========================================================================================
 	// Employer CRUD
 
+	/**
+	 * Creates a new employer object and stores it in the database
+	 * 
+	 * @param id           System ID attributed to new user
+	 * @param name         Last name of the individual
+	 * @param fName        First name of the individual
+	 * @param emailAddress Email Address of the user, used for login and
+	 *                     notifications
+	 * @param userName     userName of the user, can be used for login purposes
+	 * @param password     Used for login purposes
+	 * @param companyName  Name of the Employer Company
+	 * @param location     Location of the employer
+	 * @return Newly created user
+	 */
 	@Transactional
 	public Employer createEmployer(Integer id, String name, String fName, String emailAddress, String userName,
 			String password, String companyName, String location) {
@@ -474,7 +516,7 @@ public class CooperatorService {
 	/**
 	 * Updates the Employer information in the database based on the User ID number
 	 * 
-	 * @param updatedEmployer Modified employer object, to be stored in database/
+	 * @param updatedEmployer Modified employer object, to be stored in database
 	 * @return {@code true} if employer successfully updated, {@code false}
 	 *         otherwise
 	 */
@@ -571,8 +613,9 @@ public class CooperatorService {
 	// Document CRUD
 
 	@Transactional
-	public Document createDocument(DocumentName docName, Integer docId, Date dueDate, Time dueTime, Date subDate, Time subTime, CoopTerm coopTerm) {
-		
+	public Document createDocument(DocumentName docName, Integer docId, Date dueDate, Time dueTime, Date subDate,
+			Time subTime, CoopTerm coopTerm) {
+
 		if (docName == null) {
 			throw new IllegalArgumentException("Document Name cannot be empty!");
 		}
@@ -594,7 +637,6 @@ public class CooperatorService {
 		if (coopTerm == null) {
 			throw new IllegalArgumentException("Please enter a valid CoopTerm");
 		}
-		
 
 		Document document = new Document();
 		document.setDocId(docId);
@@ -608,13 +650,12 @@ public class CooperatorService {
 
 		return document;
 	}
-	
 
 	@Transactional
 	public List<Document> getAllDocuments() {
 		return toList(documentRepository.findAll());
 	}
-	
+
 	/**
 	 * Finds and retrieves a Document from the database based on the doc ID number
 	 * 
@@ -626,7 +667,7 @@ public class CooperatorService {
 		Document document = documentRepository.findBydocId(docId);
 		return document;
 	}
-	
+
 	/**
 	 * Verifies the existence of a document user in the database using the Doc ID
 	 * 
@@ -638,7 +679,7 @@ public class CooperatorService {
 		Boolean exists = documentRepository.existsById(docId);
 		return exists;
 	}
-	
+
 	/**
 	 * Updates the Document information in the database based on the Doc ID number
 	 * 
@@ -647,7 +688,8 @@ public class CooperatorService {
 	 *         otherwise
 	 */
 	@Transactional
-	public Boolean updateDocument(DocumentName docName, Integer docId, Date dueDate, Time dueTime, Date subDate, Time subTime, CoopTerm coopTerm) {
+	public Boolean updateDocument(DocumentName docName, Integer docId, Date dueDate, Time dueTime, Date subDate,
+			Time subTime, CoopTerm coopTerm) {
 		if (documentExists(docId)) {
 			// Get current document record from the database, doc ID wont change between
 			// new and old document
@@ -674,14 +716,14 @@ public class CooperatorService {
 			if (currentDocument.getSubTime() != subTime) {
 				currentDocument.setSubTime(subTime);
 			}
-			
+
 			// If modifications have been carried out on the temporary object, update the
 			// database
 			return true;
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Deletes Document from database using the doc ID number
 	 * 
@@ -691,20 +733,19 @@ public class CooperatorService {
 	public void deleteDocument(Integer docId) {
 		documentRepository.deleteById(docId);
 	}
-	
+
 	@Transactional
 	public void deleteAllDocuments() {
 		documentRepository.deleteAll();
 		;
 	}
-	
-	
+
 	// ==========================================================================================
 	// CoopTerm CRUD
 
 	@Transactional
 	public CoopTerm createCoopTerm(Date startDate, Date endDate, Integer termId, Student student, Employer employer) {
-		
+
 		if (startDate == null) {
 			throw new IllegalArgumentException("Please enter a valid startDate");
 		}
@@ -720,7 +761,7 @@ public class CooperatorService {
 		if (employer == null) {
 			throw new IllegalArgumentException("Please enter a valid Employer");
 		}
-		
+
 		CoopTerm coopTerm = new CoopTerm();
 		coopTerm.setStartDate(startDate);
 		coopTerm.setEndDate(endDate);
@@ -741,7 +782,7 @@ public class CooperatorService {
 	public List<CoopTerm> getAllCoopTerms() {
 		return toList(coopTermRepository.findAll());
 	}
-	
+
 	/**
 	 * Verifies the existence of a coopterm in the database using the term ID
 	 * 
@@ -753,7 +794,7 @@ public class CooperatorService {
 		Boolean exists = coopTermRepository.existsById(termId);
 		return exists;
 	}
-	
+
 	/**
 	 * Deletes Coopterm from database using the term ID number
 	 * 
@@ -763,12 +804,12 @@ public class CooperatorService {
 	public void deleteCoopTerm(Integer termId) {
 		coopTermRepository.deleteById(termId);
 	}
-	
+
 	@Transactional
 	public void deleteAllCoopTerms() {
 		coopTermRepository.deleteAll();
 	}
-	
+
 	/**
 	 * Updates the Coopterm information in the database based on the term ID number
 	 * 
@@ -805,8 +846,7 @@ public class CooperatorService {
 		}
 		return false;
 	}
-	
-	
+
 	// ==========================================================================================
 
 	private <T> List<T> toList(Iterable<T> iterable) {
