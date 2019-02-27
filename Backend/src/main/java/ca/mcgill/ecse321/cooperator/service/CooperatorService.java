@@ -885,6 +885,7 @@ public class CooperatorService {
 	// ==========================================================================================
 	// User Login
 	
+	@Transactional
 	public void login(String inputEmail, String inputPassword){
 		//Find the email in the database, check password is valid
 
@@ -916,10 +917,54 @@ public class CooperatorService {
 //		}
 		
 	}
-
-	public void viewStudentFiles(int userID, int coopterm_ID){
-		// find student in DB, searching for studentID in DB
-		// get documents associated with student for specific coopterm
+	
+	
+	@Transactional
+	public boolean isIncomplete (Integer userId, Integer CoopTerm){
+		// why user id as argument?
+		CoopTerm currentTerm = new CoopTerm();	
+		Student student = studentRepository.findByuserID(userId);
+//		Student student = getStudent(userId);
+		Document document = new Document();
+		// Find CoopTerm in the Set
+		Set<CoopTerm> coopterms = student.getCoopTerm();
+		Iterator<CoopTerm> iterTerm = coopterms.iterator();
+		
+		// Find all documents in the CoopTerm of the student
+		Set<Document> documents = currentTerm.getDocument();
+		Iterator<CoopTerm> iterDocs = coopterms.iterator(); //documents.iterator() ??
+		
+		// while there are documents
+		if(coopTermExists(CoopTerm)) {
+			while(iterDocs.hasNext()) {
+				if(document.getSubDate() == null) {
+					return true;
+				}
+				// check if submissionDate exceeds dueDate
+				if(document.getSubDate().compareTo(document.getDueDate())>0) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
 	}
+	
+	@Transactional
+	public List<Student> getIncompletePlacements(Integer userId, Integer coopTermId) {
+		List<Student> students = getAllStudents();
+		Student student = studentRepository.findByuserID(userId);
+
+		for(int i=0; i<students.size(); i++) {
+//			students.get(i);
+			if(isIncomplete(student.getStudentId(), coopTermId)) {
+				students.add(student);
+			}
+		}
+		return students;
+	}
+	
+	
+	
 
 }
