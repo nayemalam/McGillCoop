@@ -25,6 +25,13 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.*;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
+import java.lang.Exception;
+
+
 @Service
 public class CooperatorService {
 
@@ -253,8 +260,9 @@ public class CooperatorService {
 	// ==========================================================================================
 
 	/**
-	 * Create new Cooperator System Class
-	 * Not really needed but present, just in case!
+	 * Create new Cooperator System Class Not really needed but present, just in
+	 * case!
+	 * 
 	 * @param systemId Identifier of the new system
 	 */
 	@Transactional
@@ -282,8 +290,8 @@ public class CooperatorService {
 	}
 
 	/**
-	 * Obtain a list of all Cooperator systems. 
-	 * Again, not really needed, but present in case
+	 * Obtain a list of all Cooperator systems. Again, not really needed, but
+	 * present in case
 	 */
 	@Transactional
 	public List<CooperatorSystem> getAllCooperatorSystems() {
@@ -291,8 +299,8 @@ public class CooperatorService {
 	}
 
 	/**
-	 * Verifies if a CooperatorSystem exists in database
-	 * based on the given ID
+	 * Verifies if a CooperatorSystem exists in database based on the given ID
+	 * 
 	 * @return {@code true} if exists, {@code false} otherwise
 	 */
 	@Transactional
@@ -446,10 +454,81 @@ public class CooperatorService {
 		coopAdministratorRepository.deleteById(id);
 	}
 
+	/**
+	 * Deletes all coop Administrators from the database
+	 */
 	@Transactional
 	public void deleteAllCoopAdministrators() {
 		coopAdministratorRepository.deleteAll();
-		;
+	}
+
+	/**
+	 * Business method from the Use Case diagram. This method allows the caller to
+	 * view the statistics for a particular Coop term, based on that term's TermID
+	 */
+	@Transactional
+	public void observeStatisticsBySemester(Integer coopterm_ID) {
+		// Get all students signed up to coopterm
+		// MAKE STATS
+	}
+
+	public Boolean sendReminder(Integer coopAdminUserId, Integer studentUserID, Integer notifType) {
+		// Verify if the Student exists in database
+		Boolean sent = false;
+		if(studentRepository.existsById(studentUserID) && coopAdministratorRepository.existsById(coopAdminUserId)){
+			// Get student from database based on the UserID
+			Student student = studentRepository.findByuserID(studentUserID);
+			CoopAdministrator coopAdmin = coopAdministratorRepository.findByuserID(coopAdminUserId);
+			// Send a reminder to the email address associated with the student just
+			// extracted
+			String to = student.getEmailAddress();
+			String from = coopAdmin.getEmailAddress();
+			String host = "localhost";
+			Properties properties = System.getProperties();
+			properties.setProperty("mail.smtp.host", host);
+			Session session = Session.getDefaultInstance(properties);
+			try {
+				MimeMessage message = new MimeMessage(session);
+				// Set sender
+				message.setFrom(new InternetAddress(from));
+				// Set receiver
+				message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+				
+				// Write message
+				String[] messageSubjects = {"CoOperator - Upcoming Submission", 
+											"CoOperator - Late Sumbission"};
+				String[] messageContents = {"Hello " +student.getFirstName()+ ",\n\n" 
+						+"This is a notification from the CoOperator System to let you know that you have an upcoming submission."
+						+"Please sign in to your CoOperator Account for more information.\n",
+						"Hello " +student.getFirstName()+ ",\n\n"
+						+"This is a notification from the CoOperator System to let you know that you have a late submission."
+						+"Please sign in to your CoOperator Account for more information.\n"
+						};
+				
+				switch (notifType) {
+					// Upcoming submission date
+					case 1:
+						message.setSubject(messageSubjects[0]);
+						message.setText(messageContents[0]);
+					// Late Submission
+					case 2:
+						message.setSubject(messageSubjects[1]);
+						message.setText(messageContents[1]);
+					// Custom Email
+					case 3:
+						// Something frontend?
+				}	
+				// Send message
+				Transport.send(message);
+				
+			} catch (MessagingException mex) {
+				Throw new ; 
+			}
+			
+		}
+
+		// send boolean if sent
+		return sent;
 	}
 
 	// ==========================================================================================
@@ -849,6 +928,9 @@ public class CooperatorService {
 
 	// ==========================================================================================
 
+	/**
+	 * Returns objects in an iterable list
+	 */
 	private <T> List<T> toList(Iterable<T> iterable) {
 		List<T> resultList = new ArrayList<T>();
 		for (T t : iterable) {
