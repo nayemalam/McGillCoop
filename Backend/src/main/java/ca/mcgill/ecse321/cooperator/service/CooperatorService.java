@@ -79,7 +79,7 @@ public class CooperatorService {
 	// Student CRUD transactions
 
 	@Transactional
-	public Student createStudent(Integer id, String name, String fName, String emailAddress, String userName,
+	public Student createStudent(String name, String fName, String emailAddress, String userName,
 			String password, Integer studentId, String program) {
 		// Parse input arguments to determine if all information is present to create a
 		// new student.
@@ -98,14 +98,14 @@ public class CooperatorService {
 		if (studentId == null) {
 			throw new IllegalArgumentException("Please enter a valid McGill Student ID");
 		}
-		if (id == null) {
-			throw new IllegalArgumentException("Please enter a valid User ID");
-		}
+//		if (id == null) {
+//			throw new IllegalArgumentException("Please enter a valid User ID");
+//		}
 		if (program == null || program.trim().length() == 0) {
 			throw new IllegalArgumentException("Please enter a valid program");
 		}
 		Student user = new Student();
-		user.setUserID(id);
+//		user.setUserID(id);
 		user.setLastName(name);
 		user.setFirstName(fName);
 		user.setEmailAddress(emailAddress);
@@ -337,7 +337,7 @@ public class CooperatorService {
 	// Co-op Admin CRUD
 
 	@Transactional
-	public CoopAdministrator createCoopAdministrator(Integer id, String name, String fName, String emailAddress,
+	public CoopAdministrator createCoopAdministrator(String name, String fName, String emailAddress,
 			String userName, String password) {
 		// Parse input arguments to determine if all information is present to create a
 		// new CoopAdmin.
@@ -353,12 +353,12 @@ public class CooperatorService {
 		if (password == null || password.trim().length() == 0) {
 			throw new IllegalArgumentException("Please enter a valid password");
 		}
-		if (id == null) {
-			throw new IllegalArgumentException("Please enter a valid User ID");
-		}
+//		if (id == null) {
+//			throw new IllegalArgumentException("Please enter a valid User ID");
+//		}
 
 		CoopAdministrator user = new CoopAdministrator();
-		user.setUserID(id);
+		//user.setUserID(id);
 		user.setLastName(name);
 		user.setFirstName(fName);
 		user.setEmailAddress(emailAddress);
@@ -429,6 +429,19 @@ public class CooperatorService {
 		CoopAdministrator user = coopAdministratorRepository.findByuserID(id);
 		return user;
 	}
+	
+	/**
+	 * Finds and retrieves a CoopAdministrator email from the database based on the User
+	 * Email
+	 * 
+	 * @param emailAddress User Email Address
+	 * @return Requested CoopAdministrator.
+	 */
+	@Transactional
+	public CoopAdministrator getCoopAdministratorEmail(String emailAddress) {
+		CoopAdministrator user_email = coopAdministratorRepository.findByemailAddress(emailAddress);
+		return user_email;
+	}
 
 	/**
 	 * Verifies the existence of a CoopAdministrator user in the database using the
@@ -465,7 +478,7 @@ public class CooperatorService {
 	// Employer CRUD
 
 	@Transactional
-	public Employer createEmployer(Integer id, String name, String fName, String emailAddress, String userName,
+	public Employer createEmployer(String name, String fName, String emailAddress, String userName,
 			String password, String companyName, String location) {
 		// Parse input arguments to determine if all information is present to create a
 		// new Employer.
@@ -489,12 +502,12 @@ public class CooperatorService {
 			throw new IllegalArgumentException("Please enter a valid location");
 
 		}
-		if (id == null) {
-			throw new IllegalArgumentException("Please enter a valid User ID");
-		}
+//		if (id == null) {
+//			throw new IllegalArgumentException("Please enter a valid User ID");
+//		}
 
 		Employer user = new Employer();
-		user.setUserID(id);
+		//user.setUserID(id);
 		user.setLastName(name);
 		user.setFirstName(fName);
 		user.setEmailAddress(emailAddress);
@@ -661,14 +674,14 @@ public class CooperatorService {
 	// Document CRUD
 
 	@Transactional
-	public Document createDocument(DocumentName docName, Integer docId, Date dueDate, Time dueTime, Date subDate, Time subTime, CoopTerm coopTerm) {
+	public Document createDocument(DocumentName docName, Date dueDate, Time dueTime, Date subDate, Time subTime, CoopTerm coopTerm) {
 		
 		if (docName == null) {
 			throw new IllegalArgumentException("Document Name cannot be empty!");
 		}
-		if (docId == null) {
-			throw new IllegalArgumentException("Doc ID cannot be empty!");
-		}
+//		if (docId == null) {
+//			throw new IllegalArgumentException("Doc ID cannot be empty!");
+//		}
 		if (dueDate == null) {
 			throw new IllegalArgumentException("Please enter a valid Date");
 		}
@@ -687,7 +700,7 @@ public class CooperatorService {
 		
 
 		Document document = new Document();
-		document.setDocId(docId);
+	//	document.setDocId(docId);
 		document.setDocName(docName);
 		document.setDueDate(dueDate);
 		document.setDueTime(dueTime);
@@ -793,7 +806,7 @@ public class CooperatorService {
 	// CoopTerm CRUD
 
 	@Transactional
-	public CoopTerm createCoopTerm(Date startDate, Date endDate, Integer termId, Student student, Employer employer) {
+	public CoopTerm createCoopTerm(Date startDate, Date endDate, Student student, Employer employer) {
 		
 		if (startDate == null) {
 			throw new IllegalArgumentException("Please enter a valid startDate");
@@ -801,9 +814,7 @@ public class CooperatorService {
 		if (endDate == null) {
 			throw new IllegalArgumentException("Please enter a valid endDate");
 		}
-		if (termId == null) {
-			throw new IllegalArgumentException("Please enter a valid termId");
-		}
+
 		if (student == null) {
 			throw new IllegalArgumentException("Please enter a valid Student");
 		}
@@ -814,7 +825,7 @@ public class CooperatorService {
 		CoopTerm coopTerm = new CoopTerm();
 		coopTerm.setStartDate(startDate);
 		coopTerm.setEndDate(endDate);
-		coopTerm.setTermId(termId);
+		//coopTerm.setTermId(termId);
 		coopTerm.setStudent(student);
 		coopTerm.setEmployer(employer);
 		coopTermRepository.save(coopTerm);
@@ -835,7 +846,7 @@ public class CooperatorService {
 	/**
 	 * Verifies the existence of a coopterm in the database using the term ID
 	 * 
-	 * @param id term ID number of the document
+	 * @param id term ID number of the coopTerm
 	 * @return True if coopterm exists, false otherwise.
 	 */
 	@Transactional
@@ -862,7 +873,7 @@ public class CooperatorService {
 	/**
 	 * Updates the Coopterm information in the database based on the term ID number
 	 * 
-	 * @param updatedCoopTerm Modified document object, to be stored in database/
+	 * @param updatedCoopTerm Modified coopTerm object, to be stored in database/
 	 * @return {@code true} if coopterm successfully updated, {@code false}
 	 *         otherwise
 	 */
@@ -905,6 +916,46 @@ public class CooperatorService {
 			resultList.add(t);
 		}
 		return resultList;
+	}
+	
+	// ==========================================================================================
+	// User Login
+	
+	public void login(String inputEmail, String inputPassword){
+		//Find the email in the database, check password is valid
+
+		// input check
+		if (inputEmail == null) {
+			throw new IllegalArgumentException("Please enter a valid email.");
+		}
+		if (inputPassword == null) {
+			throw new IllegalArgumentException("Please enter a password.");
+		}
+		
+		CoopAdministrator admin = new CoopAdministrator();
+		
+		// find email in database
+		try {
+			admin = getCoopAdministratorEmail(inputEmail);
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Incorrect email.");
+		}
+		
+		if(inputPassword != admin.getPassword()) {
+			throw new IllegalArgumentException("Incorrect password.");
+		}
+		else {
+			System.out.println("You have succesfully logged in.");
+		}
+//		if(inputEmail != admin.getEmailAddress()) {
+//			System.out.println("This is not a registered email.");
+//		}
+		
+	}
+
+	public void viewStudentFiles(int userID, int coopterm_ID){
+		// find student in DB, searching for studentID in DB
+		// get documents associated with student for specific coopterm
 	}
 
 }
