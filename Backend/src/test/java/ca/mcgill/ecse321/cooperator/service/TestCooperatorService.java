@@ -709,7 +709,6 @@ public class TestCooperatorService {
 		CoopAdministrator testCoopAdministrator; 
 		assertEquals(0, service.getAllCoopAdministrators().size());
 		
-		Integer id = 1323;
 		String name = "Tristan";
 		String fName = "Pepper";
 		String emailAddress = "Tristan@mcgill.ca";
@@ -912,10 +911,9 @@ public class TestCooperatorService {
 		//Other parameters
 		Date startDate = new Date(0);
 		Date endDate = new Date(1);
-		Integer termId = 1;
 		
 		try {
-			service.createCoopTerm(startDate, endDate, termId, student, employer);
+			service.createCoopTerm(startDate, endDate, student, employer);
 		} catch (IllegalArgumentException e) {
 			// Check that no error occurred
 			fail();
@@ -975,10 +973,9 @@ public class TestCooperatorService {
 		//Other parameters
 		Date startDate = new Date(0);
 		Date endDate = new Date(1);
-		Integer termId = 1;
 		
 		try {
-			service.createCoopTerm(null, endDate, termId, student, employer);
+			service.createCoopTerm(null, endDate, student, employer);
 		} catch (IllegalArgumentException e) {
 			// Check that no error occurred
 			error = e.getMessage();
@@ -986,23 +983,16 @@ public class TestCooperatorService {
 		assertEquals(errorMessages[0], error);
 		
 		try {
-			service.createCoopTerm(startDate, null, termId, student, employer);
+			service.createCoopTerm(startDate, null, student, employer);
 		} catch (IllegalArgumentException e) {
 			// Check that no error occurred
 			error = e.getMessage();
 		}
 		assertEquals(errorMessages[1], error);
 		
-		try {
-			service.createCoopTerm(startDate, endDate, null, student, employer);
-		} catch (IllegalArgumentException e) {
-			// Check that no error occurred
-			error = e.getMessage();
-		}
-		assertEquals(errorMessages[2], error);
 		
 		try {
-			service.createCoopTerm(startDate, endDate, termId, null, employer);
+			service.createCoopTerm(startDate, endDate, null, employer);
 		} catch (IllegalArgumentException e) {
 			// Check that no error occurred
 			error = e.getMessage();
@@ -1010,7 +1000,7 @@ public class TestCooperatorService {
 		assertEquals(errorMessages[3], error);
 		
 		try {
-			service.createCoopTerm(startDate, endDate, termId, student, null);
+			service.createCoopTerm(startDate, endDate, student, null);
 		} catch (IllegalArgumentException e) {
 			// Check that no error occurred
 			error = e.getMessage();
@@ -1057,10 +1047,13 @@ public class TestCooperatorService {
 		//Other parameters
 		Date startDate = new Date(0);
 		Date endDate = new Date(1);
-		Integer termId = 1;
+		CoopTerm coopterm = new CoopTerm();
+		
 		
 		//create a coopTerm
-		service.createCoopTerm(startDate, endDate, termId, student, employer);
+		coopterm = service.createCoopTerm(startDate, endDate, student, employer);
+		Integer termId = coopterm.getTermId();
+
 		
 		//updated parameters, create a new student 
 		Student student2;
@@ -1095,6 +1088,8 @@ public class TestCooperatorService {
 	 */
 	@Test
 	public void testDeleteCoopTerm() {
+		
+		CoopTerm coopTerm;
 		//create a student 
 		Student student;
 
@@ -1125,10 +1120,13 @@ public class TestCooperatorService {
 		//Other parameters
 		Date startDate = new Date(0);
 		Date endDate = new Date(1);
-		Integer termId = 1;
+		
+		
 		
 		//create a coopTerm
-		service.createCoopTerm(startDate, endDate, termId, student, employer);
+		coopTerm = service.createCoopTerm(startDate, endDate, student, employer);
+		Integer termId = coopTerm.getTermId();
+
 		
 		try {
 			service.deleteCoopTerm(termId);
@@ -1174,7 +1172,6 @@ public class TestCooperatorService {
 		//Other parameters
 		Date startDate = new Date(0);
 		Date endDate = new Date(1);
-		Integer termId = 1;
 		
 		Student student;
 		String name = "Oscar";
@@ -1198,7 +1195,8 @@ public class TestCooperatorService {
 		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
 		assertEquals(1, service.getAllEmployers().size());
 		
-		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, termId, student, employer);
+		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, student, employer);
+		Integer termId = coopTerm.getTermId();
 
 		
 		try {
@@ -1255,7 +1253,6 @@ public class TestCooperatorService {
 		//Other parameters
 		Date startDate = new Date(0);
 		Date endDate = new Date(1);
-		Integer termId = 1;
 		
 		Student student;
 		String name = "Oscar";
@@ -1279,7 +1276,9 @@ public class TestCooperatorService {
 		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
 		assertEquals(1, service.getAllEmployers().size());
 		
-		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, termId, student, employer);
+		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, student, employer);
+		Integer termId = coopTerm.getTermId();
+		
 
 		// Test docName parsing
 		try {
@@ -1375,7 +1374,6 @@ public class TestCooperatorService {
 		//Other parameters
 		Date startDate = new Date(0);
 		Date endDate = new Date(1);
-		Integer termId = 1;
 		
 		Student student;
 		String name = "Oscar";
@@ -1399,7 +1397,8 @@ public class TestCooperatorService {
 		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
 		assertEquals(1, service.getAllEmployers().size());
 		
-		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, termId, student, employer);
+		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, student, employer);
+		Integer termId = coopTerm.getTermId();
 		
 		// Create new document object
 		testDocument = service.createDocument(docName, docId, dueDate, dueTime, subDate, subTime, coopTerm);
@@ -1461,7 +1460,6 @@ public class TestCooperatorService {
 		//Other parameters
 		Date startDate = new Date(0);
 		Date endDate = new Date(1);
-		Integer termId = 1;
 		
 		Student student;
 		String name = "Oscar";
@@ -1485,7 +1483,9 @@ public class TestCooperatorService {
 		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
 		assertEquals(1, service.getAllEmployers().size());
 		
-		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, termId, student, employer);
+		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, student, employer);
+		Integer termId = coopTerm.getTermId();
+		
 		
 		// Create new document object
 		testDocument = service.createDocument(docName, docId, dueDate, dueTime, subDate, subTime, coopTerm);
