@@ -97,7 +97,6 @@ public class CooperatorService {
 	/**
 	 * Creates a new Student object and stores it in the database
 	 * 
-	 * @param id           System ID attributed to new user
 	 * @param name         Last name of the individual
 	 * @param fName        First name of the individual
 	 * @param emailAddress Email Address of the user, used for login and
@@ -502,13 +501,138 @@ public class CooperatorService {
 	/**
 	 * Business method from the Use Case diagram. This method allows the caller to
 	 * view the statistics for a particular Coop term, based on that term's TermID
+	 * @param semesterDate - Date that falls within the semester's start and end date 
 	 */
 	@Transactional
-	public void observeStatisticsBySemester(Integer coopterm_ID) {
+	public termStatistics getStatisticsBySemester(Date semesterDate) {
 		// Get all students signed up to coopterm
-		// MAKE STATS
+		List<CoopTerm> coopterms = getAllCoopTerms();
+		
+		// We need to find the current coopterms associated to some semester
+		List<CoopTerm> currentTerms = new ArrayList<>();
+		
+		for(int i=0; i<coopterms.size(); i++) {
+			CoopTerm term = coopterms.get(i);
+			Date startDate = term.getStartDate();
+			Date endDate = term.getEndDate();
+			
+			// If the date inputed falls between the start and end date
+			// Add term to a list
+			if((semesterDate.compareTo(startDate) >= 0) && (semesterDate.compareTo(endDate) <= 0)) {
+				currentTerms.add(term);
+			}
+		}
+		
+		// Now that we have current terms associated to the semester,
+		// we can obtain a few statistics from this
+		// Obtain all unique students in those terms
+		List<Student> currentStudents = new ArrayList<>();
+		Student stu;
+		for(int i = 0; i < currentTerms.size(); i++) {
+			stu = currentTerms.get(i).getStudent();
+			if(!currentStudents.contains(stu)) {
+				currentStudents.add(stu);
+			}
+			
+		}
+		// From this list, we can obtain statistics
+		// Create termStatistics object
+		termStatistics stats = new termStatistics();
+		
+		Integer numberAtWork = getAmountOfStudentsInCoopTerm(currentStudents);
+		List<Student> numberInFirstWorkTerm = getSemesterOfStudy(currentStudents, 1);
+		List<Student> numberInSecondWorkTerm = getSemesterOfStudy(currentStudents, 2);
+		List<Student> numberInThirdWorkTerm = getSemesterOfStudy(currentStudents, 3);
+		stats.setNumberAtWork(numberAtWork);
+		stats.setFirstWorkTerm(numberInFirstWorkTerm);
+		stats.setSecondWorkTerm(numberInSecondWorkTerm);
+		stats.setThirdWorkTerm(numberInThirdWorkTerm);
+		
+		return stats;
+		
+	}
+	
+	/**
+	 * Class used by the service class to make passing of term statistics easier.
+	 * @author Tristan Bouchard
+	 *
+	 */
+	class termStatistics {
+		
+		// Member variables
+		private Integer numberAtWork_;
+		private List<Student> firstWorkTerm_;
+		private List<Student> secondWorkTerm_;
+		private List<Student> thirdWorkTerm_;
+		
+		// Getters
+		public Integer getNumberAtWork() {
+			return this.numberAtWork_;
+		}
+		public List<Student> getFirstWorkTerm(){
+			return this.firstWorkTerm_;
+		}
+		public List<Student> getSecondWorkTerm(){
+			return this.secondWorkTerm_;
+		}
+		public List<Student> getThirdWorkTerm(){
+			return this.thirdWorkTerm_;
+		}
+		
+		// Setters
+		public void setNumberAtWork(Integer numberAtWork) {
+			this.numberAtWork_ = numberAtWork;
+		}
+		public void setFirstWorkTerm(List<Student> stu) {
+			this.firstWorkTerm_ = stu;
+		}
+		public void setSecondWorkTerm(List<Student> stu) {
+			this.secondWorkTerm_ = stu;
+		}
+		public void setThirdWorkTerm(List<Student> stu) {
+			this.thirdWorkTerm_ = stu;
+		}
 	}
 
+	/**
+	 * Statistic method used by getStatisticsBySemester
+	 * @param semesterDate - Date that falls within the semester's start and end date 
+	 */
+	public Integer getAmountOfStudentsInCoopTerm(List<Student> students) {
+		return students.size();
+	}
+	
+	/**
+	 * Method to obtain the amount of students in a current term of study. Used
+	 * by getStatisticsBySemester
+	 * 
+	 * @param students - {@code List<Student>} That contains the student objects
+	 * @param term     - Semester of study of students wanted in list
+	 * @return
+	 */
+	public List<Student> getSemesterOfStudy(List<Student> students, Integer term){
+		List<Student> searchList = new ArrayList<>();
+		Student stu;
+		for(int i = 0; i < students.size(); i++) {
+			stu = students.get(i);
+			if(stu.getCoopTerm().size() == term) {
+				searchList.add(stu);
+			}
+		}
+		return searchList;
+	}
+	
+	/**
+	 * Method used to send an email reminder from the CoopAdminstrator's email address
+	 * to the student's email address. Can have multiple types of notifications
+	 * @param coopAdminUserId - UserID of the CoopAdministrator
+	 * @param studentUserID - UserID of the Student
+	 * @param notifType - 1 is a pre-reminder of a submission, can be programmed to be whenever
+	 * before an assignment. 2 is a late submission notification. 3 gets a custom message, can 
+	 * be a front-end feature.
+	 * @return
+	 * @throws MessagingException - If the email cannot be sent.
+	 */	
 	@Transactional
 	public Boolean sendReminder(Integer coopAdminUserId, Integer studentUserID, Integer notifType) throws MessagingException {
 		// Verify if the Student exists in database
@@ -915,7 +1039,6 @@ public class CooperatorService {
 		CoopTerm coopTerm = new CoopTerm();
 		coopTerm.setStartDate(startDate);
 		coopTerm.setEndDate(endDate);
-		//coopTerm.setTermId(termId);
 		coopTerm.setStudent(student);
 		coopTerm.setEmployer(employer);
 		coopTermRepository.save(coopTerm);
