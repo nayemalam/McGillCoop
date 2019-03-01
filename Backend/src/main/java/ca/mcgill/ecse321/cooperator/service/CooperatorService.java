@@ -522,7 +522,7 @@ public class CooperatorService {
 				Transport.send(message);
 				
 			} catch (MessagingException mex) {
-				Throw new ; 
+				//Throw new ; 
 			}
 			
 		}
