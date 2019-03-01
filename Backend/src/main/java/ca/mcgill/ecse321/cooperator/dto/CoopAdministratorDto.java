@@ -20,6 +20,7 @@ public class CoopAdministratorDto {
 	private String name;
 
 	
+	@SuppressWarnings("unchecked")
 	public CoopAdministratorDto(String name, String fName, String emailAddress,
 			String userName, String password) {
 		
@@ -28,8 +29,8 @@ public class CoopAdministratorDto {
 		   this.name = name;
 		   this.password = password;
 		   this.userName  = userName;	
-		   this.employer = employer;
-		   this.student = student;
+		   this.employer = Collections.EMPTY_SET;
+		   this.student = Collections.EMPTY_SET;
 	}
 	
 	  public String getFirstName() {
