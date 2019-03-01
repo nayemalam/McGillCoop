@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,6 +23,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.cooperator.model.CoopTerm;
 import ca.mcgill.ecse321.cooperator.model.SystemUser;
@@ -199,7 +201,7 @@ public class TestCooperatorService {
 		assertEquals(password, allStudents.get(0).getPassword());
 		assertEquals(studentId, allStudents.get(0).getStudentId());
 		assertEquals(program, allStudents.get(0).getProgram());
-		testStudent = null;
+		//testStudent = null;
 	}
 
 	/**
@@ -1326,7 +1328,7 @@ public class TestCooperatorService {
 		assertEquals(subDate.toString(), allDocuments.get(0).getSubDate().toString());
 		assertEquals(subTime.toString(), allDocuments.get(0).getSubTime().toString());
 		assertEquals(coopTerm.getTermId(), allDocuments.get(0).getCoopTerm().getTermId());
-		testDocument = null;
+		//testDocument = null;
 
 		// TODO
 	}
@@ -1606,39 +1608,162 @@ public class TestCooperatorService {
 		// TODO
 	}
 	
-	@Test
-	public void testUserLogin() {
-//		assertEquals(0, service.getAllEmployers().size());
-		String[] errorMessages = {"Please enter a valid email.","Please enter a password."};
-		String error = "";
-		
-		String emailAddress = "BeatsByTristan@mcgill.ca";
-		String password = "swaggyP";
-		
-		// try user login, catch that exception:
-		
-		// Test Email
-		try {
-			// Null input email
-			service.login(null,password);
-		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
-		}
-		assertEquals(errorMessages[0], error);
-
-		// Test Password
-		try {
-			// Null input password
-			service.login(emailAddress, null);
-			} catch (IllegalArgumentException e) {
-			error = e.getMessage();
-		}
-		assertEquals(errorMessages[1], error);
-		
-	}
-	
-
 	// ==========================================================================================
 	
+	@Test
+	public void testViewStudentDocument() {
+				
+		testCreateAndReadDocument();
+		assertEquals(1, service.getAllDocuments().size());
+		assertEquals(1, service.getAllStudents().size());
+		assertEquals(1, service.getAllCoopTerms().size());	
+		DocumentName doc = DocumentName.courseEvaluation;
+		DocumentName docc = DocumentName.finalReport;
+		Document newDoc = new Document();
+		
+		int studId = service.getAllStudents().get(0).getUserID();
+		int termId = service.getAllCoopTerms().get(0).getTermId();
+		try {
+			newDoc = service.viewStudentDocument(studId, termId, docc);
+		}catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertEquals(null, newDoc.getDocName());
+		
+		try {
+			newDoc = service.viewStudentDocument(studId, termId, doc);
+		}catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertEquals(doc, newDoc.getDocName());
+	}
+	
+	@Test
+	public void testViewEmployerDocument() {
+	
+		testCreateAndReadDocument();
+		assertEquals(1, service.getAllDocuments().size());
+		assertEquals(1, service.getAllEmployers().size());
+		assertEquals(1, service.getAllCoopTerms().size());	
+		DocumentName doc = DocumentName.courseEvaluation;
+		DocumentName docc = DocumentName.finalReport;
+		Document newDoc = new Document();
+		
+		int empId = service.getAllEmployers().get(0).getUserID();
+		int termId = service.getAllCoopTerms().get(0).getTermId();
+		try {
+			newDoc = service.viewEmployerDocument(empId, termId, docc);
+		}catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertEquals(null, newDoc.getDocName());
+		
+		try {
+			newDoc = service.viewEmployerDocument(empId, termId, doc);
+		}catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertEquals(doc, newDoc.getDocName());
+	}
+	
+	
+	
+	@Test
+	public void  testViewStudentFiles() {
+		
+		testCreateAndReadDocument();
+		assertEquals(1, service.getAllDocuments().size());
+		assertEquals(1, service.getAllStudents().size());
+		assertEquals(1, service.getAllCoopTerms().size());
+		DocumentName doc = DocumentName.courseEvaluation;
+		List <Document> list = new ArrayList<Document>();
+		
+		int studid = service.getAllStudents().get(0).getUserID();
+		
+		int termid= service.getAllCoopTerms().get(0).getTermId();
+		
+	   try {
+			list = service.viewStudentFiles(studid, termid);
+		}catch (IllegalArgumentException e) {
+			fail();
+		}
+		
+		assertEquals(doc, list.get(0).getDocName());
+
+		//add one doc to the term and retry 
+		// set calendar
+		Calendar c = Calendar.getInstance();
+		c.set(2019, Calendar.FEBRUARY, 16, 9, 00, 0);
+				
+		//Parameters of the new document
+		DocumentName docName = DocumentName.taskDescription; //evaluation doc
+		Date dueDate = new Date(c.getTimeInMillis());
+		Time dueTime = new Time(c.getTimeInMillis());
+		
+		c.set(2019, Calendar.FEBRUARY, 2, 10, 30, 0);
+		Date subDate = new Date(c.getTimeInMillis());
+		Time subTime = new Time(c.getTimeInMillis());;
+		
+		CoopTerm currentTerm = service.getCoopTerm(termid);
+		service.createDocument(docName, dueDate, dueTime, subDate, subTime, currentTerm);
+		
+		try {
+			list = service.viewStudentFiles(studid, termid);
+		}catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertEquals(2, list.size());
+
+	}
+	
+	@Test
+	public void testViewEmployerFiles() {
+		
+		testCreateAndReadDocument();
+		assertEquals(1, service.getAllDocuments().size());
+		assertEquals(1, service.getAllEmployers().size());
+		assertEquals(1, service.getAllCoopTerms().size());
+		DocumentName doc = DocumentName.courseEvaluation;
+		List <Document> list = new ArrayList<Document>();
+		
+		int empid = service.getAllEmployers().get(0).getUserID();
+		
+		int termid= service.getAllCoopTerms().get(0).getTermId();
+		
+	   try {
+			list = service.viewEmployerFiles(empid, termid);
+		}catch (IllegalArgumentException e) {
+			fail();
+		}
+		
+		assertEquals(doc, list.get(0).getDocName());
+
+		//add one doc to the term and retry 
+		// set calendar
+		Calendar c = Calendar.getInstance();
+		c.set(2019, Calendar.FEBRUARY, 16, 9, 00, 0);
+				
+		//Parameters of the new document
+		DocumentName docName = DocumentName.taskDescription; //evaluation doc
+		Date dueDate = new Date(c.getTimeInMillis());
+		Time dueTime = new Time(c.getTimeInMillis());
+		
+		c.set(2019, Calendar.FEBRUARY, 2, 10, 30, 0);
+		Date subDate = new Date(c.getTimeInMillis());
+		Time subTime = new Time(c.getTimeInMillis());;
+		
+		CoopTerm currentTerm = service.getCoopTerm(termid);
+		service.createDocument(docName, dueDate, dueTime, subDate, subTime, currentTerm);
+		
+		try {
+			list = service.viewEmployerFiles(empid, termid);
+		}catch (IllegalArgumentException e) {
+			fail();
+		}
+		
+		assertEquals(2, list.size());
+
+
+	}
 
 }
