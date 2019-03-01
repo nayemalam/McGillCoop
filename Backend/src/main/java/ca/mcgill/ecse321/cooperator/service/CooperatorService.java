@@ -79,7 +79,7 @@ public class CooperatorService {
 	// Student CRUD transactions
 
 	@Transactional
-	public Student createStudent(Integer id, String name, String fName, String emailAddress, String userName,
+	public Student createStudent(String name, String fName, String emailAddress, String userName,
 			String password, Integer studentId, String program) {
 		// Parse input arguments to determine if all information is present to create a
 		// new student.
@@ -98,14 +98,14 @@ public class CooperatorService {
 		if (studentId == null) {
 			throw new IllegalArgumentException("Please enter a valid McGill Student ID");
 		}
-		if (id == null) {
-			throw new IllegalArgumentException("Please enter a valid User ID");
-		}
+//		if (id == null) {
+//			throw new IllegalArgumentException("Please enter a valid User ID");
+//		}
 		if (program == null || program.trim().length() == 0) {
 			throw new IllegalArgumentException("Please enter a valid program");
 		}
 		Student user = new Student();
-		user.setUserID(id);
+//		user.setUserID(id);
 		user.setLastName(name);
 		user.setFirstName(fName);
 		user.setEmailAddress(emailAddress);
@@ -317,7 +317,7 @@ public class CooperatorService {
 	// Co-op Admin CRUD
 
 	@Transactional
-	public CoopAdministrator createCoopAdministrator(Integer id, String name, String fName, String emailAddress,
+	public CoopAdministrator createCoopAdministrator(String name, String fName, String emailAddress,
 			String userName, String password) {
 		// Parse input arguments to determine if all information is present to create a
 		// new CoopAdmin.
@@ -333,12 +333,12 @@ public class CooperatorService {
 		if (password == null || password.trim().length() == 0) {
 			throw new IllegalArgumentException("Please enter a valid password");
 		}
-		if (id == null) {
-			throw new IllegalArgumentException("Please enter a valid User ID");
-		}
+//		if (id == null) {
+//			throw new IllegalArgumentException("Please enter a valid User ID");
+//		}
 
 		CoopAdministrator user = new CoopAdministrator();
-		user.setUserID(id);
+		//user.setUserID(id);
 		user.setLastName(name);
 		user.setFirstName(fName);
 		user.setEmailAddress(emailAddress);
@@ -458,7 +458,7 @@ public class CooperatorService {
 	// Employer CRUD
 
 	@Transactional
-	public Employer createEmployer(Integer id, String name, String fName, String emailAddress, String userName,
+	public Employer createEmployer(String name, String fName, String emailAddress, String userName,
 			String password, String companyName, String location) {
 		// Parse input arguments to determine if all information is present to create a
 		// new Employer.
@@ -482,12 +482,12 @@ public class CooperatorService {
 			throw new IllegalArgumentException("Please enter a valid location");
 
 		}
-		if (id == null) {
-			throw new IllegalArgumentException("Please enter a valid User ID");
-		}
+//		if (id == null) {
+//			throw new IllegalArgumentException("Please enter a valid User ID");
+//		}
 
 		Employer user = new Employer();
-		user.setUserID(id);
+		//user.setUserID(id);
 		user.setLastName(name);
 		user.setFirstName(fName);
 		user.setEmailAddress(emailAddress);
