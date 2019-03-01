@@ -35,6 +35,13 @@ import javax.activation.*;
 import java.lang.Exception;
 
 
+import java.util.*;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
+import java.lang.Exception;
+
+
 @Service
 public class CooperatorService {
 
@@ -758,7 +765,6 @@ public class CooperatorService {
 
 	@Transactional
 	public Document createDocument(DocumentName docName, Date dueDate, Time dueTime, Date subDate, Time subTime, CoopTerm coopTerm) {
-
 		if (docName == null) {
 			throw new IllegalArgumentException("Document Name cannot be empty!");
 		}
@@ -888,6 +894,7 @@ public class CooperatorService {
 
 	@Transactional
 	public CoopTerm createCoopTerm(Date startDate, Date endDate, Student student, Employer employer) {
+
 
 		if (startDate == null) {
 			throw new IllegalArgumentException("Please enter a valid startDate");
