@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -921,29 +922,33 @@ public class CooperatorService {
 	
 	@Transactional
 	public boolean isIncomplete (Integer userId, Integer CoopTerm){
-		// why user id as argument?
+
 		CoopTerm currentTerm = new CoopTerm();	
 		Student student = studentRepository.findByuserID(userId);
 //		Student student = getStudent(userId);
 		Document document = new Document();
 		// Find CoopTerm in the Set
 		Set<CoopTerm> coopterms = student.getCoopTerm();
-		//Iterator<CoopTerm> iterTerm = coopterms.iterator();
 		
 		// Find all documents in the CoopTerm of the student
 		Set<Document> documents = currentTerm.getDocument();
 		Iterator<Document> iterDocs = documents.iterator();
 		
+		// make sure it's within current date
+		java.sql.Date currDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		
+		if((document.getSubDate().before(currDate) || document.getSubDate() == currDate) && document.getSubDate().before(document.getDueDate())) {
 		// while there are documents
-		if(coopTermExists(CoopTerm)) {
-			while(iterDocs.hasNext()) {
-				document = iterDocs.next();
-				if(document.getSubDate() == null) {
-					return true;
-				}
-				// check if submissionDate exceeds dueDate
-				if(document.getSubDate().compareTo(document.getDueDate())>0) {
-					return true;
+			if(coopTermExists(CoopTerm)) {
+				while(iterDocs.hasNext()) {
+					document = iterDocs.next();
+					if(document.getSubDate() == null) {
+						return true;
+					}
+					// check if submissionDate exceeds dueDate
+					if(document.getSubDate().after(document.getDueDate())) {
+						return true;
+					}
 				}
 			}
 		}
@@ -970,20 +975,21 @@ public class CooperatorService {
 		} 
 		
 		// students
-		List<Student> students = getAllStudents();
+//		List<Student> students = getAllStudents();
 		List<Student> incompleteStudents = Collections.emptyList();
-		Student student = new Student();
+//		Student student = new Student();
 		
 		for(int i =0; i<currentTermList.size();i++) {
 			
 			/* Get student id that is associated with incomplete term
 			 * Return current term at specified index and its associated id
 			*/
-			if(isIncomplete(student.getStudentId(), currentTermList.get(i).getTermId())) {
-				incompleteStudents.add(student);
+			if(isIncomplete(currentTermList.get(i).getStudent().getUserID(), currentTermList.get(i).getTermId())) {
+				// populate the incomplete students list
+				incompleteStudents.add(currentTermList.get(i).getStudent()); 
 			}
 		}
 		
-		return students;
+		return incompleteStudents;
 	}
 }
