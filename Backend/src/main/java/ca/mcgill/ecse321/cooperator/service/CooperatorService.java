@@ -965,6 +965,10 @@ public class CooperatorService {
 		CoopTerm currentTerm;		
 		List<CoopTerm> currentTermList = Collections.emptyList();
 		
+		//to ensure current date??
+		//java.sql.Date currDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+
+		
 		// ensures that the date inputed is the current term
 		if(date.before(coopterms.get(0).getEndDate())) {
 			for(int i=0; i<coopterms.size(); i++) {
