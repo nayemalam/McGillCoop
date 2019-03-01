@@ -2,6 +2,8 @@ package ca.mcgill.ecse321.cooperator.model;
 import java.sql.Time;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Id;
 import java.sql.Date;
@@ -46,6 +48,7 @@ public void setDocId(Integer value) {
 this.docId = value;
 }
 @Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 public Integer getDocId() {
 return this.docId;
 }

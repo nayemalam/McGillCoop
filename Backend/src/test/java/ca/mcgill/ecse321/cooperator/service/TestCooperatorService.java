@@ -1151,7 +1151,7 @@ public class TestCooperatorService {
 	@Test
 	public void testCreateAndReadDocument() {
 		//Create document
-		Document testDocument;
+		Document testDocument = new Document();
 		assertEquals(0, service.getAllDocuments().size());
 		
 		// set calendar
@@ -1160,7 +1160,6 @@ public class TestCooperatorService {
 		
 		// initialize variables
 		DocumentName docName = DocumentName.courseEvaluation; //evaluation doc
-		Integer docId = 21;
 		Date dueDate = new Date(c.getTimeInMillis());
 		Time dueTime = new Time(c.getTimeInMillis());
 		
@@ -1200,7 +1199,7 @@ public class TestCooperatorService {
 
 		
 		try {
-			testDocument = service.createDocument(docName, docId, dueDate, dueTime, subDate, subTime, coopTerm);
+			testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, coopTerm);
 		} catch (Exception e) {
 			// Check that no error occurred while creating and saving the document.
 			System.out.println(e);
@@ -1210,7 +1209,6 @@ public class TestCooperatorService {
 		
 		assertEquals(1, allDocuments.size());
 		assertEquals(docName, allDocuments.get(0).getDocName());
-		assertEquals(docId, allDocuments.get(0).getDocId());
 		assertEquals(dueDate.toString(), allDocuments.get(0).getDueDate().toString());
 		assertEquals(dueTime.toString(), allDocuments.get(0).getDueTime().toString());
 		assertEquals(subDate.toString(), allDocuments.get(0).getSubDate().toString());
@@ -1236,14 +1234,13 @@ public class TestCooperatorService {
 		String error = "";
 
 		// Create input arguments to the create function
-		Document testDocument;
+		Document testDocument = new Document();
 		assertEquals(0, service.getAllDocuments().size());
 		// set calendar
 		Calendar c = Calendar.getInstance();
 		c.set(2019, Calendar.FEBRUARY, 16, 9, 00, 0);
 		// initialize variables
 		DocumentName docName = DocumentName.courseEvaluation;
-		Integer docId = 21;
 		Date dueDate = new Date(c.getTimeInMillis());
 		Time dueTime = new Time(c.getTimeInMillis());
 		c.set(2019, Calendar.FEBRUARY, 16, 10, 30, 0);
@@ -1283,25 +1280,16 @@ public class TestCooperatorService {
 		// Test docName parsing
 		try {
 			// Null input
-			testDocument = service.createDocument(null, docId, dueDate, dueTime, subDate, subTime, coopTerm);
+			testDocument = service.createDocument(null, dueDate, dueTime, subDate, subTime, coopTerm);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 		assertEquals(errorMessages[0], error);
 
-		// Test docId parsing
-		try {
-			// Null input
-			testDocument = service.createDocument(docName, null, dueDate, dueTime, subDate, subTime, coopTerm);
-		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
-		}
-		assertEquals(errorMessages[1], error);
-		
 		// dueDate testing
 		try {
 			// Null input
-			testDocument = service.createDocument(docName, docId, null, dueTime, subDate, subTime, coopTerm);
+			testDocument = service.createDocument(docName, null, dueTime, subDate, subTime, coopTerm);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -1310,7 +1298,7 @@ public class TestCooperatorService {
 		// dueTime testing
 		try {
 			// Null input
-			testDocument = service.createDocument(docName, docId, dueDate, null, subDate, subTime, coopTerm);
+			testDocument = service.createDocument(docName, dueDate, null, subDate, subTime, coopTerm);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -1319,7 +1307,7 @@ public class TestCooperatorService {
 		// subDate testing
 		try {
 			// Null input
-			testDocument = service.createDocument(docName, docId, dueDate, dueTime, null, subTime, coopTerm);
+			testDocument = service.createDocument(docName, dueDate, dueTime, null, subTime, coopTerm);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -1328,7 +1316,7 @@ public class TestCooperatorService {
 		// subTime testing
 		try {
 			// Null input
-			testDocument = service.createDocument(docName, docId, dueDate, dueTime, subDate, null, coopTerm);
+			testDocument = service.createDocument(docName, dueDate, dueTime, subDate, null, coopTerm);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -1337,7 +1325,7 @@ public class TestCooperatorService {
 		// coopTerm testing
 		try {
 			// Null input
-			testDocument = service.createDocument(docName, docId, dueDate, dueTime, subDate, subTime, null);
+			testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, null);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -1353,7 +1341,7 @@ public class TestCooperatorService {
 	@Test
 	public void testUpdateDocument() {
 		//Create document
-		Document testDocument;
+		Document testDocument = new Document();
 		assertEquals(0, service.getAllDocuments().size());
 		
 		// set calendar
@@ -1362,7 +1350,6 @@ public class TestCooperatorService {
 		
 		// initialize variables
 		DocumentName docName = DocumentName.courseEvaluation; //evaluation doc
-		Integer docId = 21;
 		Date dueDate = new Date(c.getTimeInMillis());
 		Time dueTime = new Time(c.getTimeInMillis());
 		
@@ -1401,11 +1388,12 @@ public class TestCooperatorService {
 		Integer termId = coopTerm.getTermId();
 		
 		// Create new document object
-		testDocument = service.createDocument(docName, docId, dueDate, dueTime, subDate, subTime, coopTerm);
+		testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, coopTerm);
+		Integer docId = testDocument.getDocId();
 		assertEquals(1,service.getAllDocuments().size());
 		
 		//updated parameters, create a new document 
-		Document newDocument;
+		Document newDocument = new Document();
 		
 		// set calendar
 		Calendar c1 = Calendar.getInstance();
@@ -1416,7 +1404,8 @@ public class TestCooperatorService {
 		Time newsubTime = new Time(c1.getTimeInMillis());
 		
 		// UPDATE new docName, subDate, subTime
-		newDocument = service.createDocument(newdocName, docId, dueDate, dueTime, newsubDate, newsubTime, coopTerm);
+		newDocument = service.createDocument(newdocName, dueDate, dueTime, newsubDate, newsubTime, coopTerm);
+		
 		assertEquals(1, service.getAllDocuments().size());
 	
 		try {
@@ -1439,7 +1428,7 @@ public class TestCooperatorService {
 	@Test
 	public void testDeleteDocument() {
 		//Create document
-		Document testDocument;
+		Document testDocument = new Document();
 		assertEquals(0, service.getAllDocuments().size());
 		
 		// set calendar
@@ -1448,7 +1437,6 @@ public class TestCooperatorService {
 		
 		// initialize variables
 		DocumentName docName = DocumentName.courseEvaluation; //evaluation doc
-		Integer docId = 21;
 		Date dueDate = new Date(c.getTimeInMillis());
 		Time dueTime = new Time(c.getTimeInMillis());
 		
@@ -1488,7 +1476,8 @@ public class TestCooperatorService {
 		
 		
 		// Create new document object
-		testDocument = service.createDocument(docName, docId, dueDate, dueTime, subDate, subTime, coopTerm);
+		testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, coopTerm);
+		Integer docId = testDocument.getDocId();
 		assertEquals(1,service.getAllDocuments().size());
 		
 		// remove the document
