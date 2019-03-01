@@ -863,6 +863,44 @@ public class TestCooperatorService {
 		assertEquals(0,service.getAllCoopAdministrators().size());
 	}
 	
+	/**
+	 * Test sending the notification to a student by email
+	 * For the moment, this does not work, I cannot seem to instantiate
+	 * a session with JUnit, and as such I cannot properly debug its 
+	 * behavior java.lang.NoClassDefFoundError: com/sun/mail/util/MailLogger
+	 */
+	@Test
+	public void testSendReminder() {
+		// Create required entities
+		// Create CoopAdministrator
+//		String name = "Tristan";
+//		String fName = "Pepper";
+//		String emailAddress = "tristan.bouchard@mail.mcgill.ca";
+//		String userName = "pepper123";
+//		String password = "choco99";
+//		CoopAdministrator coop = service.createCoopAdministrator(name, fName, emailAddress, userName, password);
+//		
+//		// Create Student
+//		String sname = "Oscar";
+//		String sfName = "Macsiotra";
+//		String semailAddress = "tbouchard1997@gmail.com";
+//		String suserName = "Oscar89";
+//		String spassword = "qwerty";
+//		Integer studentId = 260747696;
+//		String program = "ecse";
+//		Student stu = service.createStudent(sname, sfName, semailAddress, suserName, spassword, studentId, program);
+//		
+//		assertEquals(true, studentRepository.existsById(stu.getUserID()));
+//		assertEquals(true, coopAdministratorRepository.existsById(coop.getUserID()));
+//		
+//		try {
+//			@SuppressWarnings("unused")
+//			Boolean suh = service.sendReminder(coop.getUserID(), stu.getUserID(), 1);
+//		} catch (Exception e) {
+//			fail();
+//		}
+		
+	}
 	// ==========================================================================================
 	
 	// ==========================================================================================
