@@ -1,6 +1,8 @@
 package ca.mcgill.ecse321.cooperator.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.sql.Date;
@@ -42,6 +44,7 @@ public void setTermId(Integer value) {
     this.termId = value;
 }
 @Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 public Integer getTermId() {
     return this.termId;
 }
