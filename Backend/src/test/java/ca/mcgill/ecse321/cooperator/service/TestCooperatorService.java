@@ -8,7 +8,10 @@ import java.sql.Time;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.After;
 import org.junit.Before;
@@ -196,7 +199,7 @@ public class TestCooperatorService {
 		assertEquals(password, allStudents.get(0).getPassword());
 		assertEquals(studentId, allStudents.get(0).getStudentId());
 		assertEquals(program, allStudents.get(0).getProgram());
-		testStudent = null;
+		//testStudent = null;
 	}
 
 	/**
@@ -1239,7 +1242,7 @@ public class TestCooperatorService {
 		assertEquals(subDate.toString(), allDocuments.get(0).getSubDate().toString());
 		assertEquals(subTime.toString(), allDocuments.get(0).getSubTime().toString());
 		assertEquals(coopTerm.getTermId(), allDocuments.get(0).getCoopTerm().getTermId());
-		testDocument = null;
+		//testDocument = null;
 
 		// TODO
 	}
@@ -1535,7 +1538,81 @@ public class TestCooperatorService {
 		assertEquals(0,service.getAllDocuments().size());
 		// TODO
 	}
+	
 	// ==========================================================================================
+	
+	@Test
+	public void testViewStudentDocument() {
+				
+		testCreateAndReadDocument();
+		assertEquals(1, service.getAllDocuments().size());
+		assertEquals(1, service.getAllStudents().size());
+		assertEquals(1, service.getAllCoopTerms().size());	
+		DocumentName doc = DocumentName.courseEvaluation;
+		DocumentName docc = DocumentName.finalReport;
+		Document newDoc = new Document();
+		
+		int studId = service.getAllStudents().get(0).getUserID();
+		int termId = service.getAllCoopTerms().get(0).getTermId();
+		try {
+			newDoc = service.viewStudentDocument(studId, termId, docc);
+		}catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertEquals(null, newDoc.getDocName());
+		
+		try {
+			newDoc = service.viewStudentDocument(studId, termId, doc);
+		}catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertEquals(doc, newDoc.getDocName());
+		
+	}
+	
+	@Test
+	public void testViewEmployerDocument() {
+		
+		testCreateAndReadDocument();
+		assertEquals(1, service.getAllDocuments().size());
+		assertEquals(1, service.getAllEmployers().size());
+		assertEquals(1, service.getAllCoopTerms().size());	
+		DocumentName doc = DocumentName.courseEvaluation;
+		DocumentName docc = DocumentName.finalReport;
+		Document newDoc = new Document();
+		
+		int empId = service.getAllEmployers().get(0).getUserID();
+		int termId = service.getAllCoopTerms().get(0).getTermId();
+		try {
+			newDoc = service.viewEmployerDocument(empId, termId, docc);
+		}catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertEquals(null, newDoc.getDocName());
+		
+		try {
+			newDoc = service.viewEmployerDocument(empId, termId, doc);
+		}catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertEquals(doc, newDoc.getDocName());
+	}
+	
+	@Test
+	public void testViewSudentFiles() {
+		
+		testCreateAndReadDocument();
+		assertEquals(1, service.getAllDocuments().size());
+		assertEquals(1, service.getAllEmployers().size());
+		assertEquals(1, service.getAllCoopTerms().size());	
+		DocumentName doc = DocumentName.courseEvaluation;
+		DocumentName docc = DocumentName.finalReport;
+		Set<Document> documents = Collections.emptySet();
+		
+		
+		
+		
+	}
 	
 
 }

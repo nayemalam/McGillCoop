@@ -221,11 +221,11 @@ public class CooperatorService {
 	
 	@Transactional
 	public Set<Document> viewStudentFiles(Integer id, Integer termId) {
-
+		CoopTerm currentTerm  = new CoopTerm();
 		Set<Document> documents = Collections.emptySet();		
 		if (studentExists(id) && coopTermExists(termId)) {
 
-			CoopTerm currentTerm = new CoopTerm();
+			
 			// Get current student record from the database
 			Student currentStudent = getStudent(id);
 			//Get coopTerm from Database
@@ -235,15 +235,15 @@ public class CooperatorService {
 			Iterator<CoopTerm> iter = coopterms.iterator();
 
 			while(iter.hasNext()) {
-				if(iter.next().getTermId().equals(termId)) {
-					currentTerm = iter.next();
+				CoopTerm term = iter.next();
+				if(term.getTermId().equals(termId)) {
+					currentTerm = term;
 
 				}			
 			}
 
 			//set of all documents in the coopterm from the student
 			documents = currentTerm.getDocument();
-
 
 		}
 		return documents;
@@ -262,10 +262,11 @@ public class CooperatorService {
 		Iterator<Document> iter = documents.iterator();
 		while(iter.hasNext()) {
 			//stop when the document type is found 
-			if(iter.next().getDocName().equals(docname));
-			document_modif = iter.next();	
+			Document doc = iter.next();
+			if(doc.getDocName().equals(docname)) {
+				document_modif = doc;	
+			}
 		}
-		
 		return document_modif;
 	}
 	
@@ -623,16 +624,13 @@ public class CooperatorService {
 			Iterator<CoopTerm> iter = coopterms.iterator();
 
 			while(iter.hasNext()) {
-				if(iter.next().getTermId().equals(termId)) {
-					currentTerm = iter.next();
-
+				CoopTerm term = iter.next();
+				if(term.getTermId().equals(termId)) {
+					currentTerm = term;
 				}			
 			}
-
 			//set of all documents in the coopterm from the Employer
 			documents = currentTerm.getDocument();
-
-
 		}
 		return documents;
 	}
@@ -649,11 +647,12 @@ public class CooperatorService {
 		//iterate through the document list of the term 
 		Iterator<Document> iter = documents.iterator();
 		while(iter.hasNext()) {
+			Document doc = iter.next();
 			//stop when the document type is found 
-			if(iter.next().getDocName().equals(docname));
-			document_modif = iter.next();	
+			if(doc.getDocName().equals(docname)) {
+			document_modif = doc;	
+			}
 		}
-		
 		return document_modif;
 	}
 
