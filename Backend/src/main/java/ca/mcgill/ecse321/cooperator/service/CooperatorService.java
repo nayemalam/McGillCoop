@@ -768,7 +768,7 @@ public class CooperatorService {
 	// CoopTerm CRUD
 
 	@Transactional
-	public CoopTerm createCoopTerm(Date startDate, Date endDate, Integer termId, Student student, Employer employer) {
+	public CoopTerm createCoopTerm(Date startDate, Date endDate, Student student, Employer employer) {
 		
 		if (startDate == null) {
 			throw new IllegalArgumentException("Please enter a valid startDate");
@@ -776,9 +776,7 @@ public class CooperatorService {
 		if (endDate == null) {
 			throw new IllegalArgumentException("Please enter a valid endDate");
 		}
-		if (termId == null) {
-			throw new IllegalArgumentException("Please enter a valid termId");
-		}
+
 		if (student == null) {
 			throw new IllegalArgumentException("Please enter a valid Student");
 		}
@@ -789,7 +787,7 @@ public class CooperatorService {
 		CoopTerm coopTerm = new CoopTerm();
 		coopTerm.setStartDate(startDate);
 		coopTerm.setEndDate(endDate);
-		coopTerm.setTermId(termId);
+		//coopTerm.setTermId(termId);
 		coopTerm.setStudent(student);
 		coopTerm.setEmployer(employer);
 		coopTermRepository.save(coopTerm);
