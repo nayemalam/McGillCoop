@@ -1392,9 +1392,7 @@ public class TestCooperatorService {
 		Integer docId = testDocument.getDocId();
 		assertEquals(1,service.getAllDocuments().size());
 		
-		//updated parameters, create a new document 
-		Document newDocument = new Document();
-		
+
 		// set calendar
 		Calendar c1 = Calendar.getInstance();
 		c1.set(2019, Calendar.FEBRUARY, 16, 9, 00, 0);
@@ -1403,9 +1401,7 @@ public class TestCooperatorService {
 		Date newsubDate = new Date(c1.getTimeInMillis());
 		Time newsubTime = new Time(c1.getTimeInMillis());
 		
-		// UPDATE new docName, subDate, subTime
-		newDocument = service.createDocument(newdocName, dueDate, dueTime, newsubDate, newsubTime, coopTerm);
-		
+		// UPDATE new docName, subDate, subTime		
 		assertEquals(1, service.getAllDocuments().size());
 	
 		try {
