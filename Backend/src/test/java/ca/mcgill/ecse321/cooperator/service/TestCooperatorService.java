@@ -166,10 +166,10 @@ public class TestCooperatorService {
 	 */
 	@Test
 	public void testCreateAndReadStudent() {
-		Student testStudent;
+		Student testStudent = new Student();
 		assertEquals(0, service.getAllStudents().size());
 
-		Integer id = 123;
+		//Integer id = 123;
 		String name = "Oscar";
 		String fName = "Macsiotra";
 		String emailAddress = "oscar@mcgill.ca";
@@ -179,16 +179,14 @@ public class TestCooperatorService {
 		String program = "ecse";
 
 		try {
-			testStudent = service.createStudent(id, name, fName, emailAddress, userName, password, studentId, program);
+			testStudent = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
 		} catch (IllegalArgumentException e) {
-			// Check that no error occurred while creating and saving the student.
+			// Check that no error occurred while creating and saving the student
 			fail();
 		}
-
 		List<Student> allStudents = service.getAllStudents();
 
 		assertEquals(1, allStudents.size());
-		assertEquals(id, allStudents.get(0).getUserID());
 		assertEquals(name, allStudents.get(0).getLastName());
 		assertEquals(fName, allStudents.get(0).getFirstName());
 		assertEquals(emailAddress, allStudents.get(0).getEmailAddress());
@@ -214,7 +212,7 @@ public class TestCooperatorService {
 		String error = "";
 
 		// Create input arguments to the create function
-		Integer id = 123;
+		//Integer id = 123;
 		String name = "Oscar";
 		String fName = "Macsiotra";
 		String emailAddress = "oscar@mcgill.ca";
@@ -223,26 +221,18 @@ public class TestCooperatorService {
 		Integer studentId = 260747696;
 		String program = "ecse";
 
-		// Test ID parsing
-		try {
-			// Null input
-			service.createStudent(null, name, fName, emailAddress, userName, password, studentId, program);
-		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
-		}
-		assertEquals(errorMessages[0], error);
-
+	
 		// Test Name parsing
 		try {
 			// Null input
-			service.createStudent(id, null, fName, emailAddress, userName, password, studentId, program);
+			service.createStudent(null, fName, emailAddress, userName, password, studentId, program);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 		assertEquals(errorMessages[1], error);
 		try {
 			// Empty string input
-			service.createStudent(id, " ", fName, emailAddress, userName, password, studentId, program);
+			service.createStudent(" ", fName, emailAddress, userName, password, studentId, program);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -251,14 +241,14 @@ public class TestCooperatorService {
 		// LastName testing
 		try {
 			// Null input
-			service.createStudent(id, name, null, emailAddress, userName, password, studentId, program);
+			service.createStudent(name, null, emailAddress, userName, password, studentId, program);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 		assertEquals(errorMessages[1], error);
 		try {
 			// Empty String
-			service.createStudent(id, name, " ", emailAddress, userName, password, studentId, program);
+			service.createStudent(name, " ", emailAddress, userName, password, studentId, program);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -267,14 +257,14 @@ public class TestCooperatorService {
 		// Email address testing
 		try {
 			// Null input
-			service.createStudent(id, name, fName, null, userName, password, studentId, program);
+			service.createStudent(name, fName, null, userName, password, studentId, program);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 		assertEquals(errorMessages[2], error);
 		try {
 			// Empty String
-			service.createStudent(id, name, fName, " ", userName, password, studentId, program);
+			service.createStudent(name, fName, " ", userName, password, studentId, program);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -283,14 +273,14 @@ public class TestCooperatorService {
 		// Username testing
 		try {
 			// Null input
-			service.createStudent(id, name, fName, emailAddress, null, password, studentId, program);
+			service.createStudent(name, fName, emailAddress, null, password, studentId, program);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 		assertEquals(errorMessages[3], error);
 		try {
 			// Empty String
-			service.createStudent(id, name, fName, emailAddress, " ", password, studentId, program);
+			service.createStudent(name, fName, emailAddress, " ", password, studentId, program);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -299,14 +289,14 @@ public class TestCooperatorService {
 		// Password testing
 		try {
 			// Null input
-			service.createStudent(id, name, fName, emailAddress, userName, null, studentId, program);
+			service.createStudent(name, fName, emailAddress, userName, null, studentId, program);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 		assertEquals(errorMessages[4], error);
 		try {
 			// Empty String
-			service.createStudent(id, name, fName, emailAddress, userName, " ", studentId, program);
+			service.createStudent(name, fName, emailAddress, userName, " ", studentId, program);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -315,7 +305,7 @@ public class TestCooperatorService {
 		// studentId testing
 		try {
 			// Null input
-			service.createStudent(id, name, fName, emailAddress, userName, password, null, program);
+			service.createStudent(name, fName, emailAddress, userName, password, null, program);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -324,14 +314,14 @@ public class TestCooperatorService {
 		// program testing
 		try {
 			// Null input
-			service.createStudent(id, name, fName, emailAddress, userName, password, studentId, null);
+			service.createStudent(name, fName, emailAddress, userName, password, studentId, null);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 		assertEquals(errorMessages[6], error);
 		try {
 			// Empty String
-			service.createStudent(id, name, fName, emailAddress, userName, password, studentId, " ");
+			service.createStudent(name, fName, emailAddress, userName, password, studentId, " ");
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -350,7 +340,6 @@ public class TestCooperatorService {
 		Student testStudent;
 		assertEquals(0, service.getAllStudents().size());
 
-		Integer id = 123;
 		String name = "Oscar";
 		String fName = "Macsiotra";
 		String emailAddress = "oscar@mcgill.ca";
@@ -360,8 +349,10 @@ public class TestCooperatorService {
 		String program = "ecse";
 		
 		// Create new student object
-		testStudent = service.createStudent(id, name, fName, emailAddress, userName, password, studentId, program);
+		testStudent = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
 		assertEquals(1,service.getAllStudents().size());
+		Integer id = testStudent.getUserID();
+
 
 		//Updated Parameters
 		String someName = "SomeNewName";
@@ -387,7 +378,6 @@ public class TestCooperatorService {
 		Student testStudent;
 		assertEquals(0, service.getAllStudents().size());
 
-		Integer id = 123;
 		String name = "Oscar";
 		String fName = "Macsiotra";
 		String emailAddress = "oscar@mcgill.ca";
@@ -397,8 +387,10 @@ public class TestCooperatorService {
 		String program = "ecse";
 		
 		// Create new student object
-		testStudent = service.createStudent(id, name, fName, emailAddress, userName, password, studentId, program);
+		testStudent = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
 		assertEquals(1,service.getAllStudents().size());
+		Integer id = testStudent.getUserID();
+
 		
 		// remove the student
 		try {
@@ -427,10 +419,9 @@ public class TestCooperatorService {
 	 */
 	@Test
 	public void testCreateAndReadEmployer() {
-		Employer testEmployer;
+		Employer testEmployer = new Employer();
 		assertEquals(0, service.getAllEmployers().size());
 		
-		Integer id = 123;
 		String name = "Oscar";
 		String fName = "Macsiotra";
 		String emailAddress = "oscar@mcgill.ca";
@@ -440,16 +431,17 @@ public class TestCooperatorService {
 		String location = "Montreal";
 		
 		try {
-			testEmployer = service.createEmployer(id, name, fName, emailAddress, userName, password, companyName, location);
+			testEmployer = service.createEmployer(name, fName, emailAddress, userName, password, companyName, location);
 		} catch (IllegalArgumentException e) {
 			// Check that no error occurred while creating and saving the student.
 			fail();
 		}
+		Integer id = testEmployer.getUserID();
+
 		assertEquals(1, service.getAllEmployers().size());
 		
 		List<Employer> employerList = service.getAllEmployers();
 		testEmployer = employerList.get(0);
-		assertEquals(id,testEmployer.getUserID());
 		assertEquals(name,testEmployer.getLastName());
 		assertEquals(fName,testEmployer.getFirstName());
 		assertEquals(emailAddress,testEmployer.getEmailAddress());
@@ -474,7 +466,6 @@ public class TestCooperatorService {
 		String error = "";
 
 		// Create input arguments to the create function
-		Integer id = 123;
 		String name = "Oscar";
 		String fName = "Macsiotra";
 		String emailAddress = "oscar@mcgill.ca";
@@ -483,26 +474,17 @@ public class TestCooperatorService {
 		String companyName = "Suh inc";
 		String location = "Montreal";
 
-		// Test ID parsing
-		try {
-			// Null input
-			service.createEmployer(null, name, fName, emailAddress, userName, password, companyName, location);
-		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
-		}
-		assertEquals(errorMessages[0], error);
-
 		// Test Name parsing
 		try {
 			// Null input
-			service.createEmployer(id, null, fName, emailAddress, userName, password, companyName, location);
+			service.createEmployer(null, fName, emailAddress, userName, password, companyName, location);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 		assertEquals(errorMessages[1], error);
 		try {
 			// Empty string input
-			service.createEmployer(id, " ", fName, emailAddress, userName, password, companyName, location);
+			service.createEmployer(" ", fName, emailAddress, userName, password, companyName, location);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -511,14 +493,14 @@ public class TestCooperatorService {
 		// LastName testing
 		try {
 			// Null input
-			service.createEmployer(id, name, null, emailAddress, userName, password, companyName, location);
+			service.createEmployer(name, null, emailAddress, userName, password, companyName, location);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 		assertEquals(errorMessages[1], error);
 		try {
 			// Empty String
-			service.createEmployer(id, name, " ", emailAddress, userName, password, companyName, location);
+			service.createEmployer(name, " ", emailAddress, userName, password, companyName, location);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -527,14 +509,14 @@ public class TestCooperatorService {
 		// Email address testing
 		try {
 			// Null input
-			service.createEmployer(id, name, fName, null, userName, password, companyName, location);
+			service.createEmployer(name, fName, null, userName, password, companyName, location);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 		assertEquals(errorMessages[2], error);
 		try {
 			// Empty String
-			service.createEmployer(id, name, fName, " ", userName, password, companyName, location);
+			service.createEmployer(name, fName, " ", userName, password, companyName, location);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -543,14 +525,14 @@ public class TestCooperatorService {
 		// Username testing
 		try {
 			// Null input
-			service.createEmployer(id, name, fName, emailAddress, null, password, companyName, location);
+			service.createEmployer(name, fName, emailAddress, null, password, companyName, location);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 		assertEquals(errorMessages[3], error);
 		try {
 			// Empty String
-			service.createEmployer(id, name, fName, emailAddress, " ", password, companyName, location);
+			service.createEmployer(name, fName, emailAddress, " ", password, companyName, location);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -559,14 +541,14 @@ public class TestCooperatorService {
 		// Password testing
 		try {
 			// Null input
-			service.createEmployer(id, name, fName, emailAddress, userName, null, companyName, location);
+			service.createEmployer(name, fName, emailAddress, userName, null, companyName, location);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 		assertEquals(errorMessages[4], error);
 		try {
 			// Empty String
-			service.createEmployer(id, name, fName, emailAddress, userName, " ", companyName, location);
+			service.createEmployer(name, fName, emailAddress, userName, " ", companyName, location);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -575,14 +557,14 @@ public class TestCooperatorService {
 		// Company Name testing
 		try {
 			// Null input
-			service.createEmployer(id, name, fName, emailAddress, userName, password, null, location);
+			service.createEmployer(name, fName, emailAddress, userName, password, null, location);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 		assertEquals(errorMessages[5], error);
 		try {
 			// Empty string input
-			service.createEmployer(id, name, fName, emailAddress, userName, password, " ", location);
+			service.createEmployer(name, fName, emailAddress, userName, password, " ", location);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -591,14 +573,14 @@ public class TestCooperatorService {
 		// Location testing
 		try {
 			// Null input
-			service.createEmployer(id, name, fName, emailAddress, userName, password, companyName, null);
+			service.createEmployer(name, fName, emailAddress, userName, password, companyName, null);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 		assertEquals(errorMessages[6], error);
 		try {
 			// Empty String
-			service.createEmployer(id, name, fName, emailAddress, userName, password, companyName, " ");
+			service.createEmployer(name, fName, emailAddress, userName, password, companyName, " ");
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -616,7 +598,6 @@ public class TestCooperatorService {
 		Employer testEmployer;
 		assertEquals(0, service.getAllEmployers().size());
 		
-		Integer id = 123;
 		String name = "Oscar";
 		String fName = "Macsiotra";
 		String emailAddress = "oscar@mcgill.ca";
@@ -625,8 +606,10 @@ public class TestCooperatorService {
 		String companyName = "Suh Industries";
 		String location = "Montreal";
 		
-		testEmployer = service.createEmployer(id, name, fName, emailAddress, userName, password, companyName, location);
+		testEmployer = service.createEmployer(name, fName, emailAddress, userName, password, companyName, location);
 		assertEquals(1, service.getAllEmployers().size());
+		Integer id = testEmployer.getUserID();
+
 		
 		//Updated Parameters
 		String newname = "Oscar";
@@ -656,7 +639,6 @@ public class TestCooperatorService {
 		Employer testEmployer;
 		assertEquals(0, service.getAllEmployers().size());
 		
-		Integer id = 123;
 		String name = "Oscar";
 		String fName = "Macsiotra";
 		String emailAddress = "oscar@mcgill.ca";
@@ -665,7 +647,8 @@ public class TestCooperatorService {
 		String companyName = "Suh Industries";
 		String location = "Montreal";
 		
-		testEmployer = service.createEmployer(id, name, fName, emailAddress, userName, password, companyName, location);
+		testEmployer = service.createEmployer(name, fName, emailAddress, userName, password, companyName, location);
+		Integer id = testEmployer.getUserID();
 		assertEquals(1, service.getAllEmployers().size());
 		
 		try {
@@ -684,10 +667,9 @@ public class TestCooperatorService {
 	
 	@Test
 	public void testCreateandReadCoopAdministrator() {
-		CoopAdministrator testCoopAdministrator; 
+		CoopAdministrator testCoopAdministrator = new CoopAdministrator(); 
 		assertEquals(0, service.getAllCoopAdministrators().size());
 		
-		Integer id = 1323;
 		String name = "Tristan";
 		String fName = "Pepper";
 		String emailAddress = "Tristan@mcgill.ca";
@@ -695,16 +677,17 @@ public class TestCooperatorService {
 		String password = "choco99";
 
 		try {
-			testCoopAdministrator= service.createCoopAdministrator(id, name, fName, emailAddress, userName, password);
+			testCoopAdministrator= service.createCoopAdministrator(name, fName, emailAddress, userName, password);
 		} catch (IllegalArgumentException e) {
 			// Check that no error occurred
 			fail();
 		}
+		Integer id = testCoopAdministrator.getUserID();
+
 
 		List<CoopAdministrator> allCoopAdministrator = service.getAllCoopAdministrators();
 
 		assertEquals(1, allCoopAdministrator.size());
-		assertEquals(id, allCoopAdministrator.get(0).getUserID());
 		assertEquals(name, allCoopAdministrator.get(0).getLastName());
 		assertEquals(fName, allCoopAdministrator.get(0).getFirstName());
 		assertEquals(emailAddress, allCoopAdministrator.get(0).getEmailAddress());
@@ -733,29 +716,23 @@ public class TestCooperatorService {
 		String userName = "pepper123";
 		String password = "choco99";
 
-		testCoopAdministrator= service.createCoopAdministrator(id, name, fName, emailAddress, userName, password);
+		testCoopAdministrator= service.createCoopAdministrator(name, fName, emailAddress, userName, password);
 		
 		
 		// Test ID parsing
-				try {
-					// Null input
-					service.createCoopAdministrator(null, name, fName, emailAddress, userName, password);
-				} catch (IllegalArgumentException e) {
-					error = e.getMessage();
-				}
-				assertEquals(errorMessages[0], error);
+				
 
 				// Test Name parsing
 				try {
 					// Null input
-					service.createCoopAdministrator(id, null, fName, emailAddress, userName, password);
+					service.createCoopAdministrator(null, fName, emailAddress, userName, password);
 				} catch (IllegalArgumentException e) {
 					error = e.getMessage();
 				}
 				assertEquals(errorMessages[1], error);
 				try {
 					// Empty string input
-					service.createCoopAdministrator(id, " ", fName, emailAddress, userName, password);
+					service.createCoopAdministrator(" ", fName, emailAddress, userName, password);
 				} catch (IllegalArgumentException e) {
 					error = e.getMessage();
 				}
@@ -764,14 +741,14 @@ public class TestCooperatorService {
 				// LastName testing
 				try {
 					// Null input
-					service.createCoopAdministrator(id, name, null, emailAddress, userName, password);
+					service.createCoopAdministrator(name, null, emailAddress, userName, password);
 				} catch (IllegalArgumentException e) {
 					error = e.getMessage();
 				}
 				assertEquals(errorMessages[1], error);
 				try {
 					// Empty String
-					service.createCoopAdministrator(id, name, " ", emailAddress, userName, password);
+					service.createCoopAdministrator(name, " ", emailAddress, userName, password);
 				} catch (IllegalArgumentException e) {
 					error = e.getMessage();
 				}
@@ -780,14 +757,14 @@ public class TestCooperatorService {
 				// Email address testing
 				try {
 					// Null input
-					service.createCoopAdministrator(id, name, fName, null, userName, password);
+					service.createCoopAdministrator(name, fName, null, userName, password);
 				} catch (IllegalArgumentException e) {
 					error = e.getMessage();
 				}
 				assertEquals(errorMessages[2], error);
 				try {
 					// Empty String
-					service.createCoopAdministrator(id, name, fName, " ", userName, password);
+					service.createCoopAdministrator(name, fName, " ", userName, password);
 				} catch (IllegalArgumentException e) {
 					error = e.getMessage();
 				}
@@ -796,14 +773,14 @@ public class TestCooperatorService {
 				// Username testing
 				try {
 					// Null input
-					service.createCoopAdministrator(id, name, fName, emailAddress, null, password);
+					service.createCoopAdministrator(name, fName, emailAddress, null, password);
 				} catch (IllegalArgumentException e) {
 					error = e.getMessage();
 				}
 				assertEquals(errorMessages[3], error);
 				try {
 					// Empty String
-					service.createCoopAdministrator(id, name, fName, emailAddress, " ", password);
+					service.createCoopAdministrator(name, fName, emailAddress, " ", password);
 				} catch (IllegalArgumentException e) {
 					error = e.getMessage();
 				}
@@ -812,14 +789,14 @@ public class TestCooperatorService {
 				// Password testing
 				try {
 					// Null input
-					service.createCoopAdministrator(id, name, fName, emailAddress, userName, null);
+					service.createCoopAdministrator(name, fName, emailAddress, userName, null);
 				} catch (IllegalArgumentException e) {
 					error = e.getMessage();
 				}
 				assertEquals(errorMessages[4], error);
 				try {
 					// Empty String
-					service.createCoopAdministrator(id, name, fName, emailAddress, userName, " ");
+					service.createCoopAdministrator(name, fName, emailAddress, userName, " ");
 				} catch (IllegalArgumentException e) {
 					error = e.getMessage();
 				}
@@ -832,14 +809,16 @@ public class TestCooperatorService {
 		CoopAdministrator testCoopAdministrator; 
 		assertEquals(0, service.getAllCoopAdministrators().size());
 		
-		Integer id = 1323;
+		
 		String name = "Tristan";
 		String fName = "Pepper";
 		String emailAddress = "Tristan@mcgill.ca";
 		String userName = "pepper123";
 		String password = "choco99";
 
-		testCoopAdministrator= service.createCoopAdministrator(id, name, fName, emailAddress, userName, password);
+		testCoopAdministrator= service.createCoopAdministrator(name, fName, emailAddress, userName, password);
+		Integer id = testCoopAdministrator.getUserID();
+
 		assertEquals(1,service.getAllCoopAdministrators().size());
 		//Updated Parameters
 		String newName = "thom";
@@ -865,14 +844,15 @@ public class TestCooperatorService {
 		CoopAdministrator testCoopAdministrator; 
 		assertEquals(0, service.getAllCoopAdministrators().size());
 		
-		Integer id = 1323;
 		String name = "Tristan";
 		String fName = "Pepper";
 		String emailAddress = "Tristan@mcgill.ca";
 		String userName = "pepper123";
 		String password = "choco99";
 
-		testCoopAdministrator= service.createCoopAdministrator(id, name, fName, emailAddress, userName, password);
+		testCoopAdministrator= service.createCoopAdministrator(name, fName, emailAddress, userName, password);
+		Integer id = testCoopAdministrator.getUserID();
+
 		assertEquals(1,service.getAllCoopAdministrators().size());
 		
 		try {
@@ -901,7 +881,6 @@ public class TestCooperatorService {
 		//create a student 
 		Student student;
 
-		Integer id = 4553;
 		String name = "Oscar";
 		String fName = "Macsiotra";
 		String emailAddress = "oscar@mcgill.ca";
@@ -910,13 +889,14 @@ public class TestCooperatorService {
 		Integer studentId = 260747696;
 		String program = "ecse";
 		
-		student = service.createStudent(id, name, fName, emailAddress, userName, password, studentId, program);
+		student = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
+		Integer id = student.getUserID();
+
 		assertEquals(1, service.getAllStudents().size());
 		//create an employer
 
 		Employer employer;
 		
-		Integer emp_id = 234;
 		String emp_name = "Tristan";
 		String emp_fName = "Bougon";
 		String emp_emailAddress = "tristan@mcgill.ca";
@@ -925,7 +905,9 @@ public class TestCooperatorService {
 		String emp_companyName = "Industries";
 		String emp_location = "Montreal";
 	
-		employer = service.createEmployer(emp_id, emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
+		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
+		Integer emp_id = employer.getUserID();
+
 		assertEquals(1, service.getAllEmployers().size());
 		//Other parameters
 		Date startDate = new Date(0);
@@ -961,7 +943,6 @@ public class TestCooperatorService {
 		//create a student 
 		Student student;
 
-		Integer id = 4553;
 		String name = "Oscar";
 		String fName = "Macsiotra";
 		String emailAddress = "oscar@mcgill.ca";
@@ -970,13 +951,15 @@ public class TestCooperatorService {
 		Integer studentId = 260747696;
 		String program = "ecse";
 		
-		student = service.createStudent(id, name, fName, emailAddress, userName, password, studentId, program);
+		student = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
+		Integer id = student.getUserID();
+
 		assertEquals(1, service.getAllStudents().size());
 		//create an employer
 
 		Employer employer;
 		
-		Integer emp_id = 234;
+		
 		String emp_name = "Tristan";
 		String emp_fName = "Bougon";
 		String emp_emailAddress = "tristan@mcgill.ca";
@@ -985,7 +968,9 @@ public class TestCooperatorService {
 		String emp_companyName = "Industries";
 		String emp_location = "Montreal";
 	
-		employer = service.createEmployer(emp_id, emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
+		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
+		Integer emp_id = employer.getUserID();
+
 		assertEquals(1, service.getAllEmployers().size());
 		//Other parameters
 		Date startDate = new Date(0);
@@ -1044,7 +1029,6 @@ public class TestCooperatorService {
 		//create a student 
 		Student student;
 
-		Integer id = 4553;
 		String name = "Oscar";
 		String fName = "Macsiotra";
 		String emailAddress = "oscar@mcgill.ca";
@@ -1053,13 +1037,13 @@ public class TestCooperatorService {
 		Integer studentId = 260747696;
 		String program = "ecse";
 		
-		student = service.createStudent(id, name, fName, emailAddress, userName, password, studentId, program);
+		student = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
+
 		assertEquals(1, service.getAllStudents().size());
 		//create an employer
 
 		Employer employer;
 		
-		Integer emp_id = 234;
 		String emp_name = "Tristan";
 		String emp_fName = "Bougon";
 		String emp_emailAddress = "tristan@mcgill.ca";
@@ -1068,7 +1052,7 @@ public class TestCooperatorService {
 		String emp_companyName = "Industries";
 		String emp_location = "Montreal";
 	
-		employer = service.createEmployer(emp_id, emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
+		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
 		assertEquals(1, service.getAllEmployers().size());
 		//Other parameters
 		Date startDate = new Date(0);
@@ -1081,7 +1065,6 @@ public class TestCooperatorService {
 		//updated parameters, create a new student 
 		Student student2;
 
-		id = 4343;
 		name = "Yassine";
 		fName = "Douida";
 		emailAddress = "Douids@mcgill.ca";
@@ -1090,7 +1073,7 @@ public class TestCooperatorService {
 		studentId = 260747634;
 		program = "ecse";
 		
-		student2 = service.createStudent(id, name, fName, emailAddress, userName, password, studentId, program);
+		student2 = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
 		assertEquals(2, service.getAllStudents().size());
 		Date newEndDate = new Date(10000000);
 		
@@ -1115,7 +1098,6 @@ public class TestCooperatorService {
 		//create a student 
 		Student student;
 
-		Integer id = 4553;
 		String name = "Oscar";
 		String fName = "Macsiotra";
 		String emailAddress = "oscar@mcgill.ca";
@@ -1124,13 +1106,12 @@ public class TestCooperatorService {
 		Integer studentId = 260747696;
 		String program = "ecse";
 		
-		student = service.createStudent(id, name, fName, emailAddress, userName, password, studentId, program);
+		student = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
 		assertEquals(1, service.getAllStudents().size());
 		//create an employer
 
 		Employer employer;
 		
-		Integer emp_id = 234;
 		String emp_name = "Tristan";
 		String emp_fName = "Bougon";
 		String emp_emailAddress = "tristan@mcgill.ca";
@@ -1139,7 +1120,7 @@ public class TestCooperatorService {
 		String emp_companyName = "Industries";
 		String emp_location = "Montreal";
 	
-		employer = service.createEmployer(emp_id, emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
+		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
 		assertEquals(1, service.getAllEmployers().size());
 		//Other parameters
 		Date startDate = new Date(0);
@@ -1196,7 +1177,6 @@ public class TestCooperatorService {
 		Integer termId = 1;
 		
 		Student student;
-		Integer id = 4553;
 		String name = "Oscar";
 		String fName = "Macsiotra";
 		String emailAddress = "oscar@mcgill.ca";
@@ -1204,11 +1184,10 @@ public class TestCooperatorService {
 		String password = "qwerty";
 		Integer studentId = 260747696;
 		String program = "ecse";
-		student = service.createStudent(id, name, fName, emailAddress, userName, password, studentId, program);
+		student = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
 		assertEquals(1, service.getAllStudents().size());
 		
 		Employer employer;
-		Integer emp_id = 234;
 		String emp_name = "Tristan";
 		String emp_fName = "Bougon";
 		String emp_emailAddress = "tristan@mcgill.ca";
@@ -1216,7 +1195,7 @@ public class TestCooperatorService {
 		String emp_password = "trist90";
 		String emp_companyName = "Industries";
 		String emp_location = "Montreal";
-		employer = service.createEmployer(emp_id, emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
+		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
 		assertEquals(1, service.getAllEmployers().size());
 		
 		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, termId, student, employer);
@@ -1279,7 +1258,6 @@ public class TestCooperatorService {
 		Integer termId = 1;
 		
 		Student student;
-		Integer id = 4553;
 		String name = "Oscar";
 		String fName = "Macsiotra";
 		String emailAddress = "oscar@mcgill.ca";
@@ -1287,11 +1265,10 @@ public class TestCooperatorService {
 		String password = "qwerty";
 		Integer studentId = 260747696;
 		String program = "ecse";
-		student = service.createStudent(id, name, fName, emailAddress, userName, password, studentId, program);
+		student = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
 		assertEquals(1, service.getAllStudents().size());
 		
 		Employer employer;
-		Integer emp_id = 234;
 		String emp_name = "Tristan";
 		String emp_fName = "Bougon";
 		String emp_emailAddress = "tristan@mcgill.ca";
@@ -1299,7 +1276,7 @@ public class TestCooperatorService {
 		String emp_password = "trist90";
 		String emp_companyName = "Industries";
 		String emp_location = "Montreal";
-		employer = service.createEmployer(emp_id, emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
+		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
 		assertEquals(1, service.getAllEmployers().size());
 		
 		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, termId, student, employer);
@@ -1401,7 +1378,6 @@ public class TestCooperatorService {
 		Integer termId = 1;
 		
 		Student student;
-		Integer id = 4553;
 		String name = "Oscar";
 		String fName = "Macsiotra";
 		String emailAddress = "oscar@mcgill.ca";
@@ -1409,11 +1385,10 @@ public class TestCooperatorService {
 		String password = "qwerty";
 		Integer studentId = 260747696;
 		String program = "ecse";
-		student = service.createStudent(id, name, fName, emailAddress, userName, password, studentId, program);
+		student = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
 		assertEquals(1, service.getAllStudents().size());
 		
 		Employer employer;
-		Integer emp_id = 234;
 		String emp_name = "Tristan";
 		String emp_fName = "Bougon";
 		String emp_emailAddress = "tristan@mcgill.ca";
@@ -1421,7 +1396,7 @@ public class TestCooperatorService {
 		String emp_password = "trist90";
 		String emp_companyName = "Industries";
 		String emp_location = "Montreal";
-		employer = service.createEmployer(emp_id, emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
+		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
 		assertEquals(1, service.getAllEmployers().size());
 		
 		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, termId, student, employer);
@@ -1489,7 +1464,6 @@ public class TestCooperatorService {
 		Integer termId = 1;
 		
 		Student student;
-		Integer id = 4553;
 		String name = "Oscar";
 		String fName = "Macsiotra";
 		String emailAddress = "oscar@mcgill.ca";
@@ -1497,11 +1471,10 @@ public class TestCooperatorService {
 		String password = "qwerty";
 		Integer studentId = 260747696;
 		String program = "ecse";
-		student = service.createStudent(id, name, fName, emailAddress, userName, password, studentId, program);
+		student = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
 		assertEquals(1, service.getAllStudents().size());
 		
 		Employer employer;
-		Integer emp_id = 234;
 		String emp_name = "Tristan";
 		String emp_fName = "Bougon";
 		String emp_emailAddress = "tristan@mcgill.ca";
@@ -1509,7 +1482,7 @@ public class TestCooperatorService {
 		String emp_password = "trist90";
 		String emp_companyName = "Industries";
 		String emp_location = "Montreal";
-		employer = service.createEmployer(emp_id, emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
+		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
 		assertEquals(1, service.getAllEmployers().size());
 		
 		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, termId, student, employer);
@@ -1566,6 +1539,8 @@ public class TestCooperatorService {
 		assertEquals(errorMessages[1], error);
 		
 	}
+	
+
 	// ==========================================================================================
 	
 
