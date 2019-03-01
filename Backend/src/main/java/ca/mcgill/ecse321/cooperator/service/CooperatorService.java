@@ -928,15 +928,16 @@ public class CooperatorService {
 		Document document = new Document();
 		// Find CoopTerm in the Set
 		Set<CoopTerm> coopterms = student.getCoopTerm();
-		Iterator<CoopTerm> iterTerm = coopterms.iterator();
+		//Iterator<CoopTerm> iterTerm = coopterms.iterator();
 		
 		// Find all documents in the CoopTerm of the student
 		Set<Document> documents = currentTerm.getDocument();
-		Iterator<CoopTerm> iterDocs = coopterms.iterator(); //documents.iterator() ??
+		Iterator<Document> iterDocs = documents.iterator();
 		
 		// while there are documents
 		if(coopTermExists(CoopTerm)) {
 			while(iterDocs.hasNext()) {
+				document = iterDocs.next();
 				if(document.getSubDate() == null) {
 					return true;
 				}
@@ -950,21 +951,39 @@ public class CooperatorService {
 		return false;
 	}
 	
-	@Transactional
-	public List<Student> getIncompletePlacements(Integer userId, Integer coopTermId) {
-		List<Student> students = getAllStudents();
-		Student student = studentRepository.findByuserID(userId);
 
-		for(int i=0; i<students.size(); i++) {
-//			students.get(i);
-			if(isIncomplete(student.getStudentId(), coopTermId)) {
-				students.add(student);
+	@Transactional
+	public List<Student> getIncompletePlacements(Date date) {
+
+		// get all coop terms
+		List<CoopTerm> coopterms = getAllCoopTerms();
+		CoopTerm currentTerm;		
+		List<CoopTerm> currentTermList = Collections.emptyList();
+		
+		// ensures that the date inputed is the current term
+		if(date.before(coopterms.get(0).getEndDate())) {
+			for(int i=0; i<coopterms.size(); i++) {
+				currentTerm = coopterms.get(i); 
+				currentTermList.add(currentTerm); // return as a list of current terms
+			}
+			
+		} 
+		
+		// students
+		List<Student> students = getAllStudents();
+		List<Student> incompleteStudents = Collections.emptyList();
+		Student student = new Student();
+		
+		for(int i =0; i<currentTermList.size();i++) {
+			
+			/* Get student id that is associated with incomplete term
+			 * Return current term at specified index and its associated id
+			*/
+			if(isIncomplete(student.getStudentId(), currentTermList.get(i).getTermId())) {
+				incompleteStudents.add(student);
 			}
 		}
+		
 		return students;
 	}
-	
-	
-	
-
 }
