@@ -636,14 +636,14 @@ public class CooperatorService {
 	// Document CRUD
 
 	@Transactional
-	public Document createDocument(DocumentName docName, Integer docId, Date dueDate, Time dueTime, Date subDate, Time subTime, CoopTerm coopTerm) {
+	public Document createDocument(DocumentName docName, Date dueDate, Time dueTime, Date subDate, Time subTime, CoopTerm coopTerm) {
 		
 		if (docName == null) {
 			throw new IllegalArgumentException("Document Name cannot be empty!");
 		}
-		if (docId == null) {
-			throw new IllegalArgumentException("Doc ID cannot be empty!");
-		}
+//		if (docId == null) {
+//			throw new IllegalArgumentException("Doc ID cannot be empty!");
+//		}
 		if (dueDate == null) {
 			throw new IllegalArgumentException("Please enter a valid Date");
 		}
@@ -662,7 +662,7 @@ public class CooperatorService {
 		
 
 		Document document = new Document();
-		document.setDocId(docId);
+	//	document.setDocId(docId);
 		document.setDocName(docName);
 		document.setDueDate(dueDate);
 		document.setDueTime(dueTime);
@@ -808,7 +808,7 @@ public class CooperatorService {
 	/**
 	 * Verifies the existence of a coopterm in the database using the term ID
 	 * 
-	 * @param id term ID number of the document
+	 * @param id term ID number of the coopTerm
 	 * @return True if coopterm exists, false otherwise.
 	 */
 	@Transactional
@@ -835,7 +835,7 @@ public class CooperatorService {
 	/**
 	 * Updates the Coopterm information in the database based on the term ID number
 	 * 
-	 * @param updatedCoopTerm Modified document object, to be stored in database/
+	 * @param updatedCoopTerm Modified coopTerm object, to be stored in database/
 	 * @return {@code true} if coopterm successfully updated, {@code false}
 	 *         otherwise
 	 */
