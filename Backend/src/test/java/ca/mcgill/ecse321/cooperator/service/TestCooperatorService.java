@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -26,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.cooperator.model.CoopTerm;
 import ca.mcgill.ecse321.cooperator.model.SystemUser;
+import ca.mcgill.ecse321.cooperator.service.CooperatorService.termStatistics;
 import ca.mcgill.ecse321.cooperator.model.Student;
 import ca.mcgill.ecse321.cooperator.model.CoopAdministrator;
 import ca.mcgill.ecse321.cooperator.model.Employer;
@@ -868,6 +870,113 @@ public class TestCooperatorService {
 		assertEquals(0,service.getAllCoopAdministrators().size());
 	}
 	
+	/**
+	 * Used to test the getStatisticsBySemester Method of the service class.
+	 */
+	@Test
+	public void testGetStatisticsBySemester() {
+		// Create a few students for which to get statistics about
+		Integer i;
+		Student stu;
+		Student student;
+		List<Student> studList = new ArrayList<Student>();
+		List<Student> stuList = new ArrayList<Student>();
+		
+		//create a student 
+
+		String name = "Oscar";
+		String fName = "Macsiotra";
+		String emailAddress = "oscar@mcgill.ca";
+		String userName = "Oscar89";
+		String password = "qwerty";
+		Integer studentId = 260747696;
+		String program = "ecse";
+		for(int j = 0; j < 3; j++) {
+			studList.add(service.createStudent(name+ j + "", fName + j + "", emailAddress + j + "", userName + j + "", password + j + "", studentId + j, program + j + ""));
+		}
+
+		//create an employer
+
+		Employer employer;
+		
+		String emp_name = "Tristan";
+		String emp_fName = "Bougon";
+		String emp_emailAddress = "tristan@mcgill.ca";
+		String emp_userName = "oups";
+		String emp_password = "trist90";
+		String emp_companyName = "Industries";
+		String emp_location = "Montreal";
+	
+		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
+
+
+		assertEquals(1, service.getAllEmployers().size());
+		//Other parameters
+		Date startDate = new Date(0);
+		Date enderDate = new Date(8600000000L);
+		Date checkDate = new Date(1546318800L);
+		
+		// Create a few Coop terms to use with students
+		service.createCoopTerm(startDate, enderDate, studList.get(0), employer);
+		
+		service.createCoopTerm(startDate, enderDate, studList.get(1), employer);
+		service.createCoopTerm(startDate, enderDate, studList.get(1), employer);
+		
+		service.createCoopTerm(startDate, enderDate, studList.get(2), employer);
+		service.createCoopTerm(startDate, enderDate, studList.get(2), employer);
+		service.createCoopTerm(startDate, enderDate, studList.get(2), employer);
+		
+		// Get Statistics from List of students
+		termStatistics termStats = service.getStatisticsBySemester(checkDate);
+		Integer numStudents = termStats.getNumberAtWork();
+		Integer numFirstTerm = termStats.getFirstWorkTerm().size();
+		Integer numSecTerm = termStats.getSecondWorkTerm().size();
+		Integer numThirdTerm = termStats.getThirdWorkTerm().size();
+		
+		assertEquals(3, numStudents.intValue());
+		assertEquals(1, numFirstTerm.intValue());
+		assertEquals(1, numSecTerm.intValue());
+		assertEquals(1, numThirdTerm.intValue());
+	}
+	
+	/**
+	 * Test sending the notification to a student by email
+	 * For the moment, this does not work, I cannot seem to instantiate
+	 * a session with JUnit, and as such I cannot properly debug its 
+	 * behavior java.lang.NoClassDefFoundError: com/sun/mail/util/MailLogger
+	 */
+	@Test
+	public void testSendReminder() {
+		// Create required entities
+		// Create CoopAdministrator
+//		String name = "Tristan";
+//		String fName = "Pepper";
+//		String emailAddress = "tristan.bouchard@mail.mcgill.ca";
+//		String userName = "pepper123";
+//		String password = "choco99";
+//		CoopAdministrator coop = service.createCoopAdministrator(name, fName, emailAddress, userName, password);
+//		
+//		// Create Student
+//		String sname = "Oscar";
+//		String sfName = "Macsiotra";
+//		String semailAddress = "tbouchard1997@gmail.com";
+//		String suserName = "Oscar89";
+//		String spassword = "qwerty";
+//		Integer studentId = 260747696;
+//		String program = "ecse";
+//		Student stu = service.createStudent(sname, sfName, semailAddress, suserName, spassword, studentId, program);
+//		
+//		assertEquals(true, studentRepository.existsById(stu.getUserID()));
+//		assertEquals(true, coopAdministratorRepository.existsById(coop.getUserID()));
+//		
+//		try {
+//			@SuppressWarnings("unused")
+//			Boolean suh = service.sendReminder(coop.getUserID(), stu.getUserID(), 1);
+//		} catch (Exception e) {
+//			fail();
+//		}
+		
+	}
 	// ==========================================================================================
 	
 	// ==========================================================================================
