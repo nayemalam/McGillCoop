@@ -216,16 +216,15 @@ public class CooperatorService {
 	 * Views the StudentFiles in the database
 	 * 
 	 * @param id user ID number of the student, termId of the CoopTerm
-	 * @return Set of Documents submitted by the Student and Employer for that CoopTerm
+	 * @return List of Documents submitted by the Student and Employer for that CoopTerm
 	 */
 	
 	@Transactional
-	public Set<Document> viewStudentFiles(Integer id, Integer termId) {
+	public List <Document> viewStudentFiles(Integer id, Integer termId) {
 		CoopTerm currentTerm  = new CoopTerm();
-		Set<Document> documents = Collections.emptySet();		
+		Set<Document> studentDocuments = Collections.emptySet();
+		
 		if (studentExists(id) && coopTermExists(termId)) {
-
-			
 			// Get current student record from the database
 			Student currentStudent = getStudent(id);
 			//Get coopTerm from Database
@@ -241,28 +240,29 @@ public class CooperatorService {
 
 				}			
 			}
-
 			//set of all documents in the coopterm from the student
-			documents = currentTerm.getDocument();
-
+			studentDocuments = currentTerm.getDocument();
+			List <Document> list = new ArrayList<Document>(studentDocuments);
+			return list;
 		}
-		return documents;
+		
+		throw new IllegalArgumentException("The Document could not be found");
+		
 	}
 	
 	@Transactional
 	public Document viewStudentDocument(Integer id, Integer termId, DocumentName docname) {
 		//This business method returns a document from the list of documents of a term. 
-		Set<Document> documents = Collections.emptySet();	
-		documents = viewStudentFiles(id, termId);
+		List<Document> documents = viewStudentFiles(id, termId);
 		
      	//document that will be returned 
 		Document document_modif = new Document();
 		
 		//iterate through the document list of the term 
-		Iterator<Document> iter = documents.iterator();
-		while(iter.hasNext()) {
+		int i;
+		for(i=0;i < documents.size() ;i++) {
 			//stop when the document type is found 
-			Document doc = iter.next();
+			Document doc = documents.get(i);
 			if(doc.getDocName().equals(docname)) {
 				document_modif = doc;	
 			}
@@ -621,12 +621,13 @@ public class CooperatorService {
 	 * @return Set of Documents submitted by the Student and Employer for that CoopTerm
 	 */
 	
+	Set<Document> documentsSet = Collections.emptySet();
+	
 	@Transactional
-	public Set<Document> viewEmployerFiles(Integer id, Integer termId) {
-
-		Set<Document> documents = Collections.emptySet();		
+	public List<Document> viewEmployerFiles(Integer id, Integer termId) {
+		List<Document> doc_list = new ArrayList<Document>();
+		
 		if (employerExists(id) && coopTermExists(termId)) {
-
 			CoopTerm currentTerm = new CoopTerm();
 			// Get current Employer record from the database
 			Employer currentEmployer = getEmployer(id);
@@ -643,16 +644,16 @@ public class CooperatorService {
 				}			
 			}
 			//set of all documents in the coopterm from the Employer
-			documents = currentTerm.getDocument();
+			documentsSet = currentTerm.getDocument();
+			doc_list = new ArrayList<Document>(documentsSet);
 		}
-		return documents;
+		return doc_list;
 	}
 	
 	@Transactional
 	public Document viewEmployerDocument(Integer id, Integer termId, DocumentName docname) {
 		//This business method returns a document from the list of documents of a term. 
-		Set<Document> documents = Collections.emptySet();	
-		documents = viewEmployerFiles(id, termId);
+		List<Document> documents = viewEmployerFiles(id, termId);
 		
      	//document that will be returned 
 		Document document_modif = new Document();
@@ -953,9 +954,9 @@ public class CooperatorService {
 		
 	}
 
-	public void viewStudentFiles(int userID, int coopterm_ID){
-		// find student in DB, searching for studentID in DB
-		// get documents associated with student for specific coopterm
-	}
+//	public void viewStudentFiles(int userID, int coopterm_ID){
+//		// find student in DB, searching for studentID in DB
+//		// get documents associated with student for specific coopterm
+//	}
 
 }

@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Iterator;
@@ -21,6 +22,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.cooperator.model.CoopTerm;
 import ca.mcgill.ecse321.cooperator.model.SystemUser;
@@ -1525,12 +1527,11 @@ public class TestCooperatorService {
 			fail();
 		}
 		assertEquals(doc, newDoc.getDocName());
-		
 	}
 	
 	@Test
 	public void testViewEmployerDocument() {
-		
+	
 		testCreateAndReadDocument();
 		assertEquals(1, service.getAllDocuments().size());
 		assertEquals(1, service.getAllEmployers().size());
@@ -1556,21 +1557,104 @@ public class TestCooperatorService {
 		assertEquals(doc, newDoc.getDocName());
 	}
 	
+	
+	
 	@Test
-	public void testViewSudentFiles() {
+	public void  testViewStudentFiles() {
+		
+		testCreateAndReadDocument();
+		assertEquals(1, service.getAllDocuments().size());
+		assertEquals(1, service.getAllStudents().size());
+		assertEquals(1, service.getAllCoopTerms().size());
+		DocumentName doc = DocumentName.courseEvaluation;
+		List <Document> list = new ArrayList<Document>();
+		
+		int studid = service.getAllStudents().get(0).getUserID();
+		
+		int termid= service.getAllCoopTerms().get(0).getTermId();
+		
+	   try {
+			list = service.viewStudentFiles(studid, termid);
+		}catch (IllegalArgumentException e) {
+			fail();
+		}
+		
+		assertEquals(doc, list.get(0).getDocName());
+
+		//add one doc to the term and retry 
+		// set calendar
+		Calendar c = Calendar.getInstance();
+		c.set(2019, Calendar.FEBRUARY, 16, 9, 00, 0);
+				
+		//Parameters of the new document
+		DocumentName docName = DocumentName.taskDescription; //evaluation doc
+		Date dueDate = new Date(c.getTimeInMillis());
+		Time dueTime = new Time(c.getTimeInMillis());
+		
+		c.set(2019, Calendar.FEBRUARY, 2, 10, 30, 0);
+		Date subDate = new Date(c.getTimeInMillis());
+		Time subTime = new Time(c.getTimeInMillis());;
+		
+		CoopTerm currentTerm = service.getCoopTerm(termid);
+		service.createDocument(docName, dueDate, dueTime, subDate, subTime, currentTerm);
+		
+		try {
+			list = service.viewStudentFiles(studid, termid);
+		}catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertEquals(2, list.size());
+
+	}
+	
+	@Test
+	public void testViewEmployerFiles() {
 		
 		testCreateAndReadDocument();
 		assertEquals(1, service.getAllDocuments().size());
 		assertEquals(1, service.getAllEmployers().size());
-		assertEquals(1, service.getAllCoopTerms().size());	
+		assertEquals(1, service.getAllCoopTerms().size());
 		DocumentName doc = DocumentName.courseEvaluation;
-		DocumentName docc = DocumentName.finalReport;
-		Set<Document> documents = Collections.emptySet();
+		List <Document> list = new ArrayList<Document>();
 		
+		int empid = service.getAllEmployers().get(0).getUserID();
 		
+		int termid= service.getAllCoopTerms().get(0).getTermId();
 		
+	   try {
+			list = service.viewEmployerFiles(empid, termid);
+		}catch (IllegalArgumentException e) {
+			fail();
+		}
 		
+		assertEquals(doc, list.get(0).getDocName());
+
+		//add one doc to the term and retry 
+		// set calendar
+		Calendar c = Calendar.getInstance();
+		c.set(2019, Calendar.FEBRUARY, 16, 9, 00, 0);
+				
+		//Parameters of the new document
+		DocumentName docName = DocumentName.taskDescription; //evaluation doc
+		Date dueDate = new Date(c.getTimeInMillis());
+		Time dueTime = new Time(c.getTimeInMillis());
+		
+		c.set(2019, Calendar.FEBRUARY, 2, 10, 30, 0);
+		Date subDate = new Date(c.getTimeInMillis());
+		Time subTime = new Time(c.getTimeInMillis());;
+		
+		CoopTerm currentTerm = service.getCoopTerm(termid);
+		service.createDocument(docName, dueDate, dueTime, subDate, subTime, currentTerm);
+		
+		try {
+			list = service.viewEmployerFiles(empid, termid);
+		}catch (IllegalArgumentException e) {
+			fail();
+		}
+		
+		assertEquals(2, list.size());
+
+
 	}
-	
 
 }
