@@ -65,7 +65,7 @@ public class CooperatorService {
 
 	// ==========================================================================================
 	// generic SystemUser CRUD transactions
-
+	
 	@Transactional
 	public SystemUser getUser(Integer id) {
 		SystemUser user = systemUserRepository.findByuserID(id);
@@ -1177,36 +1177,29 @@ public class CooperatorService {
 	// User Login
 	
 	@Transactional
-	public void login(String inputEmail, String inputPassword){
+	public boolean loginSuccess(String inputEmail, String inputPassword){
 		//Find the email in the database, check password is valid
 
 		// input check
 		if (inputEmail == null) {
 			throw new IllegalArgumentException("Please enter a valid email.");
-		}
+		} 
 		if (inputPassword == null) {
 			throw new IllegalArgumentException("Please enter a password.");
 		}
-		
+    
 		CoopAdministrator admin = new CoopAdministrator();
+
 		
-		// find email in database
-		try {
-			admin = getCoopAdministratorEmail(inputEmail);
-		} catch (Exception e) {
-			throw new IllegalArgumentException("Incorrect email.");
-		}
-		
-		if(inputPassword != admin.getPassword()) {
-			throw new IllegalArgumentException("Incorrect password.");
-		}
-		else {
-			System.out.println("You have succesfully logged in.");
-		}
+		if(!inputEmail.equals(admin.getEmailAddress()) || !inputPassword.equals(admin.getPassword())) {
+			return false;
+		} 
+	
 //		if(inputEmail != admin.getEmailAddress()) {
 //			System.out.println("This is not a registered email.");
 //		}
-		
+		return true;
+	
 	}
 	
 	

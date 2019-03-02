@@ -1637,7 +1637,7 @@ public class TestCooperatorService {
 		}
 		assertEquals(doc, newDoc.getDocName());
 	}
-
+	
 	@Test
 	public void testViewEmployerDocument() {
 
@@ -1664,6 +1664,47 @@ public class TestCooperatorService {
 			fail();
 		}
 		assertEquals(doc, newDoc.getDocName());
+	}
+	
+	@Test
+	public void testUserLogin() {
+//		assertEquals(0, service.getAllEmployers().size());
+		CoopAdministrator admin = new CoopAdministrator();
+
+		String[] errorMessages = {"Please enter a valid email.","Please enter a password."};
+		String error = "";
+		
+		String emailAddress = "beats@live.com";
+		String password = "swiggy";
+		
+		// try user login, catch that exception:
+		
+		// Test Email
+		try {
+			// Null input email
+			service.loginSuccess(null,password);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals(errorMessages[0], error);
+
+		// Test Password
+		try {
+			// Null input password
+			service.loginSuccess(emailAddress, null);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals(errorMessages[1], error);
+		
+		try {
+			service.loginSuccess(emailAddress, "incorrectPass");
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals(errorMessages[1], error);
+		
+
 	}
 
 	@Test
