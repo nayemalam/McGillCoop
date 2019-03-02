@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -64,7 +65,7 @@ public class CooperatorService {
 
 	// ==========================================================================================
 	// generic SystemUser CRUD transactions
-
+	
 	@Transactional
 	public SystemUser getUser(Integer id) {
 		SystemUser user = systemUserRepository.findByuserID(id);
@@ -1175,41 +1176,109 @@ public class CooperatorService {
 	// ==========================================================================================
 	// User Login
 	
-	public void login(String inputEmail, String inputPassword){
+	@Transactional
+	public boolean loginSuccess(String inputEmail, String inputPassword){
 		//Find the email in the database, check password is valid
 
 		// input check
 		if (inputEmail == null) {
 			throw new IllegalArgumentException("Please enter a valid email.");
-		}
+		} 
 		if (inputPassword == null) {
 			throw new IllegalArgumentException("Please enter a password.");
 		}
-		
+    
 		CoopAdministrator admin = new CoopAdministrator();
+
 		
-		// find email in database
-		try {
-			admin = getCoopAdministratorEmail(inputEmail);
-		} catch (Exception e) {
-			throw new IllegalArgumentException("Incorrect email.");
-		}
-		
-		if(inputPassword != admin.getPassword()) {
-			throw new IllegalArgumentException("Incorrect password.");
-		}
-		else {
-			System.out.println("You have succesfully logged in.");
-		}
+		if(!inputEmail.equals(admin.getEmailAddress()) || !inputPassword.equals(admin.getPassword())) {
+			return false;
+		} 
+	
 //		if(inputEmail != admin.getEmailAddress()) {
 //			System.out.println("This is not a registered email.");
 //		}
-		
+		return true;
+	
 	}
+	
+	
+	@Transactional
+	public boolean isIncomplete (Integer userId, Integer CoopTerm){
+
+		CoopTerm currentTerm = new CoopTerm();	
+		Student student = studentRepository.findByuserID(userId);
+//		Student student = getStudent(userId);
+		Document document = new Document();
+		// Find CoopTerm in the Set
+		Set<CoopTerm> coopterms = student.getCoopTerm();
+		
+		// Find all documents in the CoopTerm of the student
+		Set<Document> documents = currentTerm.getDocument();
+		Iterator<Document> iterDocs = documents.iterator();
+		
+		// make sure it's within current date
+		java.sql.Date currDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		
+		// while there are documents
+		if(coopTermExists(CoopTerm)) {
+			if(document.getSubDate().before(currDate) || document.getSubDate().equals(currDate) || document.getSubDate().after(currDate)) {
+				while(iterDocs.hasNext()) {
+					document = iterDocs.next();
+					if(document.getSubDate() == null) {
+						return true;
+					}
+					// check if submissionDate exceeds dueDate
+					if(document.getSubDate().after(document.getDueDate())) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
 
 //	public void viewStudentFiles(int userID, int coopterm_ID){
 //		// find student in DB, searching for studentID in DB
 //		// get documents associated with student for specific coopterm
 //	}
 
+	@Transactional
+	public List<Student> getIncompletePlacements() {
+
+		// get all coop terms
+		List<CoopTerm> coopterms = getAllCoopTerms();
+		CoopTerm currentTerm;		
+		List<CoopTerm> currentTermList = Collections.emptyList();
+		Date date;
+		
+		// get current date
+		date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+
+		// ensures that the date is within the current term
+		if(date.before(coopterms.get(0).getEndDate())) {
+			for(int i=0; i<coopterms.size(); i++) {
+				currentTerm = coopterms.get(i); 
+				currentTermList.add(currentTerm); // return as a list of current terms
+			}
+			
+		} 
+		
+		// students
+		List<Student> incompleteStudents = Collections.emptyList();
+		
+		for(int i =0; i<currentTermList.size();i++) {
+			
+			/* Get student id that is associated with incomplete term
+			 * Return current term at specified index and its associated id
+			*/
+			if(isIncomplete(currentTermList.get(i).getStudent().getUserID(), currentTermList.get(i).getTermId())) {
+				// populate the incomplete students list
+				incompleteStudents.add(currentTermList.get(i).getStudent()); 
+			}
+		}
+		
+		return incompleteStudents;
+	}
 }
