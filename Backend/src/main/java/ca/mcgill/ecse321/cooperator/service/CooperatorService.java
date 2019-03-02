@@ -31,7 +31,6 @@ import java.util.Iterator;
 import java.util.*;
 //import javax.mail.*;
 //import javax.mail.internet.*;
-import javax.websocket.Session;
 import javax.activation.*;
 
 import java.io.IOException;
