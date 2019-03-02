@@ -935,9 +935,9 @@ public class CooperatorService {
 		// make sure it's within current date
 		java.sql.Date currDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 		
-		if((document.getSubDate().before(currDate) || document.getSubDate() == currDate) && document.getSubDate().before(document.getDueDate())) {
 		// while there are documents
-			if(coopTermExists(CoopTerm)) {
+		if(coopTermExists(CoopTerm)) {
+			if(document.getSubDate().before(currDate) || document.getSubDate().equals(currDate) || document.getSubDate().after(currDate)) {
 				while(iterDocs.hasNext()) {
 					document = iterDocs.next();
 					if(document.getSubDate() == null) {
@@ -950,7 +950,6 @@ public class CooperatorService {
 				}
 			}
 		}
-		
 		return false;
 	}
 	

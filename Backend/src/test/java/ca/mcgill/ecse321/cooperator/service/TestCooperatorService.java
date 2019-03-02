@@ -1525,6 +1525,148 @@ public class TestCooperatorService {
 		
 	}
 	
+	@Test
+	public void testIsIncomplete() {
+		//Create document
+		Document testDocument = new Document();
+		assertEquals(0, service.getAllDocuments().size());
+		
+		// set calendar
+		Calendar c = Calendar.getInstance();
+		c.set(2019, Calendar.MARCH, 16, 9, 00, 0);
+		
+		// initialize variables
+		DocumentName docName = DocumentName.courseEvaluation; //evaluation doc
+		Date dueDate = new Date(c.getTimeInMillis());
+		Time dueTime = new Time(c.getTimeInMillis());
+		
+		c.set(2019, Calendar.MARCH, 16, 10, 10, 0);
+		
+		Date subDate = new Date(c.getTimeInMillis());
+		Time subTime = new Time(c.getTimeInMillis());
+		
+		//Other parameters
+		Date startDate = new Date(0);
+		Date endDate = new Date(1);
+		
+		// Create student for student id
+		Student student;
+		String name = "peter";
+		String fName = "parker";
+		String emailAddress = "random@live.com";
+		String userName = "nayemwiz";
+		String password = "1234dsf";
+		Integer studentId = 260743549;
+		String program = "elec";
+		student = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
+		assertEquals(1, service.getAllStudents().size());
+		
+		// Create employer (test) to fill coopTerm
+		Employer employer;
+		String emp_name = "beats";
+		String emp_fName = "by";
+		String emp_emailAddress = "tristan@mcgill.ca";
+		String emp_userName = "user";
+		String emp_password = "pass";
+		String emp_companyName = "mcgill";
+		String emp_location = "mtl";
+		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
+		assertEquals(1, service.getAllEmployers().size());
+		
+		// easily create coopterm by using the method and created objects and attributes above
+		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, student, employer);
+		testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, coopTerm);
+
+		
+		Integer termId = coopTerm.getTermId(); 
+		Integer userId = student.getUserID();
+		
+		// test method isIncomplete
+		try {
+			service.isIncomplete(userId, termId);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		List<Document> allDocuments = service.getAllDocuments();
+		
+		// expects the subDate of document at or before dueDate 
+		assertEquals(dueDate.toString(), allDocuments.get(0).getSubDate().toString());
+
+	}
+	
+	@Test
+	public void testGetIncompletePlacements() {
+		/* ============ 
+		*copy paste the following from prev method, bc we need to recreate objects here
+		*  ============
+		**/
+		//Create document
+		Document testDocument = new Document();
+		assertEquals(0, service.getAllDocuments().size());
+		
+		// set calendar
+		Calendar c = Calendar.getInstance();
+		c.set(2019, Calendar.MARCH, 16, 9, 00, 0);
+		
+		// initialize variables
+		DocumentName docName = DocumentName.courseEvaluation; //evaluation doc
+		Date dueDate = new Date(c.getTimeInMillis());
+		Time dueTime = new Time(c.getTimeInMillis());
+		
+		c.set(2019, Calendar.MARCH, 16, 10, 10, 0);
+		
+		Date subDate = new Date(c.getTimeInMillis());
+		Time subTime = new Time(c.getTimeInMillis());
+		
+		//Other parameters
+		Date startDate = new Date(0);
+		Date endDate = new Date(1);
+		
+		// Create student for student id
+		Student student;
+		String name = "peter";
+		String fName = "parker";
+		String emailAddress = "random@live.com";
+		String userName = "nayemwiz";
+		String password = "1234dsf";
+		Integer studentId = 260743549;
+		String program = "elec";
+		student = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
+		assertEquals(1, service.getAllStudents().size());
+		
+		// Create employer (test) to fill coopTerm
+		Employer employer;
+		String emp_name = "beats";
+		String emp_fName = "by";
+		String emp_emailAddress = "tristan@mcgill.ca";
+		String emp_userName = "user";
+		String emp_password = "pass";
+		String emp_companyName = "mcgill";
+		String emp_location = "mtl";
+		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
+		assertEquals(1, service.getAllEmployers().size());
+		
+		// easily create coopterm by using the method and created objects and attributes above
+		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, student, employer);
+		testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, coopTerm);
+		// ======
+		
+		try {
+			service.getIncompletePlacements();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	
+		List<CoopTerm> coopterms = service.getAllCoopTerms();
+		List<Student> students = service.getAllStudents();
+		
+		// expects the subDate of document at or before dueDate 
+		assertEquals(1, coopterms.size());
+		assertEquals(1, students.size());
+	}
+	
+
 
 	// ==========================================================================================
 	
