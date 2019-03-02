@@ -958,18 +958,18 @@ public class CooperatorService {
 	
 
 	@Transactional
-	public List<Student> getIncompletePlacements(Date date) {
+	public List<Student> getIncompletePlacements() {
 
 		// get all coop terms
 		List<CoopTerm> coopterms = getAllCoopTerms();
 		CoopTerm currentTerm;		
 		List<CoopTerm> currentTermList = Collections.emptyList();
+		Date date;
 		
-		//to ensure current date??
-		//java.sql.Date currDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		// get current date
+		date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 
-		
-		// ensures that the date inputed is the current term
+		// ensures that the date is within the current term
 		if(date.before(coopterms.get(0).getEndDate())) {
 			for(int i=0; i<coopterms.size(); i++) {
 				currentTerm = coopterms.get(i); 
@@ -979,9 +979,7 @@ public class CooperatorService {
 		} 
 		
 		// students
-//		List<Student> students = getAllStudents();
 		List<Student> incompleteStudents = Collections.emptyList();
-//		Student student = new Student();
 		
 		for(int i =0; i<currentTermList.size();i++) {
 			
