@@ -57,6 +57,8 @@ This software system is subdivided into four deliverables:
 
 ## Deliverable 2 - Backend, Testing
 
+:star2: [Software Quality Assurance Plan](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Software-Quality-Assurance-Plan)
+
 ### Sprint 2 (Backend)
 - [ ] Implement RESTful web service using Java Spring Boot
 - [ ] Provide a suite of unit tests for the backend using JUnit by separating it from the database.
