@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
-
 @CrossOrigin(origins = "*")
 @RestController
 public class CooperatorController {

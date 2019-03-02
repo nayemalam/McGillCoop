@@ -29,8 +29,9 @@ import java.util.Set;
 import java.util.Iterator;
 
 import java.util.*;
-import javax.mail.*;
-import javax.mail.internet.*;
+//import javax.mail.*;
+//import javax.mail.internet.*;
+import javax.websocket.Session;
 import javax.activation.*;
 
 import java.io.IOException;
@@ -38,8 +39,8 @@ import java.lang.Exception;
 
 
 import java.util.*;
-import javax.mail.*;
-import javax.mail.internet.*;
+//import javax.mail.*;
+//import javax.mail.internet.*;
 import javax.activation.*;
 import java.lang.Exception;
 
@@ -407,6 +408,7 @@ public class CooperatorService {
 		return user;
 	}
 
+	
 	/**
 	 * Updates the CoopAdministrator information in the database based on the User
 	 * ID number
@@ -653,68 +655,68 @@ public class CooperatorService {
 	 * @return
 	 * @throws MessagingException - If the email cannot be sent.
 	 */	
-	@Transactional
-	public Boolean sendReminder(Integer coopAdminUserId, Integer studentUserID, Integer notifType) throws MessagingException {
-		// Verify if the Student exists in database
-		if(studentRepository.existsById(studentUserID) && coopAdministratorRepository.existsById(coopAdminUserId)){
-			// Get student from database based on the UserID
-			Student student = studentRepository.findByuserID(studentUserID);
-			CoopAdministrator coopAdmin = coopAdministratorRepository.findByuserID(coopAdminUserId);
-			// Send a reminder to the email address associated with the student just
-			// extracted
-			String to = student.getEmailAddress();
-			String from = coopAdmin.getEmailAddress();
-			String host = "127.0.0.1";
-			Properties properties = System.getProperties();
-			properties.setProperty("mail.smtp.host", host);
-			Session session = Session.getInstance(properties, null);
-			
-			// Create Message
-			MimeMessage message = new MimeMessage(session);
-			// Set sender
-			message.setFrom(new InternetAddress(from));
-			// Set receiver
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-			
-			// Write message
-			String[] messageSubjects = {"CoOperator - Upcoming Submission", 
-										"CoOperator - Late Sumbission"};
-			String[] messageContents = {"Hello " +student.getFirstName()+ ",\n\n" 
-					+"This is a notification from the CoOperator System to let you know that you have an upcoming submission."
-					+"Please sign in to your CoOperator Account for more information.\n",
-					"Hello " +student.getFirstName()+ ",\n\n"
-					+"This is a notification from the CoOperator System to let you know that you have a late submission."
-					+"Please sign in to your CoOperator Account for more information.\n"
-					};
-			
-			switch (notifType) {
-				// Upcoming submission date
-				case 1:
-					message.setSubject(messageSubjects[0]);
-					message.setText(messageContents[0]);
-				// Late Submission
-				case 2:
-					message.setSubject(messageSubjects[1]);
-					message.setText(messageContents[1]);
-				// Custom Email
-				case 3:
-					// Something frontend?
-					
-			}	
-			try {
-				// Send message
-				Transport.send(message);
-			} catch (MessagingException mex) {
-				// If exception occurs, return false
-				String error = mex.getMessage();
-				throw new MessagingException("Email not successfully sent");
-			}
-			// If message succesfully sent
-			return true;
-		}
-		// If student ID does not exist
-		return false;
-	}
+//	@Transactional
+//	public Boolean sendReminder(Integer coopAdminUserId, Integer studentUserID, Integer notifType) throws MessagingException {
+//		// Verify if the Student exists in database
+//		if(studentRepository.existsById(studentUserID) && coopAdministratorRepository.existsById(coopAdminUserId)){
+//			// Get student from database based on the UserID
+//			Student student = studentRepository.findByuserID(studentUserID);
+//			CoopAdministrator coopAdmin = coopAdministratorRepository.findByuserID(coopAdminUserId);
+//			// Send a reminder to the email address associated with the student just
+//			// extracted
+//			String to = student.getEmailAddress();
+//			String from = coopAdmin.getEmailAddress();
+//			String host = "127.0.0.1";
+//			Properties properties = System.getProperties();
+//			properties.setProperty("mail.smtp.host", host);
+//			Session session = Session.getInstance(properties, null);
+//			
+//			// Create Message
+//			MimeMessage message = new MimeMessage(session);
+//			// Set sender
+//			message.setFrom(new InternetAddress(from));
+//			// Set receiver
+//			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+//			
+//			// Write message
+//			String[] messageSubjects = {"CoOperator - Upcoming Submission", 
+//										"CoOperator - Late Sumbission"};
+//			String[] messageContents = {"Hello " +student.getFirstName()+ ",\n\n" 
+//					+"This is a notification from the CoOperator System to let you know that you have an upcoming submission."
+//					+"Please sign in to your CoOperator Account for more information.\n",
+//					"Hello " +student.getFirstName()+ ",\n\n"
+//					+"This is a notification from the CoOperator System to let you know that you have a late submission."
+//					+"Please sign in to your CoOperator Account for more information.\n"
+//					};
+//			
+//			switch (notifType) {
+//				// Upcoming submission date
+//				case 1:
+//					message.setSubject(messageSubjects[0]);
+//					message.setText(messageContents[0]);
+//				// Late Submission
+//				case 2:
+//					message.setSubject(messageSubjects[1]);
+//					message.setText(messageContents[1]);
+//				// Custom Email
+//				case 3:
+//					// Something frontend?
+//					
+//			}	
+//			try {
+//				// Send message
+//				Transport.send(message);
+//			} catch (MessagingException mex) {
+//				// If exception occurs, return false
+//				String error = mex.getMessage();
+//				throw new MessagingException("Email not successfully sent");
+//			}
+//			// If message succesfully sent
+//			return true;
+//		}
+//		// If student ID does not exist
+//		return false;
+//	}
 
 	// ==========================================================================================
 
