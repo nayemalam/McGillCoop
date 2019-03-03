@@ -72,7 +72,7 @@ public class TestCooperatorService {
 	//===========================================================================================
 	// Cooperator System tests
 	//===========================================================================================
-	
+
 	/**
 	 *  Test creation and persistence of a CooperatorSystem object
 	 */
@@ -107,7 +107,7 @@ public class TestCooperatorService {
 	public void testCreateCooperatorSystemInputs() {
 		String errorMessages =  "Please enter a valid systemId";
 		String error = "";
-		
+
 		try {
 			service.createCooperatorSystem(null);
 		} catch (IllegalArgumentException e) {
@@ -117,7 +117,7 @@ public class TestCooperatorService {
 		//Assert the error message 
 		assertEquals(errorMessages, error);
 	}
-	
+
 	/**
 	 * Tests the deletion of a CooperatorSystem in the database
 	 */
@@ -142,11 +142,11 @@ public class TestCooperatorService {
 
 		assertEquals(0, allCooperatorSystems.size());
 	}
-	
+
 	// ==========================================================================================
 	// Student Tests
 	// ==========================================================================================
-	
+
 	/**
 	 * Test creation and persistence of a student object
 	 */
@@ -193,7 +193,7 @@ public class TestCooperatorService {
 		
 		assertEquals(0, service.getAllStudents().size());
 		String[] errorMessages = { "Please enter a valid User ID", "Person name cannot be empty!",
-				"Email Address cannot be empty!", "Username cannot be empty!", 
+				"Email Address cannot be empty!", "Username cannot be empty!",
 				"Please enter a valid password", "Please enter a valid McGill Student ID",
 				"Please enter a valid program"};
 		String error = "";
@@ -295,7 +295,7 @@ public class TestCooperatorService {
 			error = e.getMessage();
 		}
 		assertEquals(errorMessages[5], error);
-		
+
 		// program testing
 		try {
 			// Null input
@@ -332,7 +332,7 @@ public class TestCooperatorService {
 		String password = "qwerty";
 		Integer studentId = 260747696;
 		String program = "ecse";
-		
+
 		// Create new student object and assert its creation 
 		testStudent = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
 		assertEquals(1,service.getAllStudents().size());
@@ -349,6 +349,7 @@ public class TestCooperatorService {
 		} catch (Exception e) {
 			fail();
 		}
+
 		
 		//list the student object and assert its updated attributes
 		List<Student> allStudents = service.getAllStudents();
@@ -357,7 +358,6 @@ public class TestCooperatorService {
 		assertEquals(someName, allStudents.get(0).getLastName());
 		assertEquals(newUserName, allStudents.get(0).getUserName());
 		assertEquals(newProgram,  allStudents.get(0).getProgram());
-		
 	}
 	/**
 	 * Tests the deletion of a student in the database
@@ -375,12 +375,11 @@ public class TestCooperatorService {
 		String password = "qwerty";
 		Integer studentId = 260747696;
 		String program = "ecse";
-		
+
 		// Create new student object
 		testStudent = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
 		assertEquals(1,service.getAllStudents().size());
 		Integer id = testStudent.getUserID();
-
 		
 		//delete the student object
 		try {
@@ -395,7 +394,7 @@ public class TestCooperatorService {
 		} catch (Exception e) {
 			System.out.println("Not an actual student");
 		}
-		
+
 		assertEquals(0,service.getAllStudents().size());
 	}
 	
@@ -404,7 +403,6 @@ public class TestCooperatorService {
 	// Employer tests
 	// ==========================================================================================
 
-	
 	/**
 	 * Test the creation and persistence of an Employer object
 	 */
@@ -421,7 +419,7 @@ public class TestCooperatorService {
 		String password = "qwerty";
 		String companyName = "Suh Industries";
 		String location = "Montreal";
-		
+
 		try {
 			testEmployer = service.createEmployer(name, fName, emailAddress, userName, password, companyName, location);
 		} catch (IllegalArgumentException e) {
@@ -430,6 +428,10 @@ public class TestCooperatorService {
 		}
 		
 		//List employers object and assert its attributes.
+
+		Integer id = testEmployer.getUserID();
+
+		assertEquals(1, service.getAllEmployers().size());
 		List<Employer> employerList = service.getAllEmployers();
 		assertEquals(1, employerList.size());
 		testEmployer = employerList.get(0);
@@ -442,7 +444,7 @@ public class TestCooperatorService {
 		assertEquals(location,testEmployer.getLocation());
 
 	}
-	
+
 	/**
 	 * Test the inputs to the creation methods, to make sure correct input is received before
 	 * storage in the database
@@ -451,7 +453,7 @@ public class TestCooperatorService {
 	public void testCreateEmployerInputs() {
 		assertEquals(0, service.getAllEmployers().size());
 		String[] errorMessages = { "Please enter a valid User ID", "Person name cannot be empty!",
-				"Email Address cannot be empty!", "Username cannot be empty!", 
+				"Email Address cannot be empty!", "Username cannot be empty!",
 				"Please enter a valid password", "Please enter a valid company name",
 				"Please enter a valid location"};
 		String error = "";
@@ -560,7 +562,7 @@ public class TestCooperatorService {
 			error = e.getMessage();
 		}
 		assertEquals(errorMessages[5], error);
-		
+
 		// Location testing
 		try {
 			// Null input
@@ -580,7 +582,7 @@ public class TestCooperatorService {
 		// check no change in memory
 		assertEquals(0, service.getAllEmployers().size());
 	}
-	
+
 	/**
 	 * Tests the update of an Employer object in the database
 	 */
@@ -588,6 +590,7 @@ public class TestCooperatorService {
 	public void testUpdateEmployer() {
 		Employer testEmployer;
 		assertEquals(0, service.getAllEmployers().size());
+
 		//Create an employer object 
 		String name = "Oscar";
 		String fName = "Macsiotra";
@@ -596,17 +599,16 @@ public class TestCooperatorService {
 		String password = "qwerty";
 		String companyName = "Suh Industries";
 		String location = "Montreal";
-		
+
 		testEmployer = service.createEmployer(name, fName, emailAddress, userName, password, companyName, location);
 		assertEquals(1, service.getAllEmployers().size());
 		Integer id = testEmployer.getUserID();
-
 		
 		//Updated Parameters and call the service method updateEmployer 
 		String newname = "Oscar";
 		String newfName = "Macsiotra";
 		String newemailAddress = "oscar@mcgill.ca";
-		
+
 		try {
 			service.updateEmployer(id, newname, newfName, newemailAddress, userName, password, companyName, location);
 		} catch (IllegalArgumentException e) {
@@ -622,7 +624,7 @@ public class TestCooperatorService {
 		assertEquals(newfName, savedEmployer.getFirstName());
 		assertEquals(newemailAddress, savedEmployer.getEmailAddress());
 	}
-	
+
 	/**
 	 * Tests the deletion of an Employer object from the database
 	 */
@@ -665,7 +667,7 @@ public class TestCooperatorService {
 	 */
 	@Test
 	public void testCreateandReadCoopAdministrator() {
-		CoopAdministrator testCoopAdministrator = new CoopAdministrator(); 
+		CoopAdministrator testCoopAdministrator = new CoopAdministrator();
 		assertEquals(0, service.getAllCoopAdministrators().size());
 		
 		//parameters required to create a coopAdminisrator
@@ -700,20 +702,20 @@ public class TestCooperatorService {
 	public void testCreateCoopAdministratorInputs() {
 		assertEquals(0, service.getAllEmployers().size());
 		String[] errorMessages = { "Please enter a valid User ID", "Person name cannot be empty!",
-				"Email Address cannot be empty!", "Username cannot be empty!", 
+				"Email Address cannot be empty!", "Username cannot be empty!",
 				"Please enter a valid password"};
 		String error = "";
-		CoopAdministrator testCoopAdministrator; 
+		CoopAdministrator testCoopAdministrator;
 		assertEquals(0, service.getAllCoopAdministrators().size());
-		
+
 		String name = "Tristan";
 		String fName = "Pepper";
 		String emailAddress = "Tristan@mcgill.ca";
 		String userName = "pepper123";
 		String password = "choco99";
-		
+    
 		// Test ID parsing
-				
+
 
 				// Test Name parsing
 				try {
@@ -804,7 +806,7 @@ public class TestCooperatorService {
 	 */
 	@Test
 	public void testUpdateCoopAdministrator() {
-		CoopAdministrator testCoopAdministrator; 
+		CoopAdministrator testCoopAdministrator;
 		assertEquals(0, service.getAllCoopAdministrators().size());
 		
 		//parameters required to create a coopAdministrator
@@ -822,14 +824,14 @@ public class TestCooperatorService {
 		//Update Parameters and call the updateCoopAdministrator
 		String newName = "thom";
 		String newuserName = "ballon";
-		
+
 		try {
 			service.updateCoopAdministrator(id, newName, fName, emailAddress, newuserName, password);
 			} catch (IllegalArgumentException e) {
 				// Check that no error occurred
 				fail();
 		}
-		
+
 		assertEquals(1,service.getAllCoopAdministrators().size());
 		CoopAdministrator savedCoopAdmin = service.getCoopAdministrator(id);
 		assertEquals(newName, savedCoopAdmin.getLastName());
@@ -841,7 +843,7 @@ public class TestCooperatorService {
 	 */
 	@Test
 	public void testDeleteCoopAdministrator() {
-		CoopAdministrator testCoopAdministrator; 
+		CoopAdministrator testCoopAdministrator;
 		assertEquals(0, service.getAllCoopAdministrators().size());
 		
 		//parameters required to create a coopAdministrator
@@ -856,7 +858,7 @@ public class TestCooperatorService {
 		Integer id = testCoopAdministrator.getUserID();
 
 		assertEquals(1,service.getAllCoopAdministrators().size());
-		
+
 		try {
 			service.deleteCoopAdministrator(id);
 		} catch (Exception e) {
@@ -866,7 +868,7 @@ public class TestCooperatorService {
 		//assert that the object was deleted 
 		assertEquals(0,service.getAllCoopAdministrators().size());
 	}
-	
+
 	/**
 	 * Used to test the getStatisticsBySemester Method of the service class.
 	 */
@@ -878,8 +880,8 @@ public class TestCooperatorService {
 		Student student;
 		List<Student> studList = new ArrayList<Student>();
 		List<Student> stuList = new ArrayList<Student>();
-		
-		//create a student 
+
+		//create a student
 
 		String name = "Oscar";
 		String fName = "Macsiotra";
@@ -895,7 +897,7 @@ public class TestCooperatorService {
 		//create an employer
 
 		Employer employer;
-		
+
 		String emp_name = "Tristan";
 		String emp_fName = "Bougon";
 		String emp_emailAddress = "tristan@mcgill.ca";
@@ -903,7 +905,7 @@ public class TestCooperatorService {
 		String emp_password = "trist90";
 		String emp_companyName = "Industries";
 		String emp_location = "Montreal";
-	
+
 		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
 
 
@@ -912,34 +914,34 @@ public class TestCooperatorService {
 		Date startDate = new Date(0);
 		Date enderDate = new Date(8600000000L);
 		Date checkDate = new Date(1546318800L);
-		
+
 		// Create a few Coop terms to use with students
 		service.createCoopTerm(startDate, enderDate, studList.get(0), employer);
-		
+
 		service.createCoopTerm(startDate, enderDate, studList.get(1), employer);
 		service.createCoopTerm(startDate, enderDate, studList.get(1), employer);
-		
+
 		service.createCoopTerm(startDate, enderDate, studList.get(2), employer);
 		service.createCoopTerm(startDate, enderDate, studList.get(2), employer);
 		service.createCoopTerm(startDate, enderDate, studList.get(2), employer);
-		
+
 		// Get Statistics from List of students
 		termStatistics termStats = service.getStatisticsBySemester(checkDate);
 		Integer numStudents = termStats.getNumberAtWork();
 		Integer numFirstTerm = termStats.getFirstWorkTerm().size();
 		Integer numSecTerm = termStats.getSecondWorkTerm().size();
 		Integer numThirdTerm = termStats.getThirdWorkTerm().size();
-		
+
 		assertEquals(3, numStudents.intValue());
 		assertEquals(1, numFirstTerm.intValue());
 		assertEquals(1, numSecTerm.intValue());
 		assertEquals(1, numThirdTerm.intValue());
 	}
-	
+
 	/**
 	 * Test sending the notification to a student by email
 	 * For the moment, this does not work, I cannot seem to instantiate
-	 * a session with JUnit, and as such I cannot properly debug its 
+	 * a session with JUnit, and as such I cannot properly debug its
 	 * behavior java.lang.NoClassDefFoundError: com/sun/mail/util/MailLogger
 	 */
 	@Test
@@ -952,7 +954,7 @@ public class TestCooperatorService {
 //		String userName = "pepper123";
 //		String password = "choco99";
 //		CoopAdministrator coop = service.createCoopAdministrator(name, fName, emailAddress, userName, password);
-//		
+//
 //		// Create Student
 //		String sname = "Oscar";
 //		String sfName = "Macsiotra";
@@ -962,23 +964,23 @@ public class TestCooperatorService {
 //		Integer studentId = 260747696;
 //		String program = "ecse";
 //		Student stu = service.createStudent(sname, sfName, semailAddress, suserName, spassword, studentId, program);
-//		
+//
 //		assertEquals(true, studentRepository.existsById(stu.getUserID()));
 //		assertEquals(true, coopAdministratorRepository.existsById(coop.getUserID()));
-//		
+//
 //		try {
 //			@SuppressWarnings("unused")
 //			Boolean suh = service.sendReminder(coop.getUserID(), stu.getUserID(), 1);
 //		} catch (Exception e) {
 //			fail();
 //		}
-		
+
 	}
 	// ==========================================================================================
-	
+
 	// ==========================================================================================
 	// Coop Term Tests
-	
+
 	/**
 	 * Test the creation and persistence of a CoopTerm object
 	 */
@@ -987,8 +989,8 @@ public class TestCooperatorService {
 		assertEquals(0, service.getAllCoopTerms().size());
 		assertEquals(0, service.getAllStudents().size());
 		assertEquals(0, service.getAllEmployers().size());
-		
-		//create a student 
+
+		//create a student
 		Student student;
 		String name = "Oscar";
 		String fName = "Macsiotra";
@@ -997,7 +999,7 @@ public class TestCooperatorService {
 		String password = "qwerty";
 		Integer studentId = 260747696;
 		String program = "ecse";
-		
+
 		student = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
 		assertEquals(1, service.getAllStudents().size());
 		
@@ -1010,14 +1012,14 @@ public class TestCooperatorService {
 		String emp_password = "trist90";
 		String emp_companyName = "Industries";
 		String emp_location = "Montreal";
-	
+
 		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
 
 		assertEquals(1, service.getAllEmployers().size());
 		//Other parameters
 		Date startDate = new Date(0);
 		Date endDate = new Date(1);
-		
+
 		try {
 			service.createCoopTerm(startDate, endDate, student, employer);
 		} catch (IllegalArgumentException e) {
@@ -1028,7 +1030,7 @@ public class TestCooperatorService {
 		List<CoopTerm> allCoopTerms = service.getAllCoopTerms();
 		assertEquals(1, allCoopTerms.size());
 	}
-	
+
 	/**
 	* Test the inputs to the creation methods, to make sure correct input is received before
 	* storage in the database
@@ -1038,13 +1040,13 @@ public class TestCooperatorService {
 		assertEquals(0, service.getAllCoopTerms().size());
 		assertEquals(0, service.getAllStudents().size());
 		assertEquals(0, service.getAllEmployers().size());
-		
+
 		String[] errorMessages = { "Please enter a valid startDate", "Please enter a valid endDate",
-				"Please enter a valid termId", "Please enter a valid Student", 
+				"Please enter a valid termId", "Please enter a valid Student",
 				"Please enter a valid Employer"};
 		String error = "";
-		
-		//create a student 
+
+		//create a student
 		Student student;
 
 		String name = "Oscar";
@@ -1054,15 +1056,15 @@ public class TestCooperatorService {
 		String password = "qwerty";
 		Integer studentId = 260747696;
 		String program = "ecse";
-		
+
 		student = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
 
 		assertEquals(1, service.getAllStudents().size());
 		//create an employer
 
 		Employer employer;
-		
-		
+
+
 		String emp_name = "Tristan";
 		String emp_fName = "Bougon";
 		String emp_emailAddress = "tristan@mcgill.ca";
@@ -1070,14 +1072,14 @@ public class TestCooperatorService {
 		String emp_password = "trist90";
 		String emp_companyName = "Industries";
 		String emp_location = "Montreal";
-	
+
 		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
 
 		assertEquals(1, service.getAllEmployers().size());
 		//Other parameters
 		Date startDate = new Date(0);
 		Date endDate = new Date(1);
-		
+
 		try {
 			service.createCoopTerm(null, endDate, student, employer);
 		} catch (IllegalArgumentException e) {
@@ -1085,7 +1087,7 @@ public class TestCooperatorService {
 			error = e.getMessage();
 		}
 		assertEquals(errorMessages[0], error);
-		
+
 		try {
 			service.createCoopTerm(startDate, null, student, employer);
 		} catch (IllegalArgumentException e) {
@@ -1093,8 +1095,8 @@ public class TestCooperatorService {
 			error = e.getMessage();
 		}
 		assertEquals(errorMessages[1], error);
-		
-		
+
+
 		try {
 			service.createCoopTerm(startDate, endDate, null, employer);
 		} catch (IllegalArgumentException e) {
@@ -1102,7 +1104,7 @@ public class TestCooperatorService {
 			error = e.getMessage();
 		}
 		assertEquals(errorMessages[3], error);
-		
+
 		try {
 			service.createCoopTerm(startDate, endDate, student, null);
 		} catch (IllegalArgumentException e) {
@@ -1114,13 +1116,13 @@ public class TestCooperatorService {
 		List<CoopTerm> allCoopTerms = service.getAllCoopTerms();
 		assertEquals(0, allCoopTerms.size());
 	}
-	
+
 	/**
 	 * Tests the update of a CoopTerm object in the database
 	 */
 	@Test
 	public void testUpdateCoopTerm() {
-		//create a student 
+		//create a student
 		Student student;
 
 		String name = "Oscar";
@@ -1130,14 +1132,14 @@ public class TestCooperatorService {
 		String password = "qwerty";
 		Integer studentId = 260747696;
 		String program = "ecse";
-		
+
 		student = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
 
 		assertEquals(1, service.getAllStudents().size());
 		//create an employer
 
 		Employer employer;
-		
+
 		String emp_name = "Tristan";
 		String emp_fName = "Bougon";
 		String emp_emailAddress = "tristan@mcgill.ca";
@@ -1145,21 +1147,21 @@ public class TestCooperatorService {
 		String emp_password = "trist90";
 		String emp_companyName = "Industries";
 		String emp_location = "Montreal";
-	
+
 		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
 		assertEquals(1, service.getAllEmployers().size());
 		//Other parameters
 		Date startDate = new Date(0);
 		Date endDate = new Date(1);
 		CoopTerm coopterm = new CoopTerm();
-		
-		
+
+
 		//create a coopTerm
 		coopterm = service.createCoopTerm(startDate, endDate, student, employer);
 		Integer termId = coopterm.getTermId();
 
-		
-		//updated parameters, create a new student 
+
+		//updated parameters, create a new student
 		Student student2;
 
 		name = "Yassine";
@@ -1169,11 +1171,11 @@ public class TestCooperatorService {
 		password = "baller";
 		studentId = 260747634;
 		program = "ecse";
-		
+
 		student2 = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
 		assertEquals(2, service.getAllStudents().size());
 		Date newEndDate = new Date(10000000);
-		
+
 		try {
 			service.updateCoopTerm(startDate, newEndDate, termId, student2, employer);
 		} catch (IllegalArgumentException e) {
@@ -1192,9 +1194,9 @@ public class TestCooperatorService {
 	 */
 	@Test
 	public void testDeleteCoopTerm() {
-		
+
 		CoopTerm coopTerm;
-		//create a student 
+		//create a student
 		Student student;
 
 		String name = "Oscar";
@@ -1204,13 +1206,13 @@ public class TestCooperatorService {
 		String password = "qwerty";
 		Integer studentId = 260747696;
 		String program = "ecse";
-		
+
 		student = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
 		assertEquals(1, service.getAllStudents().size());
 		//create an employer
 
 		Employer employer;
-		
+
 		String emp_name = "Tristan";
 		String emp_fName = "Bougon";
 		String emp_emailAddress = "tristan@mcgill.ca";
@@ -1218,32 +1220,32 @@ public class TestCooperatorService {
 		String emp_password = "trist90";
 		String emp_companyName = "Industries";
 		String emp_location = "Montreal";
-	
+
 		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
 		assertEquals(1, service.getAllEmployers().size());
 		//Other parameters
 		Date startDate = new Date(0);
 		Date endDate = new Date(1);
-		
-		
-		
+
+
+
 		//create a coopTerm
 		coopTerm = service.createCoopTerm(startDate, endDate, student, employer);
 		Integer termId = coopTerm.getTermId();
 
-		
+
 		try {
 			service.deleteCoopTerm(termId);
 		} catch (IllegalArgumentException e) {
 			// Check that no error occurred
 			fail();
 		}
-		
+
 		List<CoopTerm> allCoopTerms = service.getAllCoopTerms();
 		assertEquals(0,allCoopTerms.size());
-		
+
 	}
-	
+
 	// ==========================================================================================
 	// Document Tests
 	// ==========================================================================================
@@ -1256,25 +1258,25 @@ public class TestCooperatorService {
 		//Create document
 		Document testDocument = new Document();
 		assertEquals(0, service.getAllDocuments().size());
-		
+
 		// set calendar
 		Calendar c = Calendar.getInstance();
 		c.set(2019, Calendar.FEBRUARY, 16, 9, 00, 0);
-		
+
 		// initialize variables
 		DocumentName docName = DocumentName.courseEvaluation; //evaluation doc
 		Date dueDate = new Date(c.getTimeInMillis());
 		Time dueTime = new Time(c.getTimeInMillis());
-		
+
 		c.set(2019, Calendar.FEBRUARY, 16, 10, 30, 0);
-		
+
 		Date subDate = new Date(c.getTimeInMillis());
 		Time subTime = new Time(c.getTimeInMillis());
-		
+
 		//Other parameters
 		Date startDate = new Date(0);
 		Date endDate = new Date(1);
-		
+
 		Student student;
 		String name = "Oscar";
 		String fName = "Macsiotra";
@@ -1285,7 +1287,7 @@ public class TestCooperatorService {
 		String program = "ecse";
 		student = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
 		assertEquals(1, service.getAllStudents().size());
-		
+
 		Employer employer;
 		String emp_name = "Tristan";
 		String emp_fName = "Bougon";
@@ -1296,20 +1298,20 @@ public class TestCooperatorService {
 		String emp_location = "Montreal";
 		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
 		assertEquals(1, service.getAllEmployers().size());
-		
+
 		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, student, employer);
 		Integer termId = coopTerm.getTermId();
 
-		
+
 		try {
 			testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, coopTerm);
 		} catch (Exception e) {
 			// Check that no error occurred while creating and saving the document.
 			System.out.println(e);
 		}
-		
+
 		List<Document> allDocuments = service.getAllDocuments();
-		
+
 		assertEquals(1, allDocuments.size());
 		assertEquals(docName, allDocuments.get(0).getDocName());
 		assertEquals(dueDate.toString(), allDocuments.get(0).getDueDate().toString());
@@ -1318,7 +1320,7 @@ public class TestCooperatorService {
 		assertEquals(subTime.toString(), allDocuments.get(0).getSubTime().toString());
 		assertEquals(coopTerm.getTermId(), allDocuments.get(0).getCoopTerm().getTermId());
 	}
-	
+
 	/**
 	 * Test the inputs to the creation methods, to make sure correct input is received before
 	 * storage in the database
@@ -1327,7 +1329,7 @@ public class TestCooperatorService {
 	public void testCreateDocumentInputs() {
 		assertEquals(0, service.getAllDocuments().size());
 		String[] errorMessages = { "Document Name cannot be empty!", "Doc ID cannot be empty!",
-				"Please enter a valid Date", "Please enter a valid Time", 
+				"Please enter a valid Date", "Please enter a valid Time",
 				"Please enter a valid Date", "Please enter a valid Time",
 				"Please enter a valid CoopTerm"};
 		String error = "";
@@ -1345,11 +1347,11 @@ public class TestCooperatorService {
 		c.set(2019, Calendar.FEBRUARY, 16, 10, 30, 0);
 		Date subDate = new Date(c.getTimeInMillis());
 		Time subTime = new Time(c.getTimeInMillis());
-		
+
 		//Other parameters
 		Date startDate = new Date(0);
 		Date endDate = new Date(1);
-		
+
 		Student student;
 		String name = "Oscar";
 		String fName = "Macsiotra";
@@ -1360,7 +1362,7 @@ public class TestCooperatorService {
 		String program = "ecse";
 		student = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
 		assertEquals(1, service.getAllStudents().size());
-		
+
 		Employer employer;
 		String emp_name = "Tristan";
 		String emp_fName = "Bougon";
@@ -1371,10 +1373,10 @@ public class TestCooperatorService {
 		String emp_location = "Montreal";
 		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
 		assertEquals(1, service.getAllEmployers().size());
-		
+
 		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, student, employer);
 		Integer termId = coopTerm.getTermId();
-		
+
 
 		// Test docName parsing
 		try {
@@ -1433,7 +1435,7 @@ public class TestCooperatorService {
 		// check no change in memory
 		assertEquals(0, service.getAllDocuments().size());
 	}
-	
+
 	/**
 	 * Tests the update of a Document object in the database
 	 */
@@ -1442,25 +1444,25 @@ public class TestCooperatorService {
 		//Create document
 		Document testDocument = new Document();
 		assertEquals(0, service.getAllDocuments().size());
-		
+
 		// set calendar
 		Calendar c = Calendar.getInstance();
 		c.set(2019, Calendar.FEBRUARY, 16, 9, 00, 0);
-		
+
 		// initialize variables
 		DocumentName docName = DocumentName.courseEvaluation; //evaluation doc
 		Date dueDate = new Date(c.getTimeInMillis());
 		Time dueTime = new Time(c.getTimeInMillis());
-		
+
 		c.set(2019, Calendar.FEBRUARY, 16, 10, 30, 0);
-		
+
 		Date subDate = new Date(c.getTimeInMillis());
 		Time subTime = new Time(c.getTimeInMillis());
-		
+
 		//Other parameters
 		Date startDate = new Date(0);
 		Date endDate = new Date(1);
-		
+
 		Student student;
 		String name = "Oscar";
 		String fName = "Macsiotra";
@@ -1471,7 +1473,7 @@ public class TestCooperatorService {
 		String program = "ecse";
 		student = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
 		assertEquals(1, service.getAllStudents().size());
-		
+
 		Employer employer;
 		String emp_name = "Tristan";
 		String emp_fName = "Bougon";
@@ -1482,15 +1484,15 @@ public class TestCooperatorService {
 		String emp_location = "Montreal";
 		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
 		assertEquals(1, service.getAllEmployers().size());
-		
+
 		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, student, employer);
 		Integer termId = coopTerm.getTermId();
-		
+
 		// Create new document object
 		testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, coopTerm);
 		Integer docId = testDocument.getDocId();
 		assertEquals(1,service.getAllDocuments().size());
-		
+
 
 		// set calendar
 		Calendar c1 = Calendar.getInstance();
@@ -1499,10 +1501,10 @@ public class TestCooperatorService {
 		DocumentName newdocName = DocumentName.courseEvaluation; //evaluation doc
 		Date newsubDate = new Date(c1.getTimeInMillis());
 		Time newsubTime = new Time(c1.getTimeInMillis());
-		
-		// UPDATE new docName, subDate, subTime		
+
+		// UPDATE new docName, subDate, subTime
 		assertEquals(1, service.getAllDocuments().size());
-	
+
 		try {
 			service.updateDocument(newdocName, docId, dueDate, dueTime, newsubDate, newsubTime, coopTerm);
 		} catch (IllegalArgumentException e) {
@@ -1515,7 +1517,7 @@ public class TestCooperatorService {
 		assertEquals(newsubDate.toString(), allDocuments.get(0).getSubDate().toString());
 		assertEquals(newsubTime.toString(), allDocuments.get(0).getSubTime().toString());
 	}
-	
+
 	/**
 	 * * Tests the deletion of a Document object from the database
 	 */
@@ -1524,25 +1526,25 @@ public class TestCooperatorService {
 		//Create document
 		Document testDocument = new Document();
 		assertEquals(0, service.getAllDocuments().size());
-		
+
 		// set calendar
 		Calendar c = Calendar.getInstance();
 		c.set(2019, Calendar.FEBRUARY, 16, 9, 00, 0);
-		
+
 		// initialize variables
 		DocumentName docName = DocumentName.courseEvaluation; //evaluation doc
 		Date dueDate = new Date(c.getTimeInMillis());
 		Time dueTime = new Time(c.getTimeInMillis());
-		
+
 		c.set(2019, Calendar.FEBRUARY, 16, 10, 30, 0);
-		
+
 		Date subDate = new Date(c.getTimeInMillis());
 		Time subTime = new Time(c.getTimeInMillis());
-		
+
 		//Other parameters
 		Date startDate = new Date(0);
 		Date endDate = new Date(1);
-		
+
 		Student student;
 		String name = "Oscar";
 		String fName = "Macsiotra";
@@ -1553,7 +1555,7 @@ public class TestCooperatorService {
 		String program = "ecse";
 		student = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
 		assertEquals(1, service.getAllStudents().size());
-		
+
 		Employer employer;
 		String emp_name = "Tristan";
 		String emp_fName = "Bougon";
@@ -1564,32 +1566,31 @@ public class TestCooperatorService {
 		String emp_location = "Montreal";
 		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
 		assertEquals(1, service.getAllEmployers().size());
-		
+
 		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, student, employer);
-		
-		
+
 		// Create new document object
 		testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, coopTerm);
 		Integer docId = testDocument.getDocId();
 		assertEquals(1,service.getAllDocuments().size());
-		
+
 		// remove the document
 		try {
 			service.deleteDocument(docId);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
-	    	
+
 	    //exception handling when you try to remove null
 		try {
 			service.deleteDocument(null);
 		} catch (Exception e) {
 			System.out.println(e); // not an actual document
 		}
-		
+
 		assertEquals(0,service.getAllDocuments().size());
 	}
-	
+
 	// ==========================================================================================
 	//Tests for the use cases (business methods)
 	//============================================================================================
@@ -1599,15 +1600,15 @@ public class TestCooperatorService {
 	 */
 	@Test
 	public void testViewStudentDocument() {
-				
+
 		testCreateAndReadDocument();
 		assertEquals(1, service.getAllDocuments().size());
 		assertEquals(1, service.getAllStudents().size());
-		assertEquals(1, service.getAllCoopTerms().size());	
+		assertEquals(1, service.getAllCoopTerms().size());
 		DocumentName doc = DocumentName.courseEvaluation;
 		DocumentName docc = DocumentName.finalReport;
 		Document newDoc = new Document();
-		
+
 		int studId = service.getAllStudents().get(0).getUserID();
 		int termId = service.getAllCoopTerms().get(0).getTermId();
 		try {
@@ -1616,7 +1617,7 @@ public class TestCooperatorService {
 			fail();
 		}
 		assertEquals(null, newDoc.getDocName());
-		
+
 		try {
 			newDoc = service.viewStudentDocument(studId, termId, doc);
 		}catch (IllegalArgumentException e) {
@@ -1630,15 +1631,15 @@ public class TestCooperatorService {
 	 */
 	@Test
 	public void testViewEmployerDocument() {
-	
+
 		testCreateAndReadDocument();
 		assertEquals(1, service.getAllDocuments().size());
 		assertEquals(1, service.getAllEmployers().size());
-		assertEquals(1, service.getAllCoopTerms().size());	
+		assertEquals(1, service.getAllCoopTerms().size());
 		DocumentName doc = DocumentName.courseEvaluation;
 		DocumentName docc = DocumentName.finalReport;
 		Document newDoc = new Document();
-		
+
 		int empId = service.getAllEmployers().get(0).getUserID();
 		int termId = service.getAllCoopTerms().get(0).getTermId();
 		try {
@@ -1647,7 +1648,7 @@ public class TestCooperatorService {
 			fail();
 		}
 		assertEquals(null, newDoc.getDocName());
-		
+
 		try {
 			newDoc = service.viewEmployerDocument(empId, termId, doc);
 		}catch (IllegalArgumentException e) {
@@ -1656,48 +1657,233 @@ public class TestCooperatorService {
 		assertEquals(doc, newDoc.getDocName());
 	}
 	
+
 	/**
 	 * * test the viewStudentFiles 
 	 */
 	@Test
-	public void  testViewStudentFiles() {
+	public void testUserLogin() {
+//		assertEquals(0, service.getAllEmployers().size());
+		CoopAdministrator admin = new CoopAdministrator();
+
+		String[] errorMessages = {"Please enter a valid email.","Please enter a password."};
+		String error = "";
 		
+		String emailAddress = "beats@live.com";
+		String password = "swiggy";
+		
+		// try user login, catch that exception:
+		
+		// Test Email
+		try {
+			// Null input email
+			service.loginSuccess(null,password);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals(errorMessages[0], error);
+
+		// Test Password
+		try {
+			// Null input password
+			service.loginSuccess(emailAddress, null);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals(errorMessages[1], error);
+		
+		try {
+			service.loginSuccess(emailAddress, "incorrectPass");
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals(errorMessages[1], error);
+		
+
+	}
+
+	@Test
+	public void testIsIncomplete() {
+		//Create document
+		Document testDocument = new Document();
+		assertEquals(0, service.getAllDocuments().size());
+
+		// set calendar
+		Calendar c = Calendar.getInstance();
+		c.set(2019, Calendar.MARCH, 16, 9, 00, 0);
+
+		// initialize variables
+		DocumentName docName = DocumentName.courseEvaluation; //evaluation doc
+		Date dueDate = new Date(c.getTimeInMillis());
+		Time dueTime = new Time(c.getTimeInMillis());
+
+		c.set(2019, Calendar.MARCH, 16, 10, 10, 0);
+
+		Date subDate = new Date(c.getTimeInMillis());
+		Time subTime = new Time(c.getTimeInMillis());
+
+		//Other parameters
+		Date startDate = new Date(0);
+		Date endDate = new Date(1);
+
+		// Create student for student id
+		Student student;
+		String name = "peter";
+		String fName = "parker";
+		String emailAddress = "random@live.com";
+		String userName = "nayemwiz";
+		String password = "1234dsf";
+		Integer studentId = 260743549;
+		String program = "elec";
+		student = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
+		assertEquals(1, service.getAllStudents().size());
+
+		// Create employer (test) to fill coopTerm
+		Employer employer;
+		String emp_name = "beats";
+		String emp_fName = "by";
+		String emp_emailAddress = "tristan@mcgill.ca";
+		String emp_userName = "user";
+		String emp_password = "pass";
+		String emp_companyName = "mcgill";
+		String emp_location = "mtl";
+		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
+		assertEquals(1, service.getAllEmployers().size());
+
+		// easily create coopterm by using the method and created objects and attributes above
+		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, student, employer);
+		testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, coopTerm);
+
+
+		Integer termId = coopTerm.getTermId();
+		Integer userId = student.getUserID();
+
+		// test method isIncomplete
+		try {
+			service.isIncomplete(userId, termId);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		List<Document> allDocuments = service.getAllDocuments();
+
+		// expects the subDate of document at or before dueDate
+		assertEquals(dueDate.toString(), allDocuments.get(0).getSubDate().toString());
+
+	}
+
+	@Test
+	public void testGetIncompletePlacements() {
+		/* ============
+		*copy paste the following from prev method, bc we need to recreate objects here
+		*  ============
+		**/
+		//Create document
+		Document testDocument = new Document();
+		assertEquals(0, service.getAllDocuments().size());
+
+		// set calendar
+		Calendar c = Calendar.getInstance();
+		c.set(2019, Calendar.MARCH, 16, 9, 00, 0);
+
+		// initialize variables
+		DocumentName docName = DocumentName.courseEvaluation; //evaluation doc
+		Date dueDate = new Date(c.getTimeInMillis());
+		Time dueTime = new Time(c.getTimeInMillis());
+
+		c.set(2019, Calendar.MARCH, 16, 10, 10, 0);
+
+		Date subDate = new Date(c.getTimeInMillis());
+		Time subTime = new Time(c.getTimeInMillis());
+
+		//Other parameters
+		Date startDate = new Date(0);
+		Date endDate = new Date(1);
+
+		// Create student for student id
+		Student student;
+		String name = "peter";
+		String fName = "parker";
+		String emailAddress = "random@live.com";
+		String userName = "nayemwiz";
+		String password = "1234dsf";
+		Integer studentId = 260743549;
+		String program = "elec";
+		student = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
+		assertEquals(1, service.getAllStudents().size());
+
+		// Create employer (test) to fill coopTerm
+		Employer employer;
+		String emp_name = "beats";
+		String emp_fName = "by";
+		String emp_emailAddress = "tristan@mcgill.ca";
+		String emp_userName = "user";
+		String emp_password = "pass";
+		String emp_companyName = "mcgill";
+		String emp_location = "mtl";
+		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
+		assertEquals(1, service.getAllEmployers().size());
+
+		// easily create coopterm by using the method and created objects and attributes above
+		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, student, employer);
+		testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, coopTerm);
+		// ======
+
+		try {
+			service.getIncompletePlacements();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		List<CoopTerm> coopterms = service.getAllCoopTerms();
+		List<Student> students = service.getAllStudents();
+
+		// expects the subDate of document at or before dueDate
+		assertEquals(1, coopterms.size());
+		assertEquals(1, students.size());
+	}
+
+
+
+	@Test
+	public void  testViewStudentFiles() {
+
 		testCreateAndReadDocument();
 		assertEquals(1, service.getAllDocuments().size());
 		assertEquals(1, service.getAllStudents().size());
 		assertEquals(1, service.getAllCoopTerms().size());
 		DocumentName doc = DocumentName.courseEvaluation;
 		List <Document> list = new ArrayList<Document>();
-		
+
 		int studid = service.getAllStudents().get(0).getUserID();
-		
+
 		int termid= service.getAllCoopTerms().get(0).getTermId();
-		
+
 	   try {
 			list = service.viewStudentFiles(studid, termid);
 		}catch (IllegalArgumentException e) {
 			fail();
 		}
-		
+
 		assertEquals(doc, list.get(0).getDocName());
 
-		//add one doc to the term and retry 
+		//add one doc to the term and retry
 		// set calendar
 		Calendar c = Calendar.getInstance();
 		c.set(2019, Calendar.FEBRUARY, 16, 9, 00, 0);
-				
+
 		//Parameters of the new document
 		DocumentName docName = DocumentName.taskDescription; //evaluation doc
 		Date dueDate = new Date(c.getTimeInMillis());
 		Time dueTime = new Time(c.getTimeInMillis());
-		
+
 		c.set(2019, Calendar.FEBRUARY, 2, 10, 30, 0);
 		Date subDate = new Date(c.getTimeInMillis());
 		Time subTime = new Time(c.getTimeInMillis());;
-		
+
 		CoopTerm currentTerm = service.getCoopTerm(termid);
 		service.createDocument(docName, dueDate, dueTime, subDate, subTime, currentTerm);
-		
+
 		try {
 			list = service.viewStudentFiles(studid, termid);
 		}catch (IllegalArgumentException e) {
@@ -1706,55 +1892,56 @@ public class TestCooperatorService {
 		assertEquals(2, list.size());
 
 	}
+
 	
 	/**
 	 * * test the viewEmployerFiles 
 	 */
 	@Test
 	public void testViewEmployerFiles() {
-		
+
 		testCreateAndReadDocument();
 		assertEquals(1, service.getAllDocuments().size());
 		assertEquals(1, service.getAllEmployers().size());
 		assertEquals(1, service.getAllCoopTerms().size());
 		DocumentName doc = DocumentName.courseEvaluation;
 		List <Document> list = new ArrayList<Document>();
-		
+
 		int empid = service.getAllEmployers().get(0).getUserID();
-		
+
 		int termid= service.getAllCoopTerms().get(0).getTermId();
-		
+
 	   try {
 			list = service.viewEmployerFiles(empid, termid);
 		}catch (IllegalArgumentException e) {
 			fail();
 		}
-		
+
 		assertEquals(doc, list.get(0).getDocName());
 
-		//add one doc to the term and retry 
+		//add one doc to the term and retry
 		// set calendar
 		Calendar c = Calendar.getInstance();
 		c.set(2019, Calendar.FEBRUARY, 16, 9, 00, 0);
-				
+
 		//Parameters of the new document
 		DocumentName docName = DocumentName.taskDescription; //evaluation doc
 		Date dueDate = new Date(c.getTimeInMillis());
 		Time dueTime = new Time(c.getTimeInMillis());
-		
+
 		c.set(2019, Calendar.FEBRUARY, 2, 10, 30, 0);
 		Date subDate = new Date(c.getTimeInMillis());
 		Time subTime = new Time(c.getTimeInMillis());;
-		
+
 		CoopTerm currentTerm = service.getCoopTerm(termid);
 		service.createDocument(docName, dueDate, dueTime, subDate, subTime, currentTerm);
-		
+
 		try {
 			list = service.viewEmployerFiles(empid, termid);
 		}catch (IllegalArgumentException e) {
 			fail();
 		}
-		
+
 		assertEquals(2, list.size());
 	}
 	

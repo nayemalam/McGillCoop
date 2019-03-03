@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -36,13 +37,11 @@ import javax.activation.*;
 import java.io.IOException;
 import java.lang.Exception;
 
-
 import java.util.*;
 //import javax.mail.*;
 //import javax.mail.internet.*;
 import javax.activation.*;
 import java.lang.Exception;
-
 
 @Service
 public class CooperatorService {
@@ -65,29 +64,40 @@ public class CooperatorService {
 	// ==========================================================================================
 	// generic SystemUser CRUD transactions
 
+	/**
+	 * Generic User fetcher
+	 * 
+	 * @param id - UserID for the user
+	 * @return Specified user, if existing
+	 */
 	@Transactional
 	public SystemUser getUser(Integer id) {
 		SystemUser user = systemUserRepository.findByuserID(id);
 		return user;
 	}
 
+	/**
+	 * Used to fetch all users from the database
+	 * 
+	 * @return List of systemUsers
+	 */
 	@Transactional
 	public List<SystemUser> getAllUsers() {
 		return toList(systemUserRepository.findAll());
 	}
 
+	/**
+	 * Unused, as all types of users have this method
+	 * 
+	 * @deprecated
+	 * @param id
+	 * @return
+	 */
 	@Transactional
 	public boolean deleteUser(Integer id) {
-		// TODO
+
 		return false;
 	}
-
-	// @Transactional
-	// public boolean updateUser(Integer id) {
-	// SystemUser user = systemUserRepository.findByuserID(id);
-	// //TODO
-	// return false;
-	// }
 
 	// ==========================================================================================
 
@@ -108,8 +118,8 @@ public class CooperatorService {
 	 * @return Newly created user
 	 */
 	@Transactional
-	public Student createStudent(String name, String fName, String emailAddress, String userName,
-			String password, Integer studentId, String program) {
+	public Student createStudent(String name, String fName, String emailAddress, String userName, String password,
+			Integer studentId, String program) {
 		// Parse input arguments to determine if all information is present to create a
 		// new student.
 		if (name == null || name.trim().length() == 0 || fName == null || fName.trim().length() == 0) {
@@ -127,14 +137,10 @@ public class CooperatorService {
 		if (studentId == null) {
 			throw new IllegalArgumentException("Please enter a valid McGill Student ID");
 		}
-//		if (id == null) {
-//			throw new IllegalArgumentException("Please enter a valid User ID");
-//		}
 		if (program == null || program.trim().length() == 0) {
 			throw new IllegalArgumentException("Please enter a valid program");
 		}
 		Student user = new Student();
-//		user.setUserID(id);
 		user.setLastName(name);
 		user.setFirstName(fName);
 		user.setEmailAddress(emailAddress);
@@ -257,60 +263,68 @@ public class CooperatorService {
 	 * Views the StudentFiles in the database
 	 * 
 	 * @param id user ID number of the student, termId of the CoopTerm
-	 * @return List of Documents submitted by the Student and Employer for that CoopTerm
+	 * @return List of Documents submitted by the Student and Employer for that
+	 *         CoopTerm
 	 */
-	
+
 	@Transactional
-	public List <Document> viewStudentFiles(Integer id, Integer termId) {
-		CoopTerm currentTerm  = new CoopTerm();
+	public List<Document> viewStudentFiles(Integer id, Integer termId) {
+		CoopTerm currentTerm = new CoopTerm();
 		Set<Document> studentDocuments = Collections.emptySet();
-		
+
 		if (studentExists(id) && coopTermExists(termId)) {
 			// Get current student record from the database
 			Student currentStudent = getStudent(id);
-			//Get coopTerm from Database
+			// Get coopTerm from Database
 			Set<CoopTerm> coopterms = currentStudent.getCoopTerm();
 
-			//Find coopterm in the Set
+			// Find coopterm in the Set
 			Iterator<CoopTerm> iter = coopterms.iterator();
 
-			while(iter.hasNext()) {
+			while (iter.hasNext()) {
 				CoopTerm term = iter.next();
-				if(term.getTermId().equals(termId)) {
+				if (term.getTermId().equals(termId)) {
 					currentTerm = term;
 
-				}			
+				}
 			}
-			//set of all documents in the coopterm from the student
+			// set of all documents in the coopterm from the student
 			studentDocuments = currentTerm.getDocument();
-			List <Document> list = new ArrayList<Document>(studentDocuments);
+			List<Document> list = new ArrayList<Document>(studentDocuments);
 			return list;
 		}
-		
+
 		throw new IllegalArgumentException("The Document could not be found");
-		
+
 	}
-	
+
+	/**
+	 * Method used to view the files submitted by a student
+	 * 
+	 * @param id      - Student's UserID number
+	 * @param termId  - TermID for which to view the submissions
+	 * @param docname - Name of the document to view
+	 * @return
+	 */
 	@Transactional
 	public Document viewStudentDocument(Integer id, Integer termId, DocumentName docname) {
-		//This business method returns a document from the list of documents of a term. 
+		// This business method returns a document from the list of documents of a term.
 		List<Document> documents = viewStudentFiles(id, termId);
-		
-     	//document that will be returned 
+
+		// document that will be returned
 		Document document_modif = new Document();
-		
-		//iterate through the document list of the term 
+
+		// iterate through the document list of the term
 		int i;
-		for(i=0;i < documents.size() ;i++) {
-			//stop when the document type is found 
+		for (i = 0; i < documents.size(); i++) {
+			// stop when the document type is found
 			Document doc = documents.get(i);
-			if(doc.getDocName().equals(docname)) {
-				document_modif = doc;	
+			if (doc.getDocName().equals(docname)) {
+				document_modif = doc;
 			}
 		}
 		return document_modif;
 	}
-	
 
 	// ==========================================================================================
 
@@ -388,8 +402,8 @@ public class CooperatorService {
 	 * @return Newly created user
 	 */
 	@Transactional
-	public CoopAdministrator createCoopAdministrator(String name, String fName, String emailAddress,
-			String userName, String password) {
+	public CoopAdministrator createCoopAdministrator(String name, String fName, String emailAddress, String userName,
+			String password) {
 		// Parse input arguments to determine if all information is present to create a
 		// new CoopAdmin.
 		if (name == null || name.trim().length() == 0 || fName == null || fName.trim().length() == 0) {
@@ -404,12 +418,9 @@ public class CooperatorService {
 		if (password == null || password.trim().length() == 0) {
 			throw new IllegalArgumentException("Please enter a valid password");
 		}
-//		if (id == null) {
-//			throw new IllegalArgumentException("Please enter a valid User ID");
-//		}
 
 		CoopAdministrator user = new CoopAdministrator();
-		//user.setUserID(id);
+		// user.setUserID(id);
 		user.setLastName(name);
 		user.setFirstName(fName);
 		user.setEmailAddress(emailAddress);
@@ -486,13 +497,13 @@ public class CooperatorService {
 		CoopAdministrator user = coopAdministratorRepository.findByuserID(id);
 		return user;
 	}
-	
+
 	/**
-	 * Finds and retrieves a CoopAdministrator email from the database based on the User
-	 * Email
+	 * Finds and retrieves a CoopAdministrator email from the database based on the
+	 * User Email
 	 * 
 	 * @param emailAddress User Email Address
-	 * @return Requested CoopAdministrator.
+	 * @return Requested {@code CoopAdministrator}.
 	 */
 	@Transactional
 	public CoopAdministrator getCoopAdministratorEmail(String emailAddress) {
@@ -534,44 +545,46 @@ public class CooperatorService {
 	/**
 	 * Business method from the Use Case diagram. This method allows the caller to
 	 * view the statistics for a particular Coop term, based on that term's TermID
-	 * @param semesterDate - Date that falls within the semester's start and end date 
+	 * 
+	 * @param semesterDate - Date that falls within the semester's start and end
+	 *                     date
 	 */
 	@Transactional
 	public termStatistics getStatisticsBySemester(Date semesterDate) {
 		// Get all students signed up to coopterm
 		List<CoopTerm> coopterms = getAllCoopTerms();
-		
+
 		// We need to find the current coopterms associated to some semester
 		List<CoopTerm> currentTerms = new ArrayList<>();
-		
-		for(int i=0; i<coopterms.size(); i++) {
+
+		for (int i = 0; i < coopterms.size(); i++) {
 			CoopTerm term = coopterms.get(i);
 			Date startDate = term.getStartDate();
 			Date endDate = term.getEndDate();
-			
+
 			// If the date inputed falls between the start and end date
 			// Add term to a list
-			if((semesterDate.compareTo(startDate) >= 0) && (semesterDate.compareTo(endDate) <= 0)) {
+			if ((semesterDate.compareTo(startDate) >= 0) && (semesterDate.compareTo(endDate) <= 0)) {
 				currentTerms.add(term);
 			}
 		}
-		
+
 		// Now that we have current terms associated to the semester,
 		// we can obtain a few statistics from this
 		// Obtain all unique students in those terms
 		List<Student> currentStudents = new ArrayList<>();
 		Student stu;
-		for(int i = 0; i < currentTerms.size(); i++) {
+		for (int i = 0; i < currentTerms.size(); i++) {
 			stu = currentTerms.get(i).getStudent();
-			if(!currentStudents.contains(stu)) {
+			if (!currentStudents.contains(stu)) {
 				currentStudents.add(stu);
 			}
-			
+
 		}
 		// From this list, we can obtain statistics
 		// Create termStatistics object
 		termStatistics stats = new termStatistics();
-		
+
 		Integer numberAtWork = getAmountOfStudentsInCoopTerm(currentStudents);
 		List<Student> numberInFirstWorkTerm = getSemesterOfStudy(currentStudents, 1);
 		List<Student> numberInSecondWorkTerm = getSemesterOfStudy(currentStudents, 2);
@@ -580,48 +593,55 @@ public class CooperatorService {
 		stats.setFirstWorkTerm(numberInFirstWorkTerm);
 		stats.setSecondWorkTerm(numberInSecondWorkTerm);
 		stats.setThirdWorkTerm(numberInThirdWorkTerm);
-		
+
 		return stats;
-		
+
 	}
-	
+
 	/**
 	 * Class used by the service class to make passing of term statistics easier.
+	 * 
 	 * @author Tristan Bouchard
 	 *
 	 */
 	class termStatistics {
-		
+
 		// Member variables
 		private Integer numberAtWork_;
 		private List<Student> firstWorkTerm_;
 		private List<Student> secondWorkTerm_;
 		private List<Student> thirdWorkTerm_;
-		
+
 		// Getters
 		public Integer getNumberAtWork() {
 			return this.numberAtWork_;
 		}
-		public List<Student> getFirstWorkTerm(){
+
+		public List<Student> getFirstWorkTerm() {
 			return this.firstWorkTerm_;
 		}
-		public List<Student> getSecondWorkTerm(){
+
+		public List<Student> getSecondWorkTerm() {
 			return this.secondWorkTerm_;
 		}
-		public List<Student> getThirdWorkTerm(){
+
+		public List<Student> getThirdWorkTerm() {
 			return this.thirdWorkTerm_;
 		}
-		
+
 		// Setters
 		public void setNumberAtWork(Integer numberAtWork) {
 			this.numberAtWork_ = numberAtWork;
 		}
+
 		public void setFirstWorkTerm(List<Student> stu) {
 			this.firstWorkTerm_ = stu;
 		}
+
 		public void setSecondWorkTerm(List<Student> stu) {
 			this.secondWorkTerm_ = stu;
 		}
+
 		public void setThirdWorkTerm(List<Student> stu) {
 			this.thirdWorkTerm_ = stu;
 		}
@@ -629,43 +649,48 @@ public class CooperatorService {
 
 	/**
 	 * Statistic method used by getStatisticsBySemester
-	 * @param semesterDate - Date that falls within the semester's start and end date 
+	 * 
+	 * @param semesterDate - Date that falls within the semester's start and end
+	 *                     date
 	 */
 	public Integer getAmountOfStudentsInCoopTerm(List<Student> students) {
 		return students.size();
 	}
-	
+
 	/**
-	 * Method to obtain the amount of students in a current term of study. Used
-	 * by getStatisticsBySemester
+	 * Method to obtain the amount of students in a current term of study. Used by
+	 * getStatisticsBySemester
 	 * 
 	 * @param students - {@code List<Student>} That contains the student objects
 	 * @param term     - Semester of study of students wanted in list
 	 * @return
 	 */
-	public List<Student> getSemesterOfStudy(List<Student> students, Integer term){
+	public List<Student> getSemesterOfStudy(List<Student> students, Integer term) {
 		List<Student> searchList = new ArrayList<>();
 		Student stu;
-		for(int i = 0; i < students.size(); i++) {
+		for (int i = 0; i < students.size(); i++) {
 			stu = students.get(i);
-			if(stu.getCoopTerm().size() == term) {
+			if (stu.getCoopTerm().size() == term) {
 				searchList.add(stu);
 			}
 		}
 		return searchList;
 	}
-	
+
 	/**
-	 * Method used to send an email reminder from the CoopAdminstrator's email address
-	 * to the student's email address. Can have multiple types of notifications
+	 * Method used to send an email reminder from the CoopAdminstrator's email
+	 * address to the student's email address. Can have multiple types of
+	 * notifications
+	 * 
 	 * @param coopAdminUserId - UserID of the CoopAdministrator
-	 * @param studentUserID - UserID of the Student
-	 * @param notifType - 1 is a pre-reminder of a submission, can be programmed to be whenever
-	 * before an assignment. 2 is a late submission notification. 3 gets a custom message, can 
-	 * be a front-end feature.
+	 * @param studentUserID   - UserID of the Student
+	 * @param notifType       - 1 is a pre-reminder of a submission, can be
+	 *                        programmed to be whenever before an assignment. 2 is a
+	 *                        late submission notification. 3 gets a custom message,
+	 *                        can be a front-end feature.
 	 * @return
 	 * @throws MessagingException - If the email cannot be sent.
-	 */	
+	 */
 //	@Transactional
 //	public Boolean sendReminder(Integer coopAdminUserId, Integer studentUserID, Integer notifType) throws MessagingException {
 //		// Verify if the Student exists in database
@@ -749,8 +774,8 @@ public class CooperatorService {
 	 * @return Newly created user
 	 */
 	@Transactional
-	public Employer createEmployer(String name, String fName, String emailAddress, String userName,
-			String password, String companyName, String location) {
+	public Employer createEmployer(String name, String fName, String emailAddress, String userName, String password,
+			String companyName, String location) {
 		// Parse input arguments to determine if all information is present to create a
 		// new Employer.
 		if (name == null || name.trim().length() == 0 || fName == null || fName.trim().length() == 0) {
@@ -772,9 +797,9 @@ public class CooperatorService {
 		if (location == null || location.trim().length() == 0) {
 			throw new IllegalArgumentException("Please enter a valid location");
 		}
-		
+
 		Employer user = new Employer();
-		//user.setUserID(id);
+		// user.setUserID(id);
 		user.setLastName(name);
 		user.setFirstName(fName);
 		user.setEmailAddress(emailAddress);
@@ -837,6 +862,11 @@ public class CooperatorService {
 		return false;
 	}
 
+	/**
+	 * Obtains list of all employers in the database
+	 * 
+	 * @return
+	 */
 	@Transactional
 	public List<Employer> getAllEmployers() {
 		return toList(employerRepository.findAll());
@@ -882,79 +912,100 @@ public class CooperatorService {
 		employerRepository.deleteById(id);
 	}
 
+	/**
+	 * Method to delete all employers from the database
+	 */
 	@Transactional
 	public void deleteAllEmployers() {
 		employerRepository.deleteAll();
-		
+
 	}
+
 	/**
-	 * Views the StudentFiles in the database
+	 * Views the Employer files in the database
 	 * 
 	 * @param id user ID number of the employer, termId of the CoopTerm
-	 * @return Set of Documents submitted by the Student and Employer for that CoopTerm
+	 * @return Set of Documents submitted by the Student and Employer for that
+	 *         CoopTerm
 	 */
-	
 	Set<Document> documentsSet = Collections.emptySet();
-	
+
 	@Transactional
 	public List<Document> viewEmployerFiles(Integer id, Integer termId) {
 		List<Document> doc_list = new ArrayList<Document>();
-		
+
 		if (employerExists(id) && coopTermExists(termId)) {
 			CoopTerm currentTerm = new CoopTerm();
 			// Get current Employer record from the database
 			Employer currentEmployer = getEmployer(id);
-			//Get coopTerm from Database
+			// Get coopTerm from Database
 			Set<CoopTerm> coopterms = currentEmployer.getCoopTerm();
 
-			//Find coopterm in the Set
+			// Find coopterm in the Set
 			Iterator<CoopTerm> iter = coopterms.iterator();
 
-			while(iter.hasNext()) {
+			while (iter.hasNext()) {
 				CoopTerm term = iter.next();
-				if(term.getTermId().equals(termId)) {
+				if (term.getTermId().equals(termId)) {
 					currentTerm = term;
-				}			
+				}
 			}
-			//set of all documents in the coopterm from the Employer
+			// set of all documents in the coopterm from the Employer
 			documentsSet = currentTerm.getDocument();
 			doc_list = new ArrayList<Document>(documentsSet);
 		}
 		return doc_list;
 	}
-	
+
+	/**
+	 * Method used to view a specific Employer Document
+	 * 
+	 * @param id      - UserID associated to the employer
+	 * @param termId  - TermID of the term for which documents are wanted
+	 * @param docname = Name of the specific document
+	 * @return Single specified document, if it exists
+	 */
 	@Transactional
 	public Document viewEmployerDocument(Integer id, Integer termId, DocumentName docname) {
-		//This business method returns a document from the list of documents of a term. 
+		// This business method returns a document from the list of documents of a term.
 		List<Document> documents = viewEmployerFiles(id, termId);
-		
-     	//document that will be returned 
+
+		// document that will be returned
 		Document document_modif = new Document();
-		
-		//iterate through the document list of the term 
+
+		// iterate through the document list of the term
 		Iterator<Document> iter = documents.iterator();
-		while(iter.hasNext()) {
+		while (iter.hasNext()) {
 			Document doc = iter.next();
-			//stop when the document type is found 
-			if(doc.getDocName().equals(docname)) {
-			document_modif = doc;	
+			// stop when the document type is found
+			if (doc.getDocName().equals(docname)) {
+				document_modif = doc;
 			}
 		}
 		return document_modif;
 	}
 
-
 	// ==========================================================================================
 	// Document CRUD
 
+	/**
+	 * Method used to create new document in the database
+	 * 
+	 * @param docName  - Name of the document, of type {@code DocumentName}
+	 * @param dueDate  - Date at which the document is due
+	 * @param dueTime  - Time on the date before which the document must be
+	 *                 submitted
+	 * @param subDate  - Date of submission of the document
+	 * @param subTime  - Time of the document submission
+	 * @param coopTerm - CoopTerm associated to the document
+	 * @return
+	 */
 	@Transactional
-	public Document createDocument(DocumentName docName, Date dueDate, Time dueTime, Date subDate, Time subTime, CoopTerm coopTerm) {
+	public Document createDocument(DocumentName docName, Date dueDate, Time dueTime, Date subDate, Time subTime,
+			CoopTerm coopTerm) {
 		if (docName == null) {
 			throw new IllegalArgumentException("Document Name cannot be empty!");
 		}
-//		if (docId == null) {
-//			throw new IllegalArgumentException("Doc ID cannot be empty!");
-//		}
 		if (dueDate == null) {
 			throw new IllegalArgumentException("Please enter a valid Date");
 		}
@@ -972,7 +1023,7 @@ public class CooperatorService {
 		}
 
 		Document document = new Document();
-	//	document.setDocId(docId);
+		// document.setDocId(docId);
 		document.setDocName(docName);
 		document.setDueDate(dueDate);
 		document.setDueTime(dueTime);
@@ -984,6 +1035,11 @@ public class CooperatorService {
 		return document;
 	}
 
+	/**
+	 * Obtain all documents from the database
+	 * 
+	 * @return {@code List<Document>}
+	 */
 	@Transactional
 	public List<Document> getAllDocuments() {
 		return toList(documentRepository.findAll());
@@ -1067,6 +1123,9 @@ public class CooperatorService {
 		documentRepository.deleteById(docId);
 	}
 
+	/**
+	 * Deletes all documents from the database
+	 */
 	@Transactional
 	public void deleteAllDocuments() {
 		documentRepository.deleteAll();
@@ -1076,9 +1135,16 @@ public class CooperatorService {
 	// ==========================================================================================
 	// CoopTerm CRUD
 
+	/**
+	 * Create new CoopTerm. Must have associated student and employer created a priori
+	 * @param startDate - Date of start of the Coop Term
+	 * @param endDate - Date of end of the CoopTerm
+	 * @param student - Student to associate to the CoopTerm
+	 * @param employer - Employer of the student for that CoopTerm
+	 * @return Created CoopTerm object
+	 */
 	@Transactional
 	public CoopTerm createCoopTerm(Date startDate, Date endDate, Student student, Employer employer) {
-
 
 		if (startDate == null) {
 			throw new IllegalArgumentException("Please enter a valid startDate");
@@ -1103,12 +1169,21 @@ public class CooperatorService {
 		return coopTerm;
 	}
 
+	/**
+	 * Get CoopTerm by specified TermId from the database
+	 * @param termId - TermID of the CoopTerm
+	 * @return
+	 */
 	@Transactional
 	public CoopTerm getCoopTerm(Integer termId) {
 		CoopTerm coopTerm = coopTermRepository.findBytermId(termId);
 		return coopTerm;
 	}
 
+	/**
+	 * Obtain all CoopTerm objects from the database
+	 * @return
+	 */
 	@Transactional
 	public List<CoopTerm> getAllCoopTerms() {
 		return toList(coopTermRepository.findAll());
@@ -1181,7 +1256,10 @@ public class CooperatorService {
 	// ==========================================================================================
 
 	/**
-	 * Returns objects in an iterable list
+	 * Returns objects in an iterable list.
+	 * 
+	 * @param iterable - Must be a list of iterable objects
+	 * @return List of objects in iterable set.
 	 */
 	private <T> List<T> toList(Iterable<T> iterable) {
 		List<T> resultList = new ArrayList<T>();
@@ -1190,12 +1268,21 @@ public class CooperatorService {
 		}
 		return resultList;
 	}
-	
+
 	// ==========================================================================================
 	// User Login
-	
-	public void login(String inputEmail, String inputPassword){
-		//Find the email in the database, check password is valid
+
+	/**
+	 * Login method, used for the login of the user
+	 * 
+	 * @param inputEmail    - Email address of the user, normally the McGill email
+	 *                      address used for MyCourses
+	 * @param inputPassword - Password chosen by the user
+	 * @return Boolean depending on success of login
+	 */
+	@Transactional
+	public boolean loginSuccess(String inputEmail, String inputPassword) {
+		// Find the email in the database, check password is valid
 
 		// input check
 		if (inputEmail == null) {
@@ -1204,31 +1291,104 @@ public class CooperatorService {
 		if (inputPassword == null) {
 			throw new IllegalArgumentException("Please enter a password.");
 		}
-		
+
 		CoopAdministrator admin = new CoopAdministrator();
-		
-		// find email in database
-		try {
-			admin = getCoopAdministratorEmail(inputEmail);
-		} catch (Exception e) {
-			throw new IllegalArgumentException("Incorrect email.");
+
+		if (!inputEmail.equals(admin.getEmailAddress()) || !inputPassword.equals(admin.getPassword())) {
+			return false;
 		}
-		
-		if(inputPassword != admin.getPassword()) {
-			throw new IllegalArgumentException("Incorrect password.");
-		}
-		else {
-			System.out.println("You have succesfully logged in.");
-		}
+
 //		if(inputEmail != admin.getEmailAddress()) {
 //			System.out.println("This is not a registered email.");
 //		}
-		
+		return true;
+
 	}
 
-//	public void viewStudentFiles(int userID, int coopterm_ID){
-//		// find student in DB, searching for studentID in DB
-//		// get documents associated with student for specific coopterm
-//	}
+	/**
+	 * Method used by The getIncompleteStatements, which verifies the placements of
+	 * a specified user
+	 * 
+	 * @param userId   - The user ID for which to verify placement
+	 * @param CoopTerm - Term for which to verify the documents
+	 * @return
+	 */
+	@Transactional
+	public boolean isIncomplete(Integer userId, Integer CoopTerm) {
 
+		CoopTerm currentTerm = new CoopTerm();
+		Student student = studentRepository.findByuserID(userId);
+		Document document = new Document();
+		// Find CoopTerm in the Set
+		Set<CoopTerm> coopterms = student.getCoopTerm();
+
+		// Find all documents in the CoopTerm of the student
+		Set<Document> documents = currentTerm.getDocument();
+		Iterator<Document> iterDocs = documents.iterator();
+
+		// make sure it's within current date
+		java.sql.Date currDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+
+		// while there are documents
+		if (coopTermExists(CoopTerm)) {
+			if (document.getSubDate().before(currDate) || document.getSubDate().equals(currDate)
+					|| document.getSubDate().after(currDate)) {
+				while (iterDocs.hasNext()) {
+					document = iterDocs.next();
+					if (document.getSubDate() == null) {
+						return true;
+					}
+					// check if submissionDate exceeds dueDate
+					if (document.getSubDate().after(document.getDueDate())) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Method used to obtain incomplete placements for the current term
+	 * 
+	 * @return List of students with incomplete statements
+	 */
+	@Transactional
+	public List<Student> getIncompletePlacements() {
+
+		// get all coop terms
+		List<CoopTerm> coopterms = getAllCoopTerms();
+		CoopTerm currentTerm;
+		List<CoopTerm> currentTermList = Collections.emptyList();
+		Date date;
+
+		// get current date
+		date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+
+		// ensures that the date is within the current term
+		if (date.before(coopterms.get(0).getEndDate())) {
+			for (int i = 0; i < coopterms.size(); i++) {
+				currentTerm = coopterms.get(i);
+				currentTermList.add(currentTerm); // return as a list of current terms
+			}
+
+		}
+
+		// students
+		List<Student> incompleteStudents = Collections.emptyList();
+
+		for (int i = 0; i < currentTermList.size(); i++) {
+
+			/*
+			 * Get student id that is associated with incomplete term Return current term at
+			 * specified index and its associated id
+			 */
+			if (isIncomplete(currentTermList.get(i).getStudent().getUserID(), currentTermList.get(i).getTermId())) {
+				// populate the incomplete students list
+				incompleteStudents.add(currentTermList.get(i).getStudent());
+			}
+		}
+
+		return incompleteStudents;
+	}
 }
