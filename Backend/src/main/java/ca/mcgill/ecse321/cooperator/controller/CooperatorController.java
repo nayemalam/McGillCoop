@@ -21,10 +21,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.RestController;
 
+import ca.mcgill.ecse321.cooperator.dto.CoopAdministratorDto;
 import ca.mcgill.ecse321.cooperator.dto.CoopTermDto;
 import ca.mcgill.ecse321.cooperator.dto.DocumentDto;
 import ca.mcgill.ecse321.cooperator.dto.EmployerDto;
 import ca.mcgill.ecse321.cooperator.dto.StudentDto;
+import ca.mcgill.ecse321.cooperator.model.CoopAdministrator;
 import ca.mcgill.ecse321.cooperator.model.CoopTerm;
 import ca.mcgill.ecse321.cooperator.model.Document;
 import ca.mcgill.ecse321.cooperator.model.DocumentName;
@@ -83,6 +85,78 @@ public class CooperatorController {
 		return employerDtos;
 	}
 	
+	//POST A COOPADMIN
+		@PostMapping(value = { "/coopAdmins/{name}", "/coopAdmins/{name}/"})
+		public CoopAdministratorDto createCoopAdmin(@PathVariable("name") String lastName, @RequestParam String fName, @RequestParam String emailAddress, 
+				@RequestParam String userName, @RequestParam String password) {
+			CoopAdministrator coopAdmin = service.createCoopAdministrator(lastName, fName, emailAddress, userName, password);
+		return convertToDto(coopAdmin);
+		}
+		
+	//GET A LIST OF COOPADMINISTRATORS
+		@GetMapping(value = {"/coopAdmins/", "/coopAdmins"})
+		public List<CoopAdministratorDto> getAllCoopAdministrator(){
+			
+			List<CoopAdministratorDto> coopAdminDtos = new ArrayList<>();
+			
+			for(CoopAdministrator coopAdmin : service.getAllCoopAdministrators()) {
+				coopAdminDtos.add(convertToDto(coopAdmin));
+			}
+			return coopAdminDtos;
+		}
+	
+	//=========================================================================================
+	//USE CASE 1: LOGIN 
+	//=========================================================================================
+		/**
+		 * RESTFUL end point observing Incomplete Coop Placements 
+		 * 
+		 * @param    - The coopAdministrator email address
+		 * @param password - The coopAdministrator password
+		 * @return Boolean
+		 */
+		@GetMapping(value = {"/login/", "/login"})
+		public Boolean Login(@RequestParam String email, @RequestParam String password){
+			
+			return service.loginSuccess(email, password);
+		}
+		
+		
+//	//=========================================================================================
+//	//USE CASE Observe Incomplete Coop Placement
+//	//=========================================================================================
+//		/**
+//		 * RESTFUL end point for a coopAdministrator login 
+//		 * 
+//		 * @param email   - The coopAdministrator email address
+//		 * @param password - The coopAdministrator password
+//		 * @return Boolean
+//		 */
+//		@GetMapping(value = {"/incomplete/", "/incomplete"})
+//		public boolean IncompletePlacement(@RequestParam Integer userId, @RequestParam Integer CoopTerm){
+//			
+//			return service.isIncomplete(userId, CoopTerm);
+//		}
+		
+	//=========================================================================================
+	//USE CASE Observe Incomplete Coop Placement
+	//=========================================================================================
+		/**
+		 * RESTFUL end point for a coopAdministrator login 
+		 * 
+		 * @param email   - The coopAdministrator email address
+		 * @param password - The coopAdministrator password
+		 * @return Boolean
+		 */
+		@GetMapping(value = {"/incomplete/", "/incomplete"})
+		public List<StudentDto> IncompletePlacement(){
+			
+			List<Student> studentList = service.getIncompletePlacements();
+			List<StudentDto> studentDtoList = convertToDto(studentList);
+			return studentDtoList;
+		}
+	
+		
 	
 	//POST A COOPTERM 
 	@PostMapping(value = { "/coopterms/", "/coopterms"})
@@ -94,7 +168,7 @@ public class CooperatorController {
 		
 		//Create a coopTerm and convert it to a Dto 
 		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, student, employer);
-		int termId = coopTerm.getTermId();
+		Integer termId = coopTerm.getTermId();
 		
 		return convertToDto(coopTerm, student, employer, termId);
 	}
@@ -115,7 +189,7 @@ public class CooperatorController {
 	//POST A DOCUMENT 
 	@PostMapping(value = { "/documents/{docName}", "/documents/{docName}/"})
 	public DocumentDto createDocument(@PathVariable("docName") DocumentName docName, @RequestParam Date dueDate, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime dueTime, 
-			@RequestParam Date subDate, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime subTime, @RequestParam int termId ) {
+			@RequestParam Date subDate, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime subTime, @RequestParam Integer termId ) {
 		
 		CoopTerm coopTerm = service.getCoopTerm(termId);
 		Document document = service.createDocument(docName, dueDate,  Time.valueOf(dueTime), subDate,  Time.valueOf(subTime), coopTerm); 
@@ -125,68 +199,113 @@ public class CooperatorController {
 	}
 	
 	//GET A LIST OF ALL THE DOCUMENTS 
-//	@GetMapping(value = {"/documents/", "/documents"})
-//	public List<DocumentDto> getAllDocuments(){
-//		
-//		List<DocumentDto> documentDtos = new ArrayList<>();
-//		
-//		for(Document document : service.getAllDocuments()) {
-//			documentDtos.add(convertToDto(document));
-//		}
-//		return documentDtos;
-//	}
+	@GetMapping(value = {"/documents/", "/documents"})
+	public List<DocumentDto> getAllDocuments(){
+		
+		List<DocumentDto> documentDtos = new ArrayList<>();
+		
+		for(Document document : service.getAllDocuments()) {
+			documentDtos.add(convertToDto(document));
+		}
+		return documentDtos;
+	}
 
 	
 	
+	//===============================================================================
 	//METHODS RELATED TO CONVERTING OBJECTS TO DTO
+	//===============================================================================
 	private StudentDto convertToDto(Student student) {
 		if (student == null) {
 			throw new IllegalArgumentException("There is no such Student!");
 		}
 		StudentDto studentDto = new StudentDto(student.getLastName(), student.getFirstName(), student.getEmailAddress(), student.getUserName(), student.getPassword(), student.getStudentId(), student.getProgram());
-		//studentDto.setCoopTerms(createCoopTermDtosForStudent(student));
-
+		studentDto.setCoopTerms(createCoopTermDtosForStudent(student));
 		return studentDto;
 	}
 	
 	private EmployerDto convertToDto(Employer employer) {
 		
 		EmployerDto employerDto = new EmployerDto(employer.getLastName(), employer.getFirstName(), employer.getEmailAddress(), employer.getUserName(), employer.getPassword(), employer.getCompanyName(), employer.getLocation());
-		
-		// TODO Auto-generated method stub
+		employerDto.setCoopTerms(createCoopTermDtosForEmployer(employer));
 		return employerDto;
 	}
 	
-	private CoopTermDto convertToDto(CoopTerm coopTerm, Student student, Employer employer, int termId) {
+private CoopAdministratorDto convertToDto(CoopAdministrator coopAdmin) {
+		
+		CoopAdministratorDto coopAdministratorDto = new CoopAdministratorDto(coopAdmin.getLastName(), coopAdmin.getFirstName(), coopAdmin.getEmailAddress(), coopAdmin.getUserName(), coopAdmin.getPassword());
+		return coopAdministratorDto;
+	}
+	
+	private CoopTermDto convertToDto(CoopTerm coopTerm, Student student, Employer employer, Integer termId) {
 		
 		StudentDto studentDto = convertToDto(student);
 		EmployerDto employerDto = convertToDto(employer);
-		CoopTermDto coopTermDto = new CoopTermDto(termId, coopTerm.getStartDate(), coopTerm.getEndDate(), studentDto, employerDto);
+		CoopTermDto coopTermDto = new CoopTermDto(termId, coopTerm.getStartDate(), coopTerm.getEndDate());//, studentDto, employerDto);
 		return coopTermDto;
 	}
 
 	private CoopTermDto convertToDto(CoopTerm coopTerm) {
-			
-			CoopTermDto coopTermDto = new CoopTermDto(coopTerm.getTermId(), coopTerm.getStartDate(), coopTerm.getEndDate(), convertToDto(coopTerm.getStudent()), convertToDto(coopTerm.getEmployer()));
+		if (coopTerm == null) {
+			throw new IllegalArgumentException("There is no such Event!");
+		}
+			CoopTermDto coopTermDto = new CoopTermDto(coopTerm.getTermId(), coopTerm.getStartDate(), coopTerm.getEndDate());
+			coopTermDto.setDocument(createDocumentDtosForCoopTerm(coopTerm));
 			return coopTermDto;
 		}
 	
 	
 	private DocumentDto convertToDto(Document document) {
 		
-		DocumentDto documentDto = new DocumentDto(document.getDocName(), document.getDueDate(), document.getDueTime(), document.getSubDate(), document.getSubTime(), convertToDto(document.getCoopTerm()));
-		// TODO Auto-generated method stub
+		DocumentDto documentDto = new DocumentDto(document.getDocName(), document.getDueDate(), document.getDueTime(), document.getSubDate(), document.getSubTime());  //, convertToDto(document.getCoopTerm()));
 		return documentDto;
 	}
 
-//	private List<CoopTermDto> createCoopTermDtosForStudent(Student student) {
-//		List<CoopTerm> coopTerms = service.getAllCoopTerms();
-//		List<CoopTermDto> coopTermList = new ArrayList<>();
-//		for (CoopTerm coopTerm : coopTerms) {
-//			coopTermList.add(convertToDto(coopTerm));
-//		}
-//		return coopTermList;
-//	}
+	private List<CoopTermDto> createCoopTermDtosForStudent(Student student) {
+		List<CoopTerm> coopTerms = service.getAllCoopTerms();
+		List<CoopTermDto> coopTermList = new ArrayList<>();
+		for (CoopTerm coopTerm : coopTerms) {
+			if(coopTerm.getStudent().getUserID().equals(student.getUserID())) {
+				coopTermList.add(convertToDto(coopTerm));
+			}
+		}
+		return coopTermList;
+	}
+	
+	private List<CoopTermDto> createCoopTermDtosForEmployer(Employer employer) {
+		List<CoopTerm> coopTerms = service.getAllCoopTerms();
+		List<CoopTermDto> coopTermList = new ArrayList<>();
+		
+		for (CoopTerm coopTerm : coopTerms) {
+			if(coopTerm.getEmployer().getUserID().equals(employer.getUserID())) {
+				coopTermList.add(convertToDto(coopTerm));
+			}
+		}
+		return coopTermList;
+	}
+	
+	private List<DocumentDto> createDocumentDtosForCoopTerm(CoopTerm coopTerm) {
+		List<Document> documentList = service.getAllDocuments();
+		List<DocumentDto> documentDtoList = new ArrayList<>();
+		
+		for (Document document : documentList) {
+			if(document.getCoopTerm().getTermId().equals(coopTerm.getTermId())) {
+				documentDtoList.add(convertToDto(document));
+			}
+		}
+		return documentDtoList;
+	}
+	
+	
+	//Method for converting a student list to a studentDto list
+	private List<StudentDto> convertToDto(List<Student> studentList) {
+		
+		List<StudentDto> studentDtoList = new ArrayList<>();
+		for (Student student : studentList) {
+			studentDtoList.add(convertToDto(student));
+		}
+		return studentDtoList;
+	}
 	
 
 }
