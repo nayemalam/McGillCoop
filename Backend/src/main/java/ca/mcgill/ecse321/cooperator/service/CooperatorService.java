@@ -1179,6 +1179,8 @@ public class CooperatorService {
 		CoopTerm coopTerm = coopTermRepository.findBytermId(termId);
 		return coopTerm;
 	}
+	
+	
 
 	/**
 	 * Obtain all CoopTerm objects from the database
@@ -1292,7 +1294,7 @@ public class CooperatorService {
 			throw new IllegalArgumentException("Please enter a password.");
 		}
 
-		CoopAdministrator admin = new CoopAdministrator();
+		CoopAdministrator admin = coopAdministratorRepository.findByemailAddress(inputEmail);
 
 		if (!inputEmail.equals(admin.getEmailAddress()) || !inputPassword.equals(admin.getPassword())) {
 			return false;

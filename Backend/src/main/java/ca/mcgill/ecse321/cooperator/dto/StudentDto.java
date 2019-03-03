@@ -72,7 +72,6 @@ public class StudentDto {
 		      return studentId;
 		   }
 		 
-		 @SuppressWarnings("unchecked")
 		public void setCoopTerms(List<CoopTermDto> terms) {
 				this.coopTerm =  terms;
 			} 
