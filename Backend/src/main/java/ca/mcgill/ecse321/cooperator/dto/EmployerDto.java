@@ -42,7 +42,6 @@ public class EmployerDto {
 			   this.companyName = companyName;
 			   this.location = location;
 			   this.coopTerm = coopTerms;
-			   
 		   }
 	   
 	   public String getFirstName() {
@@ -72,6 +71,10 @@ public class EmployerDto {
 		 public String getLocation() {
 			 return location;
 			 }
+		 
+		 public void setCoopTerms(List<CoopTermDto> terms) {
+				this.coopTerm =  terms;
+			} 
 
 
 }

@@ -1179,6 +1179,8 @@ public class CooperatorService {
 		CoopTerm coopTerm = coopTermRepository.findBytermId(termId);
 		return coopTerm;
 	}
+	
+	
 
 	/**
 	 * Obtain all CoopTerm objects from the database
@@ -1292,7 +1294,7 @@ public class CooperatorService {
 			throw new IllegalArgumentException("Please enter a password.");
 		}
 
-		CoopAdministrator admin = new CoopAdministrator();
+		CoopAdministrator admin = coopAdministratorRepository.findByemailAddress(inputEmail);
 
 		if (!inputEmail.equals(admin.getEmailAddress()) || !inputPassword.equals(admin.getPassword())) {
 			return false;
@@ -1314,14 +1316,16 @@ public class CooperatorService {
 	 * @return
 	 */
 	@Transactional
-	public boolean isIncomplete(Integer userId, Integer CoopTerm) {
+	public boolean isIncomplete(Integer userId, Integer coopTermId) {
 
-		CoopTerm currentTerm = new CoopTerm();
+		//find the objects in the database
+		CoopTerm currentTerm = coopTermRepository.findBytermId(coopTermId);
 		Student student = studentRepository.findByuserID(userId);
-		Document document = new Document();
-		// Find CoopTerm in the Set
-		Set<CoopTerm> coopterms = student.getCoopTerm();
+		
+//		// Find CoopTerm in the Set
+//		Set<CoopTerm> coopterms = student.getCoopTerm();
 
+		Document document;
 		// Find all documents in the CoopTerm of the student
 		Set<Document> documents = currentTerm.getDocument();
 		Iterator<Document> iterDocs = documents.iterator();
@@ -1330,20 +1334,25 @@ public class CooperatorService {
 		java.sql.Date currDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 
 		// while there are documents
-		if (coopTermExists(CoopTerm)) {
-			if (document.getSubDate().before(currDate) || document.getSubDate().equals(currDate)
-					|| document.getSubDate().after(currDate)) {
-				while (iterDocs.hasNext()) {
-					document = iterDocs.next();
-					if (document.getSubDate() == null) {
+		if (coopTermExists(coopTermId)) {
+			while (iterDocs.hasNext()) {
+				document = iterDocs.next();
+			
+				if (document.getSubDate().before(currDate) || document.getSubDate().equals(currDate)
+						|| document.getSubDate().after(currDate)){
+					if (document.getSubDate() == null || document.getSubTime() == null) {
 						return true;
 					}
 					// check if submissionDate exceeds dueDate
 					if (document.getSubDate().after(document.getDueDate())) {
 						return true;
 					}
+					if (document.getSubDate().toString().equals(document.getDueDate().toString()) && document.getSubTime().after(document.getDueTime())){
+						return true;
+					}
+					
 				}
-			}
+			}	
 		}
 		return false;
 	}
@@ -1358,27 +1367,25 @@ public class CooperatorService {
 
 		// get all coop terms
 		List<CoopTerm> coopterms = getAllCoopTerms();
-		CoopTerm currentTerm;
-		List<CoopTerm> currentTermList = Collections.emptyList();
+		List<CoopTerm> currentTermList = new ArrayList<>();
 		Date date;
 
 		// get current date
 		date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 
 		// ensures that the date is within the current term
-		if (date.before(coopterms.get(0).getEndDate())) {
-			for (int i = 0; i < coopterms.size(); i++) {
-				currentTerm = coopterms.get(i);
+		CoopTerm currentTerm;
+		for (int i = 0; i < coopterms.size(); i++) {
+			currentTerm = coopterms.get(i);
+			if (date.before(coopterms.get(i).getEndDate())) {
 				currentTermList.add(currentTerm); // return as a list of current terms
 			}
-
 		}
 
 		// students
-		List<Student> incompleteStudents = Collections.emptyList();
+		List<Student> incompleteStudents = new ArrayList<>();
 
 		for (int i = 0; i < currentTermList.size(); i++) {
-
 			/*
 			 * Get student id that is associated with incomplete term Return current term at
 			 * specified index and its associated id

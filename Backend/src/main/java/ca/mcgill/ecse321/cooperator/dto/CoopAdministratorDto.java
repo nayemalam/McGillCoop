@@ -11,8 +11,8 @@ import ca.mcgill.ecse321.cooperator.model.Student;
 
 public class CoopAdministratorDto {
 	
-	private List<EmployerDto> employer;
-	private List<StudentDto> student;
+	//private List<EmployerDto> employer;
+	//private List<StudentDto> student;
 	private String fName;
 	private String emailAddress;
 	private String userName;
@@ -40,8 +40,8 @@ public class CoopAdministratorDto {
 		   this.name = name;
 		   this.password = password;
 		   this.userName  = userName;
-		   this.employer = employerList;
-		   this.student = studentList;
+		   //this.employer = employerList;
+		   //this.student = studentList;
 	}
 	
 	  public String getFirstName() {
@@ -60,12 +60,12 @@ public class CoopAdministratorDto {
 			return name;
 		}
 		
-		public List<StudentDto> getStudent() {
-		      return student;
-		      
-		}
+//		public List<StudentDto> getStudent() {
+//		      return student;
+//		      
+//		}
 		
-		public List<EmployerDto> getEmployer() {
-			   return employer;
-			}
+//		public List<EmployerDto> getEmployer() {
+//			   return employer;
+//			}
 }
