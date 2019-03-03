@@ -1793,7 +1793,7 @@ public class TestCooperatorService {
 		*  ============
 		**/
 		//Create document
-		Document testDocument = new Document();
+		Document testDocument;
 		assertEquals(0, service.getAllDocuments().size());
 
 		// set calendar
@@ -1811,8 +1811,10 @@ public class TestCooperatorService {
 		Time subTime = new Time(c.getTimeInMillis());
 
 		//Other parameters
+		c.set(2019, Calendar.APRIL, 16, 10, 10, 0);
+
 		Date startDate = new Date(0);
-		Date endDate = new Date(1);
+		Date endDate = new Date(c.getTimeInMillis());
 
 		// Create student for student id
 		Student student;
@@ -1842,19 +1844,15 @@ public class TestCooperatorService {
 		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, student, employer);
 		testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, coopTerm);
 		// ======
-
+		List<Student> studentList = null;
 		try {
-			service.getIncompletePlacements();
+		studentList = service.getIncompletePlacements();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 
-		List<CoopTerm> coopterms = service.getAllCoopTerms();
-		List<Student> students = service.getAllStudents();
-
 		// expects the subDate of document at or before dueDate
-		assertEquals(1, coopterms.size());
-		assertEquals(1, students.size());
+		assertEquals(1, studentList.size());
 	}
 
 

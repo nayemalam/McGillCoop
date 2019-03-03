@@ -104,12 +104,14 @@ public class CooperatorController {
 			}
 			return coopAdminDtos;
 		}
-		
-	//LOGIN USE CASE 
+	
+	//=========================================================================================
+	//USE CASE 1: LOGIN 
+	//=========================================================================================
 		/**
-		 * RESTFUL end point for a coopAdministrator login 
+		 * RESTFUL end point observing Incomplete Coop Placements 
 		 * 
-		 * @param email   - The coopAdministrator email address
+		 * @param    - The coopAdministrator email address
 		 * @param password - The coopAdministrator password
 		 * @return Boolean
 		 */
@@ -118,6 +120,42 @@ public class CooperatorController {
 			
 			return service.loginSuccess(email, password);
 		}
+		
+		
+//	//=========================================================================================
+//	//USE CASE Observe Incomplete Coop Placement
+//	//=========================================================================================
+//		/**
+//		 * RESTFUL end point for a coopAdministrator login 
+//		 * 
+//		 * @param email   - The coopAdministrator email address
+//		 * @param password - The coopAdministrator password
+//		 * @return Boolean
+//		 */
+//		@GetMapping(value = {"/incomplete/", "/incomplete"})
+//		public boolean IncompletePlacement(@RequestParam Integer userId, @RequestParam Integer CoopTerm){
+//			
+//			return service.isIncomplete(userId, CoopTerm);
+//		}
+		
+	//=========================================================================================
+	//USE CASE Observe Incomplete Coop Placement
+	//=========================================================================================
+		/**
+		 * RESTFUL end point for a coopAdministrator login 
+		 * 
+		 * @param email   - The coopAdministrator email address
+		 * @param password - The coopAdministrator password
+		 * @return Boolean
+		 */
+		@GetMapping(value = {"/incomplete/", "/incomplete"})
+		public List<StudentDto> IncompletePlacement(){
+			
+			List<Student> studentList = service.getIncompletePlacements();
+			List<StudentDto> studentDtoList = convertToDto(studentList);
+			return studentDtoList;
+		}
+	
 		
 	
 	//POST A COOPTERM 
@@ -256,6 +294,17 @@ private CoopAdministratorDto convertToDto(CoopAdministrator coopAdmin) {
 			}
 		}
 		return documentDtoList;
+	}
+	
+	
+	//Method for converting a student list to a studentDto list
+	private List<StudentDto> convertToDto(List<Student> studentList) {
+		
+		List<StudentDto> studentDtoList = new ArrayList<>();
+		for (Student student : studentList) {
+			studentDtoList.add(convertToDto(student));
+		}
+		return studentDtoList;
 	}
 	
 
