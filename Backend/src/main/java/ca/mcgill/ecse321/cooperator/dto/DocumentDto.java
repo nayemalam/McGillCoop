@@ -15,12 +15,12 @@ public class DocumentDto {
 	private Date subDate;
 	private Time dueTime;
 	private Time subTime;
-	private CoopTerm coopTerm;
+	private CoopTermDto coopTerm;
 	private DocumentName docName;
 	
 	
 
-	public DocumentDto(DocumentName docName, Date dueDate, Time dueTime, Date subDate, Time subTime, CoopTerm coopTerm) {
+	public DocumentDto(DocumentName docName, Date dueDate, Time dueTime, Date subDate, Time subTime, CoopTermDto coopTerm) {
 		this.docName = docName;
 		this.dueDate = dueDate;
 		this.dueTime = dueTime;
@@ -28,7 +28,6 @@ public class DocumentDto {
 		this.subTime = subTime;
 		this.coopTerm = coopTerm;
 	}
-	
 	
 	
 	public Date getDueDate() {
@@ -47,7 +46,7 @@ public class DocumentDto {
 		return this.subTime;
 		}
 	
-	 public CoopTerm getCoopTerm() {
+	 public CoopTermDto getCoopTerm() {
 	      return coopTerm;
 	   }
 	 

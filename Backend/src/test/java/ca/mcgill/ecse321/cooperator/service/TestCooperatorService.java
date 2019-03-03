@@ -5,25 +5,17 @@ import static org.junit.Assert.fail;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import org.junit.After;
+
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.JUnitCore;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.cooperator.model.CoopTerm;
 import ca.mcgill.ecse321.cooperator.model.SystemUser;
@@ -66,7 +58,7 @@ public class TestCooperatorService {
 
 	@Before
 	public void clearDatabase() {
-		// First, we clear registrations to avoid exceptions due to inconsistencies
+		// First, we clear All repositories to avoid exceptions due to inconsistencies
 		documentRepository.deleteAll();
 		coopTermRepository.deleteAll();
 		cooperatorSystemRepository.deleteAll();
@@ -76,30 +68,20 @@ public class TestCooperatorService {
 		systemUserRepository.deleteAll();
 	}
 
-//	@After
-//	public void clearDatabaseAfter() {
-//		// First, we clear registrations to avoid exceptions due to inconsistencies
-//		documentRepository.deleteAll();
-//		// Then we can clear the other tables
-//		systemUserRepository.deleteAll();
-//		coopTermRepository.deleteAll();
-//		cooperatorSystemRepository.deleteAll();
-//		coopAdministratorRepository.deleteAll();
-//		coopAdministratorRepository.deleteAll();
-//		studentRepository.deleteAll();
-//	}
-
-	// ==========================================================================================
+	
+	//===========================================================================================
 	// Cooperator System tests
+	//===========================================================================================
 
 	/**
 	 *  Test creation and persistence of a CooperatorSystem object
 	 */
 	@Test
 	public void testCreateAndReadCooperatorSystem() {
-
+		
 		assertEquals(0, service.getAllCooperatorSystems().size());
-
+		
+		//Declare the parameter required to create a cooperator system. 
 		Integer systemId = 420;
 
 		try {
@@ -108,9 +90,11 @@ public class TestCooperatorService {
 			// Check that no error occurred
 			fail();
 		}
-
+		
+		//Get the list of cooperators systems 
 		List<CooperatorSystem> allCooperatorSystems = service.getAllCooperatorSystems();
-
+		
+		//assert that there is only one cooperator system in the database and that its system id is right. 
 		assertEquals(1, allCooperatorSystems.size());
 		assertEquals(systemId, allCooperatorSystems.get(0).getSystemId());
 	}
@@ -127,19 +111,12 @@ public class TestCooperatorService {
 		try {
 			service.createCooperatorSystem(null);
 		} catch (IllegalArgumentException e) {
-			// Check that no error occurred
+			//Check that no error occurred
 			error = e.getMessage();
 		}
+		//Assert the error message 
 		assertEquals(errorMessages, error);
 	}
-
-	/**
-	 * Tests the update of a CooperatorSystem object in the database
-	 */
-//	@Test
-//	public void testUpdateCooperatorSystem() {
-//		// TODO
-//	}
 
 	/**
 	 * Tests the deletion of a CooperatorSystem in the database
@@ -147,7 +124,8 @@ public class TestCooperatorService {
 	@Test
 	public void testDeleteCooperatorSystem() {
 		assertEquals(0, service.getAllCooperatorSystems().size());
-
+		
+		//Create a cooperatorSystem and assert its existence
 		Integer systemId = 420;
 		service.createCooperatorSystem(systemId);
 		assertEquals(1, service.getAllCooperatorSystems().size());
@@ -159,24 +137,26 @@ public class TestCooperatorService {
 			fail();
 		}
 
+		//retrieve the list of cooperator 
 		List<CooperatorSystem> allCooperatorSystems = service.getAllCooperatorSystems();
 
 		assertEquals(0, allCooperatorSystems.size());
 	}
-	// ==========================================================================================
 
 	// ==========================================================================================
 	// Student Tests
+	// ==========================================================================================
 
 	/**
 	 * Test creation and persistence of a student object
 	 */
 	@Test
 	public void testCreateAndReadStudent() {
+		
 		Student testStudent = new Student();
 		assertEquals(0, service.getAllStudents().size());
-
-		//Integer id = 123;
+		
+		//Parameters required to create a Student
 		String name = "Oscar";
 		String fName = "Macsiotra";
 		String emailAddress = "oscar@mcgill.ca";
@@ -191,8 +171,9 @@ public class TestCooperatorService {
 			// Check that no error occurred while creating and saving the student
 			fail();
 		}
+		
+		//List all the student created and assert his attributes 
 		List<Student> allStudents = service.getAllStudents();
-
 		assertEquals(1, allStudents.size());
 		assertEquals(name, allStudents.get(0).getLastName());
 		assertEquals(fName, allStudents.get(0).getFirstName());
@@ -201,7 +182,6 @@ public class TestCooperatorService {
 		assertEquals(password, allStudents.get(0).getPassword());
 		assertEquals(studentId, allStudents.get(0).getStudentId());
 		assertEquals(program, allStudents.get(0).getProgram());
-		//testStudent = null;
 	}
 
 	/**
@@ -210,7 +190,7 @@ public class TestCooperatorService {
 	 */
 	@Test
 	public void testCreateStudentInputs() {
-
+		
 		assertEquals(0, service.getAllStudents().size());
 		String[] errorMessages = { "Please enter a valid User ID", "Person name cannot be empty!",
 				"Email Address cannot be empty!", "Username cannot be empty!",
@@ -219,7 +199,6 @@ public class TestCooperatorService {
 		String error = "";
 
 		// Create input arguments to the create function
-		//Integer id = 123;
 		String name = "Oscar";
 		String fName = "Macsiotra";
 		String emailAddress = "oscar@mcgill.ca";
@@ -227,7 +206,6 @@ public class TestCooperatorService {
 		String password = "qwerty";
 		Integer studentId = 260747696;
 		String program = "ecse";
-
 
 		// Test Name parsing
 		try {
@@ -334,9 +312,8 @@ public class TestCooperatorService {
 		}
 		assertEquals(errorMessages[6], error);
 
-		// check no change in memory
+		// check no change in memory by asserting that there is no student object in the database.
 		assertEquals(0, service.getAllStudents().size());
-
 	}
 
 	/**
@@ -347,6 +324,7 @@ public class TestCooperatorService {
 		Student testStudent;
 		assertEquals(0, service.getAllStudents().size());
 
+		//Parameters required to create a student
 		String name = "Oscar";
 		String fName = "Macsiotra";
 		String emailAddress = "oscar@mcgill.ca";
@@ -355,36 +333,41 @@ public class TestCooperatorService {
 		Integer studentId = 260747696;
 		String program = "ecse";
 
-		// Create new student object
+		// Create new student object and assert its creation 
 		testStudent = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
 		assertEquals(1,service.getAllStudents().size());
 		Integer id = testStudent.getUserID();
 
-
-		//Updated Parameters
+		//Test updating the parameters and calling the updateStudent service method
 		String someName = "SomeNewName";
 		String newpassword = "ball";
-
+		String newUserName = "thom12";
+		String newProgram = "CHEM";
+				
 		try {
-			service.updateStudent(id, someName, fName, emailAddress, userName, newpassword, studentId, program);
+			service.updateStudent(id, someName, fName, emailAddress, newUserName, newpassword, studentId, newProgram);
 		} catch (Exception e) {
 			fail();
 		}
 
-		assertEquals(1,service.getAllStudents().size());
-		Student savedStudent = service.getStudent(id);
-		assertEquals(newpassword, savedStudent.getPassword());
-		assertEquals(someName, savedStudent.getLastName());
+		
+		//list the student object and assert its updated attributes
+		List<Student> allStudents = service.getAllStudents();
+		assertEquals(1,allStudents.size());
+		assertEquals(newpassword, allStudents.get(0).getPassword());
+		assertEquals(someName, allStudents.get(0).getLastName());
+		assertEquals(newUserName, allStudents.get(0).getUserName());
+		assertEquals(newProgram,  allStudents.get(0).getProgram());
 	}
 	/**
 	 * Tests the deletion of a student in the database
 	 */
 	@Test
 	public void testDeleteStudent() {
-		// TODO
 		Student testStudent;
 		assertEquals(0, service.getAllStudents().size());
 
+		//Parameters required to create a student
 		String name = "Oscar";
 		String fName = "Macsiotra";
 		String emailAddress = "oscar@mcgill.ca";
@@ -397,9 +380,8 @@ public class TestCooperatorService {
 		testStudent = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
 		assertEquals(1,service.getAllStudents().size());
 		Integer id = testStudent.getUserID();
-
-
-		// remove the student
+		
+		//delete the student object
 		try {
 			service.deleteStudent(id);
 		} catch (IllegalArgumentException e) {
@@ -415,11 +397,11 @@ public class TestCooperatorService {
 
 		assertEquals(0,service.getAllStudents().size());
 	}
-
-	// ==========================================================================================
-
+	
+	
 	// ==========================================================================================
 	// Employer tests
+	// ==========================================================================================
 
 	/**
 	 * Test the creation and persistence of an Employer object
@@ -428,7 +410,8 @@ public class TestCooperatorService {
 	public void testCreateAndReadEmployer() {
 		Employer testEmployer = new Employer();
 		assertEquals(0, service.getAllEmployers().size());
-
+		
+		//Parameters required to create an employer object
 		String name = "Oscar";
 		String fName = "Macsiotra";
 		String emailAddress = "oscar@mcgill.ca";
@@ -443,11 +426,14 @@ public class TestCooperatorService {
 			// Check that no error occurred while creating and saving the student.
 			fail();
 		}
+		
+		//List employers object and assert its attributes.
+
 		Integer id = testEmployer.getUserID();
 
 		assertEquals(1, service.getAllEmployers().size());
-
 		List<Employer> employerList = service.getAllEmployers();
+		assertEquals(1, employerList.size());
 		testEmployer = employerList.get(0);
 		assertEquals(name,testEmployer.getLastName());
 		assertEquals(fName,testEmployer.getFirstName());
@@ -605,6 +591,7 @@ public class TestCooperatorService {
 		Employer testEmployer;
 		assertEquals(0, service.getAllEmployers().size());
 
+		//Create an employer object 
 		String name = "Oscar";
 		String fName = "Macsiotra";
 		String emailAddress = "oscar@mcgill.ca";
@@ -616,9 +603,8 @@ public class TestCooperatorService {
 		testEmployer = service.createEmployer(name, fName, emailAddress, userName, password, companyName, location);
 		assertEquals(1, service.getAllEmployers().size());
 		Integer id = testEmployer.getUserID();
-
-
-		//Updated Parameters
+		
+		//Updated Parameters and call the service method updateEmployer 
 		String newname = "Oscar";
 		String newfName = "Macsiotra";
 		String newemailAddress = "oscar@mcgill.ca";
@@ -629,9 +615,10 @@ public class TestCooperatorService {
 			// Check that no error occurred while creating and saving the student.
 			fail();
 		}
-
-
-		assertEquals(1,service.getAllEmployers().size());
+		
+		//List the employer object and assert its updated attributes
+		List<Employer> employerList = service.getAllEmployers();
+		assertEquals(1,employerList.size());
 		Employer savedEmployer = service.getEmployer(id);
 		assertEquals(newname, savedEmployer.getLastName());
 		assertEquals(newfName, savedEmployer.getFirstName());
@@ -645,7 +632,8 @@ public class TestCooperatorService {
 	public void testDeleteEmployer() {
 		Employer testEmployer;
 		assertEquals(0, service.getAllEmployers().size());
-
+		
+		//Create an employer object 
 		String name = "Oscar";
 		String fName = "Macsiotra";
 		String emailAddress = "oscar@mcgill.ca";
@@ -653,30 +641,36 @@ public class TestCooperatorService {
 		String password = "qwerty";
 		String companyName = "Suh Industries";
 		String location = "Montreal";
-
+		
+		//create the employer 
 		testEmployer = service.createEmployer(name, fName, emailAddress, userName, password, companyName, location);
 		Integer id = testEmployer.getUserID();
 		assertEquals(1, service.getAllEmployers().size());
-
+		
+		//delete the employer 
 		try {
 			service.deleteEmployer(id);
 		} catch (IllegalArgumentException e) {
 			// Check that no error occurred while creating and saving the student.
 			fail();
 		}
-
+		
+		//assert that the employer has been deleted 
 		assertEquals(0, service.getAllEmployers().size());
 	}
 	// ==========================================================================================
-
-	// ==========================================================================================
 	// CoopAdmin tests
+	// ==========================================================================================
 
+	/**
+	 * Tests the creation and the persistence of a coopAdministrator object
+	 */
 	@Test
 	public void testCreateandReadCoopAdministrator() {
 		CoopAdministrator testCoopAdministrator = new CoopAdministrator();
 		assertEquals(0, service.getAllCoopAdministrators().size());
-
+		
+		//parameters required to create a coopAdminisrator
 		String name = "Tristan";
 		String fName = "Pepper";
 		String emailAddress = "Tristan@mcgill.ca";
@@ -689,8 +683,6 @@ public class TestCooperatorService {
 			// Check that no error occurred
 			fail();
 		}
-		Integer id = testCoopAdministrator.getUserID();
-
 
 		List<CoopAdministrator> allCoopAdministrator = service.getAllCoopAdministrators();
 
@@ -700,12 +692,12 @@ public class TestCooperatorService {
 		assertEquals(emailAddress, allCoopAdministrator.get(0).getEmailAddress());
 		assertEquals(userName, allCoopAdministrator.get(0).getUserName());
 		assertEquals(password, allCoopAdministrator.get(0).getPassword());
-
-		testCoopAdministrator = null;
 	}
-
-
-
+	
+	/**
+	 * the inputs to the creation methods, to make sure correct input is received before
+	 * storage in the database
+	 */
 	@Test
 	public void testCreateCoopAdministratorInputs() {
 		assertEquals(0, service.getAllEmployers().size());
@@ -721,10 +713,7 @@ public class TestCooperatorService {
 		String emailAddress = "Tristan@mcgill.ca";
 		String userName = "pepper123";
 		String password = "choco99";
-
-		testCoopAdministrator= service.createCoopAdministrator(name, fName, emailAddress, userName, password);
-
-
+    
 		// Test ID parsing
 
 
@@ -807,15 +796,20 @@ public class TestCooperatorService {
 					error = e.getMessage();
 				}
 				assertEquals(errorMessages[4], error);
+				
+				// check no change in memory
+				assertEquals(0, service.getAllCoopAdministrators().size());
 	}
-
-
+	
+	/**
+	 * Test updating the attributes of an existing coopAdministrator object
+	 */
 	@Test
 	public void testUpdateCoopAdministrator() {
 		CoopAdministrator testCoopAdministrator;
 		assertEquals(0, service.getAllCoopAdministrators().size());
-
-
+		
+		//parameters required to create a coopAdministrator
 		String name = "Tristan";
 		String fName = "Pepper";
 		String emailAddress = "Tristan@mcgill.ca";
@@ -826,7 +820,8 @@ public class TestCooperatorService {
 		Integer id = testCoopAdministrator.getUserID();
 
 		assertEquals(1,service.getAllCoopAdministrators().size());
-		//Updated Parameters
+		
+		//Update Parameters and call the updateCoopAdministrator
 		String newName = "thom";
 		String newuserName = "ballon";
 
@@ -841,21 +836,24 @@ public class TestCooperatorService {
 		CoopAdministrator savedCoopAdmin = service.getCoopAdministrator(id);
 		assertEquals(newName, savedCoopAdmin.getLastName());
 		assertEquals(newuserName, savedCoopAdmin.getUserName());
-
 	}
-
-
+	
+	/**
+	 * Test deleting a coopAdministrator object
+	 */
 	@Test
 	public void testDeleteCoopAdministrator() {
 		CoopAdministrator testCoopAdministrator;
 		assertEquals(0, service.getAllCoopAdministrators().size());
-
+		
+		//parameters required to create a coopAdministrator
 		String name = "Tristan";
 		String fName = "Pepper";
 		String emailAddress = "Tristan@mcgill.ca";
 		String userName = "pepper123";
 		String password = "choco99";
 
+		//create the coopAdministrator
 		testCoopAdministrator= service.createCoopAdministrator(name, fName, emailAddress, userName, password);
 		Integer id = testCoopAdministrator.getUserID();
 
@@ -866,7 +864,8 @@ public class TestCooperatorService {
 		} catch (Exception e) {
 			fail();
 		}
-
+		
+		//assert that the object was deleted 
 		assertEquals(0,service.getAllCoopAdministrators().size());
 	}
 
@@ -993,7 +992,6 @@ public class TestCooperatorService {
 
 		//create a student
 		Student student;
-
 		String name = "Oscar";
 		String fName = "Macsiotra";
 		String emailAddress = "oscar@mcgill.ca";
@@ -1003,13 +1001,10 @@ public class TestCooperatorService {
 		String program = "ecse";
 
 		student = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
-		Integer id = student.getUserID();
-
 		assertEquals(1, service.getAllStudents().size());
+		
 		//create an employer
-
 		Employer employer;
-
 		String emp_name = "Tristan";
 		String emp_fName = "Bougon";
 		String emp_emailAddress = "tristan@mcgill.ca";
@@ -1019,7 +1014,6 @@ public class TestCooperatorService {
 		String emp_location = "Montreal";
 
 		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
-		Integer emp_id = employer.getUserID();
 
 		assertEquals(1, service.getAllEmployers().size());
 		//Other parameters
@@ -1064,7 +1058,6 @@ public class TestCooperatorService {
 		String program = "ecse";
 
 		student = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
-		Integer id = student.getUserID();
 
 		assertEquals(1, service.getAllStudents().size());
 		//create an employer
@@ -1081,7 +1074,6 @@ public class TestCooperatorService {
 		String emp_location = "Montreal";
 
 		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password, emp_companyName, emp_location);
-		Integer emp_id = employer.getUserID();
 
 		assertEquals(1, service.getAllEmployers().size());
 		//Other parameters
@@ -1255,9 +1247,8 @@ public class TestCooperatorService {
 	}
 
 	// ==========================================================================================
-
-	// ==========================================================================================
 	// Document Tests
+	// ==========================================================================================
 
 	/**
 	 * Test the creation and persistence of a Document object
@@ -1328,9 +1319,6 @@ public class TestCooperatorService {
 		assertEquals(subDate.toString(), allDocuments.get(0).getSubDate().toString());
 		assertEquals(subTime.toString(), allDocuments.get(0).getSubTime().toString());
 		assertEquals(coopTerm.getTermId(), allDocuments.get(0).getCoopTerm().getTermId());
-		//testDocument = null;
-
-		// TODO
 	}
 
 	/**
@@ -1339,7 +1327,6 @@ public class TestCooperatorService {
 	 */
 	@Test
 	public void testCreateDocumentInputs() {
-		// TODO
 		assertEquals(0, service.getAllDocuments().size());
 		String[] errorMessages = { "Document Name cannot be empty!", "Doc ID cannot be empty!",
 				"Please enter a valid Date", "Please enter a valid Time",
@@ -1529,7 +1516,6 @@ public class TestCooperatorService {
 		assertEquals(newdocName, allDocuments.get(0).getDocName());
 		assertEquals(newsubDate.toString(), allDocuments.get(0).getSubDate().toString());
 		assertEquals(newsubTime.toString(), allDocuments.get(0).getSubTime().toString());
-		// TODO
 	}
 
 	/**
@@ -1582,8 +1568,6 @@ public class TestCooperatorService {
 		assertEquals(1, service.getAllEmployers().size());
 
 		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, student, employer);
-		Integer termId = coopTerm.getTermId();
-
 
 		// Create new document object
 		testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, coopTerm);
@@ -1605,11 +1589,15 @@ public class TestCooperatorService {
 		}
 
 		assertEquals(0,service.getAllDocuments().size());
-		// TODO
 	}
 
 	// ==========================================================================================
-
+	//Tests for the use cases (business methods)
+	//============================================================================================
+	
+	/**
+	 * * test the viewStudentDocument
+	 */
 	@Test
 	public void testViewStudentDocument() {
 
@@ -1638,6 +1626,9 @@ public class TestCooperatorService {
 		assertEquals(doc, newDoc.getDocName());
 	}
 	
+	/**
+	 * * test the viewEmployerDocument 
+	 */
 	@Test
 	public void testViewEmployerDocument() {
 
@@ -1666,6 +1657,10 @@ public class TestCooperatorService {
 		assertEquals(doc, newDoc.getDocName());
 	}
 	
+
+	/**
+	 * * test the viewStudentFiles 
+	 */
 	@Test
 	public void testUserLogin() {
 //		assertEquals(0, service.getAllEmployers().size());
@@ -1898,6 +1893,10 @@ public class TestCooperatorService {
 
 	}
 
+	
+	/**
+	 * * test the viewEmployerFiles 
+	 */
 	@Test
 	public void testViewEmployerFiles() {
 
@@ -1944,8 +1943,7 @@ public class TestCooperatorService {
 		}
 
 		assertEquals(2, list.size());
-
-
 	}
+	
 
 }

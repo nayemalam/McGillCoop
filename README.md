@@ -39,10 +39,10 @@ This software system is subdivided into four deliverables:
 
 ## Deliverable 1 - Requirements, Domain Model, Database Design
 
-|Team member's name|Total hours|Responsibility         |
+|Team member's name|Total hours   |Responsibility         |
 |------------------|--------------|-----------------------|
 |Tristan Bouchard  |  _41_ hours  |Mobile frontend lead   |
-|Nayem Alam        |  _5*10<sup>6</sup>_ hours   |Project management lead|
+|Nayem Alam        |  _25_ hours  |Project management lead|
 |Alex Masciotra    |  _39_ hours  |                       |
 |Thomas Philippon  |  _27_ hours  |                       |
 |Violet Wei        |  _24_ hours  |                       |
@@ -56,6 +56,14 @@ This software system is subdivided into four deliverables:
 - [x] Use a Continuous Integration process using Travis CI to build and test the database persistence layer
 
 ## Deliverable 2 - Backend, Testing
+
+|Team member's name|Total hours   |Responsibility         |
+|------------------|--------------|-----------------------|
+|Tristan Bouchard  |  _X_ hours  |Backend lead + Frontend |
+|Nayem Alam        |  _X_ hours  |Frontend lead + Backend |
+|Alex Masciotra    |  _X_ hours  |Backend Champ + Frontend|
+|Thomas Philippon  |  _X_ hours  |Backend Champ + Frontend|
+|Violet Wei        |  _X_ hours  |Frontend Champ + Backend|
 
 :star2: [Software Quality Assurance Plan](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Software-Quality-Assurance-Plan)
 
