@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.cooperator.dto;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import ca.mcgill.ecse321.cooperator.model.CoopTerm;
@@ -13,24 +14,37 @@ import ca.mcgill.ecse321.cooperator.model.Student;
 
 public class CoopTermDto {
 
-	private Student student;
+	private StudentDto student;
+	private int termId;
 	private Date startDate;
 	private Date endDate;
-	private Employer employer;
-	private Set<Document> document;
+	private EmployerDto employer;
+	private List<DocumentDto> document;
 	
 	@SuppressWarnings("unchecked")
-	public CoopTermDto(Date startDate, Date endDate, Student student, Employer employer) {
+	public CoopTermDto(int termId, Date startDate, Date endDate, StudentDto studentDto, EmployerDto employerDto) {
 		
-		this.student = student;
+		this.termId = termId;
+		this.student = studentDto;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.employer = employer;
-		this.document = Collections.EMPTY_SET;
+		this.employer = employerDto;
 	}
 	
+public CoopTermDto(int termId, Date startDate, Date endDate, StudentDto studentDto, EmployerDto employerDto, List<DocumentDto> doc) {
+		
+		this.termId = termId;
+		this.student = studentDto;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.employer = employerDto;
+		this.document = doc;
+	}
 	
-	  public Student getStudent() {
+	 public int getTermId() {
+		 return termId;
+	 }
+	  public StudentDto getStudent() {
 	      return student;
 	   }
 	  
@@ -42,11 +56,11 @@ public class CoopTermDto {
 		  return endDate;
 		  }
 	  
-	  public Employer getEmployer() {
+	  public EmployerDto getEmployer() {
 		   return employer;
 		}
 	  
-	   public Set<Document> getDocument() {
+	   public List<DocumentDto> getDocument() {
 		      return document;
 		   }	
 }

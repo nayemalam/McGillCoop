@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.cooperator.dto;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import ca.mcgill.ecse321.cooperator.model.CoopTerm;
@@ -9,7 +10,7 @@ public class StudentDto {
 	
 	
 	
-	   private Set<CoopTerm> coopTerm;
+	   private List<CoopTermDto> coopTerm;
 	   private String program;
 	   private Integer studentId;
 	   private String fName;
@@ -18,7 +19,7 @@ public class StudentDto {
 	   private String password;
 	   private String name;
 	   
-	   @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	public StudentDto(String name, String fName, String emailAddress, String userName, String password, Integer studentId, String program) {
 		   this.emailAddress = emailAddress;
 		   this.fName = fName;
@@ -27,10 +28,22 @@ public class StudentDto {
 		   this.program = program;
 		   this.studentId = studentId;
 		   this.userName  = userName;	
-		   this.coopTerm = Collections.EMPTY_SET;
+		  	   
+	   }
+	
+	@SuppressWarnings("unchecked")
+	public StudentDto(String name, String fName, String emailAddress, String userName, String password, Integer studentId, String program, List<CoopTermDto> coopTerms) {
+		   this.emailAddress = emailAddress;
+		   this.fName = fName;
+		   this.name = name;
+		   this.password = password;
+		   this.program = program;
+		   this.studentId = studentId;
+		   this.userName  = userName;	
+		   this.coopTerm = coopTerms;
 		   
 	   }
-	   
+	
 	   public String getFirstName() {
 			return fName;
 		}
@@ -47,7 +60,7 @@ public class StudentDto {
 			return name;
 		}
 		
-		 public Set<CoopTerm> getCoopTerm() {
+		 public List<CoopTermDto> getCoopTerm() {
 		      return coopTerm;
 		   }
 		 
@@ -58,6 +71,11 @@ public class StudentDto {
 		 public Integer getStudentId() {
 		      return studentId;
 		   }
+		 
+		 @SuppressWarnings("unchecked")
+		public void setCoopTerms(List<CoopTermDto> terms) {
+				this.coopTerm =  terms;
+			} 
 
 
 }

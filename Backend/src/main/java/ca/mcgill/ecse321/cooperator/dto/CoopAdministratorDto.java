@@ -11,8 +11,8 @@ import ca.mcgill.ecse321.cooperator.model.Student;
 
 public class CoopAdministratorDto {
 	
-	private Set<Employer> employer;
-	private Set<Student> student;
+	private List<EmployerDto> employer;
+	private List<StudentDto> student;
 	private String fName;
 	private String emailAddress;
 	private String userName;
@@ -29,8 +29,19 @@ public class CoopAdministratorDto {
 		   this.name = name;
 		   this.password = password;
 		   this.userName  = userName;	
-		   this.employer = Collections.EMPTY_SET;
-		   this.student = Collections.EMPTY_SET;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public CoopAdministratorDto(String name, String fName, String emailAddress,
+			String userName, String password, List<EmployerDto> employerList, List<StudentDto> studentList) {
+		
+		   this.emailAddress = emailAddress;
+		   this.fName = fName;
+		   this.name = name;
+		   this.password = password;
+		   this.userName  = userName;
+		   this.employer = employerList;
+		   this.student = studentList;
 	}
 	
 	  public String getFirstName() {
@@ -49,12 +60,12 @@ public class CoopAdministratorDto {
 			return name;
 		}
 		
-		public Set<Student> getStudent() {
+		public List<StudentDto> getStudent() {
 		      return student;
 		      
 		}
 		
-		public Set<Employer> getEmployer() {
+		public List<EmployerDto> getEmployer() {
 			   return employer;
 			}
 }

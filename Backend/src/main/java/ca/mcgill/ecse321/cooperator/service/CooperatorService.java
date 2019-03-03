@@ -163,6 +163,18 @@ public class CooperatorService {
 		return studentRepository.findByuserID(id);
 
 	}
+	
+	//I added this method for the mock tests (Thomas) 
+	/**
+	 * Finds and retrieves a student from the database based on the last name
+	 * 
+	 * @param lastName Student last name String
+	 * @return Requested Student.
+	 */
+	@Transactional
+	public Student getStudentByName(String lastName) {
+		return studentRepository.findByLastName(lastName);
+	}
 
 	/**
 	 * Updates the Student information in the database based on the User ID number
@@ -839,6 +851,12 @@ public class CooperatorService {
 	@Transactional
 	public Employer getEmployer(Integer id) {
 		Employer user = employerRepository.findByuserID(id);
+		return user;
+	}
+	
+	@Transactional
+	public Employer getEmployerByLastName(String name) {
+		Employer user = employerRepository.findByLastName(name);
 		return user;
 	}
 
