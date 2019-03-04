@@ -4,7 +4,9 @@
 
 # Introduction
 
-View our :star2: [Deliverable 1 Report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-1-Report)  :star2: [Deliverable 2 Report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-2-Report)
+View our <br/>
+:star2: [Deliverable 1 Report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-1-Report) <br/> 
+:star2: [Deliverable 2 Report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-2-Report)
 
 ### Scope of Project
 
@@ -37,7 +39,7 @@ This software system is subdivided into four deliverables:
 - [Violet Wei](https://github.com/violetwei)       &rarr; Major in Software Engineering
 
 
-## Deliverable 1 - Requirements, Domain Model, Database Design
+## [Deliverable 1](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-1-Report) - Requirements, Domain Model, Database Design
 
 |Team member's name|Total hours   |Responsibility         |
 |------------------|--------------|-----------------------|
@@ -55,7 +57,7 @@ This software system is subdivided into four deliverables:
 - [x] Configure a build system using Gradle
 - [x] Use a Continuous Integration process using Travis CI to build and test the database persistence layer
 
-## Deliverable 2 - Backend, Testing
+## [Deliverable 2](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-2-Report) - Backend, Testing
 
 |Team member's name|Total hours   |Responsibility         |
 |------------------|--------------|-----------------------|
@@ -64,8 +66,6 @@ This software system is subdivided into four deliverables:
 |Alex Masciotra    |  _X_ hours  |Backend Champ + Frontend|
 |Thomas Philippon  |  _X_ hours  |Backend Champ + Frontend|
 |Violet Wei        |  _X_ hours  |Frontend Champ + Backend|
-
-:star2: [Software Quality Assurance Plan](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Software-Quality-Assurance-Plan)
 
 ### Sprint 2 (Backend)
 - [ ] Implement RESTful web service using Java Spring Boot
