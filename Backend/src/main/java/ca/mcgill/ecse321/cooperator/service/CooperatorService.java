@@ -33,7 +33,7 @@ import java.util.*;
 //import javax.mail.*;
 //import javax.mail.internet.*;
 import javax.activation.*;
-import javax.mail.MessagingException;
+//import javax.mail.MessagingException;
 
 import java.io.IOException;
 import java.lang.Exception;
@@ -723,8 +723,7 @@ public class CooperatorService {
 	 * @throws MessagingException - If the email cannot be sent.
 	 */
 	@Transactional
-	public Boolean sendReminder(Integer coopAdminUserId, Integer studentUserID, Integer notifType)
-			throws MessagingException {
+	public Boolean sendReminder(Integer coopAdminUserId, Integer studentUserID, Integer notifType) {
 //		// Verify if the Student exists in database
 //		if(studentRepository.existsById(studentUserID) && coopAdministratorRepository.existsById(coopAdminUserId)){
 //			// Get student from database based on the UserID
