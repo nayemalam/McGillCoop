@@ -964,15 +964,17 @@ public class CooperatorService {
 
 	}
 
+	
+	Set<Document> documentsSet = Collections.emptySet();
+
 	/**
 	 * Views the Employer files in the database
 	 * 
-	 * @param id user ID number of the employer, termId of the CoopTerm
+	 * @param id - user ID number of the employer
+	 * @param termId  - termId of the CoopTerm
 	 * @return Set of Documents submitted by the Student and Employer for that
 	 *         CoopTerm
 	 */
-	Set<Document> documentsSet = Collections.emptySet();
-
 	@Transactional
 	public List<Document> viewEmployerFiles(Integer id, Integer termId) {
 		List<Document> doc_list = new ArrayList<Document>();
