@@ -1,1 +1,6 @@
+ca.mcgill.ecse321.cooperator
+ca.mcgill.ecse321.cooperator.controller
+ca.mcgill.ecse321.cooperator.dao
+ca.mcgill.ecse321.cooperator.dto
+ca.mcgill.ecse321.cooperator.model
 ca.mcgill.ecse321.cooperator.service
