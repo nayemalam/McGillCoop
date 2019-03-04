@@ -68,7 +68,7 @@ This software system is subdivided into four deliverables:
 |Nayem Alam        |  _27_ hours  |Backend Testing + Documentation |
 |Alex Masciotra    |  _27_ hours  |Backend RESTful endpoint Manager|
 |Thomas Philippon  |  _31_ hours  |Mockito & Controller Manager|
-|Violet Wei        |  _X_ hours  |Tester|
+|Violet Wei        |  _19_ hours  |Tester + Documentation |
 
 ### Sprint 2 (Backend)
 - [ ] Implement RESTful web service using Java Spring Boot
