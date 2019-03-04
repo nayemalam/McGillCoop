@@ -636,7 +636,7 @@ public class CooperatorService {
 	 * @author Tristan Bouchard
 	 *
 	 */
-	class termStatistics {
+	public class termStatistics {
 
 		// Member variables
 		private Integer numberAtWork_;
