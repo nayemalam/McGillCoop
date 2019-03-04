@@ -152,12 +152,126 @@ public class CooperatorController {
 		public List<StudentDto> IncompletePlacement(){
 			
 			List<Student> studentList = service.getIncompletePlacements();
-			List<StudentDto> studentDtoList = convertToDto(studentList);
+			List<StudentDto> studentDtoList = convertToStudentDto(studentList);
 			return studentDtoList;
 		}
 	
 		
-	
+		//=========================================================================================
+		//USE CASE View StudentFiles
+		//=========================================================================================
+			/**
+			 * RESTFUL end point for a coopAdministrator view student files 
+			 * 
+			 * @param id   - The student userId
+			 * @param password - The CoopTerm Id
+			 * @return List of documents
+			 */
+		@GetMapping(value = {"/viewStudentFiles/", "/viewStudentFiles"})
+		public List<DocumentDto> viewStudentFiles(@RequestParam Integer userId, @RequestParam Integer termId){
+			List<Document> documents = new ArrayList<>();
+			documents = service.viewStudentFiles(userId, termId);
+			List<DocumentDto> documentDtoList = new ArrayList<>();
+			documentDtoList = convertToDocumentDto(documents);
+			
+			return documentDtoList;
+			
+		}
+		
+	//=========================================================================================
+			//USE CASE View EmployerFiles
+			//=========================================================================================
+				/**
+				 * RESTFUL end point for a coopAdministrator view Employer files 
+				 * 
+				 * @param id   - The employer userId
+				 * @param password - The CoopTerm Id
+				 * @return List of documents
+				 */
+			@GetMapping(value = {"/viewemployerfiles/", "/viewemployerfiles"})
+			public List<DocumentDto> viewEmployerFiles(@RequestParam Integer userId, @RequestParam Integer termId){
+				List<Document> documents = new ArrayList<>();
+				documents = service.viewEmployerFiles(userId, termId);
+				List<DocumentDto> documentDtoList = new ArrayList<>();
+				documentDtoList = convertToDocumentDto(documents);
+				
+				return documentDtoList;
+				
+			}
+			
+			//=========================================================================================
+			//USE CASE Modify StudentFiles
+			//=========================================================================================
+				/**
+				 * RESTFUL end point for a coopAdministrator edit Student files 
+				 * 
+				 * @param id   - The student userId
+				 * @param password - The CoopTerm Id
+				 * @param documentName - The documentName
+				 * @param dueDate - The new dateDue
+				 * @param dueTime - The new dueTime
+				 * @param subDate - The new subDate
+				 * @param subTime - The new subTime
+				 * @return updated Document file
+				 */
+			@GetMapping(value = {"/modifyStudentFiles/", "modifyStudentFiles"})
+			public DocumentDto modifyStudentFiles(@RequestParam Integer userId, @RequestParam Integer termId,
+					@RequestParam DocumentName docName, @RequestParam Date dueDate, 
+					@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime dueTime, 
+					@RequestParam Date subDate, 
+					@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime subTime ){
+				
+				Document document_modif = new Document();
+				
+				
+				document_modif = service.viewStudentDocument(userId, termId, docName);
+				Integer docId = document_modif.getDocId();
+				
+				service.updateDocument(docName, docId, dueDate, Time.valueOf(dueTime), subDate, Time.valueOf(subTime));
+				
+				DocumentDto documentDto = convertToDto(document_modif);
+				return documentDto;
+				
+			}
+			
+			
+			//=========================================================================================
+			//USE CASE Modify EmployerFiles
+			//=========================================================================================
+				/**
+				 * RESTFUL end point for a coopAdministrator edit Employer files 
+				 * 
+				 * @param id   - The employer userId
+				 * @param password - The CoopTerm Id
+				 * @param documentName - The documentName
+				 * @param dueDate - The new dateDue
+				 * @param dueTime - The new dueTime
+				 * @param subDate - The new subDate
+				 * @param subTime - The new subTime
+				 * @return updated Document file
+				 */
+		@GetMapping(value = {"/modifyEmployerFiles/", "modifyEmployerFiles"})
+		public DocumentDto modifyEmployerFiles(@RequestParam Integer userId, @RequestParam Integer termId,
+				@RequestParam DocumentName docName, @RequestParam Date dueDate, 
+				@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime dueTime, 
+				@RequestParam Date subDate, 
+				@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime subTime ){
+			
+			Document document_modif = new Document();
+			
+			
+			document_modif = service.viewEmployerDocument(userId, termId, docName);
+			Integer docId = document_modif.getDocId();
+			
+			service.updateDocument(docName, docId, dueDate, Time.valueOf(dueTime), subDate, Time.valueOf(subTime));
+			
+			DocumentDto documentDto = convertToDto(document_modif);
+			return documentDto;
+			
+		}
+			
+			
+				
 	//POST A COOPTERM 
 	@PostMapping(value = { "/coopterms/", "/coopterms"})
 	public CoopTermDto createCoopTerm(@RequestParam Date startDate, @RequestParam Date endDate, @RequestParam String studLastName, 
@@ -298,7 +412,7 @@ private CoopAdministratorDto convertToDto(CoopAdministrator coopAdmin) {
 	
 	
 	//Method for converting a student list to a studentDto list
-	private List<StudentDto> convertToDto(List<Student> studentList) {
+	private List<StudentDto> convertToStudentDto(List<Student> studentList) {
 		
 		List<StudentDto> studentDtoList = new ArrayList<>();
 		for (Student student : studentList) {
@@ -306,6 +420,19 @@ private CoopAdministratorDto convertToDto(CoopAdministrator coopAdmin) {
 		}
 		return studentDtoList;
 	}
+	
+	//Method for converting a Document list to a documentDto list
+		private List<DocumentDto> convertToDocumentDto(List<Document> documentList) {
+			
+			List<DocumentDto> documentDtoList = new ArrayList<>();
+			for (Document document : documentList) {
+				documentDtoList.add(convertToDto(document));
+			}
+			return documentDtoList;
+		}
+
+	
+	
 	
 
 }

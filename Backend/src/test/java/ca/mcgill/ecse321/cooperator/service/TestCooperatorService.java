@@ -1488,7 +1488,6 @@ public class TestCooperatorService {
 		assertEquals(1, service.getAllEmployers().size());
 
 		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, student, employer);
-		Integer termId = coopTerm.getTermId();
 
 		// Create new document object
 		testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, coopTerm);
@@ -1508,7 +1507,7 @@ public class TestCooperatorService {
 		assertEquals(1, service.getAllDocuments().size());
 
 		try {
-			service.updateDocument(newdocName, docId, dueDate, dueTime, newsubDate, newsubTime, coopTerm);
+			service.updateDocument(newdocName, docId, dueDate, dueTime, newsubDate, newsubTime);
 		} catch (IllegalArgumentException e) {
 			// Check that no error occurred
 			fail();
