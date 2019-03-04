@@ -1661,7 +1661,7 @@ public class TestCooperatorService {
 	
 
 	/**
-	 * * test the viewStudentFiles 
+	 * * test the login service method
 	 */
 	@Test
 	public void testUserLogin() {
@@ -1716,6 +1716,9 @@ public class TestCooperatorService {
 
 	}
 
+	/**
+	 * Test the boolean isIncomplete method
+	 */
 	@Test
 	public void testIsIncomplete() {
 		//Create document
@@ -1786,6 +1789,9 @@ public class TestCooperatorService {
 
 	}
 
+	/**
+	 * test the IncompletePlacements method from the service
+	 */
 	@Test
 	public void testGetIncompletePlacements() {
 		/* ============
@@ -1855,8 +1861,9 @@ public class TestCooperatorService {
 		assertEquals(1, studentList.size());
 	}
 
-
-
+	/**
+	 * Test the viewStudentFiles method
+	 */
 	@Test
 	public void  testViewStudentFiles() {
 
@@ -1907,7 +1914,7 @@ public class TestCooperatorService {
 
 	
 	/**
-	 * * test the viewEmployerFiles 
+	 * test the viewEmployerFiles 
 	 */
 	@Test
 	public void testViewEmployerFiles() {
