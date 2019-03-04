@@ -32,6 +32,12 @@ import ca.mcgill.ecse321.cooperator.model.Student;
 import ca.mcgill.ecse321.cooperator.model.SystemUser;
 import ca.mcgill.ecse321.cooperator.service.CooperatorService;
 
+/**
+ * Controller for the backend services. Provides RESTful endpoints
+ * 
+ * @author Alex Masciotra
+ *
+ */
 @CrossOrigin(origins = "*")
 @RestController
 public class CooperatorController {
@@ -39,6 +45,19 @@ public class CooperatorController {
 	@Autowired
 	private CooperatorService service;
 
+	/**
+	 * Post a student object to the database. Available at
+	 * https://cooperator-backend-21.herokuapp.com/students/{name}
+	 * 
+	 * @param name         - Last name of the Student
+	 * @param fName        - First name of the Student
+	 * @param emailAddress - Email address of the student
+	 * @param userName     - Username of the Student
+	 * @param password     - Password of the student
+	 * @param studentId    - McGill student ID of the student
+	 * @param program      - Student undergraduate program of study
+	 * @return {@code StudentDto} Newly created student
+	 */
 	// POST A STUDENT
 	@PostMapping(value = { "/students/{name}", "/students/{name}/" })
 	public StudentDto createStudent(@PathVariable("name") String name, @RequestParam String fName,
@@ -49,6 +68,12 @@ public class CooperatorController {
 
 	}
 
+	/**
+	 * Get a list of all students in the database. Available at
+	 * https://cooperator-backend-21.herokuapp.com/students/
+	 * 
+	 * @return Requested {@code List<StudentDto>}
+	 */
 	// GET THE LIST OF STUDENTS
 	@GetMapping(value = { "/students/", "/students" })
 	public List<StudentDto> getAllStudents() {
@@ -61,6 +86,19 @@ public class CooperatorController {
 		return studentDtos;
 	}
 
+	/**
+	 * Post a new employer to the database. Available at
+	 * https://cooperator-backend-21.herokuapp.com/employers/{name}
+	 * 
+	 * @param name         - Last name of the employer
+	 * @param fName        - First name of the employer
+	 * @param emailAddress - Email address of the employer
+	 * @param userName     - Username of the employer
+	 * @param password     - password of the employer
+	 * @param companyName  - Employer's company name
+	 * @param location     - Company location
+	 * @return Requested {@code EmployerDto} if it exists
+	 */
 	// POST AN EMPLOYER
 	@PostMapping(value = { "/employers/{name}", "/employers/{name}/" })
 	public EmployerDto createEmployer(@PathVariable("name") String name, @RequestParam String fName,
@@ -71,6 +109,12 @@ public class CooperatorController {
 		return convertToDto(employer);
 	}
 
+	/**
+	 * Obtain a list of all employers present in the database. Available at
+	 * https://cooperator-backend-21.herokuapp.com/employers/
+	 * 
+	 * @return Requested {@code List<EmployerDto>}
+	 */
 	// GET A LIST OF EMPLOYERS
 	@GetMapping(value = { "/employers/", "/employers" })
 	public List<EmployerDto> getAllEmployers() {
@@ -83,6 +127,17 @@ public class CooperatorController {
 		return employerDtos;
 	}
 
+	/**
+	 * Post a new coopAdmin to the database. Available at
+	 * https://cooperator-backend-21.herokuapp.com/coopAdmins/{name}
+	 * 
+	 * @param lastName     - Last name of the coop administrator
+	 * @param fName        - First name of the coop administrator
+	 * @param emailAddress - Email address of CoopAdministrator
+	 * @param userName     - UserName of the CoopAdministrator
+	 * @param password     - Password of the CoopAdministrator
+	 * @return Newly created {@code CoopAdministratorDto}
+	 */
 	// POST A COOPADMIN
 	@PostMapping(value = { "/coopAdmins/{name}", "/coopAdmins/{name}/" })
 	public CoopAdministratorDto createCoopAdmin(@PathVariable("name") String lastName, @RequestParam String fName,
@@ -92,6 +147,12 @@ public class CooperatorController {
 		return convertToDto(coopAdmin);
 	}
 
+	/**
+	 * Get a list of all CoopAdministrators in the database. Available at
+	 * https://cooperator-backend-21.herokuapp.com/coopAdmins
+	 * 
+	 * @return {@code List<CoopAdministratorDto>}
+	 */
 	// GET A LIST OF COOPADMINISTRATORS
 	@GetMapping(value = { "/coopAdmins/", "/coopAdmins" })
 	public List<CoopAdministratorDto> getAllCoopAdministrator() {
@@ -189,13 +250,13 @@ public class CooperatorController {
 	 * RESTFUL end point for a coopAdministrator edit Student files. Available at
 	 * https://cooperator-backend-21.herokuapp.com/modifyStudentFiles
 	 * 
-	 * @param id           - The student userId
-	 * @param password     - The CoopTerm Id
-	 * @param documentName - The documentName
-	 * @param dueDate      - The new dateDue
-	 * @param dueTime      - The new dueTime
-	 * @param subDate      - The new subDate
-	 * @param subTime      - The new subTime
+	 * @param userId  - The student userId
+	 * @param termId  - The CoopTerm Id
+	 * @param docName - The documentName
+	 * @param dueDate - The new dateDue
+	 * @param dueTime - The new dueTime
+	 * @param subDate - The new subDate
+	 * @param subTime - The new subTime
 	 * @return updated Document file {@code DocumentDto}
 	 */
 	@GetMapping(value = { "/modifyStudentFiles/", "modifyStudentFiles" })
@@ -224,13 +285,13 @@ public class CooperatorController {
 	 * RESTFUL end point for a coopAdministrator edit Employer files. Available at
 	 * https://cooperator-backend-21.herokuapp.com/modifyEmployerFiles/
 	 * 
-	 * @param id           - The employer userId
-	 * @param password     - The CoopTerm Id
-	 * @param documentName - The documentName
-	 * @param dueDate      - The new dateDue
-	 * @param dueTime      - The new dueTime
-	 * @param subDate      - The new subDate
-	 * @param subTime      - The new subTime
+	 * @param userId  - The employer userId
+	 * @param termId  - The CoopTerm Id
+	 * @param docName - The documentName
+	 * @param dueDate - The new dateDue
+	 * @param dueTime - The new dueTime
+	 * @param subDate - The new subDate
+	 * @param subTime - The new subTime
 	 * @return updated Document file {@code DocumentDto}
 	 */
 	@GetMapping(value = { "/modifyEmployerFiles/", "modifyEmployerFiles" })
@@ -428,6 +489,12 @@ public class CooperatorController {
 	// ===============================================================================
 	// METHODS RELATED TO CONVERTING OBJECTS TO DTO
 	// ===============================================================================
+	/**
+	 * Method used to convert the database Student to a DTO
+	 * 
+	 * @param student - Student to convert
+	 * @return DTO object of the student
+	 */
 	private StudentDto convertToDto(Student student) {
 		if (student == null) {
 			throw new IllegalArgumentException("There is no such Student!");
@@ -438,6 +505,12 @@ public class CooperatorController {
 		return studentDto;
 	}
 
+	/**
+	 * Method used to convert the database Employer to a DTO
+	 * 
+	 * @param employer - Employer to convert
+	 * @return DTO object of the employer
+	 */
 	private EmployerDto convertToDto(Employer employer) {
 
 		EmployerDto employerDto = new EmployerDto(employer.getLastName(), employer.getFirstName(),
@@ -447,6 +520,12 @@ public class CooperatorController {
 		return employerDto;
 	}
 
+	/**
+	 * Method used to convert the database CoopAdministrator to a DTO
+	 * 
+	 * @param coopAdmin - CoopAdministrator to convert
+	 * @return DTO object of the coopAdmin
+	 */
 	private CoopAdministratorDto convertToDto(CoopAdministrator coopAdmin) {
 
 		CoopAdministratorDto coopAdministratorDto = new CoopAdministratorDto(coopAdmin.getLastName(),
@@ -455,6 +534,15 @@ public class CooperatorController {
 		return coopAdministratorDto;
 	}
 
+	/**
+	 * Method used to convert the CoopTerm database object to a DTO
+	 * 
+	 * @param coopTerm - CoopTerm object to convert
+	 * @param student  - Student associated to the CoopTerm
+	 * @param employer - Employer associated to the CoopTerm
+	 * @param termId   - TermId of the CoopTerm
+	 * @return DTO of the CoopTerm
+	 */
 	private CoopTermDto convertToDto(CoopTerm coopTerm, Student student, Employer employer, Integer termId) {
 
 		StudentDto studentDto = convertToDto(student);
@@ -465,6 +553,12 @@ public class CooperatorController {
 		return coopTermDto;
 	}
 
+	/**
+	 * Method used to convert the CoopTerm database object to a DTO
+	 * 
+	 * @param coopTerm
+	 * @return DTO of the CoopTerm
+	 */
 	private CoopTermDto convertToDto(CoopTerm coopTerm) {
 		if (coopTerm == null) {
 			throw new IllegalArgumentException("There is no such Event!");
@@ -474,6 +568,12 @@ public class CooperatorController {
 		return coopTermDto;
 	}
 
+	/**
+	 * Method used to convert the Document database object to a DTO
+	 * 
+	 * @param document
+	 * @return The DTO object of the document
+	 */
 	private DocumentDto convertToDto(Document document) {
 
 		DocumentDto documentDto = new DocumentDto(document.getDocName(), document.getDueDate(), document.getDueTime(),
@@ -481,6 +581,12 @@ public class CooperatorController {
 		return documentDto;
 	}
 
+	/**
+	 * Method used to create a CoopTerm DTO for a student
+	 * 
+	 * @param student - Student for which to create a CoopTermDto
+	 * @return {@code List<CoopTermDto}
+	 */
 	private List<CoopTermDto> createCoopTermDtosForStudent(Student student) {
 		List<CoopTerm> coopTerms = service.getAllCoopTerms();
 		List<CoopTermDto> coopTermList = new ArrayList<>();
@@ -492,6 +598,12 @@ public class CooperatorController {
 		return coopTermList;
 	}
 
+	/**
+	 * Method used to create CoopTermDto's for an Employer
+	 * 
+	 * @param employer - Employer for which to create CoopTerms
+	 * @return {@code List<CoopTermDto>}
+	 */
 	private List<CoopTermDto> createCoopTermDtosForEmployer(Employer employer) {
 		List<CoopTerm> coopTerms = service.getAllCoopTerms();
 		List<CoopTermDto> coopTermList = new ArrayList<>();
@@ -504,6 +616,12 @@ public class CooperatorController {
 		return coopTermList;
 	}
 
+	/**
+	 * Method used to create document DTO's for a CoopTerm
+	 * 
+	 * @param coopTerm - CoopTerm for which to create DTO's
+	 * @return {@code List<DocumentDto>}
+	 */
 	private List<DocumentDto> createDocumentDtosForCoopTerm(CoopTerm coopTerm) {
 		List<Document> documentList = service.getAllDocuments();
 		List<DocumentDto> documentDtoList = new ArrayList<>();
@@ -516,6 +634,12 @@ public class CooperatorController {
 		return documentDtoList;
 	}
 
+	/**
+	 * Method used to convert a list of Student object to DTO's
+	 * 
+	 * @param studentList - List
+	 * @return {@code List<StudentDto>}
+	 */
 	// Method for converting a student list to a studentDto list
 	private List<StudentDto> convertToStudentDto(List<Student> studentList) {
 
@@ -526,6 +650,12 @@ public class CooperatorController {
 		return studentDtoList;
 	}
 
+	/**
+	 * Method used to convert a list of Documents to DTO's
+	 * 
+	 * @param documentList - List of Documents to convert
+	 * @return {@code List<DocumentDto><}
+	 */
 	// Method for converting a Document list to a documentDto list
 	private List<DocumentDto> convertToDocumentDto(List<Document> documentList) {
 

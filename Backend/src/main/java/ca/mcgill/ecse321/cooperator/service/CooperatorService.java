@@ -1130,7 +1130,6 @@ public class CooperatorService {
 	 * @param dueTime  - Deadline time
 	 * @param subDate  - Student submission date
 	 * @param subTime  - Student submission time
-	 * @param coopTerm - CoopTerm associated with the document
 	 * @return {@code true} if document successfully updated, {@code false}
 	 *         otherwise
 	 */
