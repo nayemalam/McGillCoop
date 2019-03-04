@@ -33,6 +33,7 @@ import java.util.*;
 //import javax.mail.*;
 //import javax.mail.internet.*;
 import javax.activation.*;
+import javax.mail.MessagingException;
 
 import java.io.IOException;
 import java.lang.Exception;
@@ -90,8 +91,8 @@ public class CooperatorService {
 	 * Unused, as all types of users have this method
 	 * 
 	 * @deprecated
-	 * @param id
-	 * @return
+	 * @param id - UserID of the user in database
+	 * @return {@code False}, no code actually executed
 	 */
 	@Transactional
 	public boolean deleteUser(Integer id) {
@@ -107,14 +108,14 @@ public class CooperatorService {
 	/**
 	 * Creates a new Student object and stores it in the database
 	 * 
-	 * @param name         Last name of the individual
-	 * @param fName        First name of the individual
-	 * @param emailAddress Email Address of the user, used for login and
+	 * @param name         - Last name of the individual
+	 * @param fName        - First name of the individual
+	 * @param emailAddress - Email Address of the user, used for login and
 	 *                     notifications
-	 * @param userName     userName of the user, can be used for login purposes
-	 * @param password     Used for login purposes
-	 * @param studentID    McGill ID of the student
-	 * @param program      Student's undergraduate major program
+	 * @param userName     - userName of the user, can be used for login purposes
+	 * @param password     - Used for login purposes
+	 * @param studentId    - McGill ID of the student
+	 * @param program      - Student's undergraduate major program
 	 * @return Newly created user
 	 */
 	@Transactional
@@ -169,8 +170,8 @@ public class CooperatorService {
 		return studentRepository.findByuserID(id);
 
 	}
-	
-	//I added this method for the mock tests (Thomas) 
+
+	// I added this method for the mock tests (Thomas)
 	/**
 	 * Finds and retrieves a student from the database based on the last name
 	 * 
@@ -183,9 +184,18 @@ public class CooperatorService {
 	}
 
 	/**
-	 * Updates the Student information in the database based on the User ID number
+	 * Updates the Student information in the database based on the User ID number.
+	 * If the parameter is to remain unchanged, enter the previous student's
+	 * information
 	 * 
-	 * @param updatedStudent Modified student object, to be stored in database/
+	 * @param id           - UserID of the Student. Not modified
+	 * @param name         - Last name of the student
+	 * @param fName        - First Name of the student
+	 * @param emailAddress - Email address of the student
+	 * @param userName     - User Name of the student
+	 * @param password     - Password associated to the student, for login purposes
+	 * @param studentId    - McGill Student ID of the Student
+	 * @param program      - Major Undergraduate program of study
 	 * @return {@code true} if student successfully updated, {@code false} otherwise
 	 */
 	@Transactional
@@ -232,9 +242,15 @@ public class CooperatorService {
 	}
 
 	/**
-	 * Deletes Student from database using the User ID number
+	 * 
 	 * 
 	 * @param id System ID number of the user
+	 */
+	/**
+	 * Deletes Student from database using the User ID number
+	 * 
+	 * @param id - UserID of the student
+	 * @return {@code true} if properly deleted, {@code false} otherwise
 	 */
 	@Transactional
 	public Boolean deleteStudent(Integer id) {
@@ -250,8 +266,8 @@ public class CooperatorService {
 	/**
 	 * Verifies the existence of a student user in the database using the User ID
 	 * 
-	 * @param id user ID number of the user
-	 * @return True if student exists, false otherwise.
+	 * @param id - UserID number of the Student
+	 * @return {@code true} if student exists, {@code false} otherwise.
 	 */
 	@Transactional
 	public Boolean studentExists(Integer id) {
@@ -262,11 +278,10 @@ public class CooperatorService {
 	/**
 	 * Views the StudentFiles in the database
 	 * 
-	 * @param id user ID number of the student, termId of the CoopTerm
-	 * @return List of Documents submitted by the Student and Employer for that
-	 *         CoopTerm
+	 * @param id     - userID number of the student
+	 * @param termId - termId of the CoopTerm
+	 * @return A list of student Documents
 	 */
-
 	@Transactional
 	public List<Document> viewStudentFiles(Integer id, Integer termId) {
 		CoopTerm currentTerm = new CoopTerm();
@@ -304,7 +319,7 @@ public class CooperatorService {
 	 * @param id      - Student's UserID number
 	 * @param termId  - TermID for which to view the submissions
 	 * @param docname - Name of the document to view
-	 * @return
+	 * @return Single requested document
 	 */
 	@Transactional
 	public Document viewStudentDocument(Integer id, Integer termId, DocumentName docname) {
@@ -330,9 +345,10 @@ public class CooperatorService {
 
 	/**
 	 * Create new Cooperator System Class Not really needed but present, just in
-	 * case!
+	 * case.
 	 * 
 	 * @param systemId Identifier of the new system
+	 * @return Newly created Cooperator system
 	 */
 	@Transactional
 	public CooperatorSystem createCooperatorSystem(Integer systemId) {
@@ -350,7 +366,7 @@ public class CooperatorService {
 	 * Finds and retrieves a CooperatorSystem from the database based on the System
 	 * ID number
 	 * 
-	 * @param id System ID number
+	 * @param systemId - System ID number
 	 * @return Requested CooperatorSystem.
 	 */
 	@Transactional
@@ -361,6 +377,8 @@ public class CooperatorService {
 	/**
 	 * Obtain a list of all Cooperator systems. Again, not really needed, but
 	 * present in case
+	 * 
+	 * @return List of all CooperatorSystems in the database
 	 */
 	@Transactional
 	public List<CooperatorSystem> getAllCooperatorSystems() {
@@ -370,6 +388,7 @@ public class CooperatorService {
 	/**
 	 * Verifies if a CooperatorSystem exists in database based on the given ID
 	 * 
+	 * @param id - System ID of the CooperatorSystem
 	 * @return {@code true} if exists, {@code false} otherwise
 	 */
 	@Transactional
@@ -380,6 +399,8 @@ public class CooperatorService {
 
 	/**
 	 * Deletes the specified CooperatorSystem Object from the database
+	 * 
+	 * @param id - System ID of the Cooperator System in the database
 	 */
 	@Transactional
 	public void deleteCooperatorSystem(Integer id) {
@@ -392,13 +413,12 @@ public class CooperatorService {
 	/**
 	 * Creates a new CoopAdministrator object and stores it in the database
 	 * 
-	 * @param id           System ID attributed to new user
-	 * @param name         Last name of the individual
-	 * @param fName        First name of the individual
-	 * @param emailAddress Email Address of the user, used for login and
+	 * @param name         - Last name of the individual
+	 * @param fName        - First name of the individual
+	 * @param emailAddress - Email Address of the user, used for login and
 	 *                     notifications
-	 * @param userName     userName of the user, can be used for login purposes
-	 * @param password     Used for login purposes
+	 * @param userName     - userName of the user, can be used for login purposes
+	 * @param password     - Used for login purposes
 	 * @return Newly created user
 	 */
 	@Transactional
@@ -430,15 +450,26 @@ public class CooperatorService {
 		return user;
 	}
 
-	
 	/**
-	 * Updates the CoopAdministrator information in the database based on the User
-	 * ID number
+	 * 
 	 * 
 	 * @param updatedCoopAdministrator Modified coopAdministrator object, to be
 	 *                                 stored in database/
 	 * @return {@code true} if coopAdministrator successfully updated, {@code false}
 	 *         otherwise
+	 */
+	/**
+	 * Updates the CoopAdministrator information in the database based on updated
+	 * information
+	 * 
+	 * @param id           - UserID of the coopAdministrator object
+	 * @param name         - Last name of the Coop Administrator
+	 * @param fName        - First name of Coop Administrator
+	 * @param emailAddress - Email address of the Coop Administrator
+	 * @param userName     - UserName of the Coop Administrator, used for login
+	 *                     purposes
+	 * @param password     - Password of the Coop Administrator, for login
+	 * @return {@code true} if correctly modified {@code false} is not
 	 */
 	@Transactional
 	public Boolean updateCoopAdministrator(Integer id, String name, String fName, String emailAddress, String userName,
@@ -548,6 +579,7 @@ public class CooperatorService {
 	 * 
 	 * @param semesterDate - Date that falls within the semester's start and end
 	 *                     date
+	 * @return {@code TermStatistics} Object
 	 */
 	@Transactional
 	public termStatistics getStatisticsBySemester(Date semesterDate) {
@@ -648,10 +680,9 @@ public class CooperatorService {
 	}
 
 	/**
-	 * Statistic method used by getStatisticsBySemester
 	 * 
-	 * @param semesterDate - Date that falls within the semester's start and end
-	 *                     date
+	 * @param students - List of students
+	 * @return Integer size of list
 	 */
 	public Integer getAmountOfStudentsInCoopTerm(List<Student> students) {
 		return students.size();
@@ -663,7 +694,7 @@ public class CooperatorService {
 	 * 
 	 * @param students - {@code List<Student>} That contains the student objects
 	 * @param term     - Semester of study of students wanted in list
-	 * @return
+	 * @return {@code List<Student>}
 	 */
 	public List<Student> getSemesterOfStudy(List<Student> students, Integer term) {
 		List<Student> searchList = new ArrayList<>();
@@ -688,11 +719,12 @@ public class CooperatorService {
 	 *                        programmed to be whenever before an assignment. 2 is a
 	 *                        late submission notification. 3 gets a custom message,
 	 *                        can be a front-end feature.
-	 * @return
+	 * @return {@code true} is message is properly sent, {@code false} otherwise
 	 * @throws MessagingException - If the email cannot be sent.
 	 */
-//	@Transactional
-//	public Boolean sendReminder(Integer coopAdminUserId, Integer studentUserID, Integer notifType) throws MessagingException {
+	@Transactional
+	public Boolean sendReminder(Integer coopAdminUserId, Integer studentUserID, Integer notifType)
+			throws MessagingException {
 //		// Verify if the Student exists in database
 //		if(studentRepository.existsById(studentUserID) && coopAdministratorRepository.existsById(coopAdminUserId)){
 //			// Get student from database based on the UserID
@@ -751,8 +783,8 @@ public class CooperatorService {
 //			return true;
 //		}
 //		// If student ID does not exist
-//		return false;
-//	}
+		return false;
+	}
 
 	// ==========================================================================================
 
@@ -762,7 +794,6 @@ public class CooperatorService {
 	/**
 	 * Creates a new employer object and stores it in the database
 	 * 
-	 * @param id           System ID attributed to new user
 	 * @param name         Last name of the individual
 	 * @param fName        First name of the individual
 	 * @param emailAddress Email Address of the user, used for login and
@@ -815,6 +846,18 @@ public class CooperatorService {
 	 * Updates the Employer information in the database based on the User ID number
 	 * 
 	 * @param updatedEmployer Modified employer object, to be stored in database
+	 * @return
+	 */
+	/**
+	 * 
+	 * @param id           - UserId of the Employer
+	 * @param name         - Last name of the Employer
+	 * @param fName        - First name of the Employer
+	 * @param emailAddress - Email address of the Employer
+	 * @param userName     - userName of the Employer
+	 * @param password     - Password of the Employer
+	 * @param companyName  - Name of the company of the employer
+	 * @param location     - Location of the employer company
 	 * @return {@code true} if employer successfully updated, {@code false}
 	 *         otherwise
 	 */
@@ -865,7 +908,7 @@ public class CooperatorService {
 	/**
 	 * Obtains list of all employers in the database
 	 * 
-	 * @return
+	 * @return {@code List<Employer>}
 	 */
 	@Transactional
 	public List<Employer> getAllEmployers() {
@@ -883,7 +926,7 @@ public class CooperatorService {
 		Employer user = employerRepository.findByuserID(id);
 		return user;
 	}
-	
+
 	@Transactional
 	public Employer getEmployerByLastName(String name) {
 		Employer user = employerRepository.findByLastName(name);
@@ -998,7 +1041,7 @@ public class CooperatorService {
 	 * @param subDate  - Date of submission of the document
 	 * @param subTime  - Time of the document submission
 	 * @param coopTerm - CoopTerm associated to the document
-	 * @return
+	 * @return Newly created document
 	 */
 	@Transactional
 	public Document createDocument(DocumentName docName, Date dueDate, Time dueTime, Date subDate, Time subTime,
@@ -1048,7 +1091,7 @@ public class CooperatorService {
 	/**
 	 * Finds and retrieves a Document from the database based on the doc ID number
 	 * 
-	 * @param id document ID number
+	 * @param docId - document ID number
 	 * @return Requested Document.
 	 */
 	@Transactional
@@ -1060,8 +1103,8 @@ public class CooperatorService {
 	/**
 	 * Verifies the existence of a document user in the database using the Doc ID
 	 * 
-	 * @param id Doc ID number of the document
-	 * @return True if document exists, false otherwise.
+	 * @param docId - Doc ID number of the document
+	 * @return {@code true} if document exists, {@code false} otherwise.
 	 */
 	@Transactional
 	public Boolean documentExists(Integer docId) {
@@ -1070,9 +1113,22 @@ public class CooperatorService {
 	}
 
 	/**
-	 * Updates the Document information in the database based on the Doc ID number
+	 * 
 	 * 
 	 * @param updatedDocument Modified document object, to be stored in database/
+	 * @return
+	 */
+	/**
+	 * Updates the Document information in the database base on the passed
+	 * information
+	 * 
+	 * @param docName  - documentName according to the enumeration
+	 * @param docId    - docId of the document
+	 * @param dueDate  - Deadline date
+	 * @param dueTime  - Deadline time
+	 * @param subDate  - Student submission date
+	 * @param subTime  - Student submission time
+	 * @param coopTerm - CoopTerm associated with the document
 	 * @return {@code true} if document successfully updated, {@code false}
 	 *         otherwise
 	 */
@@ -1136,11 +1192,13 @@ public class CooperatorService {
 	// CoopTerm CRUD
 
 	/**
-	 * Create new CoopTerm. Must have associated student and employer created a priori
+	 * Create new CoopTerm. Must have associated student and employer created a
+	 * priori
+	 * 
 	 * @param startDate - Date of start of the Coop Term
-	 * @param endDate - Date of end of the CoopTerm
-	 * @param student - Student to associate to the CoopTerm
-	 * @param employer - Employer of the student for that CoopTerm
+	 * @param endDate   - Date of end of the CoopTerm
+	 * @param student   - Student to associate to the CoopTerm
+	 * @param employer  - Employer of the student for that CoopTerm
 	 * @return Created CoopTerm object
 	 */
 	@Transactional
@@ -1171,20 +1229,20 @@ public class CooperatorService {
 
 	/**
 	 * Get CoopTerm by specified TermId from the database
+	 * 
 	 * @param termId - TermID of the CoopTerm
-	 * @return
+	 * @return {@code CoopTerm} Object
 	 */
 	@Transactional
 	public CoopTerm getCoopTerm(Integer termId) {
 		CoopTerm coopTerm = coopTermRepository.findBytermId(termId);
 		return coopTerm;
 	}
-	
-	
 
 	/**
 	 * Obtain all CoopTerm objects from the database
-	 * @return
+	 * 
+	 * @return {@code List<CoopTerm>}
 	 */
 	@Transactional
 	public List<CoopTerm> getAllCoopTerms() {
@@ -1194,7 +1252,7 @@ public class CooperatorService {
 	/**
 	 * Verifies the existence of a coopterm in the database using the term ID
 	 * 
-	 * @param id term ID number of the coopTerm
+	 * @param termId - term ID number of the coopTerm
 	 * @return True if coopterm exists, false otherwise.
 	 */
 	@Transactional
@@ -1219,11 +1277,14 @@ public class CooperatorService {
 	}
 
 	/**
-	 * Updates the Coopterm information in the database based on the term ID number
+	 * Updates the Coopterm information in the database based on the new information
 	 * 
-	 * @param updatedCoopTerm Modified coopTerm object, to be stored in database/
-	 * @return {@code true} if coopterm successfully updated, {@code false}
-	 *         otherwise
+	 * @param startDate - New start date of the semester
+	 * @param endDate   - New end date of the semester
+	 * @param termId    - TermID of the associated CoopAdmin
+	 * @param student   - Associated student
+	 * @param employer  - Employer associated with the coopterm
+	 * @return {@code true} id properly modified, {@code false} otherwise
 	 */
 	@Transactional
 	public Boolean updateCoopTerm(Date startDate, Date endDate, Integer termId, Student student, Employer employer) {
@@ -1311,17 +1372,18 @@ public class CooperatorService {
 	 * Method used by The getIncompleteStatements, which verifies the placements of
 	 * a specified user
 	 * 
-	 * @param userId   - The user ID for which to verify placement
-	 * @param CoopTerm - Term for which to verify the documents
-	 * @return
+	 * @param userId     - The user ID for which to verify placement
+	 * @param coopTermId - Term for which to verify the documents
+	 * @return {@code true} if student has incomplete statuments, {@code false}
+	 *         otherwise
 	 */
 	@Transactional
 	public boolean isIncomplete(Integer userId, Integer coopTermId) {
 
-		//find the objects in the database
+		// find the objects in the database
 		CoopTerm currentTerm = coopTermRepository.findBytermId(coopTermId);
 		Student student = studentRepository.findByuserID(userId);
-		
+
 //		// Find CoopTerm in the Set
 //		Set<CoopTerm> coopterms = student.getCoopTerm();
 
@@ -1337,9 +1399,9 @@ public class CooperatorService {
 		if (coopTermExists(coopTermId)) {
 			while (iterDocs.hasNext()) {
 				document = iterDocs.next();
-			
+
 				if (document.getSubDate().before(currDate) || document.getSubDate().equals(currDate)
-						|| document.getSubDate().after(currDate)){
+						|| document.getSubDate().after(currDate)) {
 					if (document.getSubDate() == null || document.getSubTime() == null) {
 						return true;
 					}
@@ -1347,12 +1409,13 @@ public class CooperatorService {
 					if (document.getSubDate().after(document.getDueDate())) {
 						return true;
 					}
-					if (document.getSubDate().toString().equals(document.getDueDate().toString()) && document.getSubTime().after(document.getDueTime())){
+					if (document.getSubDate().toString().equals(document.getDueDate().toString())
+							&& document.getSubTime().after(document.getDueTime())) {
 						return true;
 					}
-					
+
 				}
-			}	
+			}
 		}
 		return false;
 	}
