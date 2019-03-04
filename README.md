@@ -2,6 +2,9 @@
 
 #### For more details, please visit our [wiki page](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki) where you can view all our work, including deliverable reports, project guidelines and meeting minutes.
 
+<h3 align="center">View our Javadoc</h3>
+<p align="center"><a href="https://gh-page321.herokuapp.com/"><img src="https://image.flaticon.com/icons/svg/209/209913.svg" width="100"/></a></p>
+
 # Introduction
 
 View our <br/>
@@ -61,11 +64,11 @@ This software system is subdivided into four deliverables:
 
 |Team member's name|Total hours   |Responsibility         |
 |------------------|--------------|-----------------------|
-|Tristan Bouchard  |  _X_ hours  |Backend lead + Frontend |
-|Nayem Alam        |  _X_ hours  |Frontend lead + Backend |
-|Alex Masciotra    |  _X_ hours  |Backend Champ + Frontend|
-|Thomas Philippon  |  _X_ hours  |Backend Champ + Frontend|
-|Violet Wei        |  _X_ hours  |Frontend Champ + Backend|
+|Tristan Bouchard  |  _27_ hours  |Backend lead  |
+|Nayem Alam        |  _27_ hours  |Backend Testing + Documentation |
+|Alex Masciotra    |  _27_ hours  |Backend RESTful endpoint Manager|
+|Thomas Philippon  |  _31_ hours  |Mockito & Controller Manager|
+|Violet Wei        |  _X_ hours  |Tester|
 
 ### Sprint 2 (Backend)
 - [ ] Implement RESTful web service using Java Spring Boot
@@ -73,5 +76,6 @@ This software system is subdivided into four deliverables:
 - [ ] Deploy the project as a Heroku application in addition to the constraints above.
 
 
-
+##### Attributions
+> Javadoc icon made by [Alfredo Hernandez](https://www.flaticon.com/authors/alfredo-hernandez) from www.flaticon.com 
 
