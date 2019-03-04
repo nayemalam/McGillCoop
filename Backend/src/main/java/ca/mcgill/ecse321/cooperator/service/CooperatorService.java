@@ -636,7 +636,7 @@ public class CooperatorService {
 	 * @author Tristan Bouchard
 	 *
 	 */
-	class termStatistics {
+	public class termStatistics {
 
 		// Member variables
 		private Integer numberAtWork_;
@@ -1136,17 +1136,15 @@ public class CooperatorService {
 	 */
 	@Transactional
 	public Boolean updateDocument(DocumentName docName, Integer docId, Date dueDate, Time dueTime, Date subDate,
-			Time subTime, CoopTerm coopTerm) {
+			Time subTime) {
+		
+		Document currentDocument = getDocument(docId);
 		if (documentExists(docId)) {
 			// Get current document record from the database, doc ID wont change between
 			// new and old document
-			Document currentDocument = getDocument(docId);
+			
 
-			// Update relevant fields if they are different in the updated document
-			// Update coopterm
-			if (currentDocument.getCoopTerm() != coopTerm) {
-				currentDocument.setCoopTerm(coopTerm);
-			}
+			
 			// Update dueDate
 			if (currentDocument.getDueDate() != dueDate) {
 				currentDocument.setDueDate(dueDate);
@@ -1169,6 +1167,7 @@ public class CooperatorService {
 			return true;
 		}
 		return false;
+		
 	}
 
 	/**
