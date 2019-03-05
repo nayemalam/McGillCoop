@@ -33,7 +33,7 @@ import java.util.*;
 //import javax.mail.*;
 //import javax.mail.internet.*;
 import javax.activation.*;
-import javax.mail.MessagingException;
+//import javax.mail.MessagingException;
 
 import java.io.IOException;
 import java.lang.Exception;
@@ -727,8 +727,7 @@ public class CooperatorService {
 	 * @throws MessagingException - If the email cannot be sent.
 	 */
 	@Transactional
-	public Boolean sendReminder(Integer coopAdminUserId, Integer studentUserID, Integer notifType)
-			throws MessagingException {
+	public Boolean sendReminder(Integer coopAdminUserId, Integer studentUserID, Integer notifType) {
 //		// Verify if the Student exists in database
 //		if(studentRepository.existsById(studentUserID) && coopAdministratorRepository.existsById(coopAdminUserId)){
 //			// Get student from database based on the UserID
@@ -1350,7 +1349,7 @@ public class CooperatorService {
 	@Transactional
 	public boolean loginSuccess(String inputEmail, String inputPassword) {
 		// Find the email in the database, check password is valid
-
+		
 		// input check
 		if (inputEmail == null) {
 			throw new IllegalArgumentException("Please enter a valid email.");
@@ -1448,7 +1447,7 @@ public class CooperatorService {
 				currentTermList.add(currentTerm); // return as a list of current terms
 			}
 		}
-
+		
 		// students
 		List<Student> incompleteStudents = new ArrayList<>();
 

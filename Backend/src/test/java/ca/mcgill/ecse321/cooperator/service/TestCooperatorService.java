@@ -1634,7 +1634,7 @@ public class TestCooperatorService {
 	 */
 	@Test
 	public void testViewEmployerDocument() {
-
+		
 		testCreateAndReadDocument();
 		assertEquals(1, service.getAllDocuments().size());
 		assertEquals(1, service.getAllEmployers().size());
