@@ -1437,6 +1437,8 @@ public class TestCooperatorService {
 		// check no change in memory
 		assertEquals(0, service.getAllDocuments().size());
 	}
+	
+	
 
 	/**
 	 * Tests the update of a Document object in the database
@@ -1903,6 +1905,7 @@ public class TestCooperatorService {
 		service.createDocument(docName, dueDate, dueTime, subDate, subTime, currentTerm);
 
 		try {
+			//list = service.viewStudentFiles(studid, termid);
 			list = service.viewStudentFiles(studid, termid);
 		}catch (IllegalArgumentException e) {
 			fail();
