@@ -8,7 +8,6 @@ import ca.mcgill.ecse321.cooperator.model.CoopAdministrator;
 public interface CoopAdministratorRepository extends CrudRepository<CoopAdministrator, Integer> {
 
 	CoopAdministrator findByuserID(Integer id);
-	
 	CoopAdministrator findByemailAddress(String emailAddress);
 	
 }
