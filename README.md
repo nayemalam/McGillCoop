@@ -9,7 +9,9 @@
 
 View our <br/>
 :star2: [Deliverable 1 Report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-1-Report) <br/> 
-:star2: [Deliverable 2 Report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-2-Report)
+:star2: [Deliverable 2 Report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-2-Report) <br/>
+:star2: [Deliverable 3 Report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-3-Report
+) <br/>
 
 ### Scope of Project
 
@@ -31,7 +33,7 @@ This software system is subdivided into four deliverables:
 
 - :one: [Deliverable 1](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-1-Report) - Requirements, Domain Modeling, Database Design
 - :two: [Deliverable 2](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-2-Report) - Backend, Quality Assurance
-- :three: Deliverable 3 - Web Frontend, Architecture
+- :three: [Deliverable 3](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-3-Report) - Web Frontend, Architecture
 - :four: Deliverable 4 - Mobile Frontend, Availability
 
 ### :star: Team Members
@@ -71,9 +73,25 @@ This software system is subdivided into four deliverables:
 |Violet Wei        |  _19_ hours  |Tester + Documentation |
 
 ### Sprint 2 (Backend)
-- [ ] Implement RESTful web service using Java Spring Boot
-- [ ] Provide a suite of unit tests for the backend using JUnit by separating it from the database.
-- [ ] Deploy the project as a Heroku application in addition to the constraints above.
+- [x] Implement RESTful web service using Java Spring Boot
+- [x] Provide a suite of unit tests for the backend using JUnit by separating it from the database.
+- [x] Deploy the project as a Heroku application in addition to the constraints above.
+
+## [Deliverable 3](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-3-Report) - Web Frontend, Architecture Modeling
+
+|Team member's name|Total hours   |Responsibility         |
+|------------------|--------------|-----------------------|
+|Tristan Bouchard  |  __ hours  |         |
+|Nayem Alam        |  __ hours  |         |
+|Alex Masciotra    |  __ hours  |         |
+|Thomas Philippon  |  __ hours  |         |
+|Violet Wei        |  __ hours  |         |
+
+### Sprint 3 (Web)
+- [ ] Implement the web frontend using Vue.js
+- [ ] Integrate web frontend with backend services
+- [ ] Provide continuous integration of the web frontend using npm build, Travis CI
+- [ ] Deploy the web frontend as a separate Heroku application
 
 
 ##### Attributions
