@@ -287,7 +287,9 @@ public class CooperatorService {
 		CoopTerm currentTerm = new CoopTerm();
 		Set<Document> studentDocuments = Collections.emptySet();
 
-		if (studentExists(id) && coopTermExists(termId)) {
+		//if (studentExists(id) && coopTermExists(termId)) {
+		
+		if(getStudent(id)!=null && getCoopTerm(termId)!=null) {
 			// Get current student record from the database
 			Student currentStudent = getStudent(id);
 			// Get coopTerm from Database
@@ -303,8 +305,10 @@ public class CooperatorService {
 
 				}
 			}
+			
 			// set of all documents in the coopterm from the student
 			studentDocuments = currentTerm.getDocument();
+
 			List<Document> list = new ArrayList<Document>(studentDocuments);
 			return list;
 		}
