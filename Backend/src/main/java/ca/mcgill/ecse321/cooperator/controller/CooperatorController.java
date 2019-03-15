@@ -38,7 +38,7 @@ import ca.mcgill.ecse321.cooperator.service.CooperatorService;
  * @author Alex Masciotra
  *
  */
-@CrossOrigin(origins = "*")
+@CrossOrigin
 @RestController
 public class CooperatorController {
 
