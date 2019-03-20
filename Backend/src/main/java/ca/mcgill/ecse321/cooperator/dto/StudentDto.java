@@ -39,7 +39,7 @@ public class StudentDto {
 		   this.password = password;
 		   this.program = program;
 		   this.studentId = studentId;
-		   this.userName  = userName;	
+		   this.userName = userName;	
 		   this.coopTerm = coopTerms;
 		   
 	   }
