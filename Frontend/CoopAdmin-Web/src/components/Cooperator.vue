@@ -1,28 +1,53 @@
 <template>
-  <div id="coopadministrator">
-    <h2>Students</h2>
-    <table>
-      <tr v-for="student in students" >
-        <td>{{ student.name }}</td>
-        <td>{{ student.fname }}</td>
-        <td>{{ student.emailAddress }}</td>
-        <td>{{ student.userName }}</td>
-        <td>{{ student.password }}</td>
-        <td>{{ student.studentId }}</td>
-        <td>{{ student.program }}</td>
-      </tr>
-      <tr>
-        <td>
-            <input type="text" v-model="newStudent" placeholder="Student Name">
-        </td>
-        <td>
-            <button @click="createStudent(newStudent)">Create Student</button>
-        </td>
-      </tr>
-    </table>
+  <div id="coopAdmins" class="container">
+    <h2>Administrators Portal</h2>
+    <div class="row">
+      <div class="col-xs-6">
+        <table>
+          <tr>
+            <td>
+              <form><h4>Add Administrator</h4> <br/>
+                <div class="field">
+                  <div class="control">
+                    <input type="text" v-model="newAdmin.firstName" placeholder="First Name"> <br/><br/>
+                    <input type="text" v-model="newAdmin.lastName" placeholder="Last Name"> <br/><br/>
+                    <input type="text" v-model="newAdmin.emailAddress" placeholder="Email Address"> <br/><br/>
+                    <input type="text" v-model="newAdmin.userName" placeholder="userName"> <br/><br/>
+                    <input type="text" v-model="newAdmin.password" placeholder="Password"> <br/>           
+                  </div>
+                    <br/>
+                    <div class="form">
+                      <button type="submit" class="btn btn-primary" @click="createAdmin(newAdmin)">
+                        Create Administrator
+                      </button>
+                    </div>
+                </div>
+              </form>  
+            </td>
+          </tr>
+        </table>
+      </div>
+    <!-- PREVIEW INPUT -->
+    <div class="col-xs-6">
+      <br/><br/>
+      <h4>Previewed Input</h4>
+      <table>
+        <tr v-for="admin in coopAdmins" >
+          <td> Email: {{ admin.emailAddress }},</td>
+          <td> Username: {{ admin.userName }},</td>
+          <td> FirstName: {{ admin.firstName }},</td> 
+          <td> LastName{{ admin.lastName }}</td>
+          <td>{{ admin.password }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+
     <p>
-      <span style="color:red">Error: Message text comes here</span>
+      <span v-if="errorAdmin" style="color:red">Error: {{errorAdmin}} </span>
     </p>
+    <p>Add a random tesxt here</p>
   </div>
 </template>
 
