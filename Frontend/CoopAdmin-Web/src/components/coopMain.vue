@@ -1,5 +1,5 @@
 <template>
-<div>
+<div id="coopMain">
   <b-navbar toggleable="lg" type="dark" variant="info" class="fixed-top">
     <b-navbar-brand href="#">McGill Coop</b-navbar-brand>
 
@@ -9,8 +9,8 @@
       <b-navbar-nav>
         
         <b-nav-item><router-link to="/coopadmin" style="color:white; decoration: none;" >Coop Admin</router-link></b-nav-item>
-        <b-nav-item><router-link to="/" style="color:white; decoration: none;" >Students</router-link></b-nav-item>
-        <b-nav-item><router-link to="/" style="color:white; decoration: none;" >Employers</router-link></b-nav-item>
+        <b-nav-item><router-link to="/students" style="color:white; decoration: none;" >Students</router-link></b-nav-item>
+        <b-nav-item><router-link to="/employers" style="color:white; decoration: none;" >Employers</router-link></b-nav-item>
 
       </b-navbar-nav>
 
