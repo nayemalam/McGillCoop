@@ -34,9 +34,9 @@
       <table>
         <tr v-for="admin in coopAdmins" >
           <td> Email: {{ admin.emailAddress }},</td>
-          <td> Username: {{ admin.userName }},</td>
+          <td> UserName: {{ admin.userName }},</td>
           <td> FirstName: {{ admin.firstName }},</td> 
-          <td> LastName{{ admin.lastName }}</td>
+          <td> LastName: {{ admin.lastName }}</td>
           <td>{{ admin.password }}</td>
         </tr>
       </table>
@@ -47,7 +47,6 @@
     <p>
       <span v-if="errorAdmin" style="color:red">Error: {{errorAdmin}} </span>
     </p>
-    <p>Add a random tesxt here</p>
   </div>
 </template>
 
