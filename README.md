@@ -63,7 +63,6 @@ This software system is subdivided into four deliverables:
 - [x] Use a Continuous Integration process using Travis CI to build and test the database persistence layer
 
 <br/>
-<br/>
 
 ## [Deliverable 2](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-2-Report) - Backend, Testing
 
@@ -80,7 +79,6 @@ This software system is subdivided into four deliverables:
 - [x] Provide a suite of unit tests for the backend using JUnit by separating it from the database.
 - [x] Deploy the project as a Heroku application in addition to the constraints above.
 
-<br/>
 <br/>
 
 ## [Deliverable 3](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-3-Report) - Web Frontend, Architecture Modeling
