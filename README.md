@@ -81,11 +81,11 @@ This software system is subdivided into four deliverables:
 
 |Team member's name|Total hours   |Responsibility         |
 |------------------|--------------|-----------------------|
-|Tristan Bouchard  |  __ hours  |         |
-|Nayem Alam        |  __ hours  |         |
-|Alex Masciotra    |  __ hours  |         |
-|Thomas Philippon  |  __ hours  |         |
-|Violet Wei        |  __ hours  |         |
+|Tristan Bouchard  |  _x_ hours  |         |
+|Nayem Alam        |  _x_ hours  |         |
+|Alex Masciotra    |  _x_ hours  |         |
+|Thomas Philippon  |  _x_ hours  |         |
+|Violet Wei        |  _x_ hours  | Frontend + Documentation       |
 
 ### Sprint 3 (Web)
 - [ ] Implement the web frontend using Vue.js
