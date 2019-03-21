@@ -9,6 +9,7 @@
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
     "e2e": "node test/e2e/runner.js",
+    "postinstall": "./bin/heroku_install",
     "test": "npm run e2e"
   },
   "dependencies": {
@@ -57,11 +58,12 @@
     "webpack": "^2.6.1",
     "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.18.0",
-    "webpack-merge": "^4.1.0"
+    "webpack-merge": "^4.1.0",
+    "bower": "*"
   },
   "engines": {
-    "node": "11.12.0",
-    "npm": "6.7.0"
+    "node": "4.2.2",
+    "npm": ">= 3.0.0"
   },
   "browserslist": [
     "> 1%",
