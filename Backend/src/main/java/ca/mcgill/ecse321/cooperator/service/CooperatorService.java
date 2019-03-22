@@ -149,6 +149,7 @@ public class CooperatorService {
 		user.setPassword(password);
 		user.setStudentId(studentId);
 		user.setProgram(program);
+		user.setCoopTerm(null);
 		user = studentRepository.save(user);
 		return user;
 	}
@@ -593,13 +594,21 @@ public class CooperatorService {
 			// Find and retrieve a student from the database based on userId
 			Student student = getStudent(id);
 			// Get Coopterms of the student
-			Set<CoopTerm> coopTerms = student.getCoopTerm();
+			//Set<CoopTerm> coopTerms = student.getCoopTerm();
+			List<CoopTerm> allCoopTerms = getAllCoopTerms();
+			List<CoopTerm> suhList = new ArrayList<CoopTerm>();
+			for(int i = 0 ; i<allCoopTerms.size(); i++) {
+				CoopTerm coopo = allCoopTerms.get(i);
+				if(coopo.getStudent().getUserID().equals(id)) {
+					suhList.add(coopo);
+				}
+			}
 			// Create list of terms complete
-			List<TermCompleteness> termsComplete = Collections.emptyList();
+			List<TermCompleteness> termsComplete = new ArrayList<TermCompleteness>();
 
 			// Iterate over the terms
-			for (CoopTerm term : coopTerms) {
-				Set<Document> docs = term.getDocument();
+			for (int i =0; i< suhList.size(); i++) {
+				Set<Document> docs = suhList.get(i).getDocument();
 				// Base completeness of these terms on the completeness of the documents
 				TermCompleteness termComp = new TermCompleteness();
 				for (Document doc : docs) {
@@ -610,24 +619,22 @@ public class CooperatorService {
 					if (name == DocumentName.valueOf("finalReport")) {
 						// Verify if document submitted
 						if (doc.getSubDate() != null) {
-							isComplete = true;
-							termComp.setFinalReportCompleteness(isComplete);
+							termComp.setFinalReportCompleteness(true);
 						} else {
-							termComp.setFinalReportCompleteness(isComplete);
+							termComp.setFinalReportCompleteness(false);
 						}
 					} else if (name == DocumentName.valueOf("taskDescription")) {
 						if (doc.getSubDate() != null) {
-							isComplete = true;
-							termComp.setTaskDescriptionCompleteness(isComplete);
+							termComp.setTaskDescriptionCompleteness(true);
 						} else {
-							termComp.setTaskDescriptionCompleteness(isComplete);
+							termComp.setTaskDescriptionCompleteness(false);
 						}
 					} else if (name == DocumentName.valueOf("courseEvaluation")) {
 						if (doc.getSubDate() != null) {
 							isComplete = true;
-							termComp.setCourseEvaluationCompleteness(isComplete);
+							termComp.setCourseEvaluationCompleteness(true);
 						} else {
-							termComp.setCourseEvaluationCompleteness(isComplete);
+							termComp.setCourseEvaluationCompleteness(false);
 						}
 					}
 				}
@@ -1422,8 +1429,9 @@ public class CooperatorService {
 		CoopTerm coopTerm = new CoopTerm();
 		coopTerm.setStartDate(startDate);
 		coopTerm.setEndDate(endDate);
-		coopTerm.setStudent(student);
 		coopTerm.setEmployer(employer);
+		coopTerm.setStudent(student);
+		
 		coopTermRepository.save(coopTerm);
 		return coopTerm;
 	}

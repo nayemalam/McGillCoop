@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -1304,7 +1305,8 @@ public class TestCooperatorService {
 			// Check that no error occurred while creating and saving the document.
 			System.out.println(e);
 		}
-
+		
+		Student stu = service.getStudent(student.getUserID());
 		List<Document> allDocuments = service.getAllDocuments();
 
 		assertEquals(1, allDocuments.size());
@@ -1966,65 +1968,23 @@ public class TestCooperatorService {
 	@Test
 	public void testTrackCoopStudent() {
 		// Create document
-		Document testDocument;
-		assertEquals(0, service.getAllDocuments().size());
-
-		// set calendar
-		Calendar c = Calendar.getInstance();
-		c.set(2019, Calendar.MARCH, 16, 9, 00, 0);
-
-		// initialize variables
-		DocumentName docName = DocumentName.courseEvaluation; // evaluation doc
-		Date dueDate = new Date(c.getTimeInMillis());
-		Time dueTime = new Time(c.getTimeInMillis());
-
-		c.set(2019, Calendar.MARCH, 16, 10, 10, 0);
-
-		Date subDate = new Date(c.getTimeInMillis());
-		Time subTime = new Time(c.getTimeInMillis());
-
-		// Other parameters
-		c.set(2019, Calendar.APRIL, 16, 10, 10, 0);
-
-		Date startDate = new Date(0);
-		Date endDate = new Date(c.getTimeInMillis());
-
-		// Create student for student id
-		Student student;
-		String name = "peter";
-		String fName = "parker";
-		String emailAddress = "random@live.com";
-		String userName = "nayemwiz";
-		String password = "1234dsf";
-		Integer studentId = 260743549;
-		String program = "elec";
-		student = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
+		testCreateAndReadDocument();
+		assertEquals(1, service.getAllDocuments().size());
 		assertEquals(1, service.getAllStudents().size());
-
-		// Create employer (test) to fill coopTerm
-		Employer employer;
-		String emp_name = "beats";
-		String emp_fName = "by";
-		String emp_emailAddress = "tristan@mcgill.ca";
-		String emp_userName = "user";
-		String emp_password = "pass";
-		String emp_companyName = "mcgill";
-		String emp_location = "mtl";
-		employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password,
-				emp_companyName, emp_location);
 		assertEquals(1, service.getAllEmployers().size());
+		assertEquals(1, service.getAllCoopTerms().size());
 
-		// easily create coopterm by using the method and created objects and attributes
-		// above
-		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, student, employer);
-		testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, coopTerm);
+		Student student = service.getAllStudents().get(0);
+		
 		List<TermCompleteness> termsCompleteness = Collections.emptyList();
+		
 		try {
 			termsCompleteness = service.trackCoopStudent(student.getUserID());
 		} catch (Exception e) {
 			String error = e.getMessage();
 			int i = 0;
 		}
+		Student stu = service.getStudent(student.getUserID());
 		assertEquals(true, termsCompleteness.get(0).getCourseEvaluationCompleteness());
 	}
 
