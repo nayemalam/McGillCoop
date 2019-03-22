@@ -27,8 +27,8 @@
           </tr>
         </table>
       </div>
-    <!-- PREVIEW INPUT -->
-    <div class="col-xs-6">
+      <!-- PREVIEW INPUT -->
+      <div class="col-xs-6">
       <br/><br/>
       <h4>Previewed Input</h4>
       <table>
@@ -40,17 +40,47 @@
           <td>{{ admin.password }}</td>
         </tr>
       </table>
-    </div>
-  </div>
-
-
-    <p>
+      </div>
+      </div>
+      <p>
       <span v-if="errorAdmin" style="color:red">Error: {{errorAdmin}} </span>
     </p>
   </div>
 </template>
 
 <script src="./coopadmin.js">
+</script>
+
+<template>
+    <div id = "students" class = "container">
+      <div class="col-xs-6">
+        <br/><br/>
+          <table>
+            <tr>
+              <h2>List Students </h2>
+                <button type="submit" class="btn btn-primary" @click="getStudents()">
+                List Students
+                </button>
+            </tr>
+        </table>
+      </div>
+      <!-- PREVIEW INPUT -->
+      <div class="col-xs-6">
+      <br/><br/>
+      <h4>Previewed Input</h4>
+      <table>
+        <tr v-for="student in students" >
+          <td> Email: {{ student.emailAddress }},</td>
+          <td> UserName: {{ student.userName }},</td>
+          <td> FirstName: {{ student.firstName }},</td> 
+          <td> LastName: {{ student.lastName }}</td>
+        </tr>
+      </table>
+      </div>
+  </div>
+</template>
+
+<script src="./student.js">
 </script>
 
 <style>
