@@ -932,7 +932,6 @@ public class CooperatorService {
 	 *                        late submission notification. 3 gets a custom message,
 	 *                        can be a front-end feature.
 	 * @return {@code true} is message is properly sent, {@code false} otherwise
-	 * @throws MessagingException - If the email cannot be sent.
 	 */
 	@Transactional
 	public Boolean sendReminder(Integer coopAdminUserId, Integer studentUserID, Integer notifType) {
