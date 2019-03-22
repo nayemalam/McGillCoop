@@ -622,12 +622,13 @@ public class CooperatorController {
 	 * @param coopTerm - CoopTerm for which to create DTO's
 	 * @return {@code List<DocumentDto>}
 	 */
-	private List<DocumentDto> createDocumentDtosForCoopTerm(CoopTerm coopTerm) {
-		List<Document> documentList = service.getAllDocuments();
+	private List<DocumentDto> createDocumentDtosForCoopTerm(CoopTerm coopTermIn) {
 		List<DocumentDto> documentDtoList = new ArrayList<>();
+		if (service.coopTermExists(coopTermIn.getTermId())) {
+			CoopTerm coopTerm = service.getCoopTerm(coopTermIn.getTermId());
+			Set<Document> documentList = coopTerm.getDocument();
 
-		for (Document document : documentList) {
-			if (document.getCoopTerm().getTermId().equals(coopTerm.getTermId())) {
+			for (Document document : documentList) {
 				documentDtoList.add(convertToDto(document));
 			}
 		}
