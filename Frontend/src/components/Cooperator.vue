@@ -1,4 +1,4 @@
-<!--
+
 <template>
   <div id="coopAdmins" class="container">
     <h2>Administrators Portal</h2>
@@ -42,27 +42,8 @@
           </table>
         </div>
       </div>
-      <p>
-      
-        <span v-if="errorAdmin" style="color:red">Error: {{errorAdmin}} </span>
-      </p>
-      -->
-<template>
-  <div id="coopadmins" class="container">
-    <div class="row">
-      <div class="col-sm-8">
-        <br/><br/>
-          <table>
-            <tr>
-              <h4>List Employer </h4>
-                <button type="submit" class="btn btn-primary" @click="getStudentTerm()">
-                List Employer
-                </button>
-            </tr>
-          </table>
-      </div>
-    </div>
-    <div class="col-sm-8">
+      <!-- PREVIEW INPUT -->
+      <div class="col-xs-6">
       <br/><br/>
       <h4>Previewed Input</h4>
         <table>
@@ -74,22 +55,16 @@
           <td> Program: {{ student.location}}</td>
         </tr>
       </table>
-    </div>
-  </div> 
+      </div>
+      </div>
+      <p>
+      <span v-if="errorAdmin" style="color:red">Error: {{errorAdmin}} </span>
+    </p>
+  </div>
 </template>
 
 <script src="./coopadmin.js">
 </script>
-
-<!--
-<script src="./coopadmin.js">
-</script>
--->
-
-
-
-
-
 
 <style>
   #eventregistration {
