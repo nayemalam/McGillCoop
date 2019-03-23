@@ -18,17 +18,20 @@ public class CoopAdministratorDto {
 	private String userName;
 	private String password;
 	private String name;
+	private Integer userId;
 
 	
 	@SuppressWarnings("unchecked")
 	public CoopAdministratorDto(String name, String fName, String emailAddress,
-			String userName, String password) {
+			String userName, String password, Integer userId) {
 		
 		   this.emailAddress = emailAddress;
 		   this.fName = fName;
 		   this.name = name;
 		   this.password = password;
-		   this.userName  = userName;	
+		   this.userName  = userName;
+		   this.userId = userId;
+		   
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -58,6 +61,10 @@ public class CoopAdministratorDto {
 		
 		public String getLastName() {
 			return name;
+		}
+		
+		public Integer getUserId() {
+			return userId;
 		}
 		
 //		public List<StudentDto> getStudent() {

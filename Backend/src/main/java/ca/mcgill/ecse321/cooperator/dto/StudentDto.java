@@ -18,9 +18,10 @@ public class StudentDto {
 	   private String userName;
 	   private String password;
 	   private String name;
+	   private Integer userId;
 	   
 	@SuppressWarnings("unchecked")
-	public StudentDto(String name, String fName, String emailAddress, String userName, String password, Integer studentId, String program) {
+	public StudentDto(String name, String fName, String emailAddress, String userName, String password, Integer studentId, String program, Integer userId) {
 		   this.emailAddress = emailAddress;
 		   this.fName = fName;
 		   this.name = name;
@@ -28,6 +29,7 @@ public class StudentDto {
 		   this.program = program;
 		   this.studentId = studentId;
 		   this.userName  = userName;	
+		   this.userId = userId;
 		  	   
 	   }
 	
@@ -75,6 +77,9 @@ public class StudentDto {
 		public void setCoopTerms(List<CoopTermDto> terms) {
 				this.coopTerm =  terms;
 			} 
+		public Integer getUserId() {
+			return userId;
+		}
 
 
 }

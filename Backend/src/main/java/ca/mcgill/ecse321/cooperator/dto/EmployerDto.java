@@ -17,11 +17,12 @@ public class EmployerDto {
 	   private String name;
 	   private String companyName;
 	   private String location;
+	   private Integer userId;
 	   
 	   
 	   @SuppressWarnings("unchecked")
 	public EmployerDto(String name, String fName, String emailAddress, String userName,
-			String password, String companyName, String location) {
+			String password, String companyName, String location, Integer userId) {
 		   this.emailAddress = emailAddress;
 		   this.fName = fName;
 		   this.name = name;
@@ -29,6 +30,7 @@ public class EmployerDto {
 		   this.userName  = userName;	
 		   this.companyName = companyName;
 		   this.location = location;
+		   this.userId = userId;
 		   
 	   }
 	   
@@ -75,6 +77,10 @@ public class EmployerDto {
 		 public void setCoopTerms(List<CoopTermDto> terms) {
 				this.coopTerm =  terms;
 			} 
+		 public Integer getUserId() {
+			 return userId;
+		 }
 
+		 
 
 }
