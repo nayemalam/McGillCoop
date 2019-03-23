@@ -1,11 +1,11 @@
 <template>
-  <div id="students" class="container">
+  <div id="Student">
     <h2>Students Portal</h2>
   </div>
   
 </template>
 
-<script src="./student.js">
+<script>
 </script>
 
 <style>
