@@ -250,7 +250,7 @@ public class CooperatorController {
 	 *
 	 */
 	// Get An CoopAdmin
-	@GetMapping(value = { "/employers/{userId}", "/employers/{userId}/" })
+	@GetMapping(value = { "/coopAdmins/{userId}", "/coopAdmins/{userId}/" })
 	public CoopAdministratorDto getCoopAdmin(@PathVariable("userId") Integer userId) {
 		CoopAdministrator coopAdmin = service.getCoopAdministrator(userId);
 		return convertToDto(coopAdmin);
