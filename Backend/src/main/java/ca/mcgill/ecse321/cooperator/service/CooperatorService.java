@@ -149,6 +149,7 @@ public class CooperatorService {
 		user.setPassword(password);
 		user.setStudentId(studentId);
 		user.setProgram(program);
+		user.setCoopTerm(null);
 		user = studentRepository.save(user);
 		return user;
 	}
@@ -287,9 +288,9 @@ public class CooperatorService {
 		CoopTerm currentTerm = new CoopTerm();
 		Set<Document> studentDocuments = Collections.emptySet();
 
-		//if (studentExists(id) && coopTermExists(termId)) {
-		
-		if(getStudent(id)!=null && getCoopTerm(termId)!=null) {
+		// if (studentExists(id) && coopTermExists(termId)) {
+
+		if (getStudent(id) != null && getCoopTerm(termId) != null) {
 			// Get current student record from the database
 			Student currentStudent = getStudent(id);
 			// Get coopTerm from Database
@@ -305,7 +306,7 @@ public class CooperatorService {
 
 				}
 			}
-			
+
 			// set of all documents in the coopterm from the student
 			studentDocuments = currentTerm.getDocument();
 
@@ -578,6 +579,213 @@ public class CooperatorService {
 	}
 
 	/**
+	 * This business method finds a student in the database and obtains his
+	 * associated coopterms, as well as the completeness of those coopterms.
+	 * 
+	 * @param id - userID of the student, as used by the backend
+	 * @return coopterms of the student
+	 */
+
+	@Transactional
+	public List<TermCompleteness> trackCoopStudent(Integer id) {
+
+		// check if the student user exists in the database
+		if (studentExists(id)) {
+			// Find and retrieve a student from the database based on userId
+			Student student = getStudent(id);
+			// Get Coopterms of the student
+			//Set<CoopTerm> coopTerms = student.getCoopTerm();
+			List<CoopTerm> allCoopTerms = getAllCoopTerms();
+			List<CoopTerm> suhList = new ArrayList<CoopTerm>();
+			for(int i = 0 ; i<allCoopTerms.size(); i++) {
+				CoopTerm coopo = allCoopTerms.get(i);
+				if(coopo.getStudent().getUserID().equals(id)) {
+					suhList.add(coopo);
+				}
+			}
+			// Create list of terms complete
+			List<TermCompleteness> termsComplete = new ArrayList<TermCompleteness>();
+
+			// Iterate over the terms
+			for (int i =0; i< suhList.size(); i++) {
+				Set<Document> docs = suhList.get(i).getDocument();
+				// Base completeness of these terms on the completeness of the documents
+				TermCompleteness termComp = new TermCompleteness();
+				for (Document doc : docs) {
+					
+					DocumentName name = doc.getDocName();
+					Boolean isComplete = false;
+
+					if (name == DocumentName.valueOf("finalReport")) {
+						// Verify if document submitted
+						if (doc.getSubDate() != null) {
+							termComp.setFinalReportCompleteness(true);
+						} else {
+							termComp.setFinalReportCompleteness(false);
+						}
+					} else if (name == DocumentName.valueOf("taskDescription")) {
+						if (doc.getSubDate() != null) {
+							termComp.setTaskDescriptionCompleteness(true);
+						} else {
+							termComp.setTaskDescriptionCompleteness(false);
+						}
+					} else if (name == DocumentName.valueOf("courseEvaluation")) {
+						if (doc.getSubDate() != null) {
+							isComplete = true;
+							termComp.setCourseEvaluationCompleteness(true);
+						} else {
+							termComp.setCourseEvaluationCompleteness(false);
+						}
+					}
+				}
+				termsComplete.add(termComp);
+			}
+			return termsComplete;
+			
+
+		} else {
+			return null;
+		}
+	}
+
+//	/*
+//	 * Class used by the service class to make passing of student statistics easier.
+//	 * This class uses the termCompleteness class as its members
+//	 * 
+//	 * @author Tristan Bouchard
+//	 */
+//	public class StudentStatistics {
+//		// Member classes
+//		private TermCompleteness term1;
+//		private TermCompleteness term2;
+//		private TermCompleteness term3;
+//
+//		// Constructors
+//		StudentStatistics(TermCompleteness _term1) {
+//			this.term1 = _term1;
+//			this.term2 = null;
+//			this.term3 = null;
+//		}
+//
+//		StudentStatistics(TermCompleteness _term1, TermCompleteness _term2) {
+//			this.term1 = _term1;
+//			this.term2 = _term2;
+//			this.term3 = null;
+//		}
+//
+//		StudentStatistics(TermCompleteness _term1, TermCompleteness _term2, TermCompleteness _term3) {
+//			this.term1 = _term1;
+//			this.term2 = _term2;
+//			this.term3 = _term3;
+//		}
+//
+//		// Getters
+//		public TermCompleteness getTermOne() {
+//			return this.term1;
+//		}
+//
+//		public TermCompleteness getTermTwo() {
+//			return this.term2;
+//		}
+//
+//		public TermCompleteness getTermThree() {
+//			return this.term3;
+//		}
+//		// This class does not need setters, should set using the constructors
+//	}
+
+	/**
+	 * Class used to determine which document in a coopterm has been completed.
+	 * 
+	 * @author Tristan Bouchard
+	 *
+	 */
+	public class TermCompleteness {
+		// Boolean variables describing if document is completed or not at the current
+		// moment
+		private Boolean taskDescription;
+		private Boolean finalReport;
+		private Boolean courseEvaluation;
+
+		// Constructor
+		public TermCompleteness() {
+			this.taskDescription = false;
+			this.finalReport = false;
+			this.courseEvaluation = false;
+		}
+
+		public TermCompleteness(Boolean _employementContract, Boolean _taskDescription, Boolean _finalReport,
+				Boolean _courseEvaluation) {
+			this.taskDescription = _taskDescription;
+			this.finalReport = _finalReport;
+			this.courseEvaluation = _courseEvaluation;
+		}
+
+		// Getters
+
+		public Boolean getTaskDescriptionCompleteness() {
+			return this.taskDescription;
+		}
+
+		public Boolean getFinalReportCompleteness() {
+			return this.finalReport;
+		}
+
+		public Boolean getCourseEvaluationCompleteness() {
+			return this.courseEvaluation;
+		}
+
+		// Setters
+
+		public void setTaskDescriptionCompleteness(Boolean isComplete) {
+			this.taskDescription = isComplete;
+		}
+
+		public void setFinalReportCompleteness(Boolean isComplete) {
+			this.finalReport = isComplete;
+		}
+
+		public void setCourseEvaluationCompleteness(Boolean isComplete) {
+			this.courseEvaluation = isComplete;
+		}
+	}
+
+//	/**
+//	 * This business method find student in Database based on userID returns the
+//	 * specific coopterm of the student
+//	 * 
+//	 * @param userId user ID of the student, coopTermId ID of the coopTerm
+//	 * @return coopterm found based on userId and coopTermId
+//	 */
+//
+//	@Transactional
+//	public CoopTerm trackCoopStudentBySemester(Integer userId, Integer coopTermId) {
+//		// This business method return s specific coopterm
+//
+//		// check if the student user exists in the database
+//		if (studentExists(userId)) {
+//			// Find and retrieve a student from the database based on userId
+//			Student student = getStudent(userId);
+//		} else {
+//			return null;
+//		}
+//
+//		CoopTerm coopTerm = new CoopTerm();
+//
+//		if (coopTermExists(coopTermId)) {
+//			coopTerm = student.getCoopTerm(coopTermId);
+//		} else {
+//			return null;
+//		}
+//
+//		// see the progress of document submission(what has been submitted)
+//		List<Document> documents = coopTerm.getAllDocument();
+//
+//		return coopTerm;
+//
+//	}
+
+	/**
 	 * Business method from the Use Case diagram. This method allows the caller to
 	 * view the statistics for a particular Coop term, based on that term's TermID
 	 * 
@@ -724,7 +932,6 @@ public class CooperatorService {
 	 *                        late submission notification. 3 gets a custom message,
 	 *                        can be a front-end feature.
 	 * @return {@code true} is message is properly sent, {@code false} otherwise
-	 * @throws MessagingException - If the email cannot be sent.
 	 */
 	@Transactional
 	public Boolean sendReminder(Integer coopAdminUserId, Integer studentUserID, Integer notifType) {
@@ -967,14 +1174,13 @@ public class CooperatorService {
 
 	}
 
-	
 	Set<Document> documentsSet = Collections.emptySet();
 
 	/**
 	 * Views the Employer files in the database
 	 * 
-	 * @param id - user ID number of the employer
-	 * @param termId  - termId of the CoopTerm
+	 * @param id     - user ID number of the employer
+	 * @param termId - termId of the CoopTerm
 	 * @return Set of Documents submitted by the Student and Employer for that
 	 *         CoopTerm
 	 */
@@ -1127,26 +1333,24 @@ public class CooperatorService {
 	 * Updates the Document information in the database base on the passed
 	 * information
 	 * 
-	 * @param docName  - documentName according to the enumeration
-	 * @param docId    - docId of the document
-	 * @param dueDate  - Deadline date
-	 * @param dueTime  - Deadline time
-	 * @param subDate  - Student submission date
-	 * @param subTime  - Student submission time
+	 * @param docName - documentName according to the enumeration
+	 * @param docId   - docId of the document
+	 * @param dueDate - Deadline date
+	 * @param dueTime - Deadline time
+	 * @param subDate - Student submission date
+	 * @param subTime - Student submission time
 	 * @return {@code true} if document successfully updated, {@code false}
 	 *         otherwise
 	 */
 	@Transactional
 	public Boolean updateDocument(DocumentName docName, Integer docId, Date dueDate, Time dueTime, Date subDate,
 			Time subTime) {
-		
+
 		Document currentDocument = getDocument(docId);
 		if (documentExists(docId)) {
 			// Get current document record from the database, doc ID wont change between
 			// new and old document
-			
 
-			
 			// Update dueDate
 			if (currentDocument.getDueDate() != dueDate) {
 				currentDocument.setDueDate(dueDate);
@@ -1169,7 +1373,7 @@ public class CooperatorService {
 			return true;
 		}
 		return false;
-		
+
 	}
 
 	/**
@@ -1224,8 +1428,9 @@ public class CooperatorService {
 		CoopTerm coopTerm = new CoopTerm();
 		coopTerm.setStartDate(startDate);
 		coopTerm.setEndDate(endDate);
-		coopTerm.setStudent(student);
 		coopTerm.setEmployer(employer);
+		coopTerm.setStudent(student);
+		
 		coopTermRepository.save(coopTerm);
 		return coopTerm;
 	}
@@ -1349,7 +1554,7 @@ public class CooperatorService {
 	@Transactional
 	public boolean loginSuccess(String inputEmail, String inputPassword) {
 		// Find the email in the database, check password is valid
-		
+
 		// input check
 		if (inputEmail == null) {
 			throw new IllegalArgumentException("Please enter a valid email.");
@@ -1447,7 +1652,7 @@ public class CooperatorService {
 				currentTermList.add(currentTerm); // return as a list of current terms
 			}
 		}
-		
+
 		// students
 		List<Student> incompleteStudents = new ArrayList<>();
 

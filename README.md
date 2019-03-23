@@ -62,6 +62,8 @@ This software system is subdivided into four deliverables:
 - [x] Configure a build system using Gradle
 - [x] Use a Continuous Integration process using Travis CI to build and test the database persistence layer
 
+<br/>
+
 ## [Deliverable 2](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-2-Report) - Backend, Testing
 
 |Team member's name|Total hours   |Responsibility         |
@@ -77,15 +79,17 @@ This software system is subdivided into four deliverables:
 - [x] Provide a suite of unit tests for the backend using JUnit by separating it from the database.
 - [x] Deploy the project as a Heroku application in addition to the constraints above.
 
+<br/>
+
 ## [Deliverable 3](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-3-Report) - Web Frontend, Architecture Modeling
 
 |Team member's name|Total hours   |Responsibility         |
 |------------------|--------------|-----------------------|
-|Tristan Bouchard  |  __ hours  |         |
-|Nayem Alam        |  __ hours  |         |
-|Alex Masciotra    |  __ hours  |         |
-|Thomas Philippon  |  __ hours  |         |
-|Violet Wei        |  __ hours  |         |
+|Tristan Bouchard  |  _x_ hours  |         |
+|Nayem Alam        |  _x_ hours  |         |
+|Alex Masciotra    |  _x_ hours  |         |
+|Thomas Philippon  |  _x_ hours  |         |
+|Violet Wei        |  _x_ hours  | Frontend + Documentation       |
 
 ### Sprint 3 (Web)
 - [ ] Implement the web frontend using Vue.js

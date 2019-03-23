@@ -1,2 +1,7 @@
-connection.project.dir=..
+arguments=
+connection.project.dir=
 eclipse.preferences.version=1
+java.home=
+jvm.arguments=
+show.console.view=true
+show.executions.view=true
