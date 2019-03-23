@@ -5,6 +5,8 @@ import Cooperator from '@/components/Cooperator'
 import coopMain from '@/components/coopMain'
 import Student from '@/components/Student'
 import Employer from '@/components/Employer'
+import coopAdminLogin from '@/components/coopAdminLogin'
+import mainPage from '@/components/mainPage'
 
 
 Vue.use(Router)
@@ -35,6 +37,16 @@ export default new Router({
       path: '/employers',
       name: 'Employer',
       component: Employer
+    },
+    {
+      path: '/coopAdminLogin',
+      name: 'coopAdminLogin',
+      component: coopAdminLogin
+    },
+    {
+      path: '/mainPage',
+      name: 'mainPage',
+      component: mainPage
     }
   ]
 })
