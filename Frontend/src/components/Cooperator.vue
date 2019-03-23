@@ -1,4 +1,3 @@
-
 <template>
   <div id="coopAdmins" class="container">
     <h2>Administrators Portal</h2>
@@ -42,8 +41,8 @@
           </table>
         </div>
       </div>
-      <!-- PREVIEW INPUT -->
-      <div class="col-xs-6">
+    </div>
+    <div class="col-sm-8">
       <br/><br/>
       <h4>Previewed Input</h4>
         <table>
@@ -65,6 +64,7 @@
 
 <script src="./coopadmin.js">
 </script>
+
 
 <style>
   #eventregistration {
