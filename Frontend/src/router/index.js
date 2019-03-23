@@ -39,7 +39,7 @@ export default new Router({
       component: Employer
     },
     {
-      path: '/coopAdminLogin',
+      path: '/login',
       name: 'coopAdminLogin',
       component: coopAdminLogin
     },
