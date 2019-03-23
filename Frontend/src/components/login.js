@@ -3,12 +3,12 @@ var config = require('../../config')
 
 // Uncomment below for LOCAL test
 
-  var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
-  var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
+  // var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
+  // var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
 
 // Uncomment below for LIVE server test
-    // var frontendUrl = 'https://' + config.build.host
-    // var backendUrl = 'https://' + config.build.backendHost 
+    var frontendUrl = 'https://' + config.build.host
+    var backendUrl = 'https://' + config.build.backendHost 
 
 var AXIOS = axios.create({
   baseURL: backendUrl,
@@ -21,11 +21,8 @@ export default {
     return {
       coopAdmins: [],
       newAdmin: {
-        lastName: '', //lastName
-        firstName: '', //firstName
         emailAddress: '',
-        userName: '',
-        password: '' //maybe we should hide this one
+        password: '' 
       },
       errorAdmin: '',
       response: [],
@@ -43,18 +40,23 @@ export default {
       });
   },
   methods: {
-    createAdmin: function (admin) {
-      AXIOS.post('coopAdmins/'+admin.lastName+'?fName='+admin.firstName+'&emailAddress='+admin.emailAddress+'&userName='+admin.userName+'&password='+ admin.password, {}, {})
-      // coopAdmins/Alam?fName=Nayem&emailAddress=Nayem.Alam@mcgill.ca&userName=NA_USER&password=1234
+    CheckLogin: function (admin) {
+      AXIOS.get('/login'+'?email='+admin.emailAddress+'&password='+ admin.password)
+      // /login?email=Nayem.Alam@mcgill.ca&password=1234
+    
       .then(response => {
         // JSON responses are automatically parsed.
-        this.coopAdmins.push(response.data)
-        this.newAdmin = ''
-        this.errorAdmin = ''
+        if( response.data == 1) {
+          //this.coopAdmins.push(response.data)
+          console.log('login successfully!')
+          location.replace('http://127.0.0.1:8087/?#/mainPage');
+        } 
+        //this.newAdmin = ''
+        //this.errorAdmin = ''
       })
       .catch(e => {
         var errorMsg = e.message
-        console.log(errorMsg)
+        console.log('login unsuccessfully'+errorMsg)
         this.errorAdmin = errorMsg
       });
     }

@@ -5,8 +5,11 @@ import Cooperator from '@/components/Cooperator'
 import coopMain from '@/components/coopMain'
 import Student from '@/components/Student'
 import Employer from '@/components/Employer'
+import Statistics from '@/components/Statistics'
+import Incomplete from '@/components/sub_dir/Incomplete'
 import coopAdminLogin from '@/components/coopAdminLogin'
 import mainPage from '@/components/mainPage'
+
 
 
 Vue.use(Router)
@@ -39,7 +42,15 @@ export default new Router({
       component: Employer
     },
     {
-      path: '/coopAdminLogin',
+      path: '/statistics',
+      name: 'Statistics',
+      component: Statistics
+    },
+    {
+      path: '/statistics/incomplete',
+      name: 'Incomplete',
+      component: Incomplete,
+      path: '/login',
       name: 'coopAdminLogin',
       component: coopAdminLogin
     },

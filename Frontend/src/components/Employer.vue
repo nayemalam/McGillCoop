@@ -1,10 +1,10 @@
 <template>
-  <div id="employers" class="container">
+  <div id="Employer">
     <h2>Employers Portal</h2>
   </div>
 </template>
 
-<script src="./employer.js">
+<script>
 </script>
 
 <style>
