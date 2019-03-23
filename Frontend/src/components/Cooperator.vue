@@ -2,7 +2,7 @@
   <div id="coopAdmins" class="container">
     <h2>Administrators Portal</h2>
     <div class="row">
-      <div class="col-xs-6">
+      <div class="col-lg-6">
         <table>
           <tr>
             <td>
@@ -28,7 +28,7 @@
         </table>
       </div>
     <!-- PREVIEW INPUT -->
-    <div class="col-xs-6">
+    <div class="col-lg-6">
       <br/><br/>
       <h4>Previewed Input</h4>
       <table>

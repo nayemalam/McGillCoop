@@ -5,7 +5,8 @@ import Cooperator from '@/components/Cooperator'
 import coopMain from '@/components/coopMain'
 import Student from '@/components/Student'
 import Employer from '@/components/Employer'
-
+import Statistics from '@/components/Statistics'
+import Incomplete from '@/components/sub_dir/Incomplete'
 
 Vue.use(Router)
 
@@ -35,6 +36,16 @@ export default new Router({
       path: '/employers',
       name: 'Employer',
       component: Employer
+    },
+    {
+      path: '/statistics',
+      name: 'Statistics',
+      component: Statistics
+    },
+    {
+      path: '/statistics/incomplete',
+      name: 'Incomplete',
+      component: Incomplete
     }
   ]
 })
