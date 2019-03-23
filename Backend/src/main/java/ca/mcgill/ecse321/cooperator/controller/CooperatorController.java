@@ -10,6 +10,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,6 +68,20 @@ public class CooperatorController {
 		return convertToDto(student);
 
 	}
+	
+	/**
+	 * Delete a student object from the database. Available at
+	 * https://cooperator-backend-21.herokuapp.com/students/{userId}
+	 * 
+	 * @param userId        - UserId of student
+	 *
+	 */
+	// Delete A STUDENT
+	@DeleteMapping(value = { "/students/{userId}", "/students/{userId}/" })
+	public void deleteStudent(@PathVariable("userId") Integer userId) {
+		service.deleteStudent(userId);
+	}
+
 
 	/**
 	 * Get a list of all students in the database. Available at
@@ -85,6 +100,23 @@ public class CooperatorController {
 		}
 		return studentDtos;
 	}
+	
+	/**
+	 * Get a student object from the database. Available at
+	 * https://cooperator-backend-21.herokuapp.com/students/{userId}
+	 * 
+	 * @param userId        - UserId of student
+	 * @return Student requested - Student DTO
+	 *
+	 */
+	// Get A STUDENT
+	@GetMapping(value = { "/students/{userId}", "/students/{userId}/" })
+	public StudentDto getStudent(@PathVariable("userId") Integer userId) {
+		Student student = service.getStudent(userId);
+		return convertToDto(student);
+	}
+
+
 
 	/**
 	 * Post a new employer to the database. Available at
@@ -108,6 +140,20 @@ public class CooperatorController {
 				location);
 		return convertToDto(employer);
 	}
+	
+	/**
+	 * Delete a Employer object from the database. Available at
+	 * https://cooperator-backend-21.herokuapp.com/employers/{userId}
+	 * 
+	 * @param userId        - UserId of employer
+	 *
+	 */
+	// Delete An Employer
+	@DeleteMapping(value = { "/employers/{userId}", "/employers/{userId}/" })
+	public void deleteEmployer(@PathVariable("userId") Integer userId) {
+		service.deleteEmployer(userId);
+	}
+
 
 	/**
 	 * Obtain a list of all employers present in the database. Available at
@@ -126,6 +172,23 @@ public class CooperatorController {
 		}
 		return employerDtos;
 	}
+	
+	/**
+	 * Get a employer object from the database. Available at
+	 * https://cooperator-backend-21.herokuapp.com/employers/{userId}
+	 * 
+	 * @param userId        - UserId of employer
+	 * @return Employer requested - Employer DTO
+	 *
+	 */
+	// Get An Employer
+	@GetMapping(value = { "/employers/{userId}", "/employers/{userId}/" })
+	public EmployerDto getEmployer(@PathVariable("userId") Integer userId) {
+		Employer employer = service.getEmployer(userId);
+		return convertToDto(employer);
+	}
+
+
 
 	/**
 	 * Post a new coopAdmin to the database. Available at
@@ -146,6 +209,19 @@ public class CooperatorController {
 				password);
 		return convertToDto(coopAdmin);
 	}
+	/**
+	 * Delete a CoopAdmin object from the database. Available at
+	 * https://cooperator-backend-21.herokuapp.com/coopAdmins/{userId}
+	 * 
+	 * @param userId        - UserId of CoopAdmin
+	 *
+	 */
+	// Delete An CoopAdmin
+	@DeleteMapping(value = { "/coopAdmins/{userId}", "/coopAdmins/{userId}/" })
+	public void deleteCoopAdmin(@PathVariable("userId") Integer userId) {
+		service.deleteCoopAdministrator(userId);
+	}
+
 
 	/**
 	 * Get a list of all CoopAdministrators in the database. Available at
@@ -163,6 +239,21 @@ public class CooperatorController {
 			coopAdminDtos.add(convertToDto(coopAdmin));
 		}
 		return coopAdminDtos;
+	}
+	
+	/**
+	 * Get a coopAdmin object from the database. Available at
+	 * https://cooperator-backend-21.herokuapp.com/coopAdmins/{userId}
+	 * 
+	 * @param userId        - UserId of coopAdmin
+	 * @return CoopAdmin requested - CoopAdmin DTO
+	 *
+	 */
+	// Get An CoopAdmin
+	@GetMapping(value = { "/employers/{userId}", "/employers/{userId}/" })
+	public CoopAdministratorDto getCoopAdmin(@PathVariable("userId") Integer userId) {
+		CoopAdministrator coopAdmin = service.getCoopAdministrator(userId);
+		return convertToDto(coopAdmin);
 	}
 
 	// =========================================================================================
@@ -420,6 +511,20 @@ public class CooperatorController {
 
 		return convertToDto(coopTerm, student, employer, termId);
 	}
+	
+	/**
+	 * Delete a Coopterm object from the database. Available at
+	 * https://cooperator-backend-21.herokuapp.com/coopterms/{termId}
+	 * 
+	 * @param termId        - TermId of coopTerm
+	 *
+	 */
+	// Delete A Coopterm
+	@DeleteMapping(value = { "/coopterm/{termId}", "/coopterm/{termId}/" })
+	public void deleteCoopTerm(@PathVariable("userId") Integer termId) {
+		service.deleteCoopTerm(termId);
+	}
+
 
 	/**
 	 * Get All coopterms from the backend. Available at
@@ -467,6 +572,19 @@ public class CooperatorController {
 		return convertToDto(document);
 
 	}
+	
+	/**
+	 * Delete a Document object from the database. Available at
+	 * https://cooperator-backend-21.herokuapp.com/documents/{docId}
+	 * 
+	 * @param docId        - DocumentId of coopTerm
+	 *
+	 */
+	// Delete A Document
+	@DeleteMapping(value = { "/documents/{docId}", "/documents/{docId}/" })
+	public void deleteDocument(@PathVariable("userId") Integer docId) {
+		service.deleteDocument(docId);
+	}
 
 	/**
 	 * Get a list of all documents in the database Available at
@@ -500,7 +618,7 @@ public class CooperatorController {
 			throw new IllegalArgumentException("There is no such Student!");
 		}
 		StudentDto studentDto = new StudentDto(student.getLastName(), student.getFirstName(), student.getEmailAddress(),
-				student.getUserName(), student.getPassword(), student.getStudentId(), student.getProgram());
+				student.getUserName(), student.getPassword(), student.getStudentId(), student.getProgram(), student.getUserID());
 		studentDto.setCoopTerms(createCoopTermDtosForStudent(student));
 		return studentDto;
 	}
@@ -515,7 +633,7 @@ public class CooperatorController {
 
 		EmployerDto employerDto = new EmployerDto(employer.getLastName(), employer.getFirstName(),
 				employer.getEmailAddress(), employer.getUserName(), employer.getPassword(), employer.getCompanyName(),
-				employer.getLocation());
+				employer.getLocation(), employer.getUserID());
 		employerDto.setCoopTerms(createCoopTermDtosForEmployer(employer));
 		return employerDto;
 	}
@@ -530,7 +648,7 @@ public class CooperatorController {
 
 		CoopAdministratorDto coopAdministratorDto = new CoopAdministratorDto(coopAdmin.getLastName(),
 				coopAdmin.getFirstName(), coopAdmin.getEmailAddress(), coopAdmin.getUserName(),
-				coopAdmin.getPassword());
+				coopAdmin.getPassword(), coopAdmin.getUserID());
 		return coopAdministratorDto;
 	}
 
@@ -577,7 +695,7 @@ public class CooperatorController {
 	private DocumentDto convertToDto(Document document) {
 
 		DocumentDto documentDto = new DocumentDto(document.getDocName(), document.getDueDate(), document.getDueTime(),
-				document.getSubDate(), document.getSubTime()); // , convertToDto(document.getCoopTerm()));
+				document.getSubDate(), document.getSubTime(), document.getDocId()); // , convertToDto(document.getCoopTerm()));
 		return documentDto;
 	}
 
