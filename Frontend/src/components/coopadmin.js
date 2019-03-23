@@ -29,8 +29,37 @@ export default {
       },
       errorAdmin: '',
       response: [],
+
+      //Student Object 
+      students: [],
+      newStudent: {
+        lastName: '', //lastName
+        firstName: '', //firstName
+        emailAddress: '',
+        userName: '',
+        program:'',
+        coopTerm: [],
+        },
+        errorStudent: '',
+        response: [],
+
+        //Employer object 
+        employers: [],
+        newEmployer: {
+          lastName: '', //lastName
+          firstName: '', //firstName
+          emailAddress: '',
+          userName: '',
+          location:'',
+          companyName:'',
+        },
+        errorEmployer: '',
+        response: [],
+      
     }
   },
+
+  
   created: function () {
     // Initializing admins from backend
       AXIOS.get(`/coopAdmins`)
@@ -41,7 +70,8 @@ export default {
       .catch(e => {
         this.errorAdmin = e;
       });
-  },
+    },
+ 
   methods: {
     createAdmin: function (admin) {
       AXIOS.post('coopAdmins/'+admin.lastName+'?fName='+admin.firstName+'&emailAddress='+admin.emailAddress+'&userName='+admin.userName+'&password='+ admin.password, {}, {})
@@ -57,6 +87,39 @@ export default {
         console.log(errorMsg)
         this.errorAdmin = errorMsg
       });
+    },
+    getStudents: function () {
+      AXIOS.get('/students')
+      .then(response => {
+        // JSON responses are automatically parsed.
+        this.students = response.data
+        this.errorStudent = ''
+      })
+      .catch(e => {
+        var errorMsg = e.message
+        console.log(errorMsg)
+        this.errorStudent = errorMsg
+      });
+      console.log("im in here!!!")
+    },
+    getStudentTerm: function(){
+      
+      console.log("HEllOO")
+    
+    },
+    getEmployers: function () {
+      AXIOS.get('/employers')
+      .then(response => {
+        // JSON responses are automatically parsed.
+        this.employers = response.data
+        this.errorEmployer = ''
+      })
+      .catch(e => {
+        var errorMsg = e.message
+        console.log(errorMsg)
+        this.errorEmployer = errorMsg
+      });
+      console.log("im in here!!!")
     }
   }
 }
