@@ -1,3 +1,4 @@
+
 <template>
   <div id="coopAdmins" class="container">
     <h2>Administrators Portal</h2>
