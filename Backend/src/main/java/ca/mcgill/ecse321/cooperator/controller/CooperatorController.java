@@ -344,6 +344,24 @@ public class CooperatorController {
 		return documentDtoList;
 
 	}
+	
+	
+	/**
+	 * Get a employer object from the database. Available at
+	 * https://cooperator-backend-21.herokuapp.com/employers/term/{termId}
+	 * 
+	 * @param termId        - termId of employer
+	 * @return Employer requested - Employer DTO
+	 *
+	 */
+	// Get An Employer
+	@GetMapping(value = { "/employers/term/{termId}", "/employers/term/{termId}/" })
+	public EmployerDto getEmployerByTerm(@PathVariable("termId") Integer termId) {
+		CoopTerm coopTerm = service.getCoopTerm(termId);
+		Employer employer = coopTerm.getEmployer();
+		return convertToDto(employer);
+		
+	}
 
 	// =========================================================================================
 	// USE CASE Modify StudentFiles
