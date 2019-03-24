@@ -46,17 +46,18 @@ export default {
     
       .then(response => {
         // JSON responses are automatically parsed.
+        
         if( response.data == 1) {
           //this.coopAdmins.push(response.data)
           console.log('login successfully!')
-          location.replace('http://127.0.0.1:8087/?#/mainPage');
+          location.replace('http://127.0.0.1:8087/?#/');
         } 
         //this.newAdmin = ''
         //this.errorAdmin = ''
       })
       .catch(e => {
         var errorMsg = e.message
-        console.log('login unsuccessfully'+errorMsg)
+        console.log('login unsuccesful'+errorMsg)
         this.errorAdmin = errorMsg
       });
     }

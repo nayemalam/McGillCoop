@@ -3,14 +3,14 @@
 
   <div class="row">
     <div class="col-lg-6">
-      <router-link to="/students" style="color:white; decoration: none;" >
-        <button class="jumbotron vertical-center"> Student Progress </button>
+      <router-link to="/statistics/general" style="color:white; decoration: none;" >
+        <b-button variant="info"> General Statistics </b-button>
         </router-link>
     </div>
 
     <div class="col-lg-6">
       <router-link to="/statistics/incomplete" style="color:white; decoration: none;" >
-        <button class="jumbotron vertical-center"> Incomplete Placements </button>
+        <b-button variant="info"> Incomplete Placements </b-button>
         </router-link>
     </div>
   </div>

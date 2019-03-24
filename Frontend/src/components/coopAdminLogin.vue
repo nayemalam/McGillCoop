@@ -1,5 +1,5 @@
 <template>
-  <div id="coopAdmins" class="container">
+  <div id="coopAdmins" style="margin-top: -50px;">
 
       <b-carousel
       id="carousel1"
@@ -15,24 +15,22 @@
       @sliding-end="onSlideEnd"
     >
       <!-- Text slides with image -->
-      <b-carousel-slide
-        caption="Welcome to CO-OP-ERATOR"
-        text=" "
-        img-src="https://picsum.photos/1024/480/?image=52"
-      />
+      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=52">
+      
+        <h1 style="font-size: 100px;">Welcome to CO-OP-ERATOR</h1>
+      </b-carousel-slide>
 
       <!-- Slides with custom text -->
       <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=54">
-        <h1>Team 21</h1>
+        <h1 style="font-size: 100px;">Team 21</h1>
       </b-carousel-slide>
 
       <!-- Slides with image only -->
       <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=58" />
-    
     </b-carousel>
 
     <br/> 
-    <h2>Sign In here</h2>
+    <h2> If you are a Coop Admin <br/> Sign In here</h2>
     <br/>
      <!--<div class="row">
       <div class="col-xs-6">
@@ -49,6 +47,7 @@
                   </div>
                     <br/>
                     <div class="form">
+                      
                       <button type="submit" class="btn btn-primary" @click="CheckLogin(newAdmin)">
                         Sign In
                       </button>
@@ -59,6 +58,7 @@
                     <br/>
                     your institution's privacy policies and our Privacy Policy and Terms
                     </p>
+                    <h6 style="padding-top: 25px;">Don't have an account? <router-link to="/coopadmin"><b-button style="margin-left: 25px;">Sign me up!</b-button></router-link></h6>
                 </div>
               </form>  
             <!-- </td>

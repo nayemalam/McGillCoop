@@ -6,11 +6,10 @@ import coopMain from '@/components/coopMain'
 import Student from '@/components/Student'
 import Employer from '@/components/Employer'
 import Statistics from '@/components/Statistics'
-import Incomplete from '@/components/sub_dir/Incomplete'
+import Incomplete from '@/components/Incomplete'
 import coopAdminLogin from '@/components/coopAdminLogin'
 import mainPage from '@/components/mainPage'
-
-
+import GeneralStats from '@/components/GeneralStats'
 
 Vue.use(Router)
 
@@ -19,7 +18,7 @@ export default new Router({
     {
       path: '/',
       name: 'Hello',
-      component: Hello
+      component: require('../components/Hello.vue').default
     },
     {
       path: '/coopadmin',
@@ -49,7 +48,9 @@ export default new Router({
     {
       path: '/statistics/incomplete',
       name: 'Incomplete',
-      component: Incomplete,
+      component: Incomplete
+    },
+    {
       path: '/login',
       name: 'coopAdminLogin',
       component: coopAdminLogin
@@ -58,6 +59,11 @@ export default new Router({
       path: '/mainPage',
       name: 'mainPage',
       component: mainPage
-    }
+    },
+    {
+      path: '/statistics/general',
+      name: 'GeneralStats',
+      component: GeneralStats
+    },
   ]
 })
