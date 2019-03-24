@@ -309,8 +309,19 @@ public class CooperatorController {
 		documentDtoList = convertToDocumentDto(documents);
 
 		return documentDtoList;
+	}
+	
+	//controller method to get the list of coopTerms of a given system user 
+	@GetMapping(value = { "/viewStudentTerms/", "/viewStudentTerms" })
+	public List<CoopTermDto> viewStudentTerms(@RequestParam Integer userId) {
+		List<CoopTerm> coopTerms = new ArrayList<>();
+		coopTerms = service.getCoopTermByUserId(userId);
+		List<CoopTermDto> coopTermDtoList = new ArrayList<>();
+		coopTermDtoList = convertToDto(coopTerms);
+		return coopTermDtoList;
 
 	}
+	
 
 	// =========================================================================================
 	// USE CASE View EmployerFiles
@@ -685,6 +696,15 @@ public class CooperatorController {
 		coopTermDto.setDocument(createDocumentDtosForCoopTerm(coopTerm));
 		return coopTermDto;
 	}
+	
+	private List<CoopTermDto> convertToDto(List<CoopTerm> coopTerms) {
+		List<CoopTermDto> termsDto = new ArrayList<CoopTermDto>();
+		for (CoopTerm term  : coopTerms) {
+			termsDto.add(convertToDto(term));
+		}
+		return termsDto;
+	}
+
 
 	/**
 	 * Method used to convert the Document database object to a DTO
