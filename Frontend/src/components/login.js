@@ -56,7 +56,7 @@ export default {
       })
       .catch(e => {
         var errorMsg = e.message
-        console.log('login unsuccessfully'+errorMsg)
+        console.log('login unsuccesful'+errorMsg)
         this.errorAdmin = errorMsg
       });
     }

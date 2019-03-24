@@ -1,5 +1,5 @@
 import axios from 'axios'
-var config = require('../../../config')
+var config = require('../../config')
 
 // Uncomment below for LOCAL test
 
@@ -15,25 +15,13 @@ baseURL: backendUrl,
 headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
 
-function PersonDto (name) {
-    this.name = name
-    this.events = []
-  }
-  
-  function EventDto (name, date, start, end) {
-    this.name = name
-    this.eventDate = date
-    this.startTime = start
-    this.endTime = end
-  }
-
 export default {
 name: 'Incomplete',
     data () {
         return {
         incompleteStudents: [], //notice the 's'
+        documents: [],
         incompleteStudent: {
-            termId: 3,
             firstName: '', 
             lastName: '',
             studentId: 123,
@@ -45,9 +33,7 @@ name: 'Incomplete',
             emailAddress: ''
         },
         coopTerms: [],
-        coopTerm: {
-            termId: 2,
-        },
+        termId: 2,
         documents: [],
         document : {
             docName: '',
@@ -56,6 +42,7 @@ name: 'Incomplete',
             dueTime: '',
             subTime: ''
         },
+        seen: false,
         errorPlacement: '',
         response: []
         }
@@ -66,14 +53,48 @@ name: 'Incomplete',
         .then(response => {
         console.log(response.data)
         this.incompleteStudents = response.data
-        this.coopTerms = response.date
-        this.documents = response.date
         })
+
+        AXIOS.get(`/documents`)
+        .then(response => {
+        console.log(response.data)
+        this.documents = response.data
+        })
+
+        AXIOS.get(`/coopterms`)
+        .then(response => {
+        console.log(response.data)
+        this.coopTerms = response.data
+        })
+
         .catch(e => {
         this.errorAdmin = e;
         });
     },
     methods: {
-       
+        addItem(){
+            var my_object = {
+                firstName:this.firstName,
+                lastName:this.lastName,
+                studentId:this.studentId,
+                program:this.program,
+                docName:this.docName,
+                dueDate:this.dueDate,
+                subDate:this.subDate,
+                emailAddress:this.emailAddress
+            };
+            this.incompleteStudents.push(my_object)
+            this.documents.push(my_object)
+      
+            this.firstName = '';
+            this.lastName = '';
+            this.studentId = 123;
+            this.program = '';
+            this.docName = '';
+            this.dueDate = ''; 
+            this.subDate = ''; 
+            this.emailAddress = '';
+         
+          }       
     }
 }
