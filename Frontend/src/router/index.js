@@ -49,7 +49,9 @@ export default new Router({
     {
       path: '/statistics/incomplete',
       name: 'Incomplete',
-      component: Incomplete,
+      component: Incomplete
+    },
+    {
       path: '/login',
       name: 'coopAdminLogin',
       component: coopAdminLogin

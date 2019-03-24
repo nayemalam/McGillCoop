@@ -1,4 +1,4 @@
-<!--
+
 <template>
   <div id="coopAdmins" class="container">
     <h2>Administrators Portal</h2>
@@ -46,49 +46,12 @@
       
         <span v-if="errorAdmin" style="color:red">Error: {{errorAdmin}} </span>
       </p>
-      -->
-<template>
-  <div id="coopadmins" class="container">
-    <div class="row">
-      <div class="col-sm-8">
-        <br/><br/>
-          <table>
-            <tr>
-              <h4>List Employer </h4>
-                <button type="submit" class="btn btn-primary" @click="getStudentTerm()">
-                List Employer
-                </button>
-            </tr>
-          </table>
       </div>
-    </div>
-    <div class="col-sm-8">
-      <br/><br/>
-      <h4>Previewed Input</h4>
-        <table>
-          <tr v-for="student in students" >
-          <td> Email: {{ student.emailAddress }},</td>
-          <td> UserName: {{ student.userName }},</td>
-          <td> FirstName: {{ student.firstName }},</td> 
-          <td> LastName: {{ student.lastName }}</td>
-          <td> Program: {{ student.location}}</td>
-        </tr>
-      </table>
-    </div>
-  </div> 
 </template>
 
+
 <script src="./coopadmin.js">
 </script>
-
-<!--
-<script src="./coopadmin.js">
-</script>
--->
-
-
-
-
 
 
 <style>
