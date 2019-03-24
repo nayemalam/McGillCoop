@@ -41,26 +41,13 @@
           </table>
         </div>
       </div>
-    </div>
-    <div class="col-sm-8">
-      <br/><br/>
-      <h4>Previewed Input</h4>
-        <table>
-          <tr v-for="student in students" >
-          <td> Email: {{ student.emailAddress }},</td>
-          <td> UserName: {{ student.userName }},</td>
-          <td> FirstName: {{ student.firstName }},</td> 
-          <td> LastName: {{ student.lastName }}</td>
-          <td> Program: {{ student.location}}</td>
-        </tr>
-      </table>
-      </div>
-      </div>
       <p>
-      <span v-if="errorAdmin" style="color:red">Error: {{errorAdmin}} </span>
-    </p>
-  </div>
+      
+        <span v-if="errorAdmin" style="color:red">Error: {{errorAdmin}} </span>
+      </p>
+      </div>
 </template>
+
 
 <script src="./coopadmin.js">
 </script>

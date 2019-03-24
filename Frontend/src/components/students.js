@@ -16,7 +16,7 @@ var AXIOS = axios.create({
 })
 
 export default {
-  name: 'coopAdmins',
+  name: 'Student',
   data () {
     return {
       coopAdmins: [],
@@ -25,7 +25,8 @@ export default {
         firstName: '', //firstName
         emailAddress: '',
         userName: '',
-        password: '' //maybe we should hide this one
+        password: '', //maybe we should hide this one
+        userId: '',
       },
       errorAdmin: '',
       response: [],
@@ -38,7 +39,9 @@ export default {
         emailAddress: '',
         userName: '',
         program:'',
-        coopTerm: [],
+        studentId:'',
+        userId:'',
+        coopTerms: [],
         },
         errorStudent: '',
         response: [],
@@ -52,43 +55,48 @@ export default {
           userName: '',
           location:'',
           companyName:'',
+          userId:'',
+          coopTerms:[]
         },
         errorEmployer: '',
         response: [],
-      
+
+        //CoopTerm 
+        coopTerms: [],
+        newcoopTerm: {
+            startDate:'',
+            endDate:'',
+            documents:[],
+        },
+
+        //Document 
+        documents:[],
+        newDocument:{
+            dueDate:'',
+            subDate:'',
+            dueTime:'',
+            subTime:'',
+            docName:''
+        },
+        seen:'',
+        studId:'',
     }
   },
 
   
   created: function () {
     // Initializing admins from backend
-      AXIOS.get(`/coopAdmins`)
+      AXIOS.get(`/students`)
       .then(response => {
         console.log(response.data)
-        this.coopAdmins = response.data
+        this.students = response.data
       })
       .catch(e => {
-        this.errorAdmin = e;
+        this.errorStudent = e;
       });
     },
- 
     
   methods: {
-    createAdmin: function (admin) {
-      AXIOS.post('coopAdmins/'+admin.lastName+'?fName='+admin.firstName+'&emailAddress='+admin.emailAddress+'&userName='+admin.userName+'&password='+ admin.password, {},{})
-      // coopAdmins/Alam?fName=Nayem&emailAddress=Nayem.Alam@mcgill.ca&userName=NA_USER&password=1234
-      .then(response => {
-        // JSON responses are automatically parsed.
-        this.coopAdmins.push(response.data)
-        this.newAdmin = ''
-        this.errorAdmin = ''
-      })
-      .catch(e => {
-        var errorMsg = e.message
-        console.log(errorMsg)
-        this.errorAdmin = errorMsg
-      });
-    },
     getStudents: function () {
       AXIOS.get('/students')
       .then(response => {
@@ -104,7 +112,6 @@ export default {
       console.log("im in here!!!")
     },
     getStudentTerm: function(){
-      
       console.log("HEllOO")
     
     },
@@ -121,6 +128,22 @@ export default {
         this.errorEmployer = errorMsg
       });
       console.log("im in here!!!")
+    },
+
+    getTerm: function(id){
+        console.log("im in !!!")
+        this.seen = true;
+        this.studId = id;     
+        for(student in this.Students){
+          if(student.userId == id){
+          this.coopTerms = student.coopTerms;
+          }
+        }  
+    },
+
+    getDocument: function(currentDocument){
+        this.documents = currentDocument;
+        console.log("AYEEE")
     }
   }
 }
