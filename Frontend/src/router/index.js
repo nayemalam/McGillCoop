@@ -18,7 +18,7 @@ export default new Router({
     {
       path: '/',
       name: 'Hello',
-      component: Hello
+      component: require('../components/Hello.vue').default
     },
     {
       path: '/coopadmin',
@@ -48,7 +48,7 @@ export default new Router({
     {
       path: '/statistics/incomplete',
       name: 'Incomplete',
-      component: Incomplete,
+      component: Incomplete
     },
     {
       path: '/login',

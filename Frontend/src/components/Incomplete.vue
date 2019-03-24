@@ -68,7 +68,7 @@
 </div>
 </template>
 
-<script src="./incomplete.js">
+<script src="./incompletePlace.js">
 </script>
 
 <style>

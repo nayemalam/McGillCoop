@@ -30,7 +30,7 @@
     </b-carousel>
 
     <br/> 
-    <h2>Sign In here</h2>
+    <h2> If you are a Coop Admin <br/> Sign In here</h2>
     <br/>
      <!--<div class="row">
       <div class="col-xs-6">

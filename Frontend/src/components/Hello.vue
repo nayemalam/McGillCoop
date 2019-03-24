@@ -2,7 +2,7 @@
   <div class="hello">
   
     <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
+    <h2>Here are some essential links: </h2>
     <ul>
       <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
       <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
@@ -11,6 +11,7 @@
       <br>
       <li><a href="http://vuejs-templates.github.io/webpack/" target="_blank">Docs for This Template</a></li>
     </ul>
+    <img src="../assets/logo.png">
     <h2>Ecosystem</h2>
     <ul>
       <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
@@ -26,7 +27,7 @@ export default {
   name: 'hello',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App VIOLET'
+      msg: "You have succesfully logged in!"
     }
   }
 }
