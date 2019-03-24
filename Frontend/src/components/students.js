@@ -80,6 +80,7 @@ export default {
         },
         seen:'',
         studId:'',
+        termId:'',
     }
   },
 
@@ -130,14 +131,10 @@ export default {
       console.log("im in here!!!")
     },
 
-    getTerm: function(id){
+    setStudId: function(id){
         console.log("im in !!!")
         this.seen = true;
         this.studId = id;     
-        for(student in this.Students){
-          if(student.userId == id){
-          this.coopTerms = student.coopTerms;
-          }
         }  
     },
 
@@ -146,4 +143,4 @@ export default {
         console.log("AYEEE")
     }
   }
-}
+
