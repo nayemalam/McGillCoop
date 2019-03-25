@@ -92,10 +92,10 @@ This software system is subdivided into four deliverables:
 |Violet Wei        |  _x_ hours   |   Frontend Developper   |
 
 ### Sprint 3 (Web)
-- [ ] Implement the web frontend using Vue.js
-- [ ] Integrate web frontend with backend services
-- [ ] Provide continuous integration of the web frontend using npm build, Travis CI
-- [ ] Deploy the web frontend as a separate Heroku application
+- [x] Implement the web frontend using Vue.js
+- [x] Integrate web frontend with backend services
+- [x] Provide continuous integration of the web frontend using npm build, Travis CI
+- [x] Deploy the web frontend as a separate Heroku application
 
 
 ##### Attributions
