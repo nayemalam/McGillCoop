@@ -85,10 +85,10 @@ This software system is subdivided into four deliverables:
 
 |Team member's name|Total hours   |Responsibility           |
 |------------------|--------------|-------------------------|
-|Tristan Bouchard  |  _21_ hours   |     Backend Lead        |
-|Nayem Alam        |  _35_ hours   |     Frontend Lead       |
-|Alex Masciotra    |  _30_ hours   |    Build + CI Lead      |
-|Thomas Philippon  |  _32.5_ hours   |   Frontend Developper   |
+|Tristan Bouchard  |  _22_ hours   |     Backend Lead        |
+|Nayem Alam        |  _37_ hours   |     Frontend Lead       |
+|Alex Masciotra    |  _31_ hours   |    Build + CI Lead      |
+|Thomas Philippon  |  _33.5_ hours   |   Frontend Developper   |
 |Violet Wei        |  _29_ hours   |   Frontend Developper   |
 
 ### Sprint 3 (Web)
