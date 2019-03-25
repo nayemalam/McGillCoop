@@ -7,8 +7,8 @@ var config = require('../../config')
   // var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
 
 // Uncomment below for LIVE server test
-    var frontendUrl = 'http://' + config.build.host
-    var backendUrl = 'http://' + config.build.backendHost 
+    var frontendUrl = 'https://' + config.build.host
+    var backendUrl = 'https://' + config.build.backendHost 
 
 var AXIOS = axios.create({
   baseURL: backendUrl,
@@ -50,7 +50,7 @@ export default {
         if( response.data == 1) {
           //this.coopAdmins.push(response.data)
           console.log('login successfully!')
-         location.replace(frontendUrl + '/students');
+         location.replace(frontendUrl + '/');
         } 
         //this.newAdmin = ''
         //this.errorAdmin = ''

@@ -25,12 +25,8 @@
         </tr>
       </table>
 
-      <br/><br/>
-      <br/><br/>
-      <br/><br/>
-
       <div v-if="seen">
-      <h1 align="center">Coop Terms of {{empFirstName + ' '+ empLastName}} </h1>
+      <h5 style="margin-top: 60px; text-align: left; padding-left: 25px;">Coop Terms of <u>{{empFirstName + ' '+ empLastName}}</u> </h5>
       <table class="table table-hover">
         <tr>
           <th scope="col">Start Date</th>
@@ -55,12 +51,9 @@
          </table>
       </div>
 
-      <br/> <br/> 
-      <br/> <br/> 
-      <br/> <br/> 
 
       <div v-if="seen2">
-      <h1 align="center">Documents of {{empFirstName + ' '+ empLastName}}  </h1>
+      <h5 style="margin-top: 60px; text-align: left; padding-left: 25px;">Documents of <u>{{empFirstName + ' '+ empLastName}}</u>  </h5>
       <table class="table table-hover">
         <tr>
           <th scope="col">Document Name</th>
@@ -84,7 +77,7 @@
         </div>
 
       <div v-if="seen3">
-      <h1 align="center">Student </h1>
+      <h5 style="margin-top: 60px; text-align: left; padding-left: 25px;">Student Credentials </h5>
       <table class="table table-hover">
         <tr>
           <th scope="col">Student Name</th>
@@ -99,9 +92,7 @@
         </tr>
          </table>
       </div>
-      <br/> <br/> 
-      <br/> <br/> 
-      <br/> <br/>
+
   </div>
  
  </template>

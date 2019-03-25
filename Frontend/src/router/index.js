@@ -17,8 +17,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: require('../components/Hello.vue').default
+      name: 'coopAdminLogin',
+      component: require('../components/coopAdminLogin.vue').default
     },
     {
       path: '/coopadmin',
@@ -49,11 +49,6 @@ export default new Router({
       path: '/statistics/incomplete',
       name: 'Incomplete',
       component: Incomplete
-    },
-    {
-      path: '/login',
-      name: 'coopAdminLogin',
-      component: coopAdminLogin
     },
     {
       path: '/mainPage',

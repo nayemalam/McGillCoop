@@ -1,24 +1,35 @@
 
 <template>
   <div id="coopAdmins" class="container">
-    <h2>Administrators Portal</h2>
+    <h2 style="padding-bottom: 30px;">Administrators Portal</h2>
       <div class="row">
-        <div class="col-sm-4">
+        <div style="margin: 0 auto;">
           <table>
             <tr>
               <td>
-                <form><h4>Add Administrator</h4> <br/>
+                <form class="form-group"><h4>Sign Up ... it's easy as 1, 2, 3!</h4> <br/>
                   <div class="field">
                     <div class="control">
-                      <input type="text" v-model="newAdmin.firstName" placeholder="First Name"> <br/><br/>
-                      <input type="text" v-model="newAdmin.lastName" placeholder="Last Name"> <br/><br/>
-                      <input type="text" v-model="newAdmin.emailAddress" placeholder="Email Address"> <br/><br/>
-                      <input type="text" v-model="newAdmin.userName" placeholder="userName"> <br/><br/>
-                      <input type="text" v-model="newAdmin.password" placeholder="Password"> <br/>           
+                      <div class="form-row">
+                        <div class="col">
+                          <input type="text" class="form-control form-inline" v-model="newAdmin.firstName" placeholder="First Name"> <br/><br/>
+                        </div>
+                        <div class="col">
+                          <input type="text" class="form-control form-inline" v-model="newAdmin.lastName" placeholder="Last Name"> <br/><br/>
+                        </div>
+                      </div>
+                      
+                      
+                      <input type="email" class="form-control" autocomplete="email" required v-model="newAdmin.emailAddress" placeholder="Email Address"> <br/><br/>
+                      <input type="text" class="form-control" v-model="newAdmin.userName" placeholder="User name"> <br/><br/>
+                      <input id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock" type="password" autocomplete="password" required v-model="newAdmin.password" placeholder="Password"> <br/>           
+                      <small id="passwordHelpBlock" class="form-text text-muted">
+                      Your password must be 4-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emojis.
+                      </small>
                     </div>
                     <br/>
                     <div class="form">
-                      <button type="submit" class="btn btn-primary" @click="createAdmin(newAdmin)">
+                      <button type="submit" class="btn btn-info" @click="createAdmin(newAdmin)">
                         Create Administrator
                       </button>
                     </div>
@@ -28,6 +39,7 @@
             </tr>
           </table>
         </div>
+       
         <!--
         <div class="col-sm-4">
           <br/><br/>
