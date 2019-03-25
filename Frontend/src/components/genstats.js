@@ -20,11 +20,48 @@ console.log("gen stats")
     name: 'GeneralStats',
     data () {
         return {
+            
         studentsInCoop: [],
         number: '',
+
         studentsInFirst: [],
+        newStudent: {
+            lastName: '', //lastName
+            firstName: '', //firstName
+            emailAddress: '',
+            userName: '',
+            program:'',
+            studentId:'',
+            userId:'',
+            coopTerms: [],
+            },
+
         studentsInSecond: [],
+        newStudent: {
+            lastName: '', //lastName
+            firstName: '', //firstName
+            emailAddress: '',
+            userName: '',
+            program:'',
+            studentId:'',
+            userId:'',
+            coopTerms: [],
+            },
+       
         studentsInThird: [],
+            newStudent: {
+            lastName: '', //lastName
+            firstName: '', //firstName
+            emailAddress: '',
+            userName: '',
+            program:'',
+            studentId:'',
+            userId:'',
+            coopTerms: [],
+            },
+            
+        errorStudent: '',
+        response: [],
         errorStat: '',
         response: [],
         seen1: false,
@@ -42,7 +79,7 @@ console.log("gen stats")
         this.number = this.studentsInCoop;
         })
 
-        AXIOS.get(`/stats/studentsInFirst//?semDate=2019-03-01`)
+        AXIOS.get(`/stats/studentsInFirst/?semDate=2019-03-01`)
         .then(response => {
         console.log(response.data)
         this.studentsInFirst = response.data
@@ -51,13 +88,13 @@ console.log("gen stats")
         AXIOS.get(`/stats/studentsInSecond/?semDate=2020-01-01`)
         .then(response => {
         console.log(response.data)
-        this.studentsInFirst = response.data
+        this.studentsInSecond = response.data
         })
 
-        AXIOS.get(`/stats/studentsInThird/?semDate=2021-02-01`)
+        AXIOS.get(`/stats/studentsInThird/?semDate=2019-02-24`)
         .then(response => {
         console.log(response.data)
-        this.studentsInFirst = response.data
+        this.studentsInThird = response.data
         })
 
         .catch(e => {
