@@ -50,8 +50,7 @@ export default {
         if( response.data == 1) {
           //this.coopAdmins.push(response.data)
           console.log('login successfully!')
-         //location.replace('http://127.0.0.1:8087/?#/');
-         location.replace('http://127.0.0.1:8087/?#/students');
+         location.replace(backendUrl + '/students');
         } 
         //this.newAdmin = ''
         //this.errorAdmin = ''
