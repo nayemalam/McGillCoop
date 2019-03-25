@@ -36,7 +36,7 @@ export default new Router({
       component: Student
     },
     {
-      path: '/employers',
+      path: '/employer',
       name: 'Employer',
       component: Employer
     },

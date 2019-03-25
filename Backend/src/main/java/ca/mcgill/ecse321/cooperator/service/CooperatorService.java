@@ -1448,6 +1448,25 @@ public class CooperatorService {
 	}
 
 	/**
+	 * Get a list of CoopTerm by specified User ID from the database
+	 * 
+	 * @param userId - UserId of the system user
+	 * @return {@code list<CoopTerm>} 
+	 */
+	@Transactional
+	public List<CoopTerm> getCoopTermByUserId(Integer userId) {
+		List<CoopTerm> coopTermList = new ArrayList<CoopTerm>();
+		List<CoopTerm> allCoopTermList = new ArrayList<CoopTerm>();
+		allCoopTermList =toList(coopTermRepository.findAll());
+		for (CoopTerm coopTerm : allCoopTermList) {
+			if ((coopTerm.getStudent().getUserID().equals(userId))||(coopTerm.getEmployer().getUserID().equals(userId))) {
+				coopTermList.add(coopTerm);
+			}
+		}
+		return coopTermList;
+	}
+	
+	/**
 	 * Obtain all CoopTerm objects from the database
 	 * 
 	 * @return {@code List<CoopTerm>}
@@ -1484,6 +1503,8 @@ public class CooperatorService {
 		coopTermRepository.deleteAll();
 	}
 
+	
+	
 	/**
 	 * Updates the Coopterm information in the database based on the new information
 	 * 

@@ -83,19 +83,19 @@ This software system is subdivided into four deliverables:
 
 ## [Deliverable 3](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-3-Report) - Web Frontend, Architecture Modeling
 
-|Team member's name|Total hours   |Responsibility         |
-|------------------|--------------|-----------------------|
-|Tristan Bouchard  |  _x_ hours  |         |
-|Nayem Alam        |  _x_ hours  |         |
-|Alex Masciotra    |  _x_ hours  |         |
-|Thomas Philippon  |  _x_ hours  |         |
-|Violet Wei        |  _x_ hours  | Frontend + Documentation       |
+|Team member's name|Total hours   |Responsibility           |
+|------------------|--------------|-------------------------|
+|Tristan Bouchard  |  _22_ hours   |     Backend Lead        |
+|Nayem Alam        |  _37_ hours   |     Frontend Lead       |
+|Alex Masciotra    |  _31_ hours   |    Build + CI Lead      |
+|Thomas Philippon  |  _33.5_ hours   |   Frontend Developper   |
+|Violet Wei        |  _29_ hours   |   Frontend Developper   |
 
 ### Sprint 3 (Web)
-- [ ] Implement the web frontend using Vue.js
-- [ ] Integrate web frontend with backend services
-- [ ] Provide continuous integration of the web frontend using npm build, Travis CI
-- [ ] Deploy the web frontend as a separate Heroku application
+- [x] Implement the web frontend using Vue.js
+- [x] Integrate web frontend with backend services
+- [x] Provide continuous integration of the web frontend using npm build, Travis CI
+- [x] Deploy the web frontend as a separate Heroku application
 
 
 ##### Attributions

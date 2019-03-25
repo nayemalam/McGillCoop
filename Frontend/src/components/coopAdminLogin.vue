@@ -40,8 +40,8 @@
               <form> <br/>
                 <div class="field">
                   <div class="control"> 
-                    <h4>Username</h4> 
-                    <input type="email" v-model="newAdmin.emailAddress" placeholder="Enter your username"> <br/><br/>
+                    <h4>Email Address</h4> 
+                    <input type="email" v-model="newAdmin.emailAddress" placeholder="Enter your email address"> <br/><br/>
                     <h4>Password</h4>
                     <input type="password" v-model="newAdmin.password" placeholder="Enter your password"> <br/>           
                   </div>

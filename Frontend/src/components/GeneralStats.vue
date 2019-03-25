@@ -6,7 +6,7 @@
         <b-col></b-col>
 
         <b-col>
-         <button class="btn btn-lg btn-primary" v-on:click="seen1 = !seen1">Number of Students</button> 
+         <button style="background-color: #17a2b8; border-color: #17a2b8;" class="btn btn-lg btn-primary" v-on:click="seen1 = !seen1">Number of Students</button> 
         <h5 v-if="seen1" style="padding-top: 50px;">The number of students registered in the current term: <br/> <span v-if="number" class="amount">{{number}}</span></h5>
         </b-col>
 
@@ -16,7 +16,7 @@
         
     </b-row>
     <b-row style="padding-top: 100px;">
-        <b-col><button class="btn btn-lg btn-primary" v-on:click="seen2 = !seen2">List of Students in 1st Term</button> 
+        <b-col><button style="background-color: #17a2b8; border-color: #17a2b8;" class="btn btn-lg btn-primary" v-on:click="seen2 = !seen2">List of Students in 1st Term</button> 
         <h5 v-if="seen2" style="padding-top: 50px;">A list of student(s) currently doing their <u>first coop</u> term:</h5>
         <table v-if="seen2" style="margin-top: 50px;" class="table table-hover">
             <tr>
@@ -33,7 +33,7 @@
         </table>
         </b-col> 
 
-        <b-col><button class="btn btn-lg btn-primary" v-on:click="seen3 = !seen3">List of Students in 2nd Term</button> 
+        <b-col><button style="background-color: #17a2b8; border-color: #17a2b8;" class="btn btn-lg btn-primary" v-on:click="seen3 = !seen3">List of Students in 2nd Term</button> 
         <h5 v-if="seen3" style="padding-top: 50px;">A list of student(s) currently doing their <u>second</u> coop term:</h5>
         <table v-if="seen3" style="margin-top: 50px;" class="table table-hover">
             <tr>
@@ -50,7 +50,7 @@
         </table>
         </b-col> 
 
-        <b-col><button class="btn btn-lg btn-primary" v-on:click="seen4 = !seen4">List of Students in 3rd Term</button> 
+        <b-col><button style="background-color: #17a2b8; border-color: #17a2b8;" class="btn btn-lg btn-primary" v-on:click="seen4 = !seen4">List of Students in 3rd Term</button> 
         <h5 v-if="seen4" style="padding-top: 50px;">A list of student(s) currently doing their <u>third</u> coop term:</h5>
         <table v-if="seen4" style="margin-top: 50px;" class="table table-hover">
             <tr>

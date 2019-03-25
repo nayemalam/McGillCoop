@@ -10,7 +10,7 @@
           <b-navbar-nav>
       
             <b-nav-item><router-link to="/students" style="color:white; decoration: none;" >Students</router-link></b-nav-item>
-            <b-nav-item><router-link to="/employers" style="color:white; decoration: none;" >Employers</router-link></b-nav-item>
+            <b-nav-item><router-link to="/employer" style="color:white; decoration: none;" >Employers</router-link></b-nav-item>
             <b-nav-item><router-link to="/statistics" style="color:white; decoration: none;" >Statistics</router-link></b-nav-item>
 
           </b-navbar-nav>

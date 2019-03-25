@@ -309,8 +309,19 @@ public class CooperatorController {
 		documentDtoList = convertToDocumentDto(documents);
 
 		return documentDtoList;
+	}
+	
+	//controller method to get the list of coopTerms of a given system user 
+	@GetMapping(value = { "/viewStudentTerms/", "/viewStudentTerms" })
+	public List<CoopTermDto> viewStudentTerms(@RequestParam Integer userId) {
+		List<CoopTerm> coopTerms = new ArrayList<>();
+		coopTerms = service.getCoopTermByUserId(userId);
+		List<CoopTermDto> coopTermDtoList = new ArrayList<>();
+		coopTermDtoList = convertToDto(coopTerms);
+		return coopTermDtoList;
 
 	}
+	
 
 	// =========================================================================================
 	// USE CASE View EmployerFiles
@@ -333,6 +344,44 @@ public class CooperatorController {
 		return documentDtoList;
 
 	}
+	
+	
+	/**
+	 * Get a employer object from the database. Available at
+	 * https://cooperator-backend-21.herokuapp.com/employers/term/{termId}
+	 * 
+	 * @param termId        - termId of employer
+	 * @return Employer requested - Employer DTO
+	 *
+	 */
+	// Get An Employer
+	@GetMapping(value = { "/employers/term/{termId}", "/employers/term/{termId}/" })
+	public EmployerDto getEmployerByTerm(@PathVariable("termId") Integer termId) {
+		CoopTerm coopTerm = service.getCoopTerm(termId);
+		Integer temp = coopTerm.getEmployer().getUserID();
+		Employer employer = service.getEmployer(temp);
+		
+		return convertToDto(employer);
+		
+	}
+		/**
+		 * Get a student object from the database. Available at
+		 * https://cooperator-backend-21.herokuapp.com/employers/term/{termId}
+		 * 
+		 * @param termId        - termId of student
+		 * @return Student requested - Student DTO
+		 *
+		 */
+	
+	// Get A Student
+		@GetMapping(value = { "/students/term/{termId}", "/employers/term/{termId}/" })
+		public StudentDto getStudentByTerm(@PathVariable("termId") Integer termId) {
+			CoopTerm coopTerm = service.getCoopTerm(termId);
+			Integer temp = coopTerm.getStudent().getUserID();
+			Student student = service.getStudent(temp);
+			
+			return convertToDto(student);
+		}
 
 	// =========================================================================================
 	// USE CASE Modify StudentFiles
@@ -521,7 +570,7 @@ public class CooperatorController {
 	 */
 	// Delete A Coopterm
 	@DeleteMapping(value = { "/coopterm/{termId}", "/coopterm/{termId}/" })
-	public void deleteCoopTerm(@PathVariable("userId") Integer termId) {
+	public void deleteCoopTerm(@PathVariable("termId") Integer termId) {
 		service.deleteCoopTerm(termId);
 	}
 
@@ -685,6 +734,15 @@ public class CooperatorController {
 		coopTermDto.setDocument(createDocumentDtosForCoopTerm(coopTerm));
 		return coopTermDto;
 	}
+	
+	private List<CoopTermDto> convertToDto(List<CoopTerm> coopTerms) {
+		List<CoopTermDto> termsDto = new ArrayList<CoopTermDto>();
+		for (CoopTerm term  : coopTerms) {
+			termsDto.add(convertToDto(term));
+		}
+		return termsDto;
+	}
+
 
 	/**
 	 * Method used to convert the Document database object to a DTO

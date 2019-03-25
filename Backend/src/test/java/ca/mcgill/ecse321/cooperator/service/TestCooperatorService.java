@@ -1988,4 +1988,69 @@ public class TestCooperatorService {
 		assertEquals(true, termsCompleteness.get(0).getCourseEvaluationCompleteness());
 	}
 
+
+
+@Test
+public void testgetCoopTermByUserId() {
+	// Create document
+			Document testDocument = new Document();
+			assertEquals(0, service.getAllDocuments().size());
+
+			// set calendar
+			Calendar c = Calendar.getInstance();
+			c.set(2019, Calendar.FEBRUARY, 16, 9, 00, 0);
+
+			// initialize variables
+			DocumentName docName = DocumentName.courseEvaluation; // evaluation doc
+			Date dueDate = new Date(c.getTimeInMillis());
+			Time dueTime = new Time(c.getTimeInMillis());
+
+			c.set(2019, Calendar.FEBRUARY, 16, 10, 30, 0);
+
+			Date subDate = new Date(c.getTimeInMillis());
+			Time subTime = new Time(c.getTimeInMillis());
+
+			// Other parameters
+			Date startDate = new Date(0);
+			Date endDate = new Date(1);
+
+			Student student;
+			String name = "Oscar";
+			String fName = "Macsiotra";
+			String emailAddress = "oscar@mcgill.ca";
+			String userName = "Oscar89";
+			String password = "qwerty";
+			Integer studentId = 260747696;
+			String program = "ecse";
+			student = service.createStudent(name, fName, emailAddress, userName, password, studentId, program);
+			assertEquals(1, service.getAllStudents().size());
+
+			Employer employer;
+			String emp_name = "Tristan";
+			String emp_fName = "Bougon";
+			String emp_emailAddress = "tristan@mcgill.ca";
+			String emp_userName = "oups";
+			String emp_password = "trist90";
+			String emp_companyName = "Industries";
+			String emp_location = "Montreal";
+			employer = service.createEmployer(emp_name, emp_fName, emp_emailAddress, emp_userName, emp_password,
+					emp_companyName, emp_location);
+			assertEquals(1, service.getAllEmployers().size());
+
+			CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, student, employer);
+			
+			List<CoopTerm> coopTermList = new ArrayList<CoopTerm>();
+			// remove the document
+			try {
+				coopTermList = service.getCoopTermByUserId(student.getUserID());
+			} catch (IllegalArgumentException e) {
+				fail();
+			}
+
+			
+
+			assertEquals(1, coopTermList.size());
+		
+}
+
 }
