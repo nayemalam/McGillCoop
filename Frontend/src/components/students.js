@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 var config = require('../../config')
 
 //Uncomment below for LOCAL test
@@ -47,16 +48,16 @@ export default {
         response: [],
 
         //Employer object 
-        employers: [],
-        newEmployer: {
-          lastName: '', //lastName
-          firstName: '', //firstName
+        //employers: [],
+          employer: {
+          coopTerm:[],
           emailAddress: '',
           userName: '',
-          location:'',
           companyName:'',
+          location:'',
           userId:'',
-          coopTerms:[]
+          firstName: '', //firstName
+          lastName: '', //lastName
         },
         errorEmployer: '',
         response: [],
@@ -67,6 +68,7 @@ export default {
             startDate:'',
             endDate:'',
             documents:[],
+            termId:'',
         },
 
         //Document 
@@ -79,6 +81,8 @@ export default {
             docName:''
         },
         seen:'',
+        seen2:'',
+        seen3:'',
         studId:'',
         termId:'',
         studLastName:'',
@@ -118,11 +122,58 @@ export default {
       console.log("HEllOO")
     
     },
-    getEmployers: function () {
-      AXIOS.get('/employers')
+    // getEmployers: function () {
+    //   AXIOS.get('/employers')
+    //   .then(response => {
+    //     // JSON responses are automatically parsed.
+    //     this.employers = response.data
+    //     this.errorEmployer = ''
+    //   })
+    //   .catch(e => {
+    //     var errorMsg = e.message
+    //     console.log(errorMsg)
+    //     this.errorEmployer = errorMsg
+    //   });
+    //   console.log("im in here!!!")
+    // },
+
+    setStudId: function(id, last, first){
+        console.log("im in !!!")
+        this.seen = true;
+        this.seen2 = false;
+        this.studLastName = last;
+        this.studFirstName = first;
+        this.studId = id;     
+        AXIOS.get('/viewStudentTerms'+'?userId='+id)
+        .then(response => {
+        // JSON responses are automatically parsed.
+        this.coopTerms = response.data
+       })
+        },  
+  
+
+    viewDoc: function(id){
+      console.log("im in get Term !!!")
+      this.termId= id;
+      this.seen2 =  true;
+      this.seen3 = false;
+      var b = this.studId;
+      AXIOS.get('/viewStudentFiles' + '/?userId='+b+'&termId='+id)
+      .then(response => {
+      // JSON responses are automatically parsed.
+      this.documents = response.data
+     })
+  
+    },
+
+    viewEmployer: function(termId){
+      this.seen3 = true;
+      this.seen2 = false;
+      
+      AXIOS.get('/employers/term/'+termId)
       .then(response => {
         // JSON responses are automatically parsed.
-        this.employers = response.data
+        this.employer = response.data
         this.errorEmployer = ''
       })
       .catch(e => {
@@ -130,29 +181,27 @@ export default {
         console.log(errorMsg)
         this.errorEmployer = errorMsg
       });
-      console.log("im in here!!!")
-    },
 
-    setStudId: function(id, first, last){
-        console.log("im in !!!")
-        this.seen = true;
-        this.studId = id;     
-        AXIOS.get('/viewStudentTerms'+'?userId='+id)
-        .then(response => {
-        // JSON responses are automatically parsed.
-        this.coopTerms = response.data
-       })
-        }  
-    },
-
-    getTerm: function(){
-      console.log("im in get Term !!!")
-  
     },
 
     getDocument: function(currentDocument){
         this.documents = currentDocument;
         console.log("AYEEE")
-    }
+    },
+
+    download: function(filename, text) {
+      var element = document.createElement('a');
+      element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+      element.setAttribute('download', filename);
+  
+      element.style.display = 'none';
+      document.body.appendChild(element);
+  
+      element.click();
+  
+      document.body.removeChild(element);
+  }
+  
+  },
   }
 
