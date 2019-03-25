@@ -358,7 +358,9 @@ public class CooperatorController {
 	@GetMapping(value = { "/employers/term/{termId}", "/employers/term/{termId}/" })
 	public EmployerDto getEmployerByTerm(@PathVariable("termId") Integer termId) {
 		CoopTerm coopTerm = service.getCoopTerm(termId);
-		Employer employer = coopTerm.getEmployer();
+		Integer temp = coopTerm.getEmployer().getUserID();
+		Employer employer = service.getEmployer(temp);
+		
 		return convertToDto(employer);
 		
 	}

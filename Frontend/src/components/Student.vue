@@ -13,7 +13,7 @@
           <td> {{ student.lastName+ ', '+student.firstName }} </td>
           <td> {{ student.firstName}} </td>
           <td> {{ student.emailAddress}} </td>  
-           <button style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" @click="getTerm(student.userId)">
+           <button style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" @click="setStudId(student.userId)">
            View Coop Terms
            </button>
         </tr>
@@ -22,33 +22,23 @@
       <br/><br/>
       <br/><br/>
       <br/><br/>
-      <br/><br/>
 
       <div v-if="seen">
+      <h1 align="center">Coop Terms of </h1>
       <table class="table table-hover" id="my_table">
         <tr>
           <th scope="col">Start Date</th>
           <th scope="col">End Date</th>
           <th scope="col">View Documents</th>
         </tr>
-        <!--
-        <tr v-if="student.userId == studId" v-for="student in students">
-          <td v-for="term in student.coopTerm">
-          {{term.startDate}} 
-          </td>
-          <button  style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" @click="getDocument(coopTerm.term)">
-          View Documents
-          </button> 
-        </tr>
-        -->
-         <tr v-for="term in coopTerms">
+         <tr v-for="term in coopTerms" >
           <td> {{term.startDate}} </td>
-          <button  style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" @click="getDocument(coopTerm.term)">
-          View Documents
-          </button> 
+          <td> {{term.startDate}} </td>
+           <button style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" @click="viewDoc(term.id)">
+           View Documents 
+           </button>
         </tr>
-
-      </table>
+         </table>
       </div>
 
   </div>

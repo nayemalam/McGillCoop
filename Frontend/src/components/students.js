@@ -81,6 +81,8 @@ export default {
         seen:'',
         studId:'',
         termId:'',
+        studLastName:'',
+        studFirstName:'',
     }
   },
 
@@ -131,11 +133,21 @@ export default {
       console.log("im in here!!!")
     },
 
-    setStudId: function(id){
+    setStudId: function(id, first, last){
         console.log("im in !!!")
         this.seen = true;
         this.studId = id;     
+        AXIOS.get('/viewStudentTerms'+'?userId='+id)
+        .then(response => {
+        // JSON responses are automatically parsed.
+        this.coopTerms = response.data
+       })
         }  
+    },
+
+    getTerm: function(){
+      console.log("im in get Term !!!")
+  
     },
 
     getDocument: function(currentDocument){
