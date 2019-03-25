@@ -13,7 +13,6 @@ matrix:
     - node
     before_install:
     - cd Frontend
-    - npm i -g npm@6.9.0
     install:
     - npm install
     script:
@@ -23,5 +22,6 @@ matrix:
       api_key:
         secure: XX/ZHCHDGX+qYsHhHil4TxIHibNXV9oySXshEiZXgMR0Z6PLnUZtjtU9lK2KMNNIctZbIbIvsHTFvu3Hb0sRrLh4jIUMH3yl97glwNkDQHqeZssDgkQBQu4Y1v01OSUA4TqfLDR0MlNzWlYv6zHOFplLt3xt9d954w+UvJ8EVA3un3gnCB897nxIsLPMK+fE7wAJgooQ+6Uht1qxSryy+GsGNjp/UbdAPxk+qjWLu9jk+K73rfP5XV92nhfdO3Y//G0XSmsOykbhVEyjuSQWMTx1t/l7X9koxJj5jXc3eOoU8gOPt8yupfP52Onho+dk0MclJqLOo6kwX6PDmgYEfEOEVQEiRSLL74aYmaIKIGqK+VrZLTPpgh0INrFeSj28XuHWw14bUjLv9no4kNkhui1rpz7nNTCY/zN1Mcb+Vr0SPKCfg5+J4oZvr+wohuIRt9/kOIpsPHRfpqWObT2ncZEMhEA4S3cvFkXIilHMDXEbZqRGURf3zXMiLmjuV/Hjj8aQgWWVlEHB6f4Li/+h5jAjiJoHqYd6xBMwQp1JmdKgYppOYeQGvIGpZLqdDtPXnC0juQk0ImEcn9D0o6nYbaLK/3Gcv6V/1beLFZD6p7X8E3KILbVWiuB4Vk5GuW5XoHVp1LxC+MsdjqdvFESpM+CQ8kvpuj+pZhIAjhlTUMI=
       app: cooperator-frontend-21
+      on: Alex
 
   
