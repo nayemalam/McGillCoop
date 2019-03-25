@@ -89,7 +89,7 @@ This software system is subdivided into four deliverables:
 |Nayem Alam        |  _35_ hours   |     Frontend Lead       |
 |Alex Masciotra    |  _28.5_ hours   |    Build + CI Lead      |
 |Thomas Philippon  |  _31_ hours   |   Frontend Developper   |
-|Violet Wei        |  _x_ hours   |   Frontend Developper   |
+|Violet Wei        |  _29_ hours   |   Frontend Developper   |
 
 ### Sprint 3 (Web)
 - [x] Implement the web frontend using Vue.js
