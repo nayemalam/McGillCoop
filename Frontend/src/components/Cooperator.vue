@@ -28,6 +28,7 @@
             </tr>
           </table>
         </div>
+        <!--
         <div class="col-sm-4">
           <br/><br/>
           <h4>Previewed Input</h4>
@@ -41,6 +42,7 @@
             </tr>
           </table>
         </div>
+        -->
       </div>
       <p>
       
