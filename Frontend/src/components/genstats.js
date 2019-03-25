@@ -85,7 +85,7 @@ console.log("gen stats")
         this.studentsInFirst = response.data
         })
 
-        AXIOS.get(`/stats/studentsInSecond/?semDate=2020-01-01`)
+        AXIOS.get(`/stats/studentsInSecond/?semDate=2019-03-01`)
         .then(response => {
         console.log(response.data)
         this.studentsInSecond = response.data

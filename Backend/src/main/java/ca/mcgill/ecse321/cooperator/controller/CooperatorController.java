@@ -570,7 +570,7 @@ public class CooperatorController {
 	 */
 	// Delete A Coopterm
 	@DeleteMapping(value = { "/coopterm/{termId}", "/coopterm/{termId}/" })
-	public void deleteCoopTerm(@PathVariable("userId") Integer termId) {
+	public void deleteCoopTerm(@PathVariable("termId") Integer termId) {
 		service.deleteCoopTerm(termId);
 	}
 
