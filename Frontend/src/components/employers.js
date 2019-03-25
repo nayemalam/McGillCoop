@@ -1,13 +1,12 @@
 import axios from 'axios'
-
 var config = require('../../config')
 
-//Uncomment below for LOCAL test
+// Uncomment below for LOCAL test
 
   var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
   var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
 
-// //Uncomment below for LIVE server test
+// // Uncomment below for LIVE server test
 //     var frontendUrl = 'https://' + config.build.host
 //     var backendUrl = 'https://' + config.build.backendHost 
 
@@ -17,10 +16,11 @@ var AXIOS = axios.create({
 })
 
 export default {
-  name: 'Student',
+  name: 'Employers',
   data () {
     return {
-      coopAdmins: [],
+      
+        coopAdmins: [],
       newAdmin: {
         lastName: '', //lastName
         firstName: '', //firstName
@@ -33,8 +33,8 @@ export default {
       response: [],
 
       //Student Object 
-      students: [],
-      newStudent: {
+      //students: [],
+       student: {
         lastName: '', //lastName
         firstName: '', //firstName
         emailAddress: '',
@@ -47,8 +47,9 @@ export default {
         errorStudent: '',
         response: [],
 
-        //Employer object 
-          employer: {
+        ///Employer object 
+        employers: [],
+          newemployer: {
           coopTerm:[],
           emailAddress: '',
           userName: '',
@@ -82,54 +83,35 @@ export default {
         seen:'',
         seen2:'',
         seen3:'',
-        studId:'',
+        empId:'',
         termId:'',
-        studLastName:'',
-        studFirstName:'',
+        empLastName:'',
+        empFirstName:'',
     }
   },
 
   
   created: function () {
     // Initializing admins from backend
-      AXIOS.get(`/students`)
+      AXIOS.get(`/employers`)
       .then(response => {
         console.log(response.data)
-        this.students = response.data
+        this.employers = response.data
       })
       .catch(e => {
-        this.errorStudent = e;
+        this.errorEmployer = e;
       });
     },
     
   methods: {
-    getStudents: function () {
-      AXIOS.get('/students')
-      .then(response => {
-        // JSON responses are automatically parsed.
-        this.students = response.data
-        this.errorStudent = ''
-      })
-      .catch(e => {
-        var errorMsg = e.message
-        console.log(errorMsg)
-        this.errorStudent = errorMsg
-      });
-      console.log("im in here!!!")
-    },
-    getStudentTerm: function(){
-      console.log("HEllOO")
-    
-    },
-
-    setStudId: function(id, last, first){
+    setEmpId: function(id, last, first){
         console.log("im in !!!")
         this.seen = true;
         this.seen2 = false;
         this.seen3 = false;
-        this.studLastName = last;
-        this.studFirstName = first;
-        this.studId = id;     
+        this.empLastName = last;
+        this.empFirstName = first;
+        this.empId = id;     
         AXIOS.get('/viewStudentTerms'+'?userId='+id)
         .then(response => {
         // JSON responses are automatically parsed.
@@ -143,8 +125,8 @@ export default {
       this.termId= id;
       this.seen2 =  true;
       this.seen3 = false;
-      var b = this.studId;
-      AXIOS.get('/viewStudentFiles' + '/?userId='+b+'&termId='+id)
+      var b = this.empId;
+      AXIOS.get('/viewEmployerFiles' + '/?userId='+b+'&termId='+id)
       .then(response => {
       // JSON responses are automatically parsed.
       this.documents = response.data
@@ -152,20 +134,20 @@ export default {
   
     },
 
-    viewEmployer: function(termId){
+    viewStudent: function(termId){
       this.seen3 = true;
       this.seen2 = false;
       
-      AXIOS.get('/employers/term/'+termId)
+      AXIOS.get('/students/term/'+termId)
       .then(response => {
         // JSON responses are automatically parsed.
-        this.employer = response.data
-        this.errorEmployer = ''
+        this.student = response.data
+        this.errorStudent = ''
       })
       .catch(e => {
         var errorMsg = e.message
         console.log(errorMsg)
-        this.errorEmployer = errorMsg
+        this.errorStudent = errorMsg
       });
 
     },
@@ -190,4 +172,4 @@ export default {
   
   },
   }
-
+console.log("I am in employers")

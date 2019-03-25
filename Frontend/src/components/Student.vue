@@ -11,7 +11,7 @@
         </tr>
           <tr v-for="student in students" >
           <td> {{student.lastName+ ', '+student.firstName}} </td>
-          <td> {{student.firstName}} </td>
+          <td> {{student.studentId}} </td>
           <td> {{student.emailAddress}} </td>  
            <button style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" @click="setStudId(student.userId, student.lastName, student.firstName)">
            View Coop Terms

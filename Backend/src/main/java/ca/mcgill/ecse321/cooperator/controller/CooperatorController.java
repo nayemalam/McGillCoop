@@ -364,6 +364,24 @@ public class CooperatorController {
 		return convertToDto(employer);
 		
 	}
+		/**
+		 * Get a student object from the database. Available at
+		 * https://cooperator-backend-21.herokuapp.com/employers/term/{termId}
+		 * 
+		 * @param termId        - termId of student
+		 * @return Student requested - Student DTO
+		 *
+		 */
+	
+	// Get A Student
+		@GetMapping(value = { "/students/term/{termId}", "/employers/term/{termId}/" })
+		public StudentDto getStudentByTerm(@PathVariable("termId") Integer termId) {
+			CoopTerm coopTerm = service.getCoopTerm(termId);
+			Integer temp = coopTerm.getStudent().getUserID();
+			Student student = service.getStudent(temp);
+			
+			return convertToDto(student);
+		}
 
 	// =========================================================================================
 	// USE CASE Modify StudentFiles
