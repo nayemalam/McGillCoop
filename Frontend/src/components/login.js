@@ -50,7 +50,7 @@ export default {
         if( response.data == 1) {
           //this.coopAdmins.push(response.data)
           console.log('login successfully!')
-         location.replace(frontendUrl + '/students');
+         location.replace(frontendUrl + '?#/students');
         } 
         //this.newAdmin = ''
         //this.errorAdmin = ''
