@@ -13,7 +13,6 @@ matrix:
     - node
     before_install:
     - cd Frontend
-    - npm i -g npm@6.9.0
     install:
     - npm install
     script:
