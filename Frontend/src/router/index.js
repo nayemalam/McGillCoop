@@ -7,7 +7,7 @@ import Student from '@/components/Student'
 import Employer from '@/components/Employer'
 import Statistics from '@/components/Statistics'
 import Incomplete from '@/components/Incomplete'
-import coopAdminLogin from '@/components/coopAdminLogin'
+// import coopAdminLogin from '@/components/coopAdminLogin'
 import mainPage from '@/components/mainPage'
 import GeneralStats from '@/components/GeneralStats'
 
@@ -19,6 +19,11 @@ export default new Router({
       path: '/',
       name: 'coopAdminLogin',
       component: require('../components/coopAdminLogin.vue').default
+    },
+    {
+      path: '/Hello',
+      name: 'Hello',
+      component: Hello
     },
     {
       path: '/coopadmin',

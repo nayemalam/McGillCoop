@@ -28,11 +28,11 @@
                       </small>
                     </div>
                     <br/>
-                    <div class="form">
+                    
                       <button type="submit" class="btn btn-info" @click="createAdmin(newAdmin)">
                         Create Administrator
                       </button>
-                    </div>
+                    
                   </div>
                 </form>  
               </td>

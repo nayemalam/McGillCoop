@@ -49,15 +49,15 @@ export default {
         
         if( response.data == 1) {
           //this.coopAdmins.push(response.data)
-          console.log('login successfully!')
-         location.replace(frontendUrl + '/');
+          console.log('login successful!')
+         location.replace(frontendUrl + '/#/Hello/');
         } 
         //this.newAdmin = ''
         //this.errorAdmin = ''
       })
       .catch(e => {
         var errorMsg = e.message
-        console.log('login unsuccesful'+errorMsg)
+        console.log('login unsuccesful ' + errorMsg)
         this.errorAdmin = errorMsg
       });
     }

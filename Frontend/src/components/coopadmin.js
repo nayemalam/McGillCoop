@@ -82,6 +82,10 @@ export default {
         this.coopAdmins.push(response.data)
         this.newAdmin = ''
         this.errorAdmin = ''
+        if(response.data == 1) {
+          console.log('Sign up succesful!')
+          location.replace(frontendUrl + '/');
+        } 
       })
       .catch(e => {
         var errorMsg = e.message
