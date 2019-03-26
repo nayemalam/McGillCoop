@@ -84,7 +84,7 @@ export default {
         this.errorAdmin = ''
         if(response.data == 1) {
           console.log('Sign up succesful!')
-          location.replace(frontendUrl + '/');
+          location.replace(frontendUrl + '/#/');
         } 
       })
       .catch(e => {
