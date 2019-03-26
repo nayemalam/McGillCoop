@@ -45,14 +45,15 @@
                     <input type="email" class="form-control" autocomplete="email" required v-model="newAdmin.emailAddress" placeholder="Enter your email address"> <br/><br/>
                     <h6 style="text-align: left;">Password</h6>
                     <input type="password" class="form-control" autocomplete="password" required v-model="newAdmin.password" placeholder="Enter your password"> <br/>           
-                  </div>
+                  
                     <br/>
-                    <div class="form">
+                   
                       
                       <button style="border-radius: 50px; padding-left: 30px; padding-right: 30px; font-size: 20px;" type="submit" class="btn btn-info" @click="CheckLogin(newAdmin)">
                         Login
                       </button>
-                    </div>
+                  </div>
+                    
                     <br/>
                     <p>
                     By clicking Sign In, you agree that your use of the system is governed by 
