@@ -49,7 +49,7 @@
                     <br/>
                    
                       
-                      <button style="border-radius: 50px; padding-left: 30px; padding-right: 30px; font-size: 20px;" type="submit" class="btn btn-info" @click="CheckLogin(newAdmin)">
+                      <button type="button" style="border-radius: 50px; padding-left: 30px; padding-right: 30px; font-size: 20px;" class="btn btn-info" @click="CheckLogin(newAdmin)">
                         Login
                       </button>
                   </div>

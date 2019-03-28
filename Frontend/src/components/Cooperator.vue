@@ -29,7 +29,7 @@
                     </div>
                     <br/>
                     
-                      <button type="submit" class="btn btn-info" @click="createAdmin(newAdmin)">
+                      <button type="button" class="btn btn-info" @click="createAdmin(newAdmin)">
                         Create Administrator
                       </button>
                     
