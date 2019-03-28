@@ -1,5 +1,6 @@
 import axios from 'axios'
 var config = require('../../config')
+import router from '../router/index.js'
 
 //Uncomment below for LOCAL test
 
@@ -84,7 +85,9 @@ export default {
         this.errorAdmin = ''
         if(response.data == 1) {
           console.log('Sign up succesful!')
-          location.replace(frontendUrl + '/#/');
+          const path = '/'
+          router.push(path);
+          // location.replace(frontendUrl + '/#/');
         } 
       })
       .catch(e => {
