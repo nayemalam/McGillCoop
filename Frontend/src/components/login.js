@@ -1,4 +1,6 @@
 import axios from 'axios'
+// import router from '../router';
+import router from '../router/index.js'
 var config = require('../../config')
 
 // Uncomment below for LOCAL test
@@ -41,6 +43,7 @@ export default {
   },
   methods: {
     CheckLogin: function (admin) {
+      // this.admin.emailAddress = admin.emailAddress.toLowerCase()
       AXIOS.get('/login'+'?email='+admin.emailAddress+'&password='+ admin.password)
       // /login?email=Nayem.Alam@mcgill.ca&password=1234
     
@@ -51,7 +54,10 @@ export default {
           //this.coopAdmins.push(response.data)
           console.log('login successful!')
           // debugger
-         location.replace(frontendUrl + '/#/Hello/');
+          const path = 'Hello'
+          router.push(path);
+          // this.$router.push('/Hello')
+         //location.replace(frontendUrl + '/#/Hello/');
         } 
         //this.newAdmin = ''
         //this.errorAdmin = ''

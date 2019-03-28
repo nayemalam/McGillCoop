@@ -1,5 +1,6 @@
 import axios from 'axios'
 var config = require('../../config')
+import router from '../router/index.js'
 
 //Uncomment below for LOCAL test
 
@@ -75,17 +76,19 @@ export default {
     
   methods: {
     createAdmin: function (admin) {
-      AXIOS.post('coopAdmins/'+admin.lastName+'?fName='+admin.firstName+'&emailAddress='+admin.emailAddress+'&userName='+admin.userName+'&password='+ admin.password, {},{})
+      AXIOS.post('coopAdmins/'+admin.lastName+'?fName='+admin.firstName+'&emailAddress='+admin.emailAddress.toLowerCase()+'&userName='+admin.userName+'&password='+ admin.password, {},{})
       // coopAdmins/Alam?fName=Nayem&emailAddress=Nayem.Alam@mcgill.ca&userName=NA_USER&password=1234
       .then(response => {
         // JSON responses are automatically parsed.
         this.coopAdmins.push(response.data)
         this.newAdmin = ''
         this.errorAdmin = ''
-        if(response.data == 1) {
+
           console.log('Sign up succesful!')
-          location.replace(frontendUrl + '/#/');
-        } 
+          const path = '/'
+          router.push(path);
+          // location.replace(frontendUrl + '/#/');
+        
       })
       .catch(e => {
         var errorMsg = e.message
