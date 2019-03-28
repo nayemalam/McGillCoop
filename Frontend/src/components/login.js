@@ -1,4 +1,5 @@
 import axios from 'axios'
+import router from '../router';
 var config = require('../../config')
 
 // Uncomment below for LOCAL test
@@ -51,7 +52,8 @@ export default {
           //this.coopAdmins.push(response.data)
           console.log('login successful!')
           // debugger
-         location.replace(frontendUrl + '/#/Hello/');
+          this.$router.push('/Hello')
+         //location.replace(frontendUrl + '/#/Hello/');
         } 
         //this.newAdmin = ''
         //this.errorAdmin = ''
