@@ -67,6 +67,9 @@ export default {
         //this.errorAdmin = ''
 
       })
+
+      this.$emit("authenticated", true);
+      this.$router.replace({ name: "secure" })
       .catch(e => {
         var errorMsg = e.message
         console.log('login unsuccesful \n' + errorMsg)

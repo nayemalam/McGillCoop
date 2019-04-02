@@ -15,12 +15,12 @@
       <!-- Text slides with image -->
       <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=52">
       
-        <h1 style="font-size: 60px;">Welcome to CO-OP-ERATOR</h1>
+        <h1 style="font-size: 60px; margin-top:-18rem;">Welcome to CO-OP-ERATOR</h1>
       </b-carousel-slide>
 
       <!-- Slides with custom text -->
       <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=54">
-        <h1 style="font-size: 100px;">Team 21</h1>
+        <h1 style="font-size: 100px; margin-top:-18rem;">Team 21</h1>
       </b-carousel-slide>
 
       <!-- Slides with image only -->
