@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
   
-    <h1>{{ msg }}</h1>
+    <h1>{{msg}}</h1>
     <h2>Here are some essential links: </h2>
     <ul>
       <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
@@ -11,7 +11,7 @@
       <br>
       <li><a href="https://vuejs-templates.github.io/webpack/" target="_blank">Docs for This Template</a></li>
     </ul>
-    <img src="../assets/logo.png">
+    <img src="../assets/coop-logo-blue.png">
     <h2>Ecosystem</h2>
     <ul>
       <li><a href="https://router.vuejs.org/" target="_blank">vue-router</a></li>
@@ -23,15 +23,20 @@
 </template>
 
 <script>
+// import data from './login.js';
+// import {coopAdmins} from './login.js';
+
 export default {
   name: 'hello',
   data () {
-    return {
+    
+    return {      
       msg: "You have succesfully logged in!"
     }
   }
 }
 </script>
+
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>

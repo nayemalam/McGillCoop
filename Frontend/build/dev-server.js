@@ -84,6 +84,18 @@ var readyPromise = new Promise(resolve => {
   _resolve = resolve
 })
 
+// added custom code
+
+// app.get('/api/usercheck/private', authCheck, (req,res) => {
+//   let userCheck = [
+//     // Array of checking users using auth0
+//   ];
+
+//   res.json(userCheck);
+// })
+
+// end custom
+
 console.log('> Starting dev server...')
 devMiddleware.waitUntilValid(() => {
   console.log('> Listening at ' + uri + '\n')

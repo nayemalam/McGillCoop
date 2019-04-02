@@ -2,18 +2,18 @@
   <div id="app">
 <!-- Menu -->
   <b-navbar toggleable="lg" type="dark" variant="info" class="fixed-top">
-        <b-navbar-brand href="/#/"><img src="./assets/logo.png" width="30px">  McGill Coop</b-navbar-brand>
+        <b-navbar-brand href="/#/"><img src="./assets/coop-logo.png" width="50px">  McGill Coop</b-navbar-brand>
 
         <b-navbar-toggle target="nav_collapse" />
 
         <b-collapse is-nav id="nav_collapse">
-          <b-navbar-nav>
+          <!-- <b-navbar-nav>
       
             <b-nav-item><router-link to="/students" style="color:white; decoration: none;" >Students</router-link></b-nav-item>
             <b-nav-item><router-link to="/employer" style="color:white; decoration: none;" >Employers</router-link></b-nav-item>
             <b-nav-item><router-link to="/statistics" style="color:white; decoration: none;" >Statistics</router-link></b-nav-item>
 
-          </b-navbar-nav>
+          </b-navbar-nav> -->
 
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">

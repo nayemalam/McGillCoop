@@ -65,5 +65,8 @@ export default new Router({
       name: 'GeneralStats',
       component: GeneralStats
     },
+    // otherwise redirect to home page
+    {path: '*', redirect: '/students'} 
   ]
-})
+});
+

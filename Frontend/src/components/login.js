@@ -22,6 +22,7 @@ export default {
   data () {
     return {
       coopAdmins: [],
+      signedAdmin: [],
       newAdmin: {
         emailAddress: '',
         password: '' 
@@ -53,18 +54,26 @@ export default {
         if( response.data == 1) {
           //this.coopAdmins.push(response.data)
           console.log('login successful!')
+          this.signedAdmin = response.data;
           // debugger
-          const path = 'Hello'
+          const path = 'Student'
           router.push(path);
           // this.$router.push('/Hello')
          //location.replace(frontendUrl + '/#/Hello/');
-        } 
+        }  else {
+          alert("The password you entered is incorrect.");
+        }
         //this.newAdmin = ''
         //this.errorAdmin = ''
+
       })
+
+      this.$emit("authenticated", true);
+      this.$router.replace({ name: "secure" })
       .catch(e => {
         var errorMsg = e.message
-        console.log('login unsuccesful ' + errorMsg)
+        console.log('login unsuccesful \n' + errorMsg)
+        alert("The email you entered is incorrect.");
         this.errorAdmin = errorMsg
       });
     }
