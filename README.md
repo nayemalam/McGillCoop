@@ -34,7 +34,7 @@ This software system is subdivided into four deliverables:
 - :one: [Deliverable 1](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-1-Report) - Requirements, Domain Modeling, Database Design
 - :two: [Deliverable 2](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-2-Report) - Backend, Quality Assurance
 - :three: [Deliverable 3](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-3-Report) - Web Frontend, Architecture
-- :four: Deliverable 4 - Mobile Frontend, Availability
+- :four: Deliverable 4(https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-4-Report) - Integrated System 
 
 ### :star: Team Members
 - [Tristan Bouchard](https://github.com/tbutch)    &rarr; Major in Electrical Engineering
@@ -96,6 +96,19 @@ This software system is subdivided into four deliverables:
 - [x] Integrate web frontend with backend services
 - [x] Provide continuous integration of the web frontend using npm build, Travis CI
 - [x] Deploy the web frontend as a separate Heroku application
+
+<br/>
+
+## [Deliverable 4](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-4-Report) - Integrated System
+
+|Team member's name|Total hours   |Responsibility           |
+|------------------|--------------|-------------------------|
+|Tristan Bouchard  |  _x_ hours   |     Backend Lead        |
+|Nayem Alam        |  _x_ hours   |     Frontend Lead       |
+|Alex Masciotra    |  _x_ hours   |    Build + CI Lead      |
+|Thomas Philippon  |  _x_ hours   |   Frontend Developper   |
+|Violet Wei        |  _x_ hours   |   Frontend Developper   |
+
 
 
 ##### Attributions
