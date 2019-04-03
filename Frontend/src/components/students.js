@@ -94,6 +94,7 @@ export default {
             documents:[],
             termId:'',
         },
+        
 
         //Document 
         documents:[],
@@ -104,6 +105,8 @@ export default {
             subTime:'',
             docName:''
         },
+
+        //Other variables
         studTable: true,
         termTable: false,
         seen:'',
@@ -212,26 +215,21 @@ export default {
         var errorMsg = e.message
         this.errorEmployer = errorMsg
       });
-   
-
-      return  this.employer.companyName;;
+      
+      return this.employer.companyName
 
     },
+    
     studentName: function(termId){
-
       AXIOS.get('/students/term/'+termId)
       .then(response => {
         // JSON responses are automatically parsed.
         this.termStudent = response.data
       })
-
-      return this.termStudent.studentId
-
     },
 
     getDocument: function(currentDocument){
         this.documents = currentDocument;
-        console.log("AYEEE")
     },
 
     download: function(filename, text) {
@@ -262,7 +260,7 @@ export default {
   
     if(searchDate!= ""){
   
-       return this.coopTerms.filter(coopTerm => new Date(coopTerm.startDate.toString()) >= date)  
+       return this.coopTerms.filter(coopTerm => new Date(coopTerm.startDate.toString()).getTime() >= date.getTime())  
     }
     else{
       return this.coopTerms
@@ -276,6 +274,12 @@ export default {
         // JSON responses are automatically parsed.
         this.coopTerms = response.data
        })
+
+  },
+  displayStudents: function(){
+   this.seen = false;
+   this.seen2 = false;
+   this.seen3 = false;
 
   }
 
