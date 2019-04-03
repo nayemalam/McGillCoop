@@ -12,6 +12,8 @@ View our <br/>
 :star2: [Deliverable 2 Report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-2-Report) <br/>
 :star2: [Deliverable 3 Report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-3-Report
 ) <br/>
+:star2: [Deliverable 4 Report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-4-Report
+) <br/>
 
 ### Scope of Project
 
@@ -34,7 +36,7 @@ This software system is subdivided into four deliverables:
 - :one: [Deliverable 1](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-1-Report) - Requirements, Domain Modeling, Database Design
 - :two: [Deliverable 2](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-2-Report) - Backend, Quality Assurance
 - :three: [Deliverable 3](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-3-Report) - Web Frontend, Architecture
-- :four: Deliverable 4(https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-4-Report) - Integrated System 
+- :four: [Deliverable 4](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-4-Report) - Integrated System 
 
 ### :star: Team Members
 - [Tristan Bouchard](https://github.com/tbutch)    &rarr; Major in Electrical Engineering
