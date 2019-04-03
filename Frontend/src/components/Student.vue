@@ -31,8 +31,11 @@
     <br/><br/> 
     <b-row>
     <b-col>
-      <button style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" v-on:click="studTable = !studTable, termTable = !termTable, displayTerms()">
+      <button v-if="studTable" style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" v-on:click="studTable = !studTable, termTable = !termTable, displayTerms()">
         Display all Coop Terms
+      </button> 
+      <button v-if="termTable" style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" v-on:click="studTable = !studTable, termTable = !termTable, displayStudents()">
+        Display all Students
       </button> </b-col>
     <b-col></b-col>
     <b-col><input v-if="studTable" type="text" v-model="search" class="form-control" placeholder="Search by student ID"/>
@@ -43,25 +46,37 @@
     <div v-if="termTable">
       <h1 align="center">Coop Terms</h1>
        <table class="table table-hover">
-        <thead>
         <tr>
           <th scope="col">Start Date</th>
           <th scope="col">End Date</th>
           <th scope="col">Employer</th>
           <th scope="col">Student ID</th>
         </tr>
-        </thead>
-        <tbody>
+
           <tr>
           <tr v-for="term in filterByDate(searchDate)" >
           <td> {{term.startDate}} </td>
           <td> {{term.endDate}} </td>
-          <td>{{employerName(term.termId)}} </td>
-           <td>{{studentName(term.termId)}} </td>
+          <td>
+          <button style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" @click="viewEmployer(term.termId)">
+           View Employer
+           </button>
+           </td>
+            <td>
+           <button style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" @click="studentName(term.termId)">
+           View Students 
+           </button>
+            </td>
         </tr>
-        </tbody>
       </table>
        
+
+
+
+
+
+
+
     </div>
     
     
