@@ -1,15 +1,56 @@
 <template>
   <div id="Student" class="container">
     <br/><br/> 
+    <b-row>
+    <b-col>
+      <button style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" v-on:click="studTable = !studTable, termTable = !termTable, displayTerms()">
+        Display all Coop Terms
+      </button> </b-col>
+    <b-col></b-col>
+    <b-col><input v-if="studTable" type="text" v-model="search" class="form-control" placeholder="Search by student ID"/>
+    <input v-if="termTable" type="text" v-model="searchDate" class="form-control" placeholder="Search by Date"/></b-col>
+      <br/><br/> 
+    </b-row>
+    
+    <div v-if="termTable">
+      <h1 align="center">Coop Terms</h1>
+       <table class="table table-hover">
+        <thead>
+        <tr>
+          <th scope="col">Start Date</th>
+          <th scope="col">End Date</th>
+          <th scope="col">Employer</th>
+          <th scope="col">Student ID</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <tr v-for="term in filterByDate(searchDate)" >
+          <td> {{term.startDate}} </td>
+          <td> {{term.endDate}} </td>
+          <td>{{employerName(term.termId)}} </td>
+           <td>{{studentName(term.termId)}} </td>
+        </tr>
+        </tbody>
+      </table>
+       
+    </div>
+    
+    
+    <div v-if="studTable">
     <h1 align="center">Coop Students</h1>
+       <br/><br/>
       <table class="table table-hover">
+        <thead>
         <tr>
           <th scope="col">Student Name</th>
           <th scope="col">Student ID</th>
           <th scope="col">Email Address</th>
           <th scope="col">Access Terms</th>
         </tr>
-          <tr v-for="student in students" >
+        </thead>
+        <tbody>
+          <tr v-for="student in filterById(search)">
           <td> {{student.lastName+ ', '+student.firstName}} </td>
           <td> {{student.studentId}} </td>
           <td> {{student.emailAddress}} </td>  
@@ -17,10 +58,9 @@
            View Coop Terms
            </button>
         </tr>
+        </tbody>
       </table>
-
      
-
       <div v-if="seen">
       <h5 style="margin-top: 60px; text-align: left; padding-left: 25px;">Coop Terms of <u>{{studFirstName + ' '+ studLastName}}</u> </h5>
       <table class="table table-hover">
@@ -88,12 +128,12 @@
           <td> {{employer.emailAddress}} </td>
         </tr>
          </table>
+      
       </div>
       <br/> <br/> 
       <br/> <br/> 
       <br/> <br/> 
-      
-
+       </div>
   </div>
  </template>
 
