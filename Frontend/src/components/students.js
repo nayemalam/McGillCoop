@@ -44,8 +44,33 @@ export default {
         userId:'',
         coopTerms: [],
         },
+       
+        //Student Object after filtering 
+      filterStudents: [],
+       newStudent: {
+        lastName: '', //lastName
+        firstName: '', //firstName
+        emailAddress: '',
+        userName: '',
+        program:'',
+        studentId:'',
+        userId:'',
+        coopTerms: [],
+        },
         errorStudent: '',
         response: [],
+
+        //Single student
+        termStudent: {
+          lastName: '', //lastName
+          firstName: '', //firstName
+          emailAddress: '',
+          userName: '',
+          program:'',
+          studentId:'',
+          userId:'',
+          coopTerms: [],
+          },
 
         //Employer object 
           employer: {
@@ -79,6 +104,8 @@ export default {
             subTime:'',
             docName:''
         },
+        studTable: true,
+        termTable: false,
         seen:'',
         seen2:'',
         seen3:'',
@@ -86,6 +113,9 @@ export default {
         termId:'',
         studLastName:'',
         studFirstName:'',
+        search: '',
+        searchDate:'',
+        emplName:'',
     }
   },
 
@@ -115,7 +145,7 @@ export default {
         console.log(errorMsg)
         this.errorStudent = errorMsg
       });
-      console.log("im in here!!!")
+      
     },
     getStudentTerm: function(){
       console.log("HEllOO")
@@ -123,7 +153,7 @@ export default {
     },
 
     setStudId: function(id, last, first){
-        console.log("im in !!!")
+        
         this.seen = true;
         this.seen2 = false;
         this.seen3 = false;
@@ -170,6 +200,35 @@ export default {
 
     },
 
+    employerName: function(termId){
+      
+      AXIOS.get('/employers/term/'+termId)
+      .then(response => {
+        // JSON responses are automatically parsed.
+        this.employer = response.data
+        this.errorEmployer = ''
+      })
+      .catch(e => {
+        var errorMsg = e.message
+        this.errorEmployer = errorMsg
+      });
+   
+
+      return  this.employer.companyName;;
+
+    },
+    studentName: function(termId){
+
+      AXIOS.get('/students/term/'+termId)
+      .then(response => {
+        // JSON responses are automatically parsed.
+        this.termStudent = response.data
+      })
+
+      return this.termStudent.studentId
+
+    },
+
     getDocument: function(currentDocument){
         this.documents = currentDocument;
         console.log("AYEEE")
@@ -186,8 +245,40 @@ export default {
       element.click();
   
       document.body.removeChild(element);
-  }
+  },
+   filterById: function(search){
+     var n = search.length; 
+   
+     if(search!= ""){
+        return this.students.filter(student => student.studentId.toString().substring(0,n) == search)  
+     }
+     else{
+       return this.students
+     }
   
   },
+  filterByDate: function(searchDate){
+    var date = new Date(searchDate.toString());
+  
+    if(searchDate!= ""){
+  
+       return this.coopTerms.filter(coopTerm => new Date(coopTerm.startDate.toString()) >= date)  
+    }
+    else{
+      return this.coopTerms
+    }
+ 
+ },
+
+  displayTerms: function(){
+    AXIOS.get('/coopterms')
+        .then(response => {
+        // JSON responses are automatically parsed.
+        this.coopTerms = response.data
+       })
+
   }
+
+  }
+}
 
