@@ -31,7 +31,7 @@
     <br/><br/> 
     <b-row>
     <b-col>
-      <button v-if="studTable" style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" v-on:click="studTable = !studTable, termTable = !termTable, displayTerms()">
+      <button v-if="studTable" style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" v-on:click="studTable = !studTable, termTable = !termTable">
         Display all Coop Terms
       </button> 
       <button v-if="termTable" style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" v-on:click="studTable = !studTable, termTable = !termTable, displayStudents()">
@@ -53,10 +53,12 @@
           <th scope="col">Student ID</th>
         </tr>
 
-          <tr>
-          <tr v-for="term in filterByDate(searchDate)" >
+          <tr v-for="term in filterByDate(searchDate)">
           <td> {{term.startDate}} </td>
           <td> {{term.endDate}} </td>
+          <td> {{term.companyName}}</td>
+          <td> {{term.studentId}}</td>
+          <!--
           <td>
           <button style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" @click="viewEmployer(term.termId)">
            View Employer
@@ -67,16 +69,10 @@
            View Students 
            </button>
             </td>
+            -->
         </tr>
       </table>
        
-
-
-
-
-
-
-
     </div>
     
     

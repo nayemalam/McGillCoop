@@ -93,9 +93,10 @@ export default {
             endDate:'',
             documents:[],
             termId:'',
+            companyName:'',
+            studentId:'',
         },
-        
-
+      
         //Document 
         documents:[],
         newDocument:{
@@ -133,6 +134,13 @@ export default {
       .catch(e => {
         this.errorStudent = e;
       });
+
+      AXIOS.get('/coopterms')
+      .then(response => {
+      // JSON responses are automatically parsed.
+      this.coopTerms = response.data
+     })
+
     },
     
   methods: {
@@ -215,7 +223,7 @@ export default {
         var errorMsg = e.message
         this.errorEmployer = errorMsg
       });
-      
+      this.emplName = this.employer.companyName;
       return this.employer.companyName
 
     },
@@ -255,6 +263,7 @@ export default {
      }
   
   },
+
   filterByDate: function(searchDate){
     var date = new Date(searchDate.toString());
   
@@ -268,21 +277,31 @@ export default {
  
  },
 
-  displayTerms: function(){
-    AXIOS.get('/coopterms')
-        .then(response => {
-        // JSON responses are automatically parsed.
-        this.coopTerms = response.data
-       })
+  // updateTerms: function(){
 
-  },
+  //   AXIOS.get('/coopterms')
+  //       .then(response => {
+  //       // JSON responses are automatically parsed.
+  //       this.coopTerms = response.data
+  //      })
+      
+  //     this.coopTerms.forEach(function(term) { 
+  //        AXIOS.get('/employers/term/'+ term.termId)
+  //       .then(response => {
+  //         // JSON responses are automatically parsed.
+  //         //this.employer = response.data
+  //         term.employer = response.data.companyName;
+  //         console.log(term.startDate)
+  //       })
+          
+  //      });
+  // },
   displayStudents: function(){
    this.seen = false;
    this.seen2 = false;
    this.seen3 = false;
 
-  }
-
+  },
   }
 }
 

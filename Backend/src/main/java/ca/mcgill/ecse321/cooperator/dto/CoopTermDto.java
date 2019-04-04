@@ -18,17 +18,18 @@ public class CoopTermDto {
 	private Integer termId;
 	private Date startDate;
 	private Date endDate;
-	//private EmployerDto employer;
+	private String companyName;
+	private Integer studentId;
 	private List<DocumentDto> document;
 	
 	//@SuppressWarnings("unchecked")
-	public CoopTermDto(Integer termId, Date startDate, Date endDate) { //, StudentDto studentDto, EmployerDto employerDto) {
+	public CoopTermDto(Integer termId, Date startDate, Date endDate, String companyname, Integer studentid) { 
 		
 		this.termId = termId;
-		//this.student = studentDto;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		//this.employer = employerDto;
+		this.companyName = companyname;
+		this.studentId = studentid;
 	}
 	
 public CoopTermDto(int termId, Date startDate, Date endDate, StudentDto studentDto, EmployerDto employerDto, List<DocumentDto> doc) {
@@ -44,10 +45,14 @@ public CoopTermDto(int termId, Date startDate, Date endDate, StudentDto studentD
 	 public int getTermId() {
 		 return termId;
 	 }
-//	  public StudentDto getStudent() {
-//	      return student;
-//	   }
+	 public String getCompanyName() {
+		return this.companyName;
+	 }
 	  
+	 public Integer getStudentId() {
+		return this.studentId; 
+		 
+	 }
 	  public Date getStartDate() {
 		  return startDate;
 		  }
@@ -55,10 +60,6 @@ public CoopTermDto(int termId, Date startDate, Date endDate, StudentDto studentD
 	  public Date getEndDate() {
 		  return endDate;
 		  }
-	  
-//	  public EmployerDto getEmployer() {
-//		   return employer;
-//		}
 	  
 	   public List<DocumentDto> getDocument() {
 		      return document;
