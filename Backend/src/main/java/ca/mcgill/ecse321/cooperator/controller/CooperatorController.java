@@ -714,7 +714,7 @@ public class CooperatorController {
 
 		StudentDto studentDto = convertToDto(student);
 		EmployerDto employerDto = convertToDto(employer);
-		CoopTermDto coopTermDto = new CoopTermDto(termId, coopTerm.getStartDate(), coopTerm.getEndDate());// ,
+		CoopTermDto coopTermDto = new CoopTermDto(termId, coopTerm.getStartDate(), coopTerm.getEndDate(), employer.getCompanyName(), student.getStudentId());// ,
 																											// studentDto,
 																											// employerDto);
 		return coopTermDto;
@@ -730,7 +730,7 @@ public class CooperatorController {
 		if (coopTerm == null) {
 			throw new IllegalArgumentException("There is no such Event!");
 		}
-		CoopTermDto coopTermDto = new CoopTermDto(coopTerm.getTermId(), coopTerm.getStartDate(), coopTerm.getEndDate());
+		CoopTermDto coopTermDto = new CoopTermDto(coopTerm.getTermId(), coopTerm.getStartDate(), coopTerm.getEndDate(), coopTerm.getEmployer().getCompanyName(), coopTerm.getStudent().getStudentId());
 		coopTermDto.setDocument(createDocumentDtosForCoopTerm(coopTerm));
 		return coopTermDto;
 	}
