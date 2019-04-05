@@ -40,6 +40,7 @@ import ca.mcgill.ecse321.cooperator.dao.DocumentRepository;
 import ca.mcgill.ecse321.cooperator.dao.EmployerRepository;
 import ca.mcgill.ecse321.cooperator.dao.StudentRepository;
 import ca.mcgill.ecse321.cooperator.dao.SystemUserRepository;
+import ca.mcgill.ecse321.cooperator.dto.StudentDto;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -155,7 +156,7 @@ public class TestCooperatorService {
 	@Test
 	public void testGetExternal() {
 		try {
-			String stud = cooperatorController.getStudentsExternal();
+			cooperatorController.getStudentsExternal();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

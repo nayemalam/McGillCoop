@@ -263,6 +263,11 @@ public class CooperatorService {
 		}
 		return true;
 	}
+	
+	@Transactional
+	public void deleteAllStudents() {
+		studentRepository.deleteAll();
+	}
 
 	/**
 	 * Verifies the existence of a student user in the database using the User ID
