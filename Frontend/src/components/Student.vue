@@ -51,6 +51,7 @@
           <th scope="col">End Date</th>
           <th scope="col">Employer</th>
           <th scope="col">Student ID</th>
+          <th scope ="col"> View Student</th>
         </tr>
 
           <tr v-for="term in filterByDate(searchDate)">
@@ -58,24 +59,36 @@
           <td> {{term.endDate}} </td>
           <td> {{term.companyName}}</td>
           <td> {{term.studentId}}</td>
-          <!--
           <td>
-          <button style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" @click="viewEmployer(term.termId)">
-           View Employer
-           </button>
-           </td>
-            <td>
-           <button style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" @click="studentName(term.termId)">
-           View Students 
-           </button>
-            </td>
-            -->
+          <button style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" @click="studTable2 = !studTable2, studentName(term.termId)">
+           View Student
+          </button>
+          </td>
         </tr>
       </table>
-       
+
+      <div v-if="studTable2">
+        <h5 style="margin-top: 60px; text-align: left; padding-left: 25px;">Student Profile of <u>{{ termStudent.studentId}}</u> </h5>
+      <table class="table table-hover">
+        <tr>
+          <th scope="col">Student Name</th>
+          <th scope="col">Student ID</th>
+           <th scope="col">Email Address</th>
+          <th scope="col">Program</th>
+        </tr>
+
+        <tr>
+           <td> {{termStudent.lastName+ ', '+termStudent.firstName}} </td>
+          <td> {{termStudent.studentId}} </td>
+          <td> {{termStudent.emailAddress}} </td>
+          <td> {{termStudent.program}} </td>
+        </tr>
+         </table>
+
+
+      </div>
     </div>
-    
-    
+      
     <div v-if="studTable">
     <h1 align="center">Coop Students</h1>
        <br/><br/>
