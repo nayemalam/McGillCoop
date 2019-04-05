@@ -3,12 +3,14 @@ package ca.mcgill.ecse321.cooperator.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 import org.junit.Before;
@@ -16,6 +18,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import ca.mcgill.ecse321.cooperator.model.CoopTerm;
@@ -29,6 +33,7 @@ import ca.mcgill.ecse321.cooperator.model.CooperatorSystem;
 import ca.mcgill.ecse321.cooperator.model.Document;
 import ca.mcgill.ecse321.cooperator.model.DocumentName;
 import ca.mcgill.ecse321.cooperator.dao.CooperatorSystemRepository;
+import ca.mcgill.ecse321.cooperator.controller.CooperatorController;
 import ca.mcgill.ecse321.cooperator.dao.CoopAdministratorRepository;
 import ca.mcgill.ecse321.cooperator.dao.CoopTermRepository;
 import ca.mcgill.ecse321.cooperator.dao.DocumentRepository;
@@ -57,6 +62,8 @@ public class TestCooperatorService {
 	private EmployerRepository employerRepository;
 	@Autowired
 	private StudentRepository studentRepository;
+	@Autowired
+	private CooperatorController cooperatorController;
 
 	@Before
 	public void clearDatabase() {
@@ -143,6 +150,16 @@ public class TestCooperatorService {
 		List<CooperatorSystem> allCooperatorSystems = service.getAllCooperatorSystems();
 
 		assertEquals(0, allCooperatorSystems.size());
+	}
+	
+	@Test
+	public void testGetExternal() {
+		try {
+			String stud = cooperatorController.getStudentsExternal();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	// ==========================================================================================
