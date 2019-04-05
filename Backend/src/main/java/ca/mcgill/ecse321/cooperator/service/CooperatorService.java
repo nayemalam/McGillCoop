@@ -275,6 +275,22 @@ public class CooperatorService {
 		return studentRepository.existsById(id);
 
 	}
+	
+	/**
+	 * Method to see if student exists in database by studentId
+	 * @param studentId - McGill Student ID number of student
+	 * @return {@code true} if exists, {@code false} otherwise
+	 */
+	@Transactional
+	public Boolean studentExistsByStudentId(Integer studentId) {
+		List<Student> students = studentRepository.findByStudentId(studentId);
+		if(students.size()!= 0) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
 
 	/**
 	 * Views the StudentFiles in the database
