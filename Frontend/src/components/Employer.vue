@@ -32,7 +32,7 @@
   
     <br/><br/> 
     <h1 align="center">Coop Employer</h1>
-    
+    <br/><br/>
       <table class="table table-hover">
         <tr>
           <th scope="col">Employer Name</th>
