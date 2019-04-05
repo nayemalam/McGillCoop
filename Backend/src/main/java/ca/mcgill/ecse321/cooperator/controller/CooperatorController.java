@@ -56,7 +56,7 @@ public class CooperatorController {
 	@Autowired
 	private CooperatorService service;
 
-	@GetMapping(value = { "/students/update/" })
+	@GetMapping(value = { "/students/update/", "/students/update" })
 	public String getStudentsExternal() throws IOException {
 		String resourceUrl = "https://ecse321-w2019-g01-backend.herokuapp.com/external/students";
 		RestTemplate restTemplate = new RestTemplate();
@@ -81,7 +81,9 @@ public class CooperatorController {
 		List<String> stusToAdd = new ArrayList<String>();
 		for (int i = 0; i < studIdList.size(); i++) {
 			String currId = studIdList.get(i);
-			Boolean exists = service.studentExistsByStudentId(Integer.getInteger(currId));
+			// Make sure that the ID is right length to search
+			String currId2 = currId.substring(0,8);
+			Boolean exists = service.studentExistsByStudentId(Integer.parseInt(currId2));
 			if (!exists) {
 				stusToAdd.add(currId);
 			}
@@ -94,8 +96,28 @@ public class CooperatorController {
 			newUrl = resourceUrl + "/" + stusToAdd.get(i);
 			jsonString = restTemplate.getForObject(newUrl, String.class);
 			actualObj = mapper.readTree(jsonString);
+
+			// Begin by parsing for student information.
+			// Need First name, Last Name, email address,
+			String stuFirstName = actualObj.get("first_name").asText();
+			String stuLastName = actualObj.get("last_name").asText();
+			String stuMcGillId = actualObj.get("student_id").asText();
+			String stuEmail = actualObj.get("email").asText();
 			
+			// Some hardcoded strings not available from the team 1 API
+			String stuPass = stuLastName + "1";
+			String stuUName = stuLastName + stuFirstName;
+			String stuProgram = "ECSE";
+			// Remove one number from the ID
+			Integer stuIdInt = Integer.parseInt(stuMcGillId.substring(0,8));
+			Student stu = service.createStudent(stuLastName, stuFirstName, stuEmail, stuUName, stuPass, stuIdInt, stuProgram);
+
+			// Obtain information about employer
 			JsonNode internship = actualObj.get("internship");
+			JsonNode applicationForm = internship.get("application_form");
+			
+			
+			//String empFirstName = applicationForm.get("");
 			int w = 0;
 		}
 		return jsonString;
