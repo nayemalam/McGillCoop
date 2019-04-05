@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -27,12 +28,12 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import ca.mcgill.ecse321.cooperator.dao.StudentRepository;
 import ca.mcgill.ecse321.cooperator.dto.CoopAdministratorDto;
 import ca.mcgill.ecse321.cooperator.dto.CoopTermDto;
 import ca.mcgill.ecse321.cooperator.dto.DocumentDto;
 import ca.mcgill.ecse321.cooperator.dto.EmployerDto;
 import ca.mcgill.ecse321.cooperator.dto.StudentDto;
-import ca.mcgill.ecse321.cooperator.dtoExt.StudentDtoExt;
 import ca.mcgill.ecse321.cooperator.model.CoopAdministrator;
 import ca.mcgill.ecse321.cooperator.model.CoopTerm;
 import ca.mcgill.ecse321.cooperator.model.Document;
@@ -54,29 +55,52 @@ public class CooperatorController {
 
 	@Autowired
 	private CooperatorService service;
+
 	@GetMapping(value = { "/students/update/" })
-	public static String getStudentsExternal() throws IOException {
+	public String getStudentsExternal() throws IOException {
 		String resourceUrl = "https://ecse321-w2019-g01-backend.herokuapp.com/external/students";
 		RestTemplate restTemplate = new RestTemplate();
-		String jsonString = restTemplate.getForObject(resourceUrl, String.class); 
+		String jsonString = restTemplate.getForObject(resourceUrl, String.class);
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode actualObj;
 
 		actualObj = mapper.readTree(jsonString);
-		
-		List<String> studIdList;
+
+		List<String> studIdList = new ArrayList<String>();
 		// Iterate over Student objects returned to obtain student ID's
 		Iterator<JsonNode> elems = actualObj.elements();
-		while(elems.hasNext()) {
+		while (elems.hasNext()) {
 			// Get actual student object
 			JsonNode child = elems.next();
-			
 			String studId = child.get("student_id").asText();
+			studIdList.add(studId);
+		}
+
+		// Once we have the student ID's, verify if these students exist in our database
+		// already
+		List<String> stusToAdd = new ArrayList<String>();
+		for (int i = 0; i < studIdList.size(); i++) {
+			String currId = studIdList.get(i);
+			Boolean exists = service.studentExistsByStudentId(Integer.getInteger(currId));
+			if (!exists) {
+				stusToAdd.add(currId);
+			}
+		}
+
+		// From these student id's, we can further call the REST api to obtain more
+		// information about the student and the internship
+		String newUrl;
+		for (int i = 0; i < stusToAdd.size(); i++) {
+			newUrl = resourceUrl + "/" + stusToAdd.get(i);
+			jsonString = restTemplate.getForObject(newUrl, String.class);
+			actualObj = mapper.readTree(jsonString);
+			
+			JsonNode internship = actualObj.get("internship");
+			int w = 0;
 		}
 		return jsonString;
 	}
-	
-	
+
 	/**
 	 * Post a student object to the database. Available at
 	 * https://cooperator-backend-21.herokuapp.com/students/{name}
@@ -99,12 +123,12 @@ public class CooperatorController {
 		return convertToDto(student);
 
 	}
-	
+
 	/**
 	 * Delete a student object from the database. Available at
 	 * https://cooperator-backend-21.herokuapp.com/students/{userId}
 	 * 
-	 * @param userId        - UserId of student
+	 * @param userId - UserId of student
 	 *
 	 */
 	// Delete A STUDENT
@@ -112,7 +136,6 @@ public class CooperatorController {
 	public void deleteStudent(@PathVariable("userId") Integer userId) {
 		service.deleteStudent(userId);
 	}
-
 
 	/**
 	 * Get a list of all students in the database. Available at
@@ -131,12 +154,12 @@ public class CooperatorController {
 		}
 		return studentDtos;
 	}
-	
+
 	/**
 	 * Get a student object from the database. Available at
 	 * https://cooperator-backend-21.herokuapp.com/students/{userId}
 	 * 
-	 * @param userId        - UserId of student
+	 * @param userId - UserId of student
 	 * @return Student requested - Student DTO
 	 *
 	 */
@@ -146,8 +169,6 @@ public class CooperatorController {
 		Student student = service.getStudent(userId);
 		return convertToDto(student);
 	}
-
-
 
 	/**
 	 * Post a new employer to the database. Available at
@@ -171,12 +192,12 @@ public class CooperatorController {
 				location);
 		return convertToDto(employer);
 	}
-	
+
 	/**
 	 * Delete a Employer object from the database. Available at
 	 * https://cooperator-backend-21.herokuapp.com/employers/{userId}
 	 * 
-	 * @param userId        - UserId of employer
+	 * @param userId - UserId of employer
 	 *
 	 */
 	// Delete An Employer
@@ -184,7 +205,6 @@ public class CooperatorController {
 	public void deleteEmployer(@PathVariable("userId") Integer userId) {
 		service.deleteEmployer(userId);
 	}
-
 
 	/**
 	 * Obtain a list of all employers present in the database. Available at
@@ -203,12 +223,12 @@ public class CooperatorController {
 		}
 		return employerDtos;
 	}
-	
+
 	/**
 	 * Get a employer object from the database. Available at
 	 * https://cooperator-backend-21.herokuapp.com/employers/{userId}
 	 * 
-	 * @param userId        - UserId of employer
+	 * @param userId - UserId of employer
 	 * @return Employer requested - Employer DTO
 	 *
 	 */
@@ -218,8 +238,6 @@ public class CooperatorController {
 		Employer employer = service.getEmployer(userId);
 		return convertToDto(employer);
 	}
-
-
 
 	/**
 	 * Post a new coopAdmin to the database. Available at
@@ -240,11 +258,12 @@ public class CooperatorController {
 				password);
 		return convertToDto(coopAdmin);
 	}
+
 	/**
 	 * Delete a CoopAdmin object from the database. Available at
 	 * https://cooperator-backend-21.herokuapp.com/coopAdmins/{userId}
 	 * 
-	 * @param userId        - UserId of CoopAdmin
+	 * @param userId - UserId of CoopAdmin
 	 *
 	 */
 	// Delete An CoopAdmin
@@ -252,7 +271,6 @@ public class CooperatorController {
 	public void deleteCoopAdmin(@PathVariable("userId") Integer userId) {
 		service.deleteCoopAdministrator(userId);
 	}
-
 
 	/**
 	 * Get a list of all CoopAdministrators in the database. Available at
@@ -271,12 +289,12 @@ public class CooperatorController {
 		}
 		return coopAdminDtos;
 	}
-	
+
 	/**
 	 * Get a coopAdmin object from the database. Available at
 	 * https://cooperator-backend-21.herokuapp.com/coopAdmins/{userId}
 	 * 
-	 * @param userId        - UserId of coopAdmin
+	 * @param userId - UserId of coopAdmin
 	 * @return CoopAdmin requested - CoopAdmin DTO
 	 *
 	 */
@@ -341,8 +359,8 @@ public class CooperatorController {
 
 		return documentDtoList;
 	}
-	
-	//controller method to get the list of coopTerms of a given system user 
+
+	// controller method to get the list of coopTerms of a given system user
 	@GetMapping(value = { "/viewStudentTerms/", "/viewStudentTerms" })
 	public List<CoopTermDto> viewStudentTerms(@RequestParam Integer userId) {
 		List<CoopTerm> coopTerms = new ArrayList<>();
@@ -352,7 +370,6 @@ public class CooperatorController {
 		return coopTermDtoList;
 
 	}
-	
 
 	// =========================================================================================
 	// USE CASE View EmployerFiles
@@ -375,13 +392,12 @@ public class CooperatorController {
 		return documentDtoList;
 
 	}
-	
-	
+
 	/**
 	 * Get a employer object from the database. Available at
 	 * https://cooperator-backend-21.herokuapp.com/employers/term/{termId}
 	 * 
-	 * @param termId        - termId of employer
+	 * @param termId - termId of employer
 	 * @return Employer requested - Employer DTO
 	 *
 	 */
@@ -391,28 +407,29 @@ public class CooperatorController {
 		CoopTerm coopTerm = service.getCoopTerm(termId);
 		Integer temp = coopTerm.getEmployer().getUserID();
 		Employer employer = service.getEmployer(temp);
-		
+
 		return convertToDto(employer);
-		
+
 	}
-		/**
-		 * Get a student object from the database. Available at
-		 * https://cooperator-backend-21.herokuapp.com/employers/term/{termId}
-		 * 
-		 * @param termId        - termId of student
-		 * @return Student requested - Student DTO
-		 *
-		 */
-	
+
+	/**
+	 * Get a student object from the database. Available at
+	 * https://cooperator-backend-21.herokuapp.com/employers/term/{termId}
+	 * 
+	 * @param termId - termId of student
+	 * @return Student requested - Student DTO
+	 *
+	 */
+
 	// Get A Student
-		@GetMapping(value = { "/students/term/{termId}", "/employers/term/{termId}/" })
-		public StudentDto getStudentByTerm(@PathVariable("termId") Integer termId) {
-			CoopTerm coopTerm = service.getCoopTerm(termId);
-			Integer temp = coopTerm.getStudent().getUserID();
-			Student student = service.getStudent(temp);
-			
-			return convertToDto(student);
-		}
+	@GetMapping(value = { "/students/term/{termId}", "/employers/term/{termId}/" })
+	public StudentDto getStudentByTerm(@PathVariable("termId") Integer termId) {
+		CoopTerm coopTerm = service.getCoopTerm(termId);
+		Integer temp = coopTerm.getStudent().getUserID();
+		Student student = service.getStudent(temp);
+
+		return convertToDto(student);
+	}
 
 	// =========================================================================================
 	// USE CASE Modify StudentFiles
@@ -591,12 +608,12 @@ public class CooperatorController {
 
 		return convertToDto(coopTerm, student, employer, termId);
 	}
-	
+
 	/**
 	 * Delete a Coopterm object from the database. Available at
 	 * https://cooperator-backend-21.herokuapp.com/coopterms/{termId}
 	 * 
-	 * @param termId        - TermId of coopTerm
+	 * @param termId - TermId of coopTerm
 	 *
 	 */
 	// Delete A Coopterm
@@ -604,7 +621,6 @@ public class CooperatorController {
 	public void deleteCoopTerm(@PathVariable("termId") Integer termId) {
 		service.deleteCoopTerm(termId);
 	}
-
 
 	/**
 	 * Get All coopterms from the backend. Available at
@@ -652,12 +668,12 @@ public class CooperatorController {
 		return convertToDto(document);
 
 	}
-	
+
 	/**
 	 * Delete a Document object from the database. Available at
 	 * https://cooperator-backend-21.herokuapp.com/documents/{docId}
 	 * 
-	 * @param docId        - DocumentId of coopTerm
+	 * @param docId - DocumentId of coopTerm
 	 *
 	 */
 	// Delete A Document
@@ -698,7 +714,8 @@ public class CooperatorController {
 			throw new IllegalArgumentException("There is no such Student!");
 		}
 		StudentDto studentDto = new StudentDto(student.getLastName(), student.getFirstName(), student.getEmailAddress(),
-				student.getUserName(), student.getPassword(), student.getStudentId(), student.getProgram(), student.getUserID());
+				student.getUserName(), student.getPassword(), student.getStudentId(), student.getProgram(),
+				student.getUserID());
 		studentDto.setCoopTerms(createCoopTermDtosForStudent(student));
 		return studentDto;
 	}
@@ -727,8 +744,8 @@ public class CooperatorController {
 	private CoopAdministratorDto convertToDto(CoopAdministrator coopAdmin) {
 
 		CoopAdministratorDto coopAdministratorDto = new CoopAdministratorDto(coopAdmin.getLastName(),
-				coopAdmin.getFirstName(), coopAdmin.getEmailAddress(), coopAdmin.getUserName(),
-				coopAdmin.getPassword(), coopAdmin.getUserID());
+				coopAdmin.getFirstName(), coopAdmin.getEmailAddress(), coopAdmin.getUserName(), coopAdmin.getPassword(),
+				coopAdmin.getUserID());
 		return coopAdministratorDto;
 	}
 
@@ -745,9 +762,10 @@ public class CooperatorController {
 
 		StudentDto studentDto = convertToDto(student);
 		EmployerDto employerDto = convertToDto(employer);
-		CoopTermDto coopTermDto = new CoopTermDto(termId, coopTerm.getStartDate(), coopTerm.getEndDate(), employer.getCompanyName(), student.getStudentId());// ,
-																											// studentDto,
-																											// employerDto);
+		CoopTermDto coopTermDto = new CoopTermDto(termId, coopTerm.getStartDate(), coopTerm.getEndDate(),
+				employer.getCompanyName(), student.getStudentId());// ,
+		// studentDto,
+		// employerDto);
 		return coopTermDto;
 	}
 
@@ -761,19 +779,19 @@ public class CooperatorController {
 		if (coopTerm == null) {
 			throw new IllegalArgumentException("There is no such Event!");
 		}
-		CoopTermDto coopTermDto = new CoopTermDto(coopTerm.getTermId(), coopTerm.getStartDate(), coopTerm.getEndDate(), coopTerm.getEmployer().getCompanyName(), coopTerm.getStudent().getStudentId());
+		CoopTermDto coopTermDto = new CoopTermDto(coopTerm.getTermId(), coopTerm.getStartDate(), coopTerm.getEndDate(),
+				coopTerm.getEmployer().getCompanyName(), coopTerm.getStudent().getStudentId());
 		coopTermDto.setDocument(createDocumentDtosForCoopTerm(coopTerm));
 		return coopTermDto;
 	}
-	
+
 	private List<CoopTermDto> convertToDto(List<CoopTerm> coopTerms) {
 		List<CoopTermDto> termsDto = new ArrayList<CoopTermDto>();
-		for (CoopTerm term  : coopTerms) {
+		for (CoopTerm term : coopTerms) {
 			termsDto.add(convertToDto(term));
 		}
 		return termsDto;
 	}
-
 
 	/**
 	 * Method used to convert the Document database object to a DTO
@@ -784,7 +802,8 @@ public class CooperatorController {
 	private DocumentDto convertToDto(Document document) {
 
 		DocumentDto documentDto = new DocumentDto(document.getDocName(), document.getDueDate(), document.getDueTime(),
-				document.getSubDate(), document.getSubTime(), document.getDocId()); // , convertToDto(document.getCoopTerm()));
+				document.getSubDate(), document.getSubTime(), document.getDocId()); // ,
+																					// convertToDto(document.getCoopTerm()));
 		return documentDto;
 	}
 
