@@ -1,10 +1,13 @@
 package ca.mcgill.ecse321.cooperator.controller;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +20,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ca.mcgill.ecse321.cooperator.dto.CoopAdministratorDto;
 import ca.mcgill.ecse321.cooperator.dto.CoopTermDto;
 import ca.mcgill.ecse321.cooperator.dto.DocumentDto;
 import ca.mcgill.ecse321.cooperator.dto.EmployerDto;
 import ca.mcgill.ecse321.cooperator.dto.StudentDto;
+import ca.mcgill.ecse321.cooperator.dtoExt.StudentDtoExt;
 import ca.mcgill.ecse321.cooperator.model.CoopAdministrator;
 import ca.mcgill.ecse321.cooperator.model.CoopTerm;
 import ca.mcgill.ecse321.cooperator.model.Document;
@@ -45,7 +54,29 @@ public class CooperatorController {
 
 	@Autowired
 	private CooperatorService service;
+	@GetMapping(value = { "/students/update/" })
+	public static String getStudentsExternal() throws IOException {
+		String resourceUrl = "https://ecse321-w2019-g01-backend.herokuapp.com/external/students";
+		RestTemplate restTemplate = new RestTemplate();
+		String jsonString = restTemplate.getForObject(resourceUrl, String.class); 
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode actualObj;
 
+		actualObj = mapper.readTree(jsonString);
+		
+		List<String> studIdList;
+		// Iterate over Student objects returned to obtain student ID's
+		Iterator<JsonNode> elems = actualObj.elements();
+		while(elems.hasNext()) {
+			// Get actual student object
+			JsonNode child = elems.next();
+			
+			String studId = child.get("student_id").asText();
+		}
+		return jsonString;
+	}
+	
+	
 	/**
 	 * Post a student object to the database. Available at
 	 * https://cooperator-backend-21.herokuapp.com/students/{name}
