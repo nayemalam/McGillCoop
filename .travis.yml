@@ -2,7 +2,7 @@ matrix:
   include:
   - language: java
     script:
-    - "./gradlew build -xtest"
+    - "./gradlew build"
     deploy:
       provider: heroku
       api_key:
