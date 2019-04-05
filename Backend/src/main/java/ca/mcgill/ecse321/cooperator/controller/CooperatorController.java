@@ -82,7 +82,7 @@ public class CooperatorController {
 		for (int i = 0; i < studIdList.size(); i++) {
 			String currId = studIdList.get(i);
 			// Make sure that the ID is right length to search
-			String currId2 = currId.substring(0,8);
+			String currId2 = currId.substring(0, 8);
 			Boolean exists = service.studentExistsByStudentId(Integer.parseInt(currId2));
 			if (!exists) {
 				stusToAdd.add(currId);
@@ -103,22 +103,21 @@ public class CooperatorController {
 			String stuLastName = actualObj.get("last_name").asText();
 			String stuMcGillId = actualObj.get("student_id").asText();
 			String stuEmail = actualObj.get("email").asText();
-			
+
 			// Some hardcoded strings not available from the team 1 API
 			String stuPass = stuLastName + "1";
 			String stuUName = stuLastName + stuFirstName;
 			String stuProgram = "ECSE";
 			// Remove one number from the ID
-			Integer stuIdInt = Integer.parseInt(stuMcGillId.substring(0,8));
-			Student stu = service.createStudent(stuLastName, stuFirstName, stuEmail, stuUName, stuPass, stuIdInt, stuProgram);
+			Integer stuIdInt = Integer.parseInt(stuMcGillId.substring(0, 8));
+			Student stu = service.createStudent(stuLastName, stuFirstName, stuEmail, stuUName, stuPass, stuIdInt,
+					stuProgram);
 
 			// Obtain information about employer
 			JsonNode internship = actualObj.get("internship");
 			JsonNode applicationForm = internship.get("application_form");
-			
-			
-			//String empFirstName = applicationForm.get("");
-			int w = 0;
+
+			// String empFirstName = applicationForm.get("");
 		}
 		return jsonString;
 	}
@@ -785,7 +784,7 @@ public class CooperatorController {
 		StudentDto studentDto = convertToDto(student);
 		EmployerDto employerDto = convertToDto(employer);
 		CoopTermDto coopTermDto = new CoopTermDto(termId, coopTerm.getStartDate(), coopTerm.getEndDate(),
-				employer.getCompanyName(), student.getStudentId());// ,
+				employer.getCompanyName(), student.getStudentId(), coopTerm.getSemester());// ,
 		// studentDto,
 		// employerDto);
 		return coopTermDto;
@@ -802,7 +801,7 @@ public class CooperatorController {
 			throw new IllegalArgumentException("There is no such Event!");
 		}
 		CoopTermDto coopTermDto = new CoopTermDto(coopTerm.getTermId(), coopTerm.getStartDate(), coopTerm.getEndDate(),
-				coopTerm.getEmployer().getCompanyName(), coopTerm.getStudent().getStudentId());
+				coopTerm.getEmployer().getCompanyName(), coopTerm.getStudent().getStudentId(), coopTerm.getSemester());
 		coopTermDto.setDocument(createDocumentDtosForCoopTerm(coopTerm));
 		return coopTermDto;
 	}

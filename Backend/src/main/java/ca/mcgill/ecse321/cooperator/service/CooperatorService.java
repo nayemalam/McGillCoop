@@ -1424,6 +1424,7 @@ public class CooperatorService {
 	 * @param employer  - Employer of the student for that CoopTerm
 	 * @return Created CoopTerm object
 	 */
+	@SuppressWarnings("deprecation")
 	@Transactional
 	public CoopTerm createCoopTerm(Date startDate, Date endDate, Student student, Employer employer) {
 
@@ -1446,6 +1447,86 @@ public class CooperatorService {
 		coopTerm.setEndDate(endDate);
 		coopTerm.setEmployer(employer);
 		coopTerm.setStudent(student);
+		@SuppressWarnings("deprecation")
+		Integer month = startDate.getMonth();
+		switch (month) {
+			case 0:
+				coopTerm.setSemester("Winter " + startDate.toString().substring(0,4));
+				break;
+			case 1:
+				coopTerm.setSemester("Winter " + startDate.toString().substring(0,4));
+				break;
+			case 2:
+				coopTerm.setSemester("Winter " + startDate.toString().substring(0,4));
+				break;
+			case 3:
+				coopTerm.setSemester("Winter " + startDate.toString().substring(0,4));
+				break;
+			case 4:
+				coopTerm.setSemester("Summer " + startDate.toString().substring(0,4));
+				break;
+			case 5:
+				coopTerm.setSemester("Summer " + startDate.toString().substring(0,4));
+				break;
+			case 6:
+				coopTerm.setSemester("Summer " + startDate.toString().substring(0,4));
+				break;
+			case 7:
+				coopTerm.setSemester("Summer " + startDate.toString().substring(0,4));
+				break;
+			case 8:
+				coopTerm.setSemester("Fall " + startDate.toString().substring(0,4));
+				break;
+			case 9:
+				coopTerm.setSemester("Fall " + startDate.toString().substring(0,4));
+				break;
+			case 10:
+				coopTerm.setSemester("Fall " + startDate.toString().substring(0,4));
+				break;
+			case 11:
+				coopTerm.setSemester("Fall " + startDate.toString().substring(0,4));
+				break;
+		}
+			
+		
+		coopTermRepository.save(coopTerm);
+		return coopTerm;
+	}
+	
+	
+	/**
+	 * Create new CoopTerm. Must have associated student and employer created a
+	 * priori
+	 * 
+	 * @param startDate - Date of start of the Coop Term
+	 * @param endDate   - Date of end of the CoopTerm
+	 * @param student   - Student to associate to the CoopTerm
+	 * @param employer  - Employer of the student for that CoopTerm
+	 * @return Created CoopTerm object
+	 */
+	@Transactional
+	public CoopTerm createCoopTerm(Date startDate, Date endDate, Student student, Employer employer, String semester) {
+
+		if (startDate == null) {
+			throw new IllegalArgumentException("Please enter a valid startDate");
+		}
+		if (endDate == null) {
+			throw new IllegalArgumentException("Please enter a valid endDate");
+		}
+
+		if (student == null) {
+			throw new IllegalArgumentException("Please enter a valid Student");
+		}
+		if (employer == null) {
+			throw new IllegalArgumentException("Please enter a valid Employer");
+		}
+
+		CoopTerm coopTerm = new CoopTerm();
+		coopTerm.setStartDate(startDate);
+		coopTerm.setEndDate(endDate);
+		coopTerm.setEmployer(employer);
+		coopTerm.setStudent(student);
+		coopTerm.setSemester(semester);
 		
 		coopTermRepository.save(coopTerm);
 		return coopTerm;

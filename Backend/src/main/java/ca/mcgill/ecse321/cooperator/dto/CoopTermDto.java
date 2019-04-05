@@ -14,58 +14,72 @@ import ca.mcgill.ecse321.cooperator.model.Student;
 
 public class CoopTermDto {
 
-	//private StudentDto student;
+	// private StudentDto student;
 	private Integer termId;
 	private Date startDate;
 	private Date endDate;
 	private String companyName;
 	private Integer studentId;
+	private String semester;
 	private List<DocumentDto> document;
-	
-	//@SuppressWarnings("unchecked")
-	public CoopTermDto(Integer termId, Date startDate, Date endDate, String companyname, Integer studentid) { 
-		
+
+	// @SuppressWarnings("unchecked")
+	public CoopTermDto(Integer termId, Date startDate, Date endDate, String companyname, Integer studentid,
+			String semester) {
+
 		this.termId = termId;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.companyName = companyname;
 		this.studentId = studentid;
+		this.semester = semester;
 	}
-	
-public CoopTermDto(int termId, Date startDate, Date endDate, StudentDto studentDto, EmployerDto employerDto, List<DocumentDto> doc) {
-		
+
+	public CoopTermDto(int termId, Date startDate, Date endDate, StudentDto studentDto, EmployerDto employerDto,
+			List<DocumentDto> doc) {
+
 		this.termId = termId;
-		//this.student = studentDto;
+		// this.student = studentDto;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		//this.employer = employerDto;
+		// this.employer = employerDto;
 		this.document = doc;
 	}
-	
-	 public int getTermId() {
-		 return termId;
-	 }
-	 public String getCompanyName() {
+
+	public int getTermId() {
+		return termId;
+	}
+
+	public String getCompanyName() {
 		return this.companyName;
-	 }
-	  
-	 public Integer getStudentId() {
-		return this.studentId; 
-		 
-	 }
-	  public Date getStartDate() {
-		  return startDate;
-		  }
-	  
-	  public Date getEndDate() {
-		  return endDate;
-		  }
-	  
-	   public List<DocumentDto> getDocument() {
-		      return document;
-		   }	
-	   
-	   public void setDocument(List<DocumentDto> documents) {
-			this.document =  documents;
-		} 
+	}
+
+	public Integer getStudentId() {
+		return this.studentId;
+
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public List<DocumentDto> getDocument() {
+		return document;
+	}
+
+	public void setDocument(List<DocumentDto> documents) {
+		this.document = documents;
+	}
+	
+	public void setSemester(String semester) {
+		this.semester = semester;
+	}
+	
+	public String getSemester() {
+		return this.semester;
+	}
 }
