@@ -10,7 +10,8 @@
                 <form class="form-group"><h4>Sign Up Here... it's easy as 1, 2, 3!</h4> <br/>
                   <div class="field">
                     <div class="control">
-                      <div class="form-row">
+                    <p align="left">NAME</p>                      
+                    <div class="form-row">
                         <div class="col">
                           <input type="text" class="form-control form-inline" v-model="newAdmin.firstName" placeholder="First Name"> <br/><br/>
                         </div>
@@ -19,9 +20,11 @@
                         </div>
                       </div>
                       
-                      
+                      <p align="left">EMAIL ADDRESS</p>                      
                       <input type="email" class="form-control" autocomplete="email" required v-model="newAdmin.emailAddress" placeholder="Email Address"> <br/><br/>
+                      <p align="left">USERNAME</p>                      
                       <input type="text" class="form-control" v-model="newAdmin.userName" placeholder="Username"> <br/><br/>
+                      <p align="left">PASSWORD</p>                     
                       <input id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock" type="password" autocomplete="password" required v-model="newAdmin.password" placeholder="Password"> <br/>           
                       <small id="passwordHelpBlock" class="form-text text-muted">
                       Your password must be 4-20 characters long, may only contain letters and numbers, but must not contain spaces, special characters, or emojis.
