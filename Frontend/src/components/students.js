@@ -94,6 +94,7 @@ export default {
             documents:[],
             termId:'',
             companyName:'',
+            semester:'',
             studentId:'',
         },
       
@@ -243,17 +244,18 @@ export default {
     // },
 
     download: function(filename, text) {
-      var element = document.createElement('a');
-      element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-      element.setAttribute('download', filename);
+      // var element = document.createElement('a');
+      // element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+      // element.setAttribute('download', filename);
   
-      element.style.display = 'none';
-      document.body.appendChild(element);
+      // element.style.display = 'none';
+      // document.body.appendChild(element);
   
-      element.click();
+      // element.click();
   
-      document.body.removeChild(element);
+      // document.body.removeChild(element);
   },
+
    filterById: function(search){
      var n = search.length; 
    
@@ -263,20 +265,21 @@ export default {
      else{
        return this.students
      }
-  
   },
 
   filterByDate: function(searchDate){
-    var date = new Date(searchDate.toString());
-  
-    if(searchDate!= ""){
-  
-       return this.coopTerms.filter(coopTerm => new Date(coopTerm.startDate.toString()).getTime() >= date.getTime())  
+
+    var n = searchDate.length; 
+    if(this.coopTerms.filter(coopTerm => coopTerm.semester.toString().substring(0,n) == searchDate)){
+      return this.coopTerms.filter(coopTerm => coopTerm.semester.toString().substring(0,n) == searchDate)
     }
+    // var date = new Date(searchDate.toString());
+    // if(this.coopTerms.filter(coopTerm => new Date(coopTerm.startDate.toString()).getTime() >= date.getTime())){
+    //   return this.coopTerms.filter(coopTerm => new Date(coopTerm.startDate.toString()).getTime() >= date.getTime())  
+    // }
     else{
       return this.coopTerms
     }
- 
  },
 
   displayStudents: function(){

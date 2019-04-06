@@ -39,7 +39,7 @@
       </button> </b-col>
     <b-col></b-col>
     <b-col><input v-if="studTable" type="text" v-model="search" class="form-control" placeholder="Search by student ID"/>
-    <input v-if="termTable" type="text" v-model="searchDate" class="form-control" placeholder="Search by Date"/></b-col>
+    <input v-if="termTable" type="text" v-model="searchDate" class="form-control" placeholder="Search by academic semester"/></b-col>
       <br/><br/> 
     </b-row>
     
@@ -47,6 +47,7 @@
       <h1 align="center">Coop Terms</h1>
        <table class="table table-hover">
         <tr>
+          <th scope="col">Academic Semester</th>
           <th scope="col">Start Date</th>
           <th scope="col">End Date</th>
           <th scope="col">Employer</th>
@@ -55,6 +56,7 @@
         </tr>
 
           <tr v-for="term in filterByDate(searchDate)">
+          <td>{{term.semester}}</td>
           <td> {{term.startDate}} </td>
           <td> {{term.endDate}} </td>
           <td> {{term.companyName}}</td>
@@ -78,7 +80,7 @@
         </tr>
 
         <tr>
-           <td> {{termStudent.lastName+ ', '+termStudent.firstName}} </td>
+          <td> {{termStudent.lastName+ ', '+termStudent.firstName}} </td>
           <td> {{termStudent.studentId}} </td>
           <td> {{termStudent.emailAddress}} </td>
           <td> {{termStudent.program}} </td>
@@ -117,12 +119,14 @@
       <h5 style="margin-top: 60px; text-align: left; padding-left: 25px;">Coop Terms of <u>{{studFirstName + ' '+ studLastName}}</u> </h5>
       <table class="table table-hover">
         <tr>
+          <th scope="col">Academic Semester</th>
           <th scope="col">Start Date</th>
           <th scope="col">End Date</th>
            <th scope="col">Employer</th>
           <th scope="col">View Documents</th>
         </tr>
          <tr v-for="term in coopTerms" >
+           <td>{{term.semester}}</td>
           <td> {{term.startDate}} </td>
           <td> {{term.endDate}} </td>
           <td>
