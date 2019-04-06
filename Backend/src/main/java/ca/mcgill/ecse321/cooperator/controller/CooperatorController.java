@@ -76,8 +76,8 @@ public class CooperatorController {
 			studIdList.add(studId);
 		}
 		//Empty repositories
-		service.deleteAllCoopTerms();
 		service.deleteAllDocuments();
+		service.deleteAllCoopTerms();
 		service.deleteAllEmployers();
 		service.deleteAllStudents();
 		
