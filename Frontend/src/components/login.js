@@ -53,7 +53,7 @@ export default {
           console.log('login successful!')
 
           //call the controller method for synchronizing our database with team 1
-         // AXIOS.get('/students/update/')
+         AXIOS.get('/students/update/')
 
           this.signedAdmin = response.data;
           // debugger
