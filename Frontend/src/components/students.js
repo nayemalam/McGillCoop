@@ -110,6 +110,7 @@ export default {
         //Other variables
         studTable: true,
         termTable: false,
+        studTable2:false,
         seen:'',
         seen2:'',
         seen3:'',
@@ -158,10 +159,11 @@ export default {
       });
       
     },
-    getStudentTerm: function(){
-      console.log("HEllOO")
     
-    },
+    // getStudentTerm: function(){
+    //   console.log("HEllOO")
+    
+    // },
 
     setStudId: function(id, last, first){
         
@@ -211,22 +213,22 @@ export default {
 
     },
 
-    employerName: function(termId){
+    // employerName: function(termId){
       
-      AXIOS.get('/employers/term/'+termId)
-      .then(response => {
-        // JSON responses are automatically parsed.
-        this.employer = response.data
-        this.errorEmployer = ''
-      })
-      .catch(e => {
-        var errorMsg = e.message
-        this.errorEmployer = errorMsg
-      });
-      this.emplName = this.employer.companyName;
-      return this.employer.companyName
+    //   AXIOS.get('/employers/term/'+termId)
+    //   .then(response => {
+    //     // JSON responses are automatically parsed.
+    //     this.employer = response.data
+    //     this.errorEmployer = ''
+    //   })
+    //   .catch(e => {
+    //     var errorMsg = e.message
+    //     this.errorEmployer = errorMsg
+    //   });
+    //   this.emplName = this.employer.companyName;
+    //   return this.employer.companyName
 
-    },
+    // },
     
     studentName: function(termId){
       AXIOS.get('/students/term/'+termId)
@@ -236,9 +238,9 @@ export default {
       })
     },
 
-    getDocument: function(currentDocument){
-        this.documents = currentDocument;
-    },
+    // getDocument: function(currentDocument){
+    //     this.documents = currentDocument;
+    // },
 
     download: function(filename, text) {
       var element = document.createElement('a');
@@ -277,29 +279,11 @@ export default {
  
  },
 
-  // updateTerms: function(){
-
-  //   AXIOS.get('/coopterms')
-  //       .then(response => {
-  //       // JSON responses are automatically parsed.
-  //       this.coopTerms = response.data
-  //      })
-      
-  //     this.coopTerms.forEach(function(term) { 
-  //        AXIOS.get('/employers/term/'+ term.termId)
-  //       .then(response => {
-  //         // JSON responses are automatically parsed.
-  //         //this.employer = response.data
-  //         term.employer = response.data.companyName;
-  //         console.log(term.startDate)
-  //       })
-          
-  //      });
-  // },
   displayStudents: function(){
    this.seen = false;
    this.seen2 = false;
    this.seen3 = false;
+   this.studTable2 = false;
 
   },
   }
