@@ -56,12 +56,14 @@
       <h5 style="margin-top: 60px; text-align: left; padding-left: 25px;">Coop Terms of <u>{{empFirstName + ' '+ empLastName}}</u> </h5>
       <table class="table table-hover">
         <tr>
+          <th scope="col">Academic Semester</th>
           <th scope="col">Start Date</th>
           <th scope="col">End Date</th>
            <th scope="col">Student</th>
           <th scope="col">View Documents</th>
         </tr>
          <tr v-for="term in coopTerms" >
+           <td>{{term.semester}}</td>
           <td> {{term.startDate}} </td>
           <td> {{term.endDate}} </td>
           <td>
