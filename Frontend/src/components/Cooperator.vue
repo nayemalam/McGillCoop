@@ -7,7 +7,7 @@
           <table>
             <tr>
               <td>
-                <form class="form-group"><h4>Sign Up ... it's easy as 1, 2, 3!</h4> <br/>
+                <form class="form-group"><h4>Sign Up Here... it's easy as 1, 2, 3!</h4> <br/>
                   <div class="field">
                     <div class="control">
                       <div class="form-row">
@@ -21,10 +21,10 @@
                       
                       
                       <input type="email" class="form-control" autocomplete="email" required v-model="newAdmin.emailAddress" placeholder="Email Address"> <br/><br/>
-                      <input type="text" class="form-control" v-model="newAdmin.userName" placeholder="User name"> <br/><br/>
+                      <input type="text" class="form-control" v-model="newAdmin.userName" placeholder="Username"> <br/><br/>
                       <input id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock" type="password" autocomplete="password" required v-model="newAdmin.password" placeholder="Password"> <br/>           
                       <small id="passwordHelpBlock" class="form-text text-muted">
-                      Your password must be 4-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emojis.
+                      Your password must be 4-20 characters long, may only contain letters and numbers, but must not contain spaces, special characters, or emojis.
                       </small>
                     </div>
                     <br/>

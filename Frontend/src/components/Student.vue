@@ -38,7 +38,7 @@
         Display all Students
       </button> </b-col>
     <b-col></b-col>
-    <b-col><input v-if="studTable" type="text" v-model="search" class="form-control" placeholder="Search by student ID"/>
+    <b-col><input v-if="studTable" type="text" v-model="search" class="form-control" placeholder="Search by Student ID"/>
     <input v-if="termTable" type="text" v-model="searchDate" class="form-control" placeholder="Search by academic semester"/></b-col>
       <br/><br/> 
     </b-row>
