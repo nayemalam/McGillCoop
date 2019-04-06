@@ -15,7 +15,7 @@
       <!-- Text slides with image -->
       <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=52">
       
-        <h1 style="font-size: 60px; margin-top:-18rem;">Welcome to CO-OP-ERATOR</h1>
+        <h1 style="font-size: 60px; margin-top:-18rem;">Welcome to Co-Operator</h1>
       </b-carousel-slide>
 
       <!-- Slides with custom text -->
