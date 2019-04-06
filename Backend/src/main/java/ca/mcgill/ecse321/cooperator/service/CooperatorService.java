@@ -263,6 +263,11 @@ public class CooperatorService {
 		}
 		return true;
 	}
+	
+	@Transactional
+	public void deleteAllStudents() {
+		studentRepository.deleteAll();
+	}
 
 	/**
 	 * Verifies the existence of a student user in the database using the User ID
@@ -1272,7 +1277,7 @@ public class CooperatorService {
 	 */
 	@Transactional
 	public Document createDocument(DocumentName docName, Date dueDate, Time dueTime, Date subDate, Time subTime,
-			CoopTerm coopTerm) {
+			CoopTerm coopTerm, String externalDocId) {
 		if (docName == null) {
 			throw new IllegalArgumentException("Document Name cannot be empty!");
 		}
@@ -1300,6 +1305,7 @@ public class CooperatorService {
 		document.setSubDate(subDate);
 		document.setSubTime(subTime);
 		document.setCoopTerm(coopTerm);
+		document.setExternalDocId(externalDocId);
 		documentRepository.save(document);
 
 		return document;
