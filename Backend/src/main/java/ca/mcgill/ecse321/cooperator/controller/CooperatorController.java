@@ -169,8 +169,10 @@ public class CooperatorController {
 						String subTimeStamp2 = subTimeStamp.substring(0,8);
 						Time subTime = Time.valueOf(subTimeStamp2);
 						Date dueDate = subDate;
+						String externalDocId = doc.get("id").asText();
 						
-						Document docuum = service.createDocument(docName, dueDate, subTime, subDate, subTime, coop);
+						@SuppressWarnings("unused")
+						Document docuum = service.createDocument(docName, dueDate, subTime, subDate, subTime, coop, externalDocId);
 					}
 				}
 			}
@@ -740,7 +742,7 @@ public class CooperatorController {
 
 		CoopTerm coopTerm = service.getCoopTerm(termId);
 		Document document = service.createDocument(docName, dueDate, Time.valueOf(dueTime), subDate,
-				Time.valueOf(subTime), coopTerm);
+				Time.valueOf(subTime), coopTerm, " ");
 
 		return convertToDto(document);
 
@@ -879,7 +881,7 @@ public class CooperatorController {
 	private DocumentDto convertToDto(Document document) {
 
 		DocumentDto documentDto = new DocumentDto(document.getDocName(), document.getDueDate(), document.getDueTime(),
-				document.getSubDate(), document.getSubTime(), document.getDocId()); // ,
+				document.getSubDate(), document.getSubTime(), document.getDocId(), document.getExternalDocId()); // ,
 																					// convertToDto(document.getCoopTerm()));
 		return documentDto;
 	}

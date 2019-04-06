@@ -1318,7 +1318,7 @@ public class TestCooperatorService {
 		Integer termId = coopTerm.getTermId();
 
 		try {
-			testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, coopTerm);
+			testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, coopTerm, " ");
 		} catch (Exception e) {
 			// Check that no error occurred while creating and saving the document.
 			System.out.println(e);
@@ -1395,7 +1395,7 @@ public class TestCooperatorService {
 		// Test docName parsing
 		try {
 			// Null input
-			testDocument = service.createDocument(null, dueDate, dueTime, subDate, subTime, coopTerm);
+			testDocument = service.createDocument(null, dueDate, dueTime, subDate, subTime, coopTerm, " ");
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -1404,7 +1404,7 @@ public class TestCooperatorService {
 		// dueDate testing
 		try {
 			// Null input
-			testDocument = service.createDocument(docName, null, dueTime, subDate, subTime, coopTerm);
+			testDocument = service.createDocument(docName, null, dueTime, subDate, subTime, coopTerm, " ");
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -1413,7 +1413,7 @@ public class TestCooperatorService {
 		// dueTime testing
 		try {
 			// Null input
-			testDocument = service.createDocument(docName, dueDate, null, subDate, subTime, coopTerm);
+			testDocument = service.createDocument(docName, dueDate, null, subDate, subTime, coopTerm, " ");
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -1422,7 +1422,7 @@ public class TestCooperatorService {
 		// subDate testing
 		try {
 			// Null input
-			testDocument = service.createDocument(docName, dueDate, dueTime, null, subTime, coopTerm);
+			testDocument = service.createDocument(docName, dueDate, dueTime, null, subTime, coopTerm, " ");
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -1431,7 +1431,7 @@ public class TestCooperatorService {
 		// subTime testing
 		try {
 			// Null input
-			testDocument = service.createDocument(docName, dueDate, dueTime, subDate, null, coopTerm);
+			testDocument = service.createDocument(docName, dueDate, dueTime, subDate, null, coopTerm, " ");
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -1440,7 +1440,7 @@ public class TestCooperatorService {
 		// coopTerm testing
 		try {
 			// Null input
-			testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, null);
+			testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, null, " ");
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -1503,7 +1503,7 @@ public class TestCooperatorService {
 		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, student, employer);
 
 		// Create new document object
-		testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, coopTerm);
+		testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, coopTerm, " ");
 		Integer docId = testDocument.getDocId();
 		assertEquals(1, service.getAllDocuments().size());
 
@@ -1584,7 +1584,7 @@ public class TestCooperatorService {
 		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, student, employer);
 
 		// Create new document object
-		testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, coopTerm);
+		testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, coopTerm, " ");
 		Integer docId = testDocument.getDocId();
 		assertEquals(1, service.getAllDocuments().size());
 
@@ -1781,7 +1781,7 @@ public class TestCooperatorService {
 		// easily create coopterm by using the method and created objects and attributes
 		// above
 		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, student, employer);
-		testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, coopTerm);
+		testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, coopTerm, " ");
 
 		Integer termId = coopTerm.getTermId();
 		Integer userId = student.getUserID();
@@ -1861,7 +1861,7 @@ public class TestCooperatorService {
 		// easily create coopterm by using the method and created objects and attributes
 		// above
 		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, student, employer);
-		testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, coopTerm);
+		testDocument = service.createDocument(docName, dueDate, dueTime, subDate, subTime, coopTerm, " ");
 		// ======
 		List<Student> studentList = null;
 		try {
@@ -1915,7 +1915,7 @@ public class TestCooperatorService {
 		;
 
 		CoopTerm currentTerm = service.getCoopTerm(termid);
-		service.createDocument(docName, dueDate, dueTime, subDate, subTime, currentTerm);
+		service.createDocument(docName, dueDate, dueTime, subDate, subTime, currentTerm, " ");
 
 		try {
 			// list = service.viewStudentFiles(studid, termid);
@@ -1968,7 +1968,7 @@ public class TestCooperatorService {
 		;
 
 		CoopTerm currentTerm = service.getCoopTerm(termid);
-		service.createDocument(docName, dueDate, dueTime, subDate, subTime, currentTerm);
+		service.createDocument(docName, dueDate, dueTime, subDate, subTime, currentTerm, " ");
 
 		try {
 			list = service.viewEmployerFiles(empid, termid);
