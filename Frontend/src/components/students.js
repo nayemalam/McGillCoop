@@ -94,6 +94,7 @@ export default {
             documents:[],
             termId:'',
             companyName:'',
+            semester:'',
             studentId:'',
         },
       
@@ -110,6 +111,7 @@ export default {
         //Other variables
         studTable: true,
         termTable: false,
+        studTable2:false,
         seen:'',
         seen2:'',
         seen3:'',
@@ -158,10 +160,11 @@ export default {
       });
       
     },
-    getStudentTerm: function(){
-      console.log("HEllOO")
     
-    },
+    // getStudentTerm: function(){
+    //   console.log("HEllOO")
+    
+    // },
 
     setStudId: function(id, last, first){
         
@@ -211,22 +214,22 @@ export default {
 
     },
 
-    employerName: function(termId){
+    // employerName: function(termId){
       
-      AXIOS.get('/employers/term/'+termId)
-      .then(response => {
-        // JSON responses are automatically parsed.
-        this.employer = response.data
-        this.errorEmployer = ''
-      })
-      .catch(e => {
-        var errorMsg = e.message
-        this.errorEmployer = errorMsg
-      });
-      this.emplName = this.employer.companyName;
-      return this.employer.companyName
+    //   AXIOS.get('/employers/term/'+termId)
+    //   .then(response => {
+    //     // JSON responses are automatically parsed.
+    //     this.employer = response.data
+    //     this.errorEmployer = ''
+    //   })
+    //   .catch(e => {
+    //     var errorMsg = e.message
+    //     this.errorEmployer = errorMsg
+    //   });
+    //   this.emplName = this.employer.companyName;
+    //   return this.employer.companyName
 
-    },
+    // },
     
     studentName: function(termId){
       AXIOS.get('/students/term/'+termId)
@@ -236,22 +239,23 @@ export default {
       })
     },
 
-    getDocument: function(currentDocument){
-        this.documents = currentDocument;
-    },
+    // getDocument: function(currentDocument){
+    //     this.documents = currentDocument;
+    // },
 
     download: function(filename, text) {
-      var element = document.createElement('a');
-      element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-      element.setAttribute('download', filename);
+      // var element = document.createElement('a');
+      // element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+      // element.setAttribute('download', filename);
   
-      element.style.display = 'none';
-      document.body.appendChild(element);
+      // element.style.display = 'none';
+      // document.body.appendChild(element);
   
-      element.click();
+      // element.click();
   
-      document.body.removeChild(element);
+      // document.body.removeChild(element);
   },
+
    filterById: function(search){
      var n = search.length; 
    
@@ -261,45 +265,28 @@ export default {
      else{
        return this.students
      }
-  
   },
 
   filterByDate: function(searchDate){
-    var date = new Date(searchDate.toString());
-  
-    if(searchDate!= ""){
-  
-       return this.coopTerms.filter(coopTerm => new Date(coopTerm.startDate.toString()).getTime() >= date.getTime())  
+
+    var n = searchDate.length; 
+    if(this.coopTerms.filter(coopTerm => coopTerm.semester.toString().substring(0,n) == searchDate)){
+      return this.coopTerms.filter(coopTerm => coopTerm.semester.toString().substring(0,n) == searchDate)
     }
+    // var date = new Date(searchDate.toString());
+    // if(this.coopTerms.filter(coopTerm => new Date(coopTerm.startDate.toString()).getTime() >= date.getTime())){
+    //   return this.coopTerms.filter(coopTerm => new Date(coopTerm.startDate.toString()).getTime() >= date.getTime())  
+    // }
     else{
       return this.coopTerms
     }
- 
  },
 
-  // updateTerms: function(){
-
-  //   AXIOS.get('/coopterms')
-  //       .then(response => {
-  //       // JSON responses are automatically parsed.
-  //       this.coopTerms = response.data
-  //      })
-      
-  //     this.coopTerms.forEach(function(term) { 
-  //        AXIOS.get('/employers/term/'+ term.termId)
-  //       .then(response => {
-  //         // JSON responses are automatically parsed.
-  //         //this.employer = response.data
-  //         term.employer = response.data.companyName;
-  //         console.log(term.startDate)
-  //       })
-          
-  //      });
-  // },
   displayStudents: function(){
    this.seen = false;
    this.seen2 = false;
    this.seen3 = false;
+   this.studTable2 = false;
 
   },
   }

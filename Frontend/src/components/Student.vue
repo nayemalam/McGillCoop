@@ -38,8 +38,8 @@
         Display all Students
       </button> </b-col>
     <b-col></b-col>
-    <b-col><input v-if="studTable" type="text" v-model="search" class="form-control" placeholder="Search by student ID"/>
-    <input v-if="termTable" type="text" v-model="searchDate" class="form-control" placeholder="Search by Date"/></b-col>
+    <b-col><input v-if="studTable" type="text" v-model="search" class="form-control" placeholder="Search by Student ID"/>
+    <input v-if="termTable" type="text" v-model="searchDate" class="form-control" placeholder="Search by academic semester"/></b-col>
       <br/><br/> 
     </b-row>
     
@@ -47,35 +47,50 @@
       <h1 align="center">Coop Terms</h1>
        <table class="table table-hover">
         <tr>
+          <th scope="col">Academic Semester</th>
           <th scope="col">Start Date</th>
           <th scope="col">End Date</th>
           <th scope="col">Employer</th>
           <th scope="col">Student ID</th>
+          <th scope ="col"> View Student</th>
         </tr>
 
           <tr v-for="term in filterByDate(searchDate)">
+          <td>{{term.semester}}</td>
           <td> {{term.startDate}} </td>
           <td> {{term.endDate}} </td>
           <td> {{term.companyName}}</td>
           <td> {{term.studentId}}</td>
-          <!--
           <td>
-          <button style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" @click="viewEmployer(term.termId)">
-           View Employer
-           </button>
-           </td>
-            <td>
-           <button style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" @click="studentName(term.termId)">
-           View Students 
-           </button>
-            </td>
-            -->
+          <button style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" @click="studTable2 = !studTable2, studentName(term.termId)">
+           View Student
+          </button>
+          </td>
         </tr>
       </table>
-       
+
+      <div v-if="studTable2">
+        <h5 style="margin-top: 60px; text-align: left; padding-left: 25px;">Student Profile of <u>{{ termStudent.studentId}}</u> </h5>
+      <table class="table table-hover">
+        <tr>
+          <th scope="col">Student Name</th>
+          <th scope="col">Student ID</th>
+           <th scope="col">Email Address</th>
+          <th scope="col">Program</th>
+        </tr>
+
+        <tr>
+          <td> {{termStudent.lastName+ ', '+termStudent.firstName}} </td>
+          <td> {{termStudent.studentId}} </td>
+          <td> {{termStudent.emailAddress}} </td>
+          <td> {{termStudent.program}} </td>
+        </tr>
+         </table>
+
+
+      </div>
     </div>
-    
-    
+      
     <div v-if="studTable">
     <h1 align="center">Coop Students</h1>
        <br/><br/>
@@ -104,12 +119,14 @@
       <h5 style="margin-top: 60px; text-align: left; padding-left: 25px;">Coop Terms of <u>{{studFirstName + ' '+ studLastName}}</u> </h5>
       <table class="table table-hover">
         <tr>
+          <th scope="col">Academic Semester</th>
           <th scope="col">Start Date</th>
           <th scope="col">End Date</th>
            <th scope="col">Employer</th>
           <th scope="col">View Documents</th>
         </tr>
          <tr v-for="term in coopTerms" >
+           <td>{{term.semester}}</td>
           <td> {{term.startDate}} </td>
           <td> {{term.endDate}} </td>
           <td>

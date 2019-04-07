@@ -44,16 +44,17 @@ export default {
   },
   methods: {
     CheckLogin: function (admin) {
-      // this.admin.emailAddress = admin.emailAddress.toLowerCase()
       AXIOS.get('/login'+'?email='+admin.emailAddress+'&password='+ admin.password)
-      // /login?email=Nayem.Alam@mcgill.ca&password=1234
     
       .then(response => {
         // JSON responses are automatically parsed.
-        
         if( response.data == 1) {
-          //this.coopAdmins.push(response.data)
+      
           console.log('login successful!')
+
+          //call the controller method for synchronizing our database with team 1
+         AXIOS.get('/students/update/')
+
           this.signedAdmin = response.data;
           // debugger
           const path = 'Student'

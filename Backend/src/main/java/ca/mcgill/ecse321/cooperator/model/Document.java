@@ -83,4 +83,14 @@ public class Document {
 	public DocumentName getDocName() {
 		return this.docName;
 	}
+	
+	private String externalDocId;
+
+	public void setExternalDocId(String externalDocId) {
+		this.externalDocId = externalDocId;
+	}
+
+	public String getExternalDocId() {
+		return this.externalDocId;
+	}
 }

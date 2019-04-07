@@ -68,6 +68,7 @@ export default {
             startDate:'',
             endDate:'',
             documents:[],
+            semester:'',
             termId:'',
         },
 

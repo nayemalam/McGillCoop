@@ -57,7 +57,7 @@ public class CooperatorController {
 	private CooperatorService service;
 
 	@GetMapping(value = { "/students/update/", "/students/update" })
-	public String getStudentsExternal() throws IOException {
+	public void getStudentsExternal() throws IOException {
 		String resourceUrl = "https://ecse321-w2019-g01-backend.herokuapp.com/external/students";
 		RestTemplate restTemplate = new RestTemplate();
 		String jsonString = restTemplate.getForObject(resourceUrl, String.class);
@@ -75,25 +75,31 @@ public class CooperatorController {
 			String studId = child.get("student_id").asText();
 			studIdList.add(studId);
 		}
-
-		// Once we have the student ID's, verify if these students exist in our database
-		// already
-		List<String> stusToAdd = new ArrayList<String>();
-		for (int i = 0; i < studIdList.size(); i++) {
-			String currId = studIdList.get(i);
-			// Make sure that the ID is right length to search
-			String currId2 = currId.substring(0, 8);
-			Boolean exists = service.studentExistsByStudentId(Integer.parseInt(currId2));
-			if (!exists) {
-				stusToAdd.add(currId);
-			}
-		}
+		//Empty repositories
+		service.deleteAllDocuments();
+		service.deleteAllCoopTerms();
+		service.deleteAllEmployers();
+		service.deleteAllStudents();
+		
+//		// Once we have the student ID's, verify if these students exist in our database
+//		// already
+//		List<String> stusToAdd = new ArrayList<String>();
+//		for (int i = 0; i < studIdList.size(); i++) {
+//			String currId = studIdList.get(i);
+//			// Make sure that the ID is right length to search
+//			String currId2 = currId.substring(0, 8);
+//			Boolean exists = service.studentExistsByStudentId(Integer.parseInt(currId2));
+//			if (!exists) {
+//				stusToAdd.add(currId);
+//			}
+//		}
 
 		// From these student id's, we can further call the REST api to obtain more
 		// information about the student and the internship
 		String newUrl;
-		for (int i = 0; i < stusToAdd.size(); i++) {
-			newUrl = resourceUrl + "/" + stusToAdd.get(i);
+		
+		for (int i = 0; i < studIdList.size(); i++) {
+			newUrl = resourceUrl + "/" + studIdList.get(i);
 			jsonString = restTemplate.getForObject(newUrl, String.class);
 			actualObj = mapper.readTree(jsonString);
 
@@ -112,14 +118,66 @@ public class CooperatorController {
 			Integer stuIdInt = Integer.parseInt(stuMcGillId.substring(0, 8));
 			Student stu = service.createStudent(stuLastName, stuFirstName, stuEmail, stuUName, stuPass, stuIdInt,
 					stuProgram);
-
 			// Obtain information about employer
 			JsonNode internship = actualObj.get("internship");
-			JsonNode applicationForm = internship.get("application_form");
 
-			// String empFirstName = applicationForm.get("");
+			// Iterate over internship terms.
+			Iterator<JsonNode> iter = internship.elements();
+			while (iter.hasNext()) {
+				JsonNode term = iter.next();
+				JsonNode applicationForm = term.get("application_form");
+				if (!applicationForm.equals(null)) {
+					
+					// Create employer
+					String employer = applicationForm.get("employer").asText();
+					String empFirstName = employer.split(" ", 0)[0];
+					String empLastName = employer.split(" ", 0)[1];
+					String empCompany = applicationForm.get("company").asText();
+					String empEmail = applicationForm.get("employer_email").asText();
+					String empUName = empLastName + empFirstName;
+					String empPass = empLastName + "1";
+					String empLocation = applicationForm.get("location").asText();
+					Employer emp = service.createEmployer(empLastName, empFirstName, empEmail, empUName, empPass,
+							empCompany, empLocation);
+					
+					// Create CoopTerm
+					Date startDate = Date.valueOf(applicationForm.get("start_date").asText());
+					Date endDate = Date.valueOf(applicationForm.get("end_date").asText());
+					CoopTerm coop = service.createCoopTerm(startDate, endDate, stu, emp);
+					
+					// Create documents associated to internship by iterating over them
+					JsonNode docs = term.get("document");
+					Iterator<JsonNode> docIter = docs.elements();
+					
+					while(docIter.hasNext()) {
+						JsonNode doc = docIter.next();
+						String docType = doc.get("document_type").asText();
+						DocumentName docName = DocumentName.finalReport;
+						
+						if(docType.contentEquals("EVALUATION")) {
+							docName = DocumentName.courseEvaluation;
+						} else if(docType.contentEquals("TECHNICAL_REPORT")) {
+							docName = DocumentName.finalReport;
+						} else {
+							docName = DocumentName.taskDescription;
+						}
+
+						String submissionTimestamp = doc.get("submission_date_time").asText();
+						String subTimeStampDate = submissionTimestamp.substring(0,10);
+						Date subDate = Date.valueOf(subTimeStampDate);
+						String subTimeStamp = submissionTimestamp.split("T", 0)[1];
+						String subTimeStamp2 = subTimeStamp.substring(0,8);
+						Time subTime = Time.valueOf(subTimeStamp2);
+						Date dueDate = subDate;
+						String externalDocId = doc.get("id").asText();
+						
+						@SuppressWarnings("unused")
+						Document docuum = service.createDocument(docName, dueDate, subTime, subDate, subTime, coop, externalDocId);
+					}
+				}
+			}
+
 		}
-		return jsonString;
 	}
 
 	/**
@@ -684,7 +742,7 @@ public class CooperatorController {
 
 		CoopTerm coopTerm = service.getCoopTerm(termId);
 		Document document = service.createDocument(docName, dueDate, Time.valueOf(dueTime), subDate,
-				Time.valueOf(subTime), coopTerm);
+				Time.valueOf(subTime), coopTerm, " ");
 
 		return convertToDto(document);
 
@@ -823,7 +881,7 @@ public class CooperatorController {
 	private DocumentDto convertToDto(Document document) {
 
 		DocumentDto documentDto = new DocumentDto(document.getDocName(), document.getDueDate(), document.getDueTime(),
-				document.getSubDate(), document.getSubTime(), document.getDocId()); // ,
+				document.getSubDate(), document.getSubTime(), document.getDocId(), document.getExternalDocId()); // ,
 																					// convertToDto(document.getCoopTerm()));
 		return documentDto;
 	}
