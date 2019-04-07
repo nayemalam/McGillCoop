@@ -63,8 +63,6 @@ public class TestCooperatorService {
 	private EmployerRepository employerRepository;
 	@Autowired
 	private StudentRepository studentRepository;
-	@Autowired
-	private CooperatorController cooperatorController;
 
 	@Before
 	public void clearDatabase() {
