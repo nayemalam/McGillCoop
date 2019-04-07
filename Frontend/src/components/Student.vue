@@ -45,6 +45,7 @@
     
     <div v-if="termTable">
       <h1 align="center">Coop Terms</h1>
+      <br/><br/>
        <table class="table table-hover">
         <tr>
           <th scope="col">Academic Semester</th>
@@ -126,7 +127,7 @@
           <th scope="col">View Documents</th>
         </tr>
          <tr v-for="term in coopTerms" >
-           <td>{{term.semester}}</td>
+          <td> {{term.semester}}</td>
           <td> {{term.startDate}} </td>
           <td> {{term.endDate}} </td>
           <td>
@@ -160,11 +161,14 @@
           <td> {{document.dueTime}} </td>
           <td> {{document.subDate}} </td>
           <td> {{document.subTime}} </td>
-          <button style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" @click="download(document.docName, document.docName)">
+          <button style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" @click="seenImage = !seenImage, download(document.externalDocId)">
            Download 
           </button>
         </tr>
          </table>
+        </div>
+        <div v-if="seenImage">
+        <img image/>
         </div>
 
       <div v-if="seen3">
