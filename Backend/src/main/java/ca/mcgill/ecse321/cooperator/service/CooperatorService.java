@@ -941,82 +941,7 @@ public class CooperatorService {
 		return searchList;
 	}
 
-	/**
-	 * Method used to send an email reminder from the CoopAdminstrator's email
-	 * address to the student's email address. Can have multiple types of
-	 * notifications
-	 * 
-	 * @param coopAdminUserId - UserID of the CoopAdministrator
-	 * @param studentUserID   - UserID of the Student
-	 * @param notifType       - 1 is a pre-reminder of a submission, can be
-	 *                        programmed to be whenever before an assignment. 2 is a
-	 *                        late submission notification. 3 gets a custom message,
-	 *                        can be a front-end feature.
-	 * @return {@code true} is message is properly sent, {@code false} otherwise
-	 */
-	@Transactional
-	public Boolean sendReminder(Integer coopAdminUserId, Integer studentUserID, Integer notifType) {
-//		// Verify if the Student exists in database
-//		if(studentRepository.existsById(studentUserID) && coopAdministratorRepository.existsById(coopAdminUserId)){
-//			// Get student from database based on the UserID
-//			Student student = studentRepository.findByuserID(studentUserID);
-//			CoopAdministrator coopAdmin = coopAdministratorRepository.findByuserID(coopAdminUserId);
-//			// Send a reminder to the email address associated with the student just
-//			// extracted
-//			String to = student.getEmailAddress();
-//			String from = coopAdmin.getEmailAddress();
-//			String host = "127.0.0.1";
-//			Properties properties = System.getProperties();
-//			properties.setProperty("mail.smtp.host", host);
-//			Session session = Session.getInstance(properties, null);
-//			
-//			// Create Message
-//			MimeMessage message = new MimeMessage(session);
-//			// Set sender
-//			message.setFrom(new InternetAddress(from));
-//			// Set receiver
-//			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-//			
-//			// Write message
-//			String[] messageSubjects = {"CoOperator - Upcoming Submission", 
-//										"CoOperator - Late Sumbission"};
-//			String[] messageContents = {"Hello " +student.getFirstName()+ ",\n\n" 
-//					+"This is a notification from the CoOperator System to let you know that you have an upcoming submission."
-//					+"Please sign in to your CoOperator Account for more information.\n",
-//					"Hello " +student.getFirstName()+ ",\n\n"
-//					+"This is a notification from the CoOperator System to let you know that you have a late submission."
-//					+"Please sign in to your CoOperator Account for more information.\n"
-//					};
-//			
-//			switch (notifType) {
-//				// Upcoming submission date
-//				case 1:
-//					message.setSubject(messageSubjects[0]);
-//					message.setText(messageContents[0]);
-//				// Late Submission
-//				case 2:
-//					message.setSubject(messageSubjects[1]);
-//					message.setText(messageContents[1]);
-//				// Custom Email
-//				case 3:
-//					// Something frontend?
-//					
-//			}	
-//			try {
-//				// Send message
-//				Transport.send(message);
-//			} catch (MessagingException mex) {
-//				// If exception occurs, return false
-//				String error = mex.getMessage();
-//				throw new MessagingException("Email not successfully sent");
-//			}
-//			// If message succesfully sent
-//			return true;
-//		}
-//		// If student ID does not exist
-		return false;
-	}
-
+	
 	// ==========================================================================================
 
 	// ==========================================================================================
@@ -1677,27 +1602,30 @@ public class CooperatorService {
 	 */
 	@Transactional
 	public boolean loginSuccess(String inputEmail, String inputPassword) {
-		// Find the email in the database, check password is valid
-
+	
 		// input check
 		if (inputEmail == null) {
-			throw new IllegalArgumentException("Please enter a valid email.");
-		}
-		if (inputPassword == null) {
-			throw new IllegalArgumentException("Please enter a password.");
-		}
-
-		CoopAdministrator admin = coopAdministratorRepository.findByemailAddress(inputEmail);
-
-		if (!inputEmail.equals(admin.getEmailAddress()) || !inputPassword.equals(admin.getPassword())) {
 			return false;
 		}
-
-//		if(inputEmail != admin.getEmailAddress()) {
-//			System.out.println("This is not a registered email.");
-//		}
-		return true;
-
+		if (inputPassword == null) {
+			return false;
+		}
+		
+		// Find the email in the database, check password is valid and check if admin exists
+		CoopAdministrator admin = coopAdministratorRepository.findByemailAddress(inputEmail);
+		
+		if(admin !=null) {
+		
+			if (inputEmail.equals(admin.getEmailAddress()) && inputPassword.equals(admin.getPassword())) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else {
+			return false;
+		}
 	}
 
 	/**

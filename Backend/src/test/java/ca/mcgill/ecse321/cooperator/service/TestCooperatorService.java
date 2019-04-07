@@ -153,15 +153,7 @@ public class TestCooperatorService {
 		assertEquals(0, allCooperatorSystems.size());
 	}
 	
-//	@Test
-//	public void testGetExternal() {
-//		try {
-//			cooperatorController.getStudentsExternal();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
+
 
 	// ==========================================================================================
 	// Student Tests
@@ -955,46 +947,6 @@ public class TestCooperatorService {
 		assertEquals(1, numThirdTerm.intValue());
 	}
 
-	/**
-	 * Test sending the notification to a student by email For the moment, this does
-	 * not work, I cannot seem to instantiate a session with JUnit, and as such I
-	 * cannot properly debug its behavior java.lang.NoClassDefFoundError:
-	 * com/sun/mail/util/MailLogger
-	 */
-	@Test
-	public void testSendReminder() {
-		// Create required entities
-		// Create CoopAdministrator
-//		String name = "Tristan";
-//		String fName = "Pepper";
-//		String emailAddress = "tristan.bouchard@mail.mcgill.ca";
-//		String userName = "pepper123";
-//		String password = "choco99";
-//		CoopAdministrator coop = service.createCoopAdministrator(name, fName, emailAddress, userName, password);
-//
-//		// Create Student
-//		String sname = "Oscar";
-//		String sfName = "Macsiotra";
-//		String semailAddress = "tbouchard1997@gmail.com";
-//		String suserName = "Oscar89";
-//		String spassword = "qwerty";
-//		Integer studentId = 260747696;
-//		String program = "ecse";
-//		Student stu = service.createStudent(sname, sfName, semailAddress, suserName, spassword, studentId, program);
-//
-//		assertEquals(true, studentRepository.existsById(stu.getUserID()));
-//		assertEquals(true, coopAdministratorRepository.existsById(coop.getUserID()));
-//
-//		try {
-//			@SuppressWarnings("unused")
-//			Boolean suh = service.sendReminder(coop.getUserID(), stu.getUserID(), 1);
-//		} catch (Exception e) {
-//			fail();
-//		}
-
-	}
-	// ==========================================================================================
-
 	// ==========================================================================================
 	// Coop Term Tests
 
@@ -1678,7 +1630,8 @@ public class TestCooperatorService {
 	public void testUserLogin() {
 		CoopAdministrator testCoopAdministrator = new CoopAdministrator();
 		assertEquals(0, service.getAllCoopAdministrators().size());
-
+		
+		boolean test= true;
 		// parameters required to create a coopAdminisrator
 		String name = "Tristan";
 		String fName = "Pepper";
@@ -1688,42 +1641,47 @@ public class TestCooperatorService {
 
 		testCoopAdministrator = service.createCoopAdministrator(name, fName, emailAddress, userName, password);
 
-		String[] errorMessages = { "Please enter a valid email.", "Please enter a password." };
-		String error = "";
-
-		// try user login, catch that exception:
-
-		// Test Email
+		// Test null Email
 		try {
-			// Null input email
-			service.loginSuccess(null, password);
-		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
-		}
-		assertEquals(errorMessages[0], error);
-
-		// Test Password
-		try {
-			// Null input password
-			service.loginSuccess(emailAddress, null);
-		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
-		}
-		assertEquals(errorMessages[1], error);
-
-		try {
-			service.loginSuccess(emailAddress, "incorrectPass");
-		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
-		}
-		assertEquals(errorMessages[1], error);
-
-		try {
-			service.loginSuccess(emailAddress, password);
+		// test null input email
+			test = service.loginSuccess(null, password);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
+		assertEquals(false, test);
+		
+		// Test null Password
+		try {
+			// Null input password
+			test = service.loginSuccess(emailAddress, null);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertEquals(false, test);
+		
+		//test incorrect password
+		try {
+			test = service.loginSuccess(emailAddress, "incorrectPass");
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertEquals(false, test);
 
+		//test successful login
+		try {
+			test = service.loginSuccess(emailAddress, password);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertEquals(true, test);
+		
+		//test wrong email address
+		try {
+			test = service.loginSuccess("doesntexist", password);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertEquals(false, test);
 	}
 
 	/**
