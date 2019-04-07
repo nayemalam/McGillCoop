@@ -88,19 +88,6 @@ public class CooperatorController {
 		service.deleteAllEmployers();
 		service.deleteAllStudents();
 
-//		// Once we have the student ID's, verify if these students exist in our database
-//		// already
-//		List<String> stusToAdd = new ArrayList<String>();
-//		for (int i = 0; i < studIdList.size(); i++) {
-//			String currId = studIdList.get(i);
-//			// Make sure that the ID is right length to search
-//			String currId2 = currId.substring(0, 8);
-//			Boolean exists = service.studentExistsByStudentId(Integer.parseInt(currId2));
-//			if (!exists) {
-//				stusToAdd.add(currId);
-//			}
-//		}
-
 		// From these student id's, we can further call the REST api to obtain more
 		// information about the student and the internship
 		String newUrl;
@@ -133,12 +120,14 @@ public class CooperatorController {
 			while (iter.hasNext()) {
 				JsonNode term = iter.next();
 				JsonNode applicationForm = term.get("application_form");
-				if (!applicationForm.equals(null)) {
+				
+				// Create employer
+				if (applicationForm.hasNonNull("employer") && applicationForm.hasNonNull("company")&& applicationForm.hasNonNull("employer_email")) {
 
-					// Create employer
 					String employer = applicationForm.get("employer").asText();
 					String empFirstName = employer.split(" ", 0)[0];
 					String empLastName = employer.split(" ", 0)[1];
+				
 					String empCompany = applicationForm.get("company").asText();
 					String empEmail = applicationForm.get("employer_email").asText();
 					String empUName = empLastName + empFirstName;
@@ -148,6 +137,7 @@ public class CooperatorController {
 							empCompany, empLocation);
 
 					// Create CoopTerm
+					if (applicationForm.hasNonNull("start_date") && applicationForm.hasNonNull("end_date") ) {
 					Date startDate = Date.valueOf(applicationForm.get("start_date").asText());
 					Date endDate = Date.valueOf(applicationForm.get("end_date").asText());
 					CoopTerm coop = service.createCoopTerm(startDate, endDate, stu, emp);
@@ -158,17 +148,20 @@ public class CooperatorController {
 
 					while (docIter.hasNext()) {
 						JsonNode doc = docIter.next();
-						String docType = doc.get("document_type").asText();
-						DocumentName docName = DocumentName.finalReport;
-
-						if (docType.contentEquals("EVALUATION")) {
-							docName = DocumentName.courseEvaluation;
-						} else if (docType.contentEquals("TECHNICAL_REPORT")) {
-							docName = DocumentName.finalReport;
-						} else {
-							docName = DocumentName.taskDescription;
-						}
-
+						
+						if (applicationForm.hasNonNull("document_type")) {
+							
+							String docType = doc.get("document_type").asText();
+							DocumentName docName = DocumentName.finalReport;
+							
+							if(docType.contentEquals("EVALUATION")) {
+								docName = DocumentName.courseEvaluation;
+							} else if(docType.contentEquals("TECHNICAL_REPORT")) {
+								docName = DocumentName.finalReport;
+							} else {
+								docName = DocumentName.taskDescription;
+							}
+						
 						String submissionTimestamp = doc.get("submission_date_time").asText();
 						String subTimeStampDate = submissionTimestamp.substring(0, 10);
 						Date subDate = Date.valueOf(subTimeStampDate);
@@ -179,11 +172,12 @@ public class CooperatorController {
 						String externalDocId = doc.get("id").asText();
 
 						@SuppressWarnings("unused")
-						Document docuum = service.createDocument(docName, dueDate, subTime, subDate, subTime, coop,
-								externalDocId);
+						Document docuum = service.createDocument(docName, dueDate, subTime, subDate, subTime, coop, externalDocId);
+						}
 					}
 				}
 			}
+		}
 
 		}
 	}
