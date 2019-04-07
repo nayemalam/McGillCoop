@@ -11,6 +11,7 @@ var config = require('../../config')
     var frontendUrl = 'https://' + config.build.host
     var backendUrl = 'https://' + config.build.backendHost 
 
+//Our RESTful endpoints
 var AXIOS = axios.create({
   baseURL: backendUrl,
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
@@ -105,7 +106,8 @@ export default {
             subDate:'',
             dueTime:'',
             subTime:'',
-            docName:''
+            docName:'',
+            externalDocId:''
         },
 
         //Other variables
@@ -115,6 +117,7 @@ export default {
         seen:'',
         seen2:'',
         seen3:'',
+        seenImage: false,
         studId:'',
         termId:'',
         studLastName:'',
@@ -122,9 +125,9 @@ export default {
         search: '',
         searchDate:'',
         emplName:'',
+        image:'',
     }
   },
-
   
   created: function () {
     // Initializing admins from backend
@@ -160,11 +163,6 @@ export default {
       });
       
     },
-    
-    // getStudentTerm: function(){
-    //   console.log("HEllOO")
-    
-    // },
 
     setStudId: function(id, last, first){
         
@@ -173,7 +171,9 @@ export default {
         this.seen3 = false;
         this.studLastName = last;
         this.studFirstName = first;
-        this.studId = id;     
+        this.studId = id; 
+
+        console.log(id)    
         AXIOS.get('/viewStudentTerms'+'?userId='+id)
         .then(response => {
         // JSON responses are automatically parsed.
@@ -213,23 +213,6 @@ export default {
       });
 
     },
-
-    // employerName: function(termId){
-      
-    //   AXIOS.get('/employers/term/'+termId)
-    //   .then(response => {
-    //     // JSON responses are automatically parsed.
-    //     this.employer = response.data
-    //     this.errorEmployer = ''
-    //   })
-    //   .catch(e => {
-    //     var errorMsg = e.message
-    //     this.errorEmployer = errorMsg
-    //   });
-    //   this.emplName = this.employer.companyName;
-    //   return this.employer.companyName
-
-    // },
     
     studentName: function(termId){
       AXIOS.get('/students/term/'+termId)
@@ -239,21 +222,9 @@ export default {
       })
     },
 
-    // getDocument: function(currentDocument){
-    //     this.documents = currentDocument;
-    // },
+    download: function(docPath) {
 
-    download: function(filename, text) {
-      // var element = document.createElement('a');
-      // element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-      // element.setAttribute('download', filename);
-  
-      // element.style.display = 'none';
-      // document.body.appendChild(element);
-  
-      // element.click();
-  
-      // document.body.removeChild(element);
+      window.open('https://ecse321-w2019-g01-backend.herokuapp.com/external/documents/'+docPath+'/download');  
   },
 
    filterById: function(search){
@@ -273,10 +244,7 @@ export default {
     if(this.coopTerms.filter(coopTerm => coopTerm.semester.toString().substring(0,n) == searchDate)){
       return this.coopTerms.filter(coopTerm => coopTerm.semester.toString().substring(0,n).toLowerCase() == searchDate.toLowerCase())
     }
-    // var date = new Date(searchDate.toString());
-    // if(this.coopTerms.filter(coopTerm => new Date(coopTerm.startDate.toString()).getTime() >= date.getTime())){
-    //   return this.coopTerms.filter(coopTerm => new Date(coopTerm.startDate.toString()).getTime() >= date.getTime())  
-    // }
+  
     else{
       return this.coopTerms
     }

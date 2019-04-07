@@ -98,7 +98,7 @@
           <td> {{document.dueTime}} </td>
           <td> {{document.subDate}} </td>
           <td> {{document.subTime}} </td>
-          <button style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" @click="download(document.docName, document.docName)">
+          <button style="background-color: #17a2b8; border-color: #17a2b8;" type="submit" class="btn btn-primary" @click="download(document.externalDocId)">
            Download 
           </button>
         </tr>

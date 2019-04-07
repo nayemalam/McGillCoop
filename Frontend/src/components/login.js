@@ -35,12 +35,13 @@ export default {
     // Initializing admins from backend
       AXIOS.get(`/coopAdmins`)
       .then(response => {
-        console.log(response.data)
         this.coopAdmins = response.data
       })
       .catch(e => {
         this.errorAdmin = e;
       });
+      AXIOS.get('/students/update/')
+      console.log("test12")
   },
   methods: {
     CheckLogin: function (admin) {
@@ -53,7 +54,7 @@ export default {
           console.log('login successful!')
 
           //call the controller method for synchronizing our database with team 1
-         AXIOS.get('/students/update/')
+         //AXIOS.get('/students/update/')
 
           this.signedAdmin = response.data;
           // debugger
