@@ -176,22 +176,13 @@ public class CooperatorController {
 								@SuppressWarnings("unused")
 								Document docuum = service.createDocument(docName, dueDate, subTime, subDate, subTime,
 										coop, externalDocId);
-								int w = 0;
 							}
 						}
-						@SuppressWarnings("unused")
-						List<Document> docList1 = service.getAllDocuments();
-						@SuppressWarnings("unused")
-						int q = 0;
 					}
 				}
 			}
 
 		}
-		@SuppressWarnings("unused")
-		List<Document> docList = service.getAllDocuments();
-		@SuppressWarnings("unused")
-		int we = 0;
 	}
 
 	/**
