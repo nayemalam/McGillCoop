@@ -319,28 +319,7 @@ public class CooperatorApplicationTests {
 
 
 	
-	/**
-	 * Test the login business method
-	 */
-	@Test 
-	public void testLogin() {
-		
-		//assert that the login was indeed successful
-		assertEquals(true, service.loginSuccess(emailAddressAdmin,passwordAdmin));
-	}
 
-	/**
-	 * Test the view student files business method
-	 */
-//	@Test 
-//	public void testViewStudentFiles() {
-//		List<Document> docList = new ArrayList();
-//		
-//		docList = service.viewStudentFiles(USERID_STUDENT, COOPTERM_KEY);
-//		
-//		
-//	}
-//	
 	@Test
 	public void testMockPersonCreation() {
 		assertNotNull(student);
