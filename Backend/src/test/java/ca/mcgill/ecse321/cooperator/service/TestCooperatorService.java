@@ -153,15 +153,15 @@ public class TestCooperatorService {
 		assertEquals(0, allCooperatorSystems.size());
 	}
 	
-	@Test
-	public void testGetExternal() {
-		try {
-			cooperatorController.getStudentsExternal();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	@Test
+//	public void testGetExternal() {
+//		try {
+//			cooperatorController.getStudentsExternal();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 
 	// ==========================================================================================
 	// Student Tests
