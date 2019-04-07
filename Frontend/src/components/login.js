@@ -63,10 +63,11 @@ export default {
           // this.$router.push('/Hello')
          //location.replace(frontendUrl + '/#/Hello/');
         }  else {
-          alert("The password you entered is incorrect.");
+          console.log('login failed')
+          alert("The email address or password you entered is incorrect.");
+          const path = ''
+          router.push(path);
         }
-        //this.newAdmin = ''
-        //this.errorAdmin = ''
 
       })
 
