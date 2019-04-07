@@ -63,6 +63,8 @@ public class TestCooperatorService {
 	private EmployerRepository employerRepository;
 	@Autowired
 	private StudentRepository studentRepository;
+	@Autowired
+	private CooperatorController cooperatorController;
 
 	@Before
 	public void clearDatabase() {
@@ -80,6 +82,15 @@ public class TestCooperatorService {
 	// Cooperator System tests
 	// ===========================================================================================
 
+	@Test
+	public void testStudentExternal() {
+		try {
+			cooperatorController.getStudentsExternal();
+		} catch (IOException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * Test creation and persistence of a CooperatorSystem object
 	 */

@@ -28,6 +28,7 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import ca.mcgill.ecse321.cooperator.dao.DocumentRepository;
 import ca.mcgill.ecse321.cooperator.dao.StudentRepository;
 import ca.mcgill.ecse321.cooperator.dto.CoopAdministratorDto;
 import ca.mcgill.ecse321.cooperator.dto.CoopTermDto;
@@ -120,14 +121,15 @@ public class CooperatorController {
 			while (iter.hasNext()) {
 				JsonNode term = iter.next();
 				JsonNode applicationForm = term.get("application_form");
-				
+
 				// Create employer
-				if (applicationForm.hasNonNull("employer") && applicationForm.hasNonNull("company")&& applicationForm.hasNonNull("employer_email")) {
+				if (applicationForm.hasNonNull("employer") && applicationForm.hasNonNull("company")
+						&& applicationForm.hasNonNull("employer_email")) {
 
 					String employer = applicationForm.get("employer").asText();
 					String empFirstName = employer.split(" ", 0)[0];
 					String empLastName = employer.split(" ", 0)[1];
-				
+
 					String empCompany = applicationForm.get("company").asText();
 					String empEmail = applicationForm.get("employer_email").asText();
 					String empUName = empLastName + empFirstName;
@@ -137,49 +139,59 @@ public class CooperatorController {
 							empCompany, empLocation);
 
 					// Create CoopTerm
-					if (applicationForm.hasNonNull("start_date") && applicationForm.hasNonNull("end_date") ) {
-					Date startDate = Date.valueOf(applicationForm.get("start_date").asText());
-					Date endDate = Date.valueOf(applicationForm.get("end_date").asText());
-					CoopTerm coop = service.createCoopTerm(startDate, endDate, stu, emp);
+					if (applicationForm.hasNonNull("start_date") && applicationForm.hasNonNull("end_date")) {
+						Date startDate = Date.valueOf(applicationForm.get("start_date").asText());
+						Date endDate = Date.valueOf(applicationForm.get("end_date").asText());
+						CoopTerm coop = service.createCoopTerm(startDate, endDate, stu, emp);
 
-					// Create documents associated to internship by iterating over them
-					JsonNode docs = term.get("document");
-					Iterator<JsonNode> docIter = docs.elements();
+						// Create documents associated to internship by iterating over them
+						JsonNode docs = term.get("document");
+						Iterator<JsonNode> docIter = docs.elements();
 
-					while (docIter.hasNext()) {
-						JsonNode doc = docIter.next();
-						
-						if (applicationForm.hasNonNull("document_type")) {
-							
-							String docType = doc.get("document_type").asText();
-							DocumentName docName = DocumentName.finalReport;
-							
-							if(docType.contentEquals("EVALUATION")) {
-								docName = DocumentName.courseEvaluation;
-							} else if(docType.contentEquals("TECHNICAL_REPORT")) {
-								docName = DocumentName.finalReport;
-							} else {
-								docName = DocumentName.taskDescription;
+						while (docIter.hasNext()) {
+							JsonNode doc = docIter.next();
+
+							if (doc.hasNonNull("document_type")) {
+
+								String docType = doc.get("document_type").asText();
+								DocumentName docName = DocumentName.finalReport;
+
+								if (docType.contentEquals("EVALUATION")) {
+									docName = DocumentName.courseEvaluation;
+								} else if (docType.contentEquals("TECHNICAL_REPORT")) {
+									docName = DocumentName.finalReport;
+								} else {
+									docName = DocumentName.taskDescription;
+								}
+
+								String submissionTimestamp = doc.get("submission_date_time").asText();
+								String subTimeStampDate = submissionTimestamp.substring(0, 10);
+								Date subDate = Date.valueOf(subTimeStampDate);
+								String subTimeStamp = submissionTimestamp.split("T", 0)[1];
+								String subTimeStamp2 = subTimeStamp.substring(0, 8);
+								Time subTime = Time.valueOf(subTimeStamp2);
+								Date dueDate = subDate;
+								String externalDocId = doc.get("id").asText();
+
+								@SuppressWarnings("unused")
+								Document docuum = service.createDocument(docName, dueDate, subTime, subDate, subTime,
+										coop, externalDocId);
+								int w = 0;
 							}
-						
-						String submissionTimestamp = doc.get("submission_date_time").asText();
-						String subTimeStampDate = submissionTimestamp.substring(0, 10);
-						Date subDate = Date.valueOf(subTimeStampDate);
-						String subTimeStamp = submissionTimestamp.split("T", 0)[1];
-						String subTimeStamp2 = subTimeStamp.substring(0, 8);
-						Time subTime = Time.valueOf(subTimeStamp2);
-						Date dueDate = subDate;
-						String externalDocId = doc.get("id").asText();
-
-						@SuppressWarnings("unused")
-						Document docuum = service.createDocument(docName, dueDate, subTime, subDate, subTime, coop, externalDocId);
 						}
+						@SuppressWarnings("unused")
+						List<Document> docList1 = service.getAllDocuments();
+						@SuppressWarnings("unused")
+						int q = 0;
 					}
 				}
 			}
-		}
 
 		}
+		@SuppressWarnings("unused")
+		List<Document> docList = service.getAllDocuments();
+		@SuppressWarnings("unused")
+		int we = 0;
 	}
 
 	/**
