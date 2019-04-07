@@ -13,9 +13,9 @@ public class DocumentDto {
 	private Date subDate;
 	private Time dueTime;
 	private Time subTime;
-	// private CoopTermDto coopTerm;
 	private DocumentName docName;
 	private Integer docId;
+	private String externalDocId;
 
 	public DocumentDto(DocumentName docName, Date dueDate, Time dueTime, Date subDate, Time subTime, Integer docId, String externalDocId) {// ,
 																														// CoopTermDto
@@ -28,7 +28,6 @@ public class DocumentDto {
 		this.subTime = subTime;
 		this.docId = docId;
 		this.externalDocId = externalDocId;
-		// this.coopTerm = coopTerm;
 	}
 
 	public Date getDueDate() {
@@ -47,9 +46,6 @@ public class DocumentDto {
 		return this.subTime;
 	}
 
-//	 public CoopTermDto getCoopTerm() {
-//	      return coopTerm;
-//	   }
 
 	public DocumentName getDocName() {
 		return docName;
@@ -59,8 +55,7 @@ public class DocumentDto {
 		return docId;
 	}
 
-	private String externalDocId;
-
+	
 	public void setExternalDocId(String externalDocId) {
 		this.externalDocId = externalDocId;
 	}

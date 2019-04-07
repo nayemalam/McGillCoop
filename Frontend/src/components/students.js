@@ -268,10 +268,10 @@ export default {
   },
 
   filterByDate: function(searchDate){
-
+  
     var n = searchDate.length; 
     if(this.coopTerms.filter(coopTerm => coopTerm.semester.toString().substring(0,n) == searchDate)){
-      return this.coopTerms.filter(coopTerm => coopTerm.semester.toString().substring(0,n) == searchDate)
+      return this.coopTerms.filter(coopTerm => coopTerm.semester.toString().substring(0,n).toLowerCase() == searchDate.toLowerCase())
     }
     // var date = new Date(searchDate.toString());
     // if(this.coopTerms.filter(coopTerm => new Date(coopTerm.startDate.toString()).getTime() >= date.getTime())){
