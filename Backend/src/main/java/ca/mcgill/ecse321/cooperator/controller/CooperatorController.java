@@ -56,6 +56,13 @@ public class CooperatorController {
 	@Autowired
 	private CooperatorService service;
 
+	/**
+	 * Method used to obtain students from team 1's backend. Wipes database, then
+	 * repopulates it with the entries found in their database from their RESTful
+	 * API
+	 * 
+	 * @throws IOException
+	 */
 	@GetMapping(value = { "/students/update/", "/students/update" })
 	public void getStudentsExternal() throws IOException {
 		String resourceUrl = "https://ecse321-w2019-g01-backend.herokuapp.com/external/students";
@@ -75,16 +82,16 @@ public class CooperatorController {
 			String studId = child.get("student_id").asText();
 			studIdList.add(studId);
 		}
-		//Empty repositories
+		// Empty repositories
 		service.deleteAllDocuments();
 		service.deleteAllCoopTerms();
 		service.deleteAllEmployers();
 		service.deleteAllStudents();
-		
+
 		// From these student id's, we can further call the REST api to obtain more
 		// information about the student and the internship
 		String newUrl;
-		
+
 		for (int i = 0; i < studIdList.size(); i++) {
 			newUrl = resourceUrl + "/" + studIdList.get(i);
 			jsonString = restTemplate.getForObject(newUrl, String.class);
@@ -114,9 +121,9 @@ public class CooperatorController {
 				JsonNode term = iter.next();
 				JsonNode applicationForm = term.get("application_form");
 				
-				
 				// Create employer
 				if (applicationForm.hasNonNull("employer") && applicationForm.hasNonNull("company")&& applicationForm.hasNonNull("employer_email")) {
+
 					String employer = applicationForm.get("employer").asText();
 					String empFirstName = employer.split(" ", 0)[0];
 					String empLastName = employer.split(" ", 0)[1];
@@ -128,20 +135,18 @@ public class CooperatorController {
 					String empLocation = applicationForm.get("location").asText();
 					Employer emp = service.createEmployer(empLastName, empFirstName, empEmail, empUName, empPass,
 							empCompany, empLocation);
-				
+
 					// Create CoopTerm
 					if (applicationForm.hasNonNull("start_date") && applicationForm.hasNonNull("end_date") ) {
 					Date startDate = Date.valueOf(applicationForm.get("start_date").asText());
 					Date endDate = Date.valueOf(applicationForm.get("end_date").asText());
 					CoopTerm coop = service.createCoopTerm(startDate, endDate, stu, emp);
-					
-				
-				
+
 					// Create documents associated to internship by iterating over them
 					JsonNode docs = term.get("document");
 					Iterator<JsonNode> docIter = docs.elements();
-					
-					while(docIter.hasNext()) {
+
+					while (docIter.hasNext()) {
 						JsonNode doc = docIter.next();
 						
 						if (applicationForm.hasNonNull("document_type")) {
@@ -158,14 +163,14 @@ public class CooperatorController {
 							}
 						
 						String submissionTimestamp = doc.get("submission_date_time").asText();
-						String subTimeStampDate = submissionTimestamp.substring(0,10);
+						String subTimeStampDate = submissionTimestamp.substring(0, 10);
 						Date subDate = Date.valueOf(subTimeStampDate);
 						String subTimeStamp = submissionTimestamp.split("T", 0)[1];
-						String subTimeStamp2 = subTimeStamp.substring(0,8);
+						String subTimeStamp2 = subTimeStamp.substring(0, 8);
 						Time subTime = Time.valueOf(subTimeStamp2);
 						Date dueDate = subDate;
 						String externalDocId = doc.get("id").asText();
-						
+
 						@SuppressWarnings("unused")
 						Document docuum = service.createDocument(docName, dueDate, subTime, subDate, subTime, coop, externalDocId);
 						}
@@ -879,7 +884,7 @@ public class CooperatorController {
 
 		DocumentDto documentDto = new DocumentDto(document.getDocName(), document.getDueDate(), document.getDueTime(),
 				document.getSubDate(), document.getSubTime(), document.getDocId(), document.getExternalDocId()); // ,
-																					// convertToDto(document.getCoopTerm()));
+		// convertToDto(document.getCoopTerm()));
 		return documentDto;
 	}
 
