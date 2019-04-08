@@ -105,10 +105,10 @@ This software system is subdivided into four deliverables:
 
 |Team member's name|Total hours   |Responsibility           |
 |------------------|--------------|-------------------------|
-|Tristan Bouchard  |  _x_ hours   |     Backend Lead        |
-|Nayem Alam        |  _x_ hours   |     Frontend Lead       |
-|Alex Masciotra    |  _x_ hours   |    Build + CI Lead      |
-|Thomas Philippon  |  _x_ hours   |   Frontend Developper   |
+|Tristan Bouchard  |  20 hours    |     Backend Lead        |
+|Nayem Alam        |  25 hours    |     Frontend Lead       |
+|Alex Masciotra    |  15 hours    |    Build + CI Lead      |
+|Thomas Philippon  |  25 hours    |   Frontend Developper   |
 |Violet Wei        |  _x_ hours   |   Frontend Developper   |
 
 
