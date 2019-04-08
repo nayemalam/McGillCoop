@@ -22,21 +22,19 @@ export default {
       
         coopAdmins: [],
       newAdmin: {
-        lastName: '', //lastName
-        firstName: '', //firstName
+        lastName: '', 
+        firstName: '', 
         emailAddress: '',
         userName: '',
-        password: '', //maybe we should hide this one
         userId: '',
       },
       errorAdmin: '',
       response: [],
 
       //Student Object 
-      //students: [],
        student: {
-        lastName: '', //lastName
-        firstName: '', //firstName
+        lastName: '',
+        firstName: '', 
         emailAddress: '',
         userName: '',
         program:'',
@@ -56,8 +54,8 @@ export default {
           companyName:'',
           location:'',
           userId:'',
-          firstName: '', //firstName
-          lastName: '', //lastName
+          firstName: '', 
+          lastName: '', 
         },
         errorEmployer: '',
         response: [],
@@ -89,6 +87,7 @@ export default {
         termId:'',
         empLastName:'',
         empFirstName:'',
+        studTermId:'',
     }
   },
 
@@ -106,13 +105,23 @@ export default {
     },
     
   methods: {
-    setEmpId: function(id, last, first){
-        console.log("im in !!!")
+    //function to displat the
+    showTerms: function(id, last, first){
+
+      //toggle button 
+      if(this.empId == id){
+        this.seen = !this.seen;
+      }
+      else{
         this.seen = true;
+      }
+        //hide the other tables 
         this.seen2 = false;
         this.seen3 = false;
         this.empLastName = last;
         this.empFirstName = first;
+
+        //save the employer id 
         this.empId = id;     
         AXIOS.get('/viewStudentTerms'+'?userId='+id)
         .then(response => {
@@ -121,12 +130,22 @@ export default {
        })
         },  
   
-
+    //function to display the documents of a given coopterm 
     viewDoc: function(id){
-      console.log("im in get Term !!!")
-      this.termId= id;
-      this.seen2 =  true;
+
+      //toggle button 
+      if(this.termId == id){
+        this.seen2 = !this.seen2;
+      }
+      else{
+        this.seen2 = true;
+      }
+      
+      //hide the student table
       this.seen3 = false;
+      //save the coopterm id
+      this.termId= id;
+
       var b = this.empId;
       AXIOS.get('/viewEmployerFiles' + '/?userId='+b+'&termId='+id)
       .then(response => {
@@ -136,10 +155,22 @@ export default {
   
     },
 
+    //function to display a student assosiated to a coopterm
     viewStudent: function(termId){
-      this.seen3 = true;
+
+      //toggle button 
+      if(this.studTermId==termId){
+        this.seen3 = !this.seen3;
+      }
+      else{
+        this.seen3 = true;
+      }
+
+      //hide the other tables
       this.seen2 = false;
-      
+
+      //save the term id
+      this.studTermId = termId;
       AXIOS.get('/students/term/'+termId)
       .then(response => {
         // JSON responses are automatically parsed.
@@ -151,11 +182,6 @@ export default {
         console.log(errorMsg)
         this.errorStudent = errorMsg
       });
-
-    },
-
-    getDocument: function(currentDocument){
-        this.documents = currentDocument;
 
     },
 

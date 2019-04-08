@@ -23,11 +23,10 @@ export default {
     return {
       coopAdmins: [],
       newAdmin: {
-        lastName: '', //lastName
-        firstName: '', //firstName
+        lastName: '',
+        firstName: '', 
         emailAddress: '',
         userName: '',
-        password: '', //maybe we should hide this one
         userId: '',
       },
       errorAdmin: '',
@@ -36,8 +35,8 @@ export default {
       //Student Object 
       students: [],
       newStudent: {
-        lastName: '', //lastName
-        firstName: '', //firstName
+        lastName: '',
+        firstName: '', 
         emailAddress: '',
         userName: '',
         program:'',
@@ -49,8 +48,8 @@ export default {
         //Student Object after filtering 
       filterStudents: [],
        newStudent: {
-        lastName: '', //lastName
-        firstName: '', //firstName
+        lastName: '', 
+        firstName: '', 
         emailAddress: '',
         userName: '',
         program:'',
@@ -63,8 +62,8 @@ export default {
 
         //Single student
         termStudent: {
-          lastName: '', //lastName
-          firstName: '', //firstName
+          lastName: '', 
+          firstName: '', 
           emailAddress: '',
           userName: '',
           program:'',
@@ -81,8 +80,8 @@ export default {
           companyName:'',
           location:'',
           userId:'',
-          firstName: '', //firstName
-          lastName: '', //lastName
+          firstName: '',
+          lastName: '', 
         },
         errorEmployer: '',
         response: [],
@@ -114,18 +113,19 @@ export default {
         studTable: true,
         termTable: false,
         studTable2:false,
-        seen:'',
-        seen2:'',
-        seen3:'',
+        seen: false, //coopterms table 
+        seen2: false, //documents table
+        seen3:false,     //employer table
         seenImage: false,
         studId:'',
         termId:'',
         studLastName:'',
         studFirstName:'',
         search: '',
-        searchDate:'',
+        academicSemester:'',
         emplName:'',
         image:'',
+        termStudentId:'',
     }
   },
   
@@ -164,31 +164,50 @@ export default {
       
     },
 
-    setStudId: function(id, last, first){
+    //function to display the list of coopterms of a given student 
+    displayTerms: function(id, last, first){
         
+      //hide the employer and documents tables
+      if(this.studId ==id){
+        this.seen = !this.seen;
+      }
+      else{
         this.seen = true;
+      }
         this.seen2 = false;
         this.seen3 = false;
         this.studLastName = last;
         this.studFirstName = first;
-        this.studId = id; 
+        this.studId = id; //save the student id to display his docs/employer later on if needed
 
+        //call the RESTful endpoint
         console.log(id)    
         AXIOS.get('/viewStudentTerms'+'?userId='+id)
         .then(response => {
         // JSON responses are automatically parsed.
         this.coopTerms = response.data
        })
-        },  
+      },  
   
 
-    viewDoc: function(id){
-      console.log("im in get Term !!!")
-      this.termId= id;
-      this.seen2 =  true;
+    //Function to display the list of documents of a given coopterm 
+    viewDoc: function(currentTermId){
+
+      //toggle button
+      if(this.termId == currentTermId){
+        this.seen2 =  !this.seen2;
+      }
+      else{
+        this.seen2 = true;
+      }
+
+      //hide the employer table 
       this.seen3 = false;
+      this.termId= currentTermId;
       var b = this.studId;
-      AXIOS.get('/viewStudentFiles' + '/?userId='+b+'&termId='+id)
+
+      //call the RESTful endpoint to get the list of documents of a given term 
+      AXIOS.get('/viewStudentFiles' + '/?userId='+b+'&termId='+currentTermId)
       .then(response => {
       // JSON responses are automatically parsed.
       this.documents = response.data
@@ -196,8 +215,18 @@ export default {
   
     },
 
+    //function to display the employer associated to a coopterm
     viewEmployer: function(termId){
-      this.seen3 = true;
+
+      //toggle button
+      if(this.termId ==termId){
+        this.seen3 = !this.seen3;
+      }
+      else{
+        this.seen3 = true;
+      }
+
+      //hide the documents table
       this.seen2 = false;
       
       AXIOS.get('/employers/term/'+termId)
@@ -214,7 +243,19 @@ export default {
 
     },
     
-    studentName: function(termId){
+    //fonction do display the student associated to a given coopterm 
+    displayTermStudent: function(termId){
+
+      //toggle button
+      if(this.termStudentId== termId){
+        this.studTable2 = !this.studTable2;
+      }
+      else{
+        this.studTable2 = true;
+      }
+      //save the id to compare next time for toggle button
+      this.termStudentId = termId;
+
       AXIOS.get('/students/term/'+termId)
       .then(response => {
         // JSON responses are automatically parsed.
@@ -222,11 +263,12 @@ export default {
       })
     },
 
+    //Function for calling team 1's endoint providing the documents
     download: function(docPath) {
-
       window.open('https://ecse321-w2019-g01-backend.herokuapp.com/external/documents/'+docPath+'/download');  
   },
 
+  //Function for the student id search bar 
    filterById: function(search){
      var n = search.length; 
    
@@ -238,11 +280,12 @@ export default {
      }
   },
 
-  filterByDate: function(searchDate){
+  //function for the academic semester search bar
+  filterByDate: function(academicSemester){
   
-    var n = searchDate.length; 
-    if(this.coopTerms.filter(coopTerm => coopTerm.semester.toString().substring(0,n) == searchDate)){
-      return this.coopTerms.filter(coopTerm => coopTerm.semester.toString().substring(0,n).toLowerCase() == searchDate.toLowerCase())
+    var n = academicSemester.length; 
+    if(this.coopTerms.filter(coopTerm => coopTerm.semester.toString().substring(0,n) == academicSemester)){
+      return this.coopTerms.filter(coopTerm => coopTerm.semester.toString().substring(0,n).toLowerCase() == academicSemester.toLowerCase())
     }
   
     else{
@@ -250,6 +293,18 @@ export default {
     }
  },
 
+ //function called to display the list of all coopterms, need to update them first
+ displayCoopTerms: function(){
+
+  //call the RESTful endpoint to get all coopterms 
+  AXIOS.get('/coopterms')
+      .then(response => {
+      // JSON responses are automatically parsed.
+      this.coopTerms = response.data
+     })
+ },
+
+ //function to hide all tables when opening the view student page
   displayStudents: function(){
    this.seen = false;
    this.seen2 = false;

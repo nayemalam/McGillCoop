@@ -135,8 +135,9 @@ public class CooperatorController {
 					String empUName = empLastName + empFirstName;
 					String empPass = empLastName + "1";
 					String empLocation = applicationForm.get("location").asText();
-					Employer emp = service.createEmployer(empLastName, empFirstName, empEmail, empUName, empPass,
-							empCompany, empLocation);
+					
+					
+					   Employer emp = service.createEmployer(empLastName, empFirstName, empEmail, empUName, empPass, empCompany, empLocation);
 
 					// Create CoopTerm
 					if (applicationForm.hasNonNull("start_date") && applicationForm.hasNonNull("end_date")) {
