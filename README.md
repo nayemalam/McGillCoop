@@ -109,7 +109,7 @@ This software system is subdivided into four deliverables:
 |Nayem Alam        |  25 hours    |     Frontend Lead       |
 |Alex Masciotra    |  15 hours    |    Build + CI Lead      |
 |Thomas Philippon  |  25 hours    |   Frontend Developper   |
-|Violet Wei        |  _x_ hours   |   Frontend Developper   |
+|Violet Wei        |  18 hours    |   Frontend Developper   |
 
 
 
