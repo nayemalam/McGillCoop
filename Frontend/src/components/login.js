@@ -41,7 +41,7 @@ export default {
         this.errorAdmin = e;
       });
       AXIOS.get('/students/update/')
-      console.log("test12")
+      console.log("updated database with team 1")
   },
   methods: {
     CheckLogin: function (admin) {
