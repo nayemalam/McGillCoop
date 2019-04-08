@@ -681,7 +681,7 @@ public class CooperatorController {
 	 */
 	// POST A COOPTERM
 	@PostMapping(value = { "/coopterms/", "/coopterms" })
-	public CoopTermDto createCoopTerm(@RequestParam Date startDate, @RequestParam Date endDate,
+	public void createCoopTerm(@RequestParam Date startDate, @RequestParam Date endDate,
 			@RequestParam String studLastName, @RequestParam String lastName) {
 
 		Student student = service.getStudentByName(studLastName);
@@ -691,7 +691,6 @@ public class CooperatorController {
 		CoopTerm coopTerm = service.createCoopTerm(startDate, endDate, student, employer);
 		Integer termId = coopTerm.getTermId();
 
-		return convertToDto(coopTerm, student, employer, termId);
 	}
 
 	/**
