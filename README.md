@@ -1,6 +1,6 @@
 # Welcome to ECSE321 Project Group 21 :dizzy:
 
-#### For more details, please visit our [wiki page](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki) where you can view all our work, including deliverable reports, project guidelines and meeting minutes.
+#### For more details, please visit our [wiki page](https://github.com/nayemalam/McGillCoop/wiki) where you can view all our work, including deliverable reports, project guidelines and meeting minutes.
 
 <h3 align="center">View our Javadoc</h3>
 <p align="center"><a href="https://gh-page321.herokuapp.com/"><img src="https://image.flaticon.com/icons/svg/209/209913.svg" width="100"/></a></p>
@@ -8,12 +8,10 @@
 # Introduction
 
 View our <br/>
-:star2: [Deliverable 1 Report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-1-Report) <br/> 
-:star2: [Deliverable 2 Report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-2-Report) <br/>
-:star2: [Deliverable 3 Report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-3-Report
-) <br/>
-:star2: [Deliverable 4 Report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-4-Report
-) <br/>
+:star2: [Deliverable 1 Report](https://github.com/nayemalam/McGillCoop/wiki/Deliverable-1-Report) <br/> 
+:star2: [Deliverable 2 Report](https://github.com/nayemalam/McGillCoop/wiki/Deliverable-2-Report) <br/>
+:star2: [Deliverable 3 Report](https://github.com/nayemalam/McGillCoop/wiki/Deliverable-3-Report) <br/>
+:star2: [Deliverable 4 Report](https://github.com/nayemalam/McGillCoop/wiki/Deliverable-4-Report) <br/>
 
 ### Scope of Project
 
@@ -33,10 +31,10 @@ and have both read and write access to the backend via RESTful service calls.
 
 This software system is subdivided into four deliverables:
 
-- :one: [Deliverable 1](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-1-Report) - Requirements, Domain Modeling, Database Design
-- :two: [Deliverable 2](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-2-Report) - Backend, Quality Assurance
-- :three: [Deliverable 3](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-3-Report) - Web Frontend, Architecture
-- :four: [Deliverable 4](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-4-Report) - Integrated System 
+- :one: [Deliverable 1](https://github.com/nayemalam/McGillCoop/wiki/Deliverable-1-Report) - Requirements, Domain Modeling, Database Design
+- :two: [Deliverable 2](https://github.com/nayemalam/McGillCoop/wiki/Deliverable-2-Report) - Backend, Quality Assurance
+- :three: [Deliverable 3](https://github.com/nayemalam/McGillCoop/wiki/Deliverable-3-Report) - Web Frontend, Architecture
+- :four: [Deliverable 4](https://github.com/nayemalam/McGillCoop/wiki/Deliverable-4-Report) - Integrated System 
 
 ### :star: Team Members
 - [Tristan Bouchard](https://github.com/tbutch)    &rarr; Major in Electrical Engineering
@@ -46,7 +44,7 @@ This software system is subdivided into four deliverables:
 - [Violet Wei](https://github.com/violetwei)       &rarr; Major in Software Engineering
 
 
-## [Deliverable 1](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-1-Report) - Requirements, Domain Model, Database Design
+## [Deliverable 1](https://github.com/nayemalam/McGillCoop/wiki/Deliverable-1-Report) - Requirements, Domain Model, Database Design
 
 |Team member's name|Total hours   |Responsibility         |
 |------------------|--------------|-----------------------|
@@ -66,7 +64,7 @@ This software system is subdivided into four deliverables:
 
 <br/>
 
-## [Deliverable 2](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-2-Report) - Backend, Testing
+## [Deliverable 2](https://github.com/nayemalam/McGillCoop/wiki/Deliverable-2-Report) - Backend, Testing
 
 |Team member's name|Total hours   |Responsibility         |
 |------------------|--------------|-----------------------|
@@ -83,7 +81,7 @@ This software system is subdivided into four deliverables:
 
 <br/>
 
-## [Deliverable 3](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-3-Report) - Web Frontend, Architecture Modeling
+## [Deliverable 3](https://github.com/nayemalam/McGillCoop/wiki/Deliverable-3-Report) - Web Frontend, Architecture Modeling
 
 |Team member's name|Total hours   |Responsibility           |
 |------------------|--------------|-------------------------|
@@ -101,7 +99,7 @@ This software system is subdivided into four deliverables:
 
 <br/>
 
-## [Deliverable 4](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-21/wiki/Deliverable-4-Report) - Integrated System
+## [Deliverable 4](https://github.com/nayemalam/McGillCoop/wiki/Deliverable-4-Report) - Integrated System
 
 |Team member's name|Total hours   |Responsibility           |
 |------------------|--------------|-------------------------|
