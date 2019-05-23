@@ -114,3 +114,5 @@ This software system is subdivided into four deliverables:
 ##### Attributions
 > Javadoc icon made by [Alfredo Hernandez](https://www.flaticon.com/authors/alfredo-hernandez) from www.flaticon.com 
 
+##### Extras
+> Can access swagger-ui with: http://localhost:8080/swagger-ui.html
